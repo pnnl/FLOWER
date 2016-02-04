@@ -1,0 +1,65 @@
+No.     Time                       Source                Destination           Protocol Info
+      1 2008-11-09 22:04:36.128060 192.124.226.98        224.0.0.1             IGMP     V2 Membership Query, general
+
+Frame 1 (64 bytes on wire, 64 bytes captured)
+    Arrival Time: Nov  9, 2008 22:04:36.128060000
+    [Time delta from previous captured frame: 0.000000000 seconds]
+    [Time delta from previous displayed frame: 0.000000000 seconds]
+    [Time since reference or first frame: 0.000000000 seconds]
+    Frame Number: 1
+    Frame Length: 64 bytes
+    Capture Length: 64 bytes
+    [Frame is marked: False]
+    [Protocols in frame: eth:vlan:ip:igmp]
+    [Coloring Rule Name: Routing]
+    [Coloring Rule String: hsrp || eigrp || ospf || bgp || cdp || vrrp || gvrp || igmp || ismp]
+Ethernet II, Src: JuniperN_92:48:7e (00:1d:b5:92:48:7e), Dst: IPv4mcast_00:00:01 (01:00:5e:00:00:01)
+    Destination: IPv4mcast_00:00:01 (01:00:5e:00:00:01)
+        Address: IPv4mcast_00:00:01 (01:00:5e:00:00:01)
+        .... ...1 .... .... .... .... = IG bit: Group address (multicast/broadcast)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+    Source: JuniperN_92:48:7e (00:1d:b5:92:48:7e)
+        Address: JuniperN_92:48:7e (00:1d:b5:92:48:7e)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+    Type: 802.1Q Virtual LAN (0x8100)
+802.1Q Virtual LAN, PRI: 6, CFI: 0, ID: 521
+    110. .... .... .... = Priority: 6
+    ...0 .... .... .... = CFI: 0
+    .... 0010 0000 1001 = ID: 521
+    Type: IP (0x0800)
+    Trailer: 0000000000000000000000000000
+Internet Protocol, Src: 192.124.226.98 (192.124.226.98), Dst: 224.0.0.1 (224.0.0.1)
+    Version: 4
+    Header length: 24 bytes
+    Differentiated Services Field: 0xc0 (DSCP 0x30: Class Selector 6; ECN: 0x00)
+        1100 00.. = Differentiated Services Codepoint: Class Selector 6 (0x30)
+        .... ..0. = ECN-Capable Transport (ECT): 0
+        .... ...0 = ECN-CE: 0
+    Total Length: 32
+    Identification: 0xed18 (60696)
+    Flags: 0x00
+        0... = Reserved bit: Not set
+        .0.. = Don't fragment: Not set
+        ..0. = More fragments: Not set
+    Fragment offset: 0
+    Time to live: 1
+    Protocol: IGMP (0x02)
+    Header checksum: 0xb41e [correct]
+        [Good: True]
+        [Bad : False]
+    Source: 192.124.226.98 (192.124.226.98)
+    Destination: 224.0.0.1 (224.0.0.1)
+    Options: (4 bytes)
+        Router Alert: Every router examines packet
+Internet Group Management Protocol
+    IGMP Version: 2
+    Type: Membership Query (0x11)
+    Max Response Time: 10.0 sec (0x64)
+    Header checksum: 0xee9b [correct]
+    Multicast Address: 0.0.0.0 (0.0.0.0)
+
+0000  01 00 5e 00 00 01 00 1d b5 92 48 7e 81 00 c2 09   ..^.......H~....
+0010  08 00 46 c0 00 20 ed 18 00 00 01 02 b4 1e c0 7c   ..F.. .........|
+0020  e2 62 e0 00 00 01 94 04 00 00 11 64 ee 9b 00 00   .b.........d....
+0030  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................

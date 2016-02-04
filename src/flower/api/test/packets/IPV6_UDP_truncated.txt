@@ -1,0 +1,51 @@
+No.     Time                       Source                Destination           Protocol Info
+    405 2008-12-02 13:23:15.390561 fe80::75da:69a1:6392:e687 ff02::c               UDP      Source port: 57443  Destination port: ws-discovery
+
+Frame 405 (1053 bytes on wire, 96 bytes captured)
+    Arrival Time: Dec  2, 2008 13:23:15.390561000
+    [Time delta from previous captured frame: 0.034703000 seconds]
+    [Time delta from previous displayed frame: 0.034703000 seconds]
+    [Time since reference or first frame: 106.230653000 seconds]
+    Frame Number: 405
+    Frame Length: 1053 bytes
+    Capture Length: 96 bytes
+    [Frame is marked: False]
+    [Protocols in frame: eth:ipv6:udp:data]
+    [Coloring Rule Name: UDP]
+    [Coloring Rule String: udp]
+Ethernet II, Src: Vmware_94:4b:29 (00:50:56:94:4b:29), Dst: IPv6mcast_00:00:00:0c (33:33:00:00:00:0c)
+    Destination: IPv6mcast_00:00:00:0c (33:33:00:00:00:0c)
+        Address: IPv6mcast_00:00:00:0c (33:33:00:00:00:0c)
+        .... ...1 .... .... .... .... = IG bit: Group address (multicast/broadcast)
+        .... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+    Source: Vmware_94:4b:29 (00:50:56:94:4b:29)
+        Address: Vmware_94:4b:29 (00:50:56:94:4b:29)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6
+    0110 .... = Version: 6
+        [0110 .... = This field makes the filter "ip.version == 6" possible: 6]
+    .... 0000 0000 .... .... .... .... .... = Traffic class: 0x00000000
+    .... .... .... 0000 0000 0000 0000 0000 = Flowlabel: 0x00000000
+    Payload length: 999
+    Next header: UDP (0x11)
+    Hop limit: 1
+    Source: fe80::75da:69a1:6392:e687 (fe80::75da:69a1:6392:e687)
+    Destination: ff02::c (ff02::c)
+User Datagram Protocol, Src Port: 57443 (57443), Dst Port: ws-discovery (3702)
+    Source port: 57443 (57443)
+    Destination port: ws-discovery (3702)
+    Length: 999
+    Checksum: 0xbc34
+        [Good Checksum: False]
+        [Bad Checksum: False]
+Data (34 bytes)
+    Data: 3C3F786D6C2076657273696F6E3D22312E302220656E636F...
+
+0000  33 33 00 00 00 0c 00 50 56 94 4b 29 86 dd 60 00   33.....PV.K)..`.
+0010  00 00 03 e7 11 01 fe 80 00 00 00 00 00 00 75 da   ..............u.
+0020  69 a1 63 92 e6 87 ff 02 00 00 00 00 00 00 00 00   i.c.............
+0030  00 00 00 00 00 0c e0 63 0e 76 03 e7 bc 34 3c 3f   .......c.v...4<?
+0040  78 6d 6c 20 76 65 72 73 69 6f 6e 3d 22 31 2e 30   xml version="1.0
+0050  22 20 65 6e 63 6f 64 69 6e 67 3d 22 75 74 66 2d   " encoding="utf-

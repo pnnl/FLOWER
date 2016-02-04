@@ -1,0 +1,7 @@
+
+# after the last uninstall
+
+if [ "0" == "$1" ]; then
+  /sbin/service flower stop > /dev/null 2>&1
+  /sbin/chkconfig --del flower
+fi

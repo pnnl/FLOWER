@@ -1,0 +1,24 @@
+Host name                     IPv6        MAC
+vistasp1.tracebed.pnl.gov     2600::1     00:50:56:94:72:02
+wso3r2sp2.tracebed.pnl.gov    2600::2     00:50:56:94:10:61
+xpsp3.tracebed.pnl.gov        2600::3     00:50:56:94:0e:b1
+ws08rtm.tracebed.pnl.gov      2600::4     00:50:56:94:4b:29
+ubuntu810.tracebed.pnl.gov    2600::A     00:50:56:94:39:71
+freebsd.tracebed.pnl.gov      2600::B     00:50:56:94:66:8b
+macosx.tracebed.pnl.gov       2600::C     00:0a:95:db:87:ce 
+
+dns.tracebed.pnl.gov          2600::F     00:50:56:94:06:82
+
+
+Tests
+01    Solo boot/shutdown
+02    Group boot/shutdown
+03    Numeric ping
+04    Name ping
+05    Numeric HTTP
+06    Name HTTP
+07    Numeric HTTPS
+08    Name HTTPS
+09    Numeric SSH
+10    Name SSH
+

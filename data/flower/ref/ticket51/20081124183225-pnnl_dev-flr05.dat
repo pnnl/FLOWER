@@ -1,0 +1,3 @@
+1,pnnl_dev,1227551545.252718,0.000000,,131,,,FE80000000000000028042FFFE11661E,FF020000000000000000000000000016,16,,86,,1,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,A,1,00001000
+3,PB:pc#1:pt#00:00:00.000031:pps#32258.06,PR,PP:tbr#86:tpr#1:ebbc#0:ebpc#0:v4bbc#0:v4bpc#0:v6bbc#0:v6bpc#0:v4gbc#0:v4gpc#0:v6gbc#86:v6gpc#1,FC:mff#1:mnf#1:mfc#0:sfc#1
+4,Ver:UNRELEASED (d661),Compiler:GNU g++ 4.1.2,OptLevel:3,Debug:OFF,BoostLibVer:1-38,PcapLibVer:0.9.4,Compiled:Dec  2 2009  09:51:42,DataGuideVer:flr05

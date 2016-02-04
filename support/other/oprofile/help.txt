@@ -1,0 +1,683 @@
+oprofile: available events for CPU type "Core 2"
+
+See Intel Architecture Developer's Manual Volume 3, Appendix A and
+Intel Architecture Optimization Reference Manual (730795-001)
+
+CPU_CLK_UNHALTED: (counter: all)
+	Clock cycles when not halted (min count: 6000)
+	Unit masks (default 0x0)
+	----------
+	0x00: Unhalted core cycles
+	0x01: Unhalted bus cycles
+	0x02: Unhalted bus cycles of this core while the other core is halted
+INST_RETIRED.ANY_P: (counter: all)
+	number of instructions retired (min count: 6000)
+L2_RQSTS: (counter: all)
+	number of L2 cache requests (min count: 500)
+	Unit masks (default 0x7f)
+	----------
+	0xc0: core: all cores
+	0x40: core: this core
+	0x30: prefetch: all inclusive
+	0x10: prefetch: Hardware prefetch only
+	0x00: prefetch: exclude hardware prefetch
+	0x08: (M)ESI: Modified
+	0x04: M(E)SI: Exclusive
+	0x02: ME(S)I: Shared
+	0x01: MES(I): Invalid
+LLC_MISSES: (counter: all)
+	L2 cache demand requests from this core that missed the L2 (min count: 6000)
+	Unit masks (default 0x41)
+	----------
+	0x41: No unit mask
+LLC_REFS: (counter: all)
+	L2 cache demand requests from this core (min count: 6000)
+	Unit masks (default 0x4f)
+	----------
+	0x4f: No unit mask
+LOAD_BLOCK: (counter: all)
+	events pertaining to loads (min count: 500)
+	Unit masks (default 0x3e)
+	----------
+	0x02: STA  Loads blocked by a preceding store with unknown address.
+	0x04: STD  Loads blocked by a preceding store with unknown data.
+	0x08: OVERLAP_STORE  Loads that partially overlap an earlier store, or 4K aliased with a previous store.
+	0x10: UNTIL_RETIRE  Loads blocked until retirement.
+	0x20: L1D  Loads blocked by the L1 data cache.
+STORE_BLOCK: (counter: all)
+	events pertaining to stores (min count: 500)
+	Unit masks (default 0xb)
+	----------
+	0x01: SB_DRAIN_CYCLES	Cycles while stores are blocked due to store buffer drain.
+	0x02: ORDER	Cycles while store is waiting for a preceding store to be globally observed.
+	0x08: NOOP	A store is blocked due to a conflict with an external or internal snoop.
+MISALIGN_MEM_REF: (counter: all)
+	number of misaligned data memory references (min count: 500)
+SEGMENT_REG_LOADS: (counter: all)
+	number of segment register loads (min count: 500)
+SSE_PRE_EXEC: (counter: all)
+	number of SSE pre-fetch/weakly ordered insns retired (min count: 500)
+	Unit masks (default 0x0)
+	----------
+	0x00: prefetch NTA instructions executed.
+	0x01: prefetch T1 instructions executed.
+	0x02: prefetch T1 and T2 instructions executed.
+	0x03: SSE weakly-ordered stores
+DTLB_MISSES: (counter: all)
+	DTLB miss events (min count: 500)
+	Unit masks (default 0xf)
+	----------
+	0x01: ANY	Memory accesses that missed the DTLB.
+	0x02: MISS_LD	DTLB misses due to load operations.
+	0x04: L0_MISS_LD L0 DTLB misses due to load operations.
+	0x08: MISS_ST	TLB misses due to store operations.
+MEMORY_DISAMBIGUATION: (counter: all)
+	Memory disambiguation reset cycles. (min count: 1000)
+	Unit masks (default 0x1)
+	----------
+	0x01: RESET	Memory disambiguation reset cycles.
+	0x02: SUCCESS	Number of loads that were successfully disambiguated.
+PAGE_WALKS: (counter: all)
+	Page table walk events (min count: 500)
+	Unit masks (default 0x2)
+	----------
+	0x01: COUNT	Number of page-walks executed.
+	0x02: CYCLES	Duration of page-walks in core cycles.
+FLOPS: (counter: all)
+	number of FP computational micro-ops executed (min count: 3000)
+FP_ASSIST: (counter: all)
+	number of FP assists (min count: 500)
+MUL: (counter: all)
+	number of multiplies (min count: 1000)
+DIV: (counter: all)
+	number of divides (min count: 500)
+CYCLES_DIV_BUSY: (counter: all)
+	cycles divider is busy (min count: 1000)
+IDLE_DURING_DIV: (counter: all)
+	cycles divider is busy and all other execution units are idle. (min count: 1000)
+DELAYED_BYPASS: (counter: all)
+	Delayed bypass events (min count: 1000)
+	Unit masks (default 0x0)
+	----------
+	0x00: FP		Delayed bypass to FP operation.
+	0x01: SIMD	Delayed bypass to SIMD operation.
+	0x02: LOAD	Delayed bypass to load operation.
+L2_ADS: (counter: all)
+	Cycles the L2 address bus is in use. (min count: 500)
+	Unit masks (default 0x40)
+	----------
+	0xc0: All cores
+	0x40: This core
+L2_DBUS_BUSY_RD: (counter: all)
+	Cycles the L2 transfers data to the core. (min count: 500)
+	Unit masks (default 0x40)
+	----------
+	0xc0: All cores
+	0x40: This core
+L2_LINES_IN: (counter: all)
+	number of allocated lines in L2 (min count: 500)
+	Unit masks (default 0x70)
+	----------
+	0xc0: core: all cores
+	0x40: core: this core
+	0x30: prefetch: all inclusive
+	0x10: prefetch: Hardware prefetch only
+	0x00: prefetch: exclude hardware prefetch
+L2_M_LINES_IN: (counter: all)
+	number of modified lines allocated in L2 (min count: 500)
+	Unit masks (default 0x40)
+	----------
+	0xc0: All cores
+	0x40: This core
+L2_LINES_OUT: (counter: all)
+	number of recovered lines from L2 (min count: 500)
+	Unit masks (default 0x70)
+	----------
+	0xc0: core: all cores
+	0x40: core: this core
+	0x30: prefetch: all inclusive
+	0x10: prefetch: Hardware prefetch only
+	0x00: prefetch: exclude hardware prefetch
+L2_M_LINES_OUT: (counter: all)
+	number of modified lines removed from L2 (min count: 500)
+	Unit masks (default 0x70)
+	----------
+	0xc0: core: all cores
+	0x40: core: this core
+	0x30: prefetch: all inclusive
+	0x10: prefetch: Hardware prefetch only
+	0x00: prefetch: exclude hardware prefetch
+L2_IFETCH: (counter: all)
+	number of L2 cacheable instruction fetches (min count: 500)
+	Unit masks (default 0x4f)
+	----------
+	0xc0: core: all cores
+	0x40: core: this core
+	0x08: (M)ESI: Modified
+	0x04: M(E)SI: Exclusive
+	0x02: ME(S)I: Shared
+	0x01: MES(I): Invalid
+L2_LD: (counter: all)
+	number of L2 data loads (min count: 500)
+	Unit masks (default 0x7f)
+	----------
+	0xc0: core: all cores
+	0x40: core: this core
+	0x30: prefetch: all inclusive
+	0x10: prefetch: Hardware prefetch only
+	0x00: prefetch: exclude hardware prefetch
+	0x08: (M)ESI: Modified
+	0x04: M(E)SI: Exclusive
+	0x02: ME(S)I: Shared
+	0x01: MES(I): Invalid
+L2_ST: (counter: all)
+	number of L2 data stores (min count: 500)
+	Unit masks (default 0x4f)
+	----------
+	0xc0: core: all cores
+	0x40: core: this core
+	0x08: (M)ESI: Modified
+	0x04: M(E)SI: Exclusive
+	0x02: ME(S)I: Shared
+	0x01: MES(I): Invalid
+L2_LOCK: (counter: all)
+	number of locked L2 data accesses (min count: 500)
+	Unit masks (default 0x4f)
+	----------
+	0xc0: core: all cores
+	0x40: core: this core
+	0x08: (M)ESI: Modified
+	0x04: M(E)SI: Exclusive
+	0x02: ME(S)I: Shared
+	0x01: MES(I): Invalid
+L2_REJECT_BUSQ: (counter: all)
+	Rejected L2 cache requests (min count: 500)
+	Unit masks (default 0x7f)
+	----------
+	0xc0: core: all cores
+	0x40: core: this core
+	0x30: prefetch: all inclusive
+	0x10: prefetch: Hardware prefetch only
+	0x00: prefetch: exclude hardware prefetch
+	0x08: (M)ESI: Modified
+	0x04: M(E)SI: Exclusive
+	0x02: ME(S)I: Shared
+	0x01: MES(I): Invalid
+L2_NO_REQ: (counter: all)
+	Cycles no L2 cache requests are pending (min count: 500)
+	Unit masks (default 0x40)
+	----------
+	0xc0: All cores
+	0x40: This core
+EIST_TRANS_ALL: (counter: all)
+	Intel(tm) Enhanced SpeedStep(r) Technology transitions (min count: 500)
+THERMAL_TRIP: (counter: all)
+	Number of thermal trips (min count: 500)
+	Unit masks (default 0xc0)
+	----------
+	0xc0: No unit mask
+L1D_CACHE_LD: (counter: all)
+	L1 cacheable data read operations (min count: 500)
+	Unit masks (default 0xf)
+	----------
+	0x08: (M)ESI: Modified
+	0x04: M(E)SI: Exclusive
+	0x02: ME(S)I: Shared
+	0x01: MES(I): Invalid
+L1D_CACHE_ST: (counter: all)
+	L1 cacheable data write operations (min count: 500)
+	Unit masks (default 0xf)
+	----------
+	0x08: (M)ESI: Modified
+	0x04: M(E)SI: Exclusive
+	0x02: ME(S)I: Shared
+	0x01: MES(I): Invalid
+L1D_CACHE_LOCK: (counter: all)
+	L1 cacheable lock read operations (min count: 500)
+	Unit masks (default 0xf)
+	----------
+	0x08: (M)ESI: Modified
+	0x04: M(E)SI: Exclusive
+	0x02: ME(S)I: Shared
+	0x01: MES(I): Invalid
+L1D_CACHE_LOCK_DURATION: (counter: all)
+	Duration of L1 data cacheable locked operations (min count: 500)
+	Unit masks (default 0x10)
+	----------
+	0x10: No unit mask
+L1D_ALL_REF: (counter: all)
+	All references to the L1 data cache (min count: 500)
+	Unit masks (default 0x10)
+	----------
+	0x10: No unit mask
+L1D_ALL_CACHE_REF: (counter: all)
+	L1 data cacheable reads and writes (min count: 500)
+	Unit masks (default 0x2)
+	----------
+	0x02: No unit mask
+L1D_REPL: (counter: all)
+	Cache lines allocated in the L1 data cache (min count: 500)
+	Unit masks (default 0xf)
+	----------
+	0x0f: No unit mask
+L1D_M_REPL: (counter: all)
+	Modified cache lines allocated in the L1 data cache (min count: 500)
+L1D_M_EVICT: (counter: all)
+	Modified cache lines evicted from the L1 data cache (min count: 500)
+L1D_PEND_MISS: (counter: all)
+	Total number of outstanding L1 data cache misses at any cycle (min count: 500)
+L1D_SPLIT: (counter: all)
+	Cache line split load/stores (min count: 500)
+	Unit masks (default 0x1)
+	----------
+	0x01: split loads
+	0x02: split stores
+SSE_PREF_MISS: (counter: all)
+	SSE instructions that missed all caches (min count: 500)
+	Unit masks (default 0x0)
+	----------
+	0x00: PREFETCHNTA
+	0x01: PREFETCHT0
+	0x02: PREFETCHT1/PREFETCHT2
+LOAD_HIT_PRE: (counter: all)
+	Load operations conflicting with a software prefetch to the same address (min count: 500)
+L1D_PREFETCH: (counter: all)
+	L1 data cache prefetch requests (min count: 500)
+	Unit masks (default 0x10)
+	----------
+	0x10: No unit mask
+BUS_REQ_OUTSTANDING: (counter: all)
+	Outstanding cacheable data read bus requests duration (min count: 500)
+	Unit masks (default 0x40)
+	----------
+	0xc0: core: all cores
+	0x40: core: this core
+	0x00: bus: this agent
+	0x20: bus: include all agents
+BUS_BNR_DRV: (counter: all)
+	Number of Bus Not Ready signals asserted (min count: 500)
+	Unit masks (default 0x0)
+	----------
+	0x00: this agent
+	0x20: include all agents
+BUS_DRDY_CLOCKS: (counter: all)
+	Bus cycles when data is sent on the bus (min count: 500)
+	Unit masks (default 0x0)
+	----------
+	0x00: this agent
+	0x20: include all agents
+BUS_LOCK_CLOCKS: (counter: all)
+	Bus cycles when a LOCK signal is asserted (min count: 500)
+	Unit masks (default 0x40)
+	----------
+	0xc0: core: all cores
+	0x40: core: this core
+	0x00: bus: this agent
+	0x20: bus: include all agents
+BUS_DATA_RCV: (counter: all)
+	Bus cycles while processor receives data (min count: 500)
+	Unit masks (default 0x40)
+	----------
+	0xc0: core: all cores
+	0x40: core: this core
+	0x00: bus: this agent
+	0x20: bus: include all agents
+BUS_TRAN_BRD: (counter: all)
+	Burst read bus transactions (min count: 500)
+	Unit masks (default 0x40)
+	----------
+	0xc0: core: all cores
+	0x40: core: this core
+	0x00: bus: this agent
+	0x20: bus: include all agents
+BUS_TRAN_RFO: (counter: all)
+	number of completed read for ownership transactions (min count: 500)
+	Unit masks (default 0x40)
+	----------
+	0xc0: core: all cores
+	0x40: core: this core
+	0x00: bus: this agent
+	0x20: bus: include all agents
+BUS_TRAN_WB: (counter: all)
+	number of explicit writeback bus transactions (min count: 500)
+	Unit masks (default 0x40)
+	----------
+	0xc0: core: all cores
+	0x40: core: this core
+	0x00: bus: this agent
+	0x20: bus: include all agents
+BUS_TRAN_IFETCH: (counter: all)
+	number of instruction fetch transactions (min count: 500)
+	Unit masks (default 0x40)
+	----------
+	0xc0: core: all cores
+	0x40: core: this core
+	0x00: bus: this agent
+	0x20: bus: include all agents
+BUS_TRAN_INVAL: (counter: all)
+	number of invalidate transactions (min count: 500)
+	Unit masks (default 0x40)
+	----------
+	0xc0: core: all cores
+	0x40: core: this core
+	0x00: bus: this agent
+	0x20: bus: include all agents
+BUS_TRAN_PWR: (counter: all)
+	number of partial write bus transactions (min count: 500)
+	Unit masks (default 0x40)
+	----------
+	0xc0: core: all cores
+	0x40: core: this core
+	0x00: bus: this agent
+	0x20: bus: include all agents
+BUS_TRANS_P: (counter: all)
+	number of partial bus transactions (min count: 500)
+	Unit masks (default 0x40)
+	----------
+	0xc0: core: all cores
+	0x40: core: this core
+	0x00: bus: this agent
+	0x20: bus: include all agents
+BUS_TRANS_IO: (counter: all)
+	number of I/O bus transactions (min count: 500)
+	Unit masks (default 0x40)
+	----------
+	0xc0: core: all cores
+	0x40: core: this core
+	0x00: bus: this agent
+	0x20: bus: include all agents
+BUS_TRANS_DEF: (counter: all)
+	number of completed defer transactions (min count: 500)
+	Unit masks (default 0x40)
+	----------
+	0xc0: core: all cores
+	0x40: core: this core
+	0x00: bus: this agent
+	0x20: bus: include all agents
+BUS_TRAN_BURST: (counter: all)
+	number of completed burst transactions (min count: 500)
+	Unit masks (default 0x40)
+	----------
+	0xc0: core: all cores
+	0x40: core: this core
+	0x00: bus: this agent
+	0x20: bus: include all agents
+BUS_TRAN_MEM: (counter: all)
+	number of completed memory transactions (min count: 500)
+	Unit masks (default 0x40)
+	----------
+	0xc0: core: all cores
+	0x40: core: this core
+	0x00: bus: this agent
+	0x20: bus: include all agents
+BUS_TRAN_ANY: (counter: all)
+	number of any completed bus transactions (min count: 500)
+	Unit masks (default 0x40)
+	----------
+	0xc0: core: all cores
+	0x40: core: this core
+	0x00: bus: this agent
+	0x20: bus: include all agents
+EXT_SNOOP: (counter: all)
+	External snoops (min count: 500)
+	Unit masks (default 0xb)
+	----------
+	0x00: bus: this agent
+	0x20: bus: include all agents
+	0x08: snoop: HITM snoops
+	0x02: snoop: HIT snoops
+	0x01: snoop: CLEAN snoops
+CMP_SNOOP: (counter: all)
+	L1 data cache is snooped by other core (min count: 500)
+	Unit masks (default 0x40)
+	----------
+	0xc0: core: all cores
+	0x40: core: this core
+	0x01: snoop: CMP2I snoops
+	0x02: snoop: CMP2S snoops
+BUS_HIT_DRV: (counter: all)
+	HIT signal asserted (min count: 500)
+	Unit masks (default 0x0)
+	----------
+	0x00: this agent
+	0x20: include all agents
+BUS_HITM_DRV: (counter: all)
+	HITM signal asserted (min count: 500)
+	Unit masks (default 0x0)
+	----------
+	0x00: this agent
+	0x20: include all agents
+BUSQ_EMPTY: (counter: all)
+	Bus queue is empty (min count: 500)
+	Unit masks (default 0x40)
+	----------
+	0xc0: All cores
+	0x40: This core
+SNOOP_STALL_DRV: (counter: all)
+	Bus stalled for snoops (min count: 500)
+	Unit masks (default 0x40)
+	----------
+	0xc0: core: all cores
+	0x40: core: this core
+	0x00: bus: this agent
+	0x20: bus: include all agents
+BUS_IO_WAIT: (counter: all)
+	IO requests waiting in the bus queue (min count: 500)
+	Unit masks (default 0x40)
+	----------
+	0xc0: All cores
+	0x40: This core
+L1I_READS: (counter: all)
+	number of instruction fetches (min count: 500)
+L1I_MISSES: (counter: all)
+	number of instruction fetch misses (min count: 500)
+ITLB: (counter: all)
+	number of ITLB misses (min count: 500)
+	Unit masks (default 0x12)
+	----------
+	0x02: ITLB small page misses
+	0x10: ITLB large page misses
+	0x40: ITLB flushes
+INST_QUEUE.FULL: (counter: all)
+	cycles during which the instruction queue is full (min count: 500)
+	Unit masks (default 0x2)
+	----------
+	0x02: No unit mask
+IFU_MEM_STALL: (counter: all)
+	cycles instruction fetch pipe is stalled (min count: 500)
+ILD_STALL: (counter: all)
+	cycles instruction length decoder is stalled (min count: 500)
+BR_INST_EXEC: (counter: all)
+	Branch instructions executed (not necessarily retired) (min count: 3000)
+BR_MISSP_EXEC: (counter: all)
+	Branch instructions executed that were mispredicted at execution (min count: 3000)
+BR_BAC_MISSP_EXEC: (counter: all)
+	Branch instructions executed that were mispredicted at Front End (BAC) (min count: 3000)
+BR_CND_EXEC: (counter: all)
+	Conditional Branch instructions executed (min count: 3000)
+BR_CND_MISSP_EXEC: (counter: all)
+	Conditional Branch instructions executed that were mispredicted (min count: 3000)
+BR_IND_EXEC: (counter: all)
+	Indirect Branch instructions executed (min count: 3000)
+BR_IND_MISSP_EXEC: (counter: all)
+	Indirect Branch instructions executed that were mispredicted (min count: 3000)
+BR_RET_EXEC: (counter: all)
+	Return Branch instructions executed (min count: 3000)
+BR_RET_MISSP_EXEC: (counter: all)
+	Return Branch instructions executed that were mispredicted at Execution (min count: 3000)
+BR_RET_BAC_MISSP_EXEC: (counter: all)
+	Branch instructions executed that were mispredicted at Front End (BAC) (min count: 3000)
+BR_CALL_EXEC: (counter: all)
+	CALL instruction executed (min count: 3000)
+BR_CALL_MISSP_EXEC: (counter: all)
+	CALL instruction executed and miss predicted (min count: 3000)
+BR_IND_CALL_EXEC: (counter: all)
+	Indirect CALL instruction executed (min count: 3000)
+BR_TKN_BUBBLE_1: (counter: all)
+	Branch predicted taken with bubble 1 (min count: 3000)
+BR_TKN_BUBBLE_2: (counter: all)
+	Branch predicted taken with bubble 2 (min count: 3000)
+RS_UOPS_DISPATCHED: (counter: all)
+	Micro-ops dispatched for execution (min count: 1000)
+RS_UOPS_DISPATCHED_NONE: (counter: all)
+	No Micro-ops dispatched for execution (min count: 1000)
+MACRO_INSTS: (counter: all)
+	instructions decoded (min count: 500)
+	Unit masks (default 0x9)
+	----------
+	0x01: Instructions decoded
+	0x08: CISC Instructions decoded
+ESP: (counter: all)
+	ESP register events (min count: 500)
+	Unit masks (default 0x1)
+	----------
+	0x01: ESP register content synchronizations
+	0x02: ESP register automatic additions
+SIMD_UOPS_EXEC: (counter: all)
+	SIMD micro-ops executed (excluding stores) (min count: 500)
+SIMD_SAT_UOP_EXEC: (counter: all)
+	number of SIMD saturating instructions executed (min count: 3000)
+SIMD_UOP_TYPE_EXEC: (counter: all)
+	number of SIMD packing instructions (min count: 3000)
+	Unit masks (default 0x3f)
+	----------
+	0x01: SIMD packed multiplies
+	0x02: SIMD packed shifts
+	0x04: SIMD pack operations
+	0x08: SIMD unpack operations
+	0x10: SIMD packed logical
+	0x20: SIMD packed arithmetic
+	0x3f: all of the above
+INST_RETIRED: (counter: all)
+	number of instructions retired (min count: 6000)
+	Unit masks (default 0x0)
+	----------
+	0x00: Any
+	0x01: Loads
+	0x02: Stores
+	0x04: Other
+X87_OPS_RETIRED: (counter: all)
+	number of computational FP operations retired (min count: 500)
+	Unit masks (default 0xfe)
+	----------
+	0x01: FXCH instructions retired
+	0xfe: Retired floating-point computational operations (precise)
+UOPS_RETIRED: (counter: all)
+	number of UOPs retired (min count: 6000)
+	Unit masks (default 0xf)
+	----------
+	0x01: Fused load+op or load+indirect branch retired
+	0x02: Fused store address + data retired
+	0x04: Retired instruction pairs fused into one micro-op
+	0x07: Fused micro-ops retired
+	0x08: Non-fused micro-ops retired
+	0x0f: Micro-ops retired
+MACHINE_NUKES.SMC: (counter: all)
+	number of pipeline flushing events (min count: 500)
+	Unit masks (default 0x5)
+	----------
+	0x01: Self-Modifying Code detected
+	0x04: Execution pipeline restart due to memory ordering conflict or memory disambiguation misprediction
+BR_INST_RETIRED: (counter: all)
+	number of branch instructions retired (min count: 500)
+	Unit masks (default 0xa)
+	----------
+	0x01: predicted not-taken
+	0x02: mispredicted not-taken
+	0x04: predicted taken
+	0x08: mispredicted taken
+BR_MISS_PRED_RETIRED: (counter: all)
+	number of mispredicted branches retired (precise) (min count: 500)
+CYCLES_INT_MASKED: (counter: all)
+	cycles interrupts are disabled (min count: 500)
+	Unit masks (default 0x2)
+	----------
+	0x01: Interrupts disabled
+	0x02: Interrupts pending and disabled
+SIMD_INST_RETIRED: (counter: all)
+	SSE/SSE2 instructions retired (min count: 500)
+	Unit masks (default 0x1f)
+	----------
+	0x01: Retired SSE packed-single instructions
+	0x02: Retired SSE scalar-single instructions
+	0x04: Retired SSE2 packed-double instructions
+	0x08: Retired SSE2 scalar-double instructions
+	0x10: Retired SSE2 vector integer instructions
+	0x1f: Retired Streaming SIMD instructions (precise event)
+HW_INT_RCV: (counter: all)
+	number of hardware interrupts received (min count: 500)
+ITLB_MISS_RETIRED: (counter: 0)
+	Retired instructions that missed the ITLB (min count: 500)
+SIMD_COMP_INST_RETIRED: (counter: all)
+	Retired computational SSE/SSE2 instructions (min count: 500)
+	Unit masks (default 0xf)
+	----------
+	0x01: Retired computational SSE packed-single instructions
+	0x02: Retired computational SSE scalar-single instructions
+	0x04: Retired computational SSE2 packed-double instructions
+	0x08: Retired computational SSE2 scalar-double instructions
+MEM_LOAD_RETIRED: (counter: 0)
+	Retired loads (min count: 500)
+	Unit masks (default 0x1)
+	----------
+	0x01: Retired loads that miss the L1 data cache (precise event)
+	0x02: L1 data cache line missed by retired loads (precise event)
+	0x04: Retired loads that miss the L2 cache (precise event)
+	0x08: L2 cache line missed by retired loads (precise event)
+	0x10: Retired loads that miss the DTLB (precise event)
+FP_MMX_TRANS: (counter: all)
+	MMX-floating point transitions (min count: 3000)
+	Unit masks (default 0x3)
+	----------
+	0x01: float->MMX transitions
+	0x02: MMX->float transitions
+MMX_ASSIST: (counter: all)
+	number of EMMS instructions executed (min count: 500)
+SIMD_INSTR_RET: (counter: all)
+	number of SIMD instructions retired (min count: 500)
+SIMD_SAT_INSTR_RET: (counter: all)
+	number of saturated arithmetic instructions retired (min count: 500)
+RAT_STALLS: (counter: all)
+	Partial register stall cycles (min count: 6000)
+	Unit masks (default 0xf)
+	----------
+	0x01: ROB read port
+	0x02: Partial register
+	0x04: Flag
+	0x08: FPU status word
+	0x0f: All RAT
+SEG_RENAME_STALLS: (counter: all)
+	Segment rename stalls (min count: 500)
+	Unit masks (default 0xf)
+	----------
+	0x01: ES
+	0x02: DS
+	0x04: FS
+	0x08: GS
+SEG_RENAMES: (counter: all)
+	Segment renames (min count: 500)
+	Unit masks (default 0xf)
+	----------
+	0x01: ES
+	0x02: DS
+	0x04: FS
+	0x08: GS
+RESOURCE_STALLS: (counter: all)
+	Cycles during which resource stalls occur (min count: 3000)
+	Unit masks (default 0xf)
+	----------
+	0x01: when the ROB is full
+	0x02: during which the RS is full
+	0x04: during which the pipeline has exceeded the load or store limit or is waiting to commit all stores
+	0x08: due to FPU control word write
+	0x10: due to branch misprediction
+BR_INST_DECODED: (counter: all)
+	number of branch instructions decoded (min count: 500)
+BR_BOGUS: (counter: all)
+	number of bogus branches (min count: 500)
+BACLEARS: (counter: all)
+	number of times BACLEAR is asserted (min count: 500)
+PREF_RQSTS_UP: (counter: all)
+	Number of upward prefetches issued (min count: 3000)
+PREF_RQSTS_DN: (counter: all)
+	Number of downward prefetches issued (min count: 3000)

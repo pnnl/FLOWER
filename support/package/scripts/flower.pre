@@ -1,0 +1,9 @@
+
+# before the first install
+
+id=`/usr/bin/id -u`
+
+if [ "0" != "$id" ]; then
+  /bin/echo "ERROR:  Must be root to install (current User ID = $id)"
+  exit 1
+fi

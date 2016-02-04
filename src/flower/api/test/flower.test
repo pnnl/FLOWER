@@ -1,0 +1,136 @@
+#!/bin/bash
+################################################################################
+# COPYRIGHT (C) 2008.  PNNL.  All Rights Reserved. 
+#
+# THIS FILE INITIALLY CREATED WITH:  
+#     TEMPLATE NAME:  lang_script_test.template 
+#     COMMAND NAME:   gensrc 
+#
+# ND file: $Id$ 
+# _____________________________________________________________________________
+# 
+# PURPOSE OF TEST: 
+#  SWAWT automated test script:  exit with 0 => success, 1 => failure 
+################################################################################
+
+TBIN="$ENSIP_HOME/tbin"
+TEST_DIR=`dirname $0`
+
+cd $TEST_DIR
+TEST_DIR=`pwd`
+
+out="$TEST_DIR/"`basename $0 | awk -F"." '{print $1}'`.out
+err="$TEST_DIR/"`basename $0 | awk -F"." '{print $1}'`.err
+
+catchSystemError="--catch_system_error=yes"
+
+logLevel=""
+#logLevel="--log_level=message"
+
+#reportFormat="--report_format=XML"
+
+#reportLevel="--report_level=yes"
+#reportLevel="--report_level=short"
+reportLevel="--report_level=detailed"
+#reportLevel="--report_level=no"
+
+#showProgress="--show_progress=yes"
+#showProgress="--show_progress=no"
+
+failures=0
+files=0
+passes=0
+result=1
+message="FAILED"
+testCaseCount=0
+total=0
+exitStatus=0
+
+# Build the libraries before running
+build -comp ensip -type lib -v -auto
+if [ "$?" != "0" ]; then
+  echo "******************************************************************"
+  echo "******************************************************************"
+  echo "******    build failed"
+  echo "******************************************************************"
+  echo "******************************************************************"
+  exit 1
+fi
+
+# Build the test executables before running
+make
+if [ "$?" != "0" ]; then
+  echo "******************************************************************"
+  echo "******************************************************************"
+  echo "******    make failed"
+  echo "******************************************************************"
+  echo "******************************************************************"
+  exit 1
+fi
+
+cd $TBIN
+for t_test in `/bin/ls -1 ./t_* | grep -v t_bg | grep -v t_test`
+do
+  echo "#####  START $t_test"
+  sudo=""
+  if [ `echo $t_test | grep -c t_sudo` -eq 1 ]; then
+    sudo="sudo"
+  fi
+  $sudo $t_test $showProgress $logLevel $reportFormat $reportLevel $catchSystemError > $out 2> $err
+  if [ "$?" != "0" ]; then
+    echo "******************************************************************"
+    echo "******************************************************************"
+    echo "******    Test $t_test failed"
+    echo "******************************************************************"
+    echo "******************************************************************"
+    ((exitStatus++))
+    echo "EXITSTATUS $exitStatus"
+  fi
+  #testCaseCount=`grep "^Running " $out | awk '{print $2}'`
+  testCaseCount=`grep "^Running " $out | awk '{ SUM += $2} END {print SUM}'`
+  failureCount=`grep -c ' fail' $out`
+  #((passes = $passes + $testCaseCount - $failureCount))
+  cat $out
+  cat $err
+  echo "#####  STOP  $t_test"
+  echo ""
+  if [ "$failureCount" != "" ]; then
+    ((failures = $failures + $failureCount))
+    if [ "$exitStatus" != "0" -a "$#" -gt "0" ]; then
+      echo ""
+      echo "ERROR: Test File, $t_test, failed: skipping remaining tests."
+      echo ""
+      echo "Exit with Status   = $result => $message"
+      exit 1
+    fi
+  else
+    failureCount=0
+  fi
+  ((files++))
+  if [ "$testCaseCount" != "" ]; then
+    ((total = $total + $testCaseCount))
+  fi
+done
+
+if [ $failures -eq 0 ]; then
+  message="PASSED"
+  result=0
+fi
+if [ $files -eq 0 -o $exitStatus -ne 0 ]; then
+  echo "EXITSTATUS $exitStatus"
+  echo "FILES      $files"
+  message="FAILED"
+  result=1
+fi
+echo "Total Tests Files  = $files"
+echo "Total Test  Cases  = $total"
+#echo "Total Tests Passed = $passes"
+echo "Total Tests Failed = $failures **"
+echo "Exit with Status   = $result => $message"
+echo ""
+echo "** NOTE: Test Cases - Tests Failed may not equate to Tests Passed because"
+echo "         Boost.Test may report multiple failures in a single test case."
+echo ""
+
+rm -f $out $err
+exit $result

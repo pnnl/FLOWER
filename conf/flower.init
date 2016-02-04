@@ -1,0 +1,181 @@
+#!/bin/bash
+
+# chkconfig: 345 99 99
+# description: Runs the flower daemon that records IP flow data.
+# processname: flower
+
+prog="flower"
+
+# Assume failure
+RETVAL=1
+
+if [ -f /etc/init.d/functions ]; then
+  # Source function library.
+  . /etc/init.d/functions
+else
+  /bin/echo "$prog cannot start without file, /etc/init.d/functions.";
+  exit $RETVAL
+fi
+
+if [ -f /etc/sysconfig/network ]; then
+  # Source networking configuration.
+  . /etc/sysconfig/network
+else
+  /bin/echo "$prog cannot start without file, /etc/sysconfig/network.";
+  exit $RETVAL
+fi
+
+
+
+#  rpminstalldir  = where the files were installed
+#  NOTE: the value will get replaced at install time by RPM flower.post script
+rpminstalldir="__RPMINSTALLDIR__"
+
+#  siteinstalldir = where the cpp files were installed
+#  NOTE: the value will get replaced at install time by RPM flower.post script
+siteinstalldir="__CPPINSTALLDIR__"
+
+conffile="$rpminstalldir/conf/$prog.conf"
+flower="$rpminstalldir/bin/$prog"
+logfile="/var/tmp/$prog.log"
+subsys="/var/lock/subsys/$prog"
+
+siteconfdir="$siteinstalldir/conf"
+siteinterfacefile="$siteconfdir/monitorinterface"
+sitefile="$siteconfdir/sitetag"
+
+
+
+if [ "no" == "${NETWORKING}" ]; then
+  /bin/echo -n "$prog cannot start without networking. "; warning; /bin/echo
+  exit $RETVAL
+fi
+
+if [ ! -f $flower ]; then
+  /bin/echo -n "The $prog executable, $flower, does not exist."; warning; /bin/echo
+  exit $RETVAL
+fi
+
+if [ ! -x $flower ]; then
+  /bin/echo -n "The $prog executable, $flower, is not executable."; warning; /bin/echo
+  exit $RETVAL
+fi
+
+if [ ! -d $siteconfdir ]; then
+  /bin/echo -n "The $prog configuration directory, $confdir, does not exist."; warning; /bin/echo
+  exit $RETVAL
+fi
+
+if [ ! -f "$sitefile" ]; then
+  /bin/echo -n "The $prog config file, $sitefile, does not exist."; warning; /bin/echo
+  exit $RETVAL
+fi
+
+if [ ! -f "$siteinterfacefile" ]; then
+  /bin/echo -n "The $prog config file, $siteinterfacefile, does not exist."; warning; /bin/echo
+  exit $RETVAL
+fi
+
+if [ ! -f "$conffile" ]; then
+  /bin/echo -n "The $prog config file, $conffile, does not exist."; warning; /bin/echo
+  exit $RETVAL
+fi
+
+
+#
+#  We have all the files we need so lets crack them open and get some info
+#
+device=`cat $siteinterfacefile`
+sitename=`cat $sitefile`
+
+
+if [ -z "$device" ]; then
+  /bin/echo -n "The device cannot be found in $siteinterfacefile."; warning; /bin/echo
+  exit $RETVAL
+fi
+
+if [ -z "$sitename" ]; then
+  /bin/echo -n "The sitename cannot be found in $sitefile."; warning; /bin/echo
+  exit $RETVAL
+fi
+
+
+OPTIONS="--site-name=$sitename --config-file=$conffile --device=$device"
+# --debugLevel=0"
+
+
+impl_start()
+{
+  export PCAP_FRAMES=32768
+  $flower $OPTIONS
+  RETVAL=$?
+  if [ "0" == "$RETVAL" ]; then
+    /bin/touch $subsys
+    /bin/echo -n " Starting $prog: "; success; /bin/echo " "
+  else
+    /bin/echo -n " Starting $prog: "; failure; /bin/echo " "
+  fi
+  return $RETVAL
+}
+
+
+impl_stop()
+{      
+  killproc $flower
+  RETVAL=$?
+  if [ "0" == "$RETVAL" ]; then
+    /bin/rm -f $subsys
+    /bin/echo -n " Stopping $prog: "; success; /bin/echo " "
+  else
+    /bin/echo -n " Stopping $prog: "; failure; /bin/echo " "
+  fi
+  return $RETVAL
+} 
+
+
+impl_restart()
+{      
+  impl_stop
+  RETVAL=$?
+  if [ "0" == "$RETVAL" ]; then
+    impl_start
+    RETVAL=$?
+  fi
+  return $RETVAL
+}
+
+
+# See how we were called.
+case "$1" in
+  start)
+    impl_start
+    RETVAL=$?
+    ;;
+  stop)
+    impl_stop
+    RETVAL=$?
+    ;;
+  status)
+    status $flower
+    RETVAL=$?
+    ;;
+  restart)
+    impl_restart
+    RETVAL=$?
+    ;;
+  condrestart)
+    if [ -f $subsys ]; then
+      impl_restart
+      RETVAL=$?
+    else
+      /bin/echo -n " Conditionally restarting $prog: "; failure; /bin/echo ""
+      /bin/echo "   Missing subsystem: $subsys"
+    fi
+    ;;
+  *)
+    /bin/echo $"Usage: $0 {start|stop|restart|condrestart|status}"
+    exit $RETVAL
+esac
+
+
+exit $RETVAL

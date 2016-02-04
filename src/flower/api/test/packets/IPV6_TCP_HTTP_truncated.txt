@@ -1,0 +1,71 @@
+No.     Time                       Source                Destination           Protocol Info
+     18 2008-12-03 12:49:58.416903 2600::2               2600::1               HTTP     GET /welcome.png HTTP/ [Packet size limited during capture]
+
+Frame 18 (337 bytes on wire, 96 bytes captured)
+    Arrival Time: Dec  3, 2008 12:49:58.416903000
+    [Time delta from previous captured frame: 0.006877000 seconds]
+    [Time delta from previous displayed frame: 0.006877000 seconds]
+    [Time since reference or first frame: 14.776240000 seconds]
+    Frame Number: 18
+    Frame Length: 337 bytes
+    Capture Length: 96 bytes
+    [Frame is marked: False]
+    [Protocols in frame: eth:ipv6:tcp:http]
+    [Coloring Rule Name: HTTP]
+    [Coloring Rule String: http || tcp.port == 80]
+Ethernet II, Src: Vmware_94:10:61 (00:50:56:94:10:61), Dst: Vmware_94:72:02 (00:50:56:94:72:02)
+    Destination: Vmware_94:72:02 (00:50:56:94:72:02)
+        Address: Vmware_94:72:02 (00:50:56:94:72:02)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+    Source: Vmware_94:10:61 (00:50:56:94:10:61)
+        Address: Vmware_94:10:61 (00:50:56:94:10:61)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6
+    0110 .... = Version: 6
+        [0110 .... = This field makes the filter "ip.version == 6" possible: 6]
+    .... 0000 0000 .... .... .... .... .... = Traffic class: 0x00000000
+    .... .... .... 0000 0000 0000 0000 0000 = Flowlabel: 0x00000000
+    Payload length: 283
+    Next header: TCP (0x06)
+    Hop limit: 128
+    Source: 2600::2 (2600::2)
+    Destination: 2600::1 (2600::1)
+Transmission Control Protocol, Src Port: danf-ak2 (1041), Dst Port: http (80), Seq: 3377865330, Ack: 1848700553, Len: 263
+    Source port: danf-ak2 (1041)
+    Destination port: http (80)
+    Sequence number: 3377865330
+    [Next sequence number: 3377865593]
+    Acknowledgement number: 1848700553
+    Header length: 20 bytes
+    Flags: 0x18 (PSH, ACK)
+        0... .... = Congestion Window Reduced (CWR): Not set
+        .0.. .... = ECN-Echo: Not set
+        ..0. .... = Urgent: Not set
+        ...1 .... = Acknowledgment: Set
+        .... 1... = Push: Set
+        .... .0.. = Reset: Not set
+        .... ..0. = Syn: Not set
+        .... ...0 = Fin: Not set
+    Window size: 16324
+    Checksum: 0xdf0e [unchecked, not all data available]
+        [Good Checksum: False]
+        [Bad Checksum: False]
+    [SEQ/ACK analysis]
+        [This is an ACK to the segment in frame: 17]
+        [The RTT to ACK the segment was: 0.006877000 seconds]
+Hypertext Transfer Protocol
+    GET /welcome.png HTTP/
+        Request Method: GET
+        Request URI: /welcome.png
+        Request Version: HTTP/
+[Packet size limited during capture: HTTP truncated]
+
+0000  00 50 56 94 72 02 00 50 56 94 10 61 86 dd 60 00   .PV.r..PV..a..`.
+0010  00 00 01 1b 06 80 26 00 00 00 00 00 00 00 00 00   ......&.........
+0020  00 00 00 00 00 02 26 00 00 00 00 00 00 00 00 00   ......&.........
+0030  00 00 00 00 00 01 04 11 00 50 c9 56 22 72 6e 30   .........P.V"rn0
+0040  ee 89 50 18 3f c4 df 0e 00 00 47 45 54 20 2f 77   ..P.?.....GET /w
+0050  65 6c 63 6f 6d 65 2e 70 6e 67 20 48 54 54 50 2f   elcome.png HTTP/

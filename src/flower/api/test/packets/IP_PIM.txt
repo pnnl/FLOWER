@@ -1,0 +1,64 @@
+No.     Time                       Source                Destination           Protocol Info
+      1 2008-11-09 22:04:41.511718 4.71.171.98           224.0.0.13            PIMv2    Hello
+
+Frame 1 (68 bytes on wire, 68 bytes captured)
+    Arrival Time: Nov  9, 2008 22:04:41.511718000
+    [Time delta from previous captured frame: 0.000000000 seconds]
+    [Time delta from previous displayed frame: 0.000000000 seconds]
+    [Time since reference or first frame: 0.000000000 seconds]
+    Frame Number: 1
+    Frame Length: 68 bytes
+    Capture Length: 68 bytes
+    [Frame is marked: False]
+    [Protocols in frame: eth:ip:pim]
+    [Coloring Rule Name: Broadcast]
+    [Coloring Rule String: eth[0] & 1]
+Ethernet II, Src: JuniperN_92:48:bc (00:1d:b5:92:48:bc), Dst: IPv4mcast_00:00:0d (01:00:5e:00:00:0d)
+    Destination: IPv4mcast_00:00:0d (01:00:5e:00:00:0d)
+        Address: IPv4mcast_00:00:0d (01:00:5e:00:00:0d)
+        .... ...1 .... .... .... .... = IG bit: Group address (multicast/broadcast)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+    Source: JuniperN_92:48:bc (00:1d:b5:92:48:bc)
+        Address: JuniperN_92:48:bc (00:1d:b5:92:48:bc)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+    Type: IP (0x0800)
+Internet Protocol, Src: 4.71.171.98 (4.71.171.98), Dst: 224.0.0.13 (224.0.0.13)
+    Version: 4
+    Header length: 20 bytes
+    Differentiated Services Field: 0xc0 (DSCP 0x30: Class Selector 6; ECN: 0x00)
+        1100 00.. = Differentiated Services Codepoint: Class Selector 6 (0x30)
+        .... ..0. = ECN-Capable Transport (ECT): 0
+        .... ...0 = ECN-CE: 0
+    Total Length: 54
+    Identification: 0xed84 (60804)
+    Flags: 0x00
+        0... = Reserved bit: Not set
+        .0.. = Don't fragment: Not set
+        ..0. = More fragments: Not set
+    Fragment offset: 0
+    Time to live: 1
+    Protocol: PIM (0x67)
+    Header checksum: 0x3b66 [correct]
+        [Good: True]
+        [Bad : False]
+    Source: 4.71.171.98 (4.71.171.98)
+    Destination: 224.0.0.13 (224.0.0.13)
+Protocol Independent Multicast
+    Version: 2
+    Type: Hello (0)
+    Checksum: 0x978f [correct]
+    PIM parameters
+        Holdtime (1): 105s 
+        LAN Prune Delay (2)
+            T bit is set
+            LAN Delay: 500ms
+            Override Interval: 2000ms
+        DR Priority (19): 1
+        Generation ID (20): 814189954
+
+0000  01 00 5e 00 00 0d 00 1d b5 92 48 bc 08 00 45 c0   ..^.......H...E.
+0010  00 36 ed 84 00 00 01 67 3b 66 04 47 ab 62 e0 00   .6.....g;f.G.b..
+0020  00 0d 20 00 97 8f 00 01 00 02 00 69 00 02 00 04   .. ........i....
+0030  81 f4 07 d0 00 13 00 04 00 00 00 01 00 14 00 04   ................
+0040  30 87 8d 82                                       0...

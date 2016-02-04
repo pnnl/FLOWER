@@ -1,0 +1,65 @@
+No.     Time                       Source                Destination           Protocol Info
+      1 2008-11-09 22:08:19.042708 fe80::200:5efe:8cdd:eefd fe80::5efe:d043:db84  ICMPv6   Router solicitation
+
+Frame 1 (82 bytes on wire, 82 bytes captured)
+    Arrival Time: Nov  9, 2008 22:08:19.042708000
+    [Time delta from previous captured frame: 0.000000000 seconds]
+    [Time delta from previous displayed frame: 0.000000000 seconds]
+    [Time since reference or first frame: 0.000000000 seconds]
+    Frame Number: 1
+    Frame Length: 82 bytes
+    Capture Length: 82 bytes
+    [Frame is marked: False]
+    [Protocols in frame: eth:ip:ipv6:icmpv6]
+Ethernet II, Src: JuniperN_92:48:bc (00:1d:b5:92:48:bc), Dst: Cisco_8a:64:00 (00:11:5d:8a:64:00)
+    Destination: Cisco_8a:64:00 (00:11:5d:8a:64:00)
+        Address: Cisco_8a:64:00 (00:11:5d:8a:64:00)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+    Source: JuniperN_92:48:bc (00:1d:b5:92:48:bc)
+        Address: JuniperN_92:48:bc (00:1d:b5:92:48:bc)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+    Type: IP (0x0800)
+Internet Protocol, Src: 140.221.238.253 (140.221.238.253), Dst: 208.67.219.132 (208.67.219.132)
+    Version: 4
+    Header length: 20 bytes
+    Differentiated Services Field: 0x00 (DSCP 0x00: Default; ECN: 0x00)
+        0000 00.. = Differentiated Services Codepoint: Default (0x00)
+        .... ..0. = ECN-Capable Transport (ECT): 0
+        .... ...0 = ECN-CE: 0
+    Total Length: 68
+    Identification: 0x4573 (17779)
+    Flags: 0x00
+        0... = Reserved bit: Not set
+        .0.. = Don't fragment: Not set
+        ..0. = More fragments: Not set
+    Fragment offset: 0
+    Time to live: 126
+    Protocol: IPv6 (0x29)
+    Header checksum: 0xcf7a [correct]
+        [Good: True]
+        [Bad : False]
+    Source: 140.221.238.253 (140.221.238.253)
+    Destination: 208.67.219.132 (208.67.219.132)
+Internet Protocol Version 6
+    0110 .... = Version: 6
+        [0110 .... = This field makes the filter "ip.version == 6" possible: 6]
+    .... 0000 0000 .... .... .... .... .... = Traffic class: 0x00000000
+    .... .... .... 0000 0000 0000 0000 0000 = Flowlabel: 0x00000000
+    Payload length: 8
+    Next header: ICMPv6 (0x3a)
+    Hop limit: 255
+    Source: fe80::200:5efe:8cdd:eefd (fe80::200:5efe:8cdd:eefd)
+    Destination: fe80::5efe:d043:db84 (fe80::5efe:d043:db84)
+Internet Control Message Protocol v6
+    Type: 133 (Router solicitation)
+    Code: 0
+    Checksum: 0x961a [correct]
+
+0000  00 11 5d 8a 64 00 00 1d b5 92 48 bc 08 00 45 00   ..].d.....H...E.
+0010  00 44 45 73 00 00 7e 29 cf 7a 8c dd ee fd d0 43   .DEs..~).z.....C
+0020  db 84 60 00 00 00 00 08 3a ff fe 80 00 00 00 00   ..`.....:.......
+0030  00 00 02 00 5e fe 8c dd ee fd fe 80 00 00 00 00   ....^...........
+0040  00 00 00 00 5e fe d0 43 db 84 85 00 96 1a 00 00   ....^..C........
+0050  00 00                                             ..

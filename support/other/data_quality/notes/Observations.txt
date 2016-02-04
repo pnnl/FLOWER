@@ -1,0 +1,32 @@
+
+Methodology:
+
+  Compare Flower and Flo outputs for similarities, difference, and performance.
+
+  Use the 29970 files (2.9 TByte) of data from SC08
+
+  Compare the following fields:
+
+     Flower      vs.     Flo
+
+
+  Command line options for Flower:
+
+   --summary-forceout=1000000
+   --config-file=$ENSIP_HOME/conf/myflower.conf
+   --output-file-ext=flower
+   --site-name=pnnl_dev
+   --cache-timeout=1000000
+   --cache-forceout=1000000
+   --output-data-dir=$out_dir
+
+  Command line options for Flo:
+  
+   -3
+   --nosem
+   -r
+   --site=pnl_dev
+   --sit=1000000
+   --sfo=1000000
+   --data="$out_dir"
+

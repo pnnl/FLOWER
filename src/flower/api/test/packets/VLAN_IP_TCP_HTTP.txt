@@ -1,0 +1,141 @@
+No.     Time                       Source                Destination           Protocol Info
+   6358 2008-11-09 22:04:59.772389 140.221.238.250       192.124.226.41        HTTP     GET /Splash/Videos/1108_uhp_tpain.jpg HTTP/1.1 
+
+Frame 6358 (839 bytes on wire, 839 bytes captured)
+    Arrival Time: Nov  9, 2008 22:04:59.772389000
+    [Time delta from previous captured frame: 0.000539000 seconds]
+    [Time delta from previous displayed frame: 0.717495000 seconds]
+    [Time since reference or first frame: 43.735210000 seconds]
+    Frame Number: 6358
+    Frame Length: 839 bytes
+    Capture Length: 839 bytes
+    [Frame is marked: False]
+    [Protocols in frame: eth:vlan:ip:tcp:http]
+    [Coloring Rule Name: HTTP]
+    [Coloring Rule String: http || tcp.port == 80]
+Ethernet II, Src: JuniperN_92:48:7e (00:1d:b5:92:48:7e), Dst: JuniperN_75:e4:9d (00:90:69:75:e4:9d)
+    Destination: JuniperN_75:e4:9d (00:90:69:75:e4:9d)
+        Address: JuniperN_75:e4:9d (00:90:69:75:e4:9d)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+    Source: JuniperN_92:48:7e (00:1d:b5:92:48:7e)
+        Address: JuniperN_92:48:7e (00:1d:b5:92:48:7e)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+    Type: 802.1Q Virtual LAN (0x8100)
+802.1Q Virtual LAN, PRI: 0, CFI: 0, ID: 521
+    000. .... .... .... = Priority: 0
+    ...0 .... .... .... = CFI: 0
+    .... 0010 0000 1001 = ID: 521
+    Type: IP (0x0800)
+Internet Protocol, Src: 140.221.238.250 (140.221.238.250), Dst: 192.124.226.41 (192.124.226.41)
+    Version: 4
+    Header length: 20 bytes
+    Differentiated Services Field: 0x00 (DSCP 0x00: Default; ECN: 0x00)
+        0000 00.. = Differentiated Services Codepoint: Default (0x00)
+        .... ..0. = ECN-Capable Transport (ECT): 0
+        .... ...0 = ECN-CE: 0
+    Total Length: 821
+    Identification: 0x73e9 (29673)
+    Flags: 0x04 (Don't Fragment)
+        0... = Reserved bit: Not set
+        .1.. = Don't fragment: Set
+        ..0. = More fragments: Not set
+    Fragment offset: 0
+    Time to live: 126
+    Protocol: TCP (0x06)
+    Header checksum: 0x675b [correct]
+        [Good: True]
+        [Bad : False]
+    Source: 140.221.238.250 (140.221.238.250)
+    Destination: 192.124.226.41 (192.124.226.41)
+Transmission Control Protocol, Src Port: ipether232port (3497), Dst Port: http (80), Seq: 4211522027, Ack: 4085709350, Len: 781
+    Source port: ipether232port (3497)
+    Destination port: http (80)
+    Sequence number: 4211522027
+    [Next sequence number: 4211522808]
+    Acknowledgement number: 4085709350
+    Header length: 20 bytes
+    Flags: 0x18 (PSH, ACK)
+        0... .... = Congestion Window Reduced (CWR): Not set
+        .0.. .... = ECN-Echo: Not set
+        ..0. .... = Urgent: Not set
+        ...1 .... = Acknowledgment: Set
+        .... 1... = Push: Set
+        .... .0.. = Reset: Not set
+        .... ..0. = Syn: Not set
+        .... ...0 = Fin: Not set
+    Window size: 17520
+    Checksum: 0x687d [correct]
+        [Good Checksum: True]
+        [Bad Checksum: False]
+Hypertext Transfer Protocol
+    GET /Splash/Videos/1108_uhp_tpain.jpg HTTP/1.1\r\n
+        Request Method: GET
+        Request URI: /Splash/Videos/1108_uhp_tpain.jpg
+        Request Version: HTTP/1.1
+    Host: cms.myspacecdn.com\r\n
+    User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3\r\n
+    Accept: image/png,image/*;q=0.8,*/*;q=0.5\r\n
+    Accept-Language: en-us,en;q=0.5\r\n
+    ---------------: ------------\r\n
+    Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7\r\n
+    Keep-Alive: 300\r\n
+    Connection: keep-alive\r\n
+    Referer: http://home.myspace.com/index.cfm?fuseaction=user\r\n
+    [truncated] Cookie: MSCulture=IP=140.221.238.250&IPCulture=en-US&PreferredCulture=en-US&PreferredCulturePending=&Country=VVM=&ForcedExpiration=0&timeZone=0&USRLOC=QXJlYUNvZGU9NjMwJkNpdHk9TGVtb250JkNvdW50cnlDb2RlPVVTJkNvdW50cnlOYW1lPVVuaXRl
+    \r\n
+
+0000  00 90 69 75 e4 9d 00 1d b5 92 48 7e 81 00 02 09   ..iu......H~....
+0010  08 00 45 00 03 35 73 e9 40 00 7e 06 67 5b 8c dd   ..E..5s.@.~.g[..
+0020  ee fa c0 7c e2 29 0d a9 00 50 fb 06 b9 eb f3 86   ...|.)...P......
+0030  fa 26 50 18 44 70 68 7d 00 00 47 45 54 20 2f 53   .&P.Dph}..GET /S
+0040  70 6c 61 73 68 2f 56 69 64 65 6f 73 2f 31 31 30   plash/Videos/110
+0050  38 5f 75 68 70 5f 74 70 61 69 6e 2e 6a 70 67 20   8_uhp_tpain.jpg 
+0060  48 54 54 50 2f 31 2e 31 0d 0a 48 6f 73 74 3a 20   HTTP/1.1..Host: 
+0070  63 6d 73 2e 6d 79 73 70 61 63 65 63 64 6e 2e 63   cms.myspacecdn.c
+0080  6f 6d 0d 0a 55 73 65 72 2d 41 67 65 6e 74 3a 20   om..User-Agent: 
+0090  4d 6f 7a 69 6c 6c 61 2f 35 2e 30 20 28 57 69 6e   Mozilla/5.0 (Win
+00a0  64 6f 77 73 3b 20 55 3b 20 57 69 6e 64 6f 77 73   dows; U; Windows
+00b0  20 4e 54 20 35 2e 31 3b 20 65 6e 2d 55 53 3b 20    NT 5.1; en-US; 
+00c0  72 76 3a 31 2e 39 2e 30 2e 33 29 20 47 65 63 6b   rv:1.9.0.3) Geck
+00d0  6f 2f 32 30 30 38 30 39 32 34 31 37 20 46 69 72   o/2008092417 Fir
+00e0  65 66 6f 78 2f 33 2e 30 2e 33 0d 0a 41 63 63 65   efox/3.0.3..Acce
+00f0  70 74 3a 20 69 6d 61 67 65 2f 70 6e 67 2c 69 6d   pt: image/png,im
+0100  61 67 65 2f 2a 3b 71 3d 30 2e 38 2c 2a 2f 2a 3b   age/*;q=0.8,*/*;
+0110  71 3d 30 2e 35 0d 0a 41 63 63 65 70 74 2d 4c 61   q=0.5..Accept-La
+0120  6e 67 75 61 67 65 3a 20 65 6e 2d 75 73 2c 65 6e   nguage: en-us,en
+0130  3b 71 3d 30 2e 35 0d 0a 2d 2d 2d 2d 2d 2d 2d 2d   ;q=0.5..--------
+0140  2d 2d 2d 2d 2d 2d 2d 3a 20 2d 2d 2d 2d 2d 2d 2d   -------: -------
+0150  2d 2d 2d 2d 2d 0d 0a 41 63 63 65 70 74 2d 43 68   -----..Accept-Ch
+0160  61 72 73 65 74 3a 20 49 53 4f 2d 38 38 35 39 2d   arset: ISO-8859-
+0170  31 2c 75 74 66 2d 38 3b 71 3d 30 2e 37 2c 2a 3b   1,utf-8;q=0.7,*;
+0180  71 3d 30 2e 37 0d 0a 4b 65 65 70 2d 41 6c 69 76   q=0.7..Keep-Aliv
+0190  65 3a 20 33 30 30 0d 0a 43 6f 6e 6e 65 63 74 69   e: 300..Connecti
+01a0  6f 6e 3a 20 6b 65 65 70 2d 61 6c 69 76 65 0d 0a   on: keep-alive..
+01b0  52 65 66 65 72 65 72 3a 20 68 74 74 70 3a 2f 2f   Referer: http://
+01c0  68 6f 6d 65 2e 6d 79 73 70 61 63 65 2e 63 6f 6d   home.myspace.com
+01d0  2f 69 6e 64 65 78 2e 63 66 6d 3f 66 75 73 65 61   /index.cfm?fusea
+01e0  63 74 69 6f 6e 3d 75 73 65 72 0d 0a 43 6f 6f 6b   ction=user..Cook
+01f0  69 65 3a 20 4d 53 43 75 6c 74 75 72 65 3d 49 50   ie: MSCulture=IP
+0200  3d 31 34 30 2e 32 32 31 2e 32 33 38 2e 32 35 30   =140.221.238.250
+0210  26 49 50 43 75 6c 74 75 72 65 3d 65 6e 2d 55 53   &IPCulture=en-US
+0220  26 50 72 65 66 65 72 72 65 64 43 75 6c 74 75 72   &PreferredCultur
+0230  65 3d 65 6e 2d 55 53 26 50 72 65 66 65 72 72 65   e=en-US&Preferre
+0240  64 43 75 6c 74 75 72 65 50 65 6e 64 69 6e 67 3d   dCulturePending=
+0250  26 43 6f 75 6e 74 72 79 3d 56 56 4d 3d 26 46 6f   &Country=VVM=&Fo
+0260  72 63 65 64 45 78 70 69 72 61 74 69 6f 6e 3d 30   rcedExpiration=0
+0270  26 74 69 6d 65 5a 6f 6e 65 3d 30 26 55 53 52 4c   &timeZone=0&USRL
+0280  4f 43 3d 51 58 4a 6c 59 55 4e 76 5a 47 55 39 4e   OC=QXJlYUNvZGU9N
+0290  6a 4d 77 4a 6b 4e 70 64 48 6b 39 54 47 56 74 62   jMwJkNpdHk9TGVtb
+02a0  32 35 30 4a 6b 4e 76 64 57 35 30 63 6e 6c 44 62   250JkNvdW50cnlDb
+02b0  32 52 6c 50 56 56 54 4a 6b 4e 76 64 57 35 30 63   2RlPVVTJkNvdW50c
+02c0  6e 6c 4f 59 57 31 6c 50 56 56 75 61 58 52 6c 5a   nlOYW1lPVVuaXRlZ
+02d0  43 42 54 64 47 46 30 5a 58 4d 6d 52 47 31 68 51   CBTdGF0ZXMmRG1hQ
+02e0  32 39 6b 5a 54 30 32 4d 44 49 6d 54 47 46 30 61   29kZT02MDImTGF0a
+02f0  58 52 31 5a 47 55 39 4e 44 45 75 4e 6a 67 78 4e   XR1ZGU9NDEuNjgxN
+0300  53 5a 4d 62 32 35 6e 61 58 52 31 5a 47 55 39 4c   SZMb25naXR1ZGU9L
+0310  54 67 33 4c 6a 6b 33 4d 44 59 6d 55 47 39 7a 64   Tg3Ljk3MDYmUG9zd
+0320  47 46 73 51 32 39 6b 5a 54 30 32 4d 44 51 7a 4f   GFsQ29kZT02MDQzO
+0330  53 5a 53 5a 57 64 70 62 32 35 4f 59 57 31 6c 50   SZSZWdpb25OYW1lP
+0340  55 6c 4d 0d 0a 0d 0a                              UlM....

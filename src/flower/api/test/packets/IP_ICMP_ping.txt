@@ -1,0 +1,58 @@
+No.     Time                       Source                Destination           Protocol Info
+      1 2008-11-09 22:08:21.682943 66.114.52.24          140.221.251.250       ICMP     Echo (ping) request
+
+Frame 1 (60 bytes on wire, 60 bytes captured)
+    Arrival Time: Nov  9, 2008 22:08:21.682943000
+    [Time delta from previous captured frame: 0.000000000 seconds]
+    [Time delta from previous displayed frame: 0.000000000 seconds]
+    [Time since reference or first frame: 0.000000000 seconds]
+    Frame Number: 1
+    Frame Length: 60 bytes
+    Capture Length: 60 bytes
+    [Frame is marked: False]
+    [Protocols in frame: eth:ip:icmp:data]
+    [Coloring Rule Name: ICMP]
+    [Coloring Rule String: icmp]
+Ethernet II, Src: Cisco_8a:64:00 (00:11:5d:8a:64:00), Dst: JuniperN_92:48:bc (00:1d:b5:92:48:bc)
+    Destination: JuniperN_92:48:bc (00:1d:b5:92:48:bc)
+        Address: JuniperN_92:48:bc (00:1d:b5:92:48:bc)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+    Source: Cisco_8a:64:00 (00:11:5d:8a:64:00)
+        Address: Cisco_8a:64:00 (00:11:5d:8a:64:00)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+    Type: IP (0x0800)
+    Trailer: 000000000000000000000000000000000000
+Internet Protocol, Src: 66.114.52.24 (66.114.52.24), Dst: 140.221.251.250 (140.221.251.250)
+    Version: 4
+    Header length: 20 bytes
+    Differentiated Services Field: 0x00 (DSCP 0x00: Default; ECN: 0x00)
+        0000 00.. = Differentiated Services Codepoint: Default (0x00)
+        .... ..0. = ECN-Capable Transport (ECT): 0
+        .... ...0 = ECN-CE: 0
+    Total Length: 28
+    Identification: 0x1a54 (6740)
+    Flags: 0x00
+        0... = Reserved bit: Not set
+        .0.. = Don't fragment: Not set
+        ..0. = More fragments: Not set
+    Fragment offset: 0
+    Time to live: 23
+    Protocol: ICMP (0x01)
+    Header checksum: 0x8a2b [correct]
+        [Good: True]
+        [Bad : False]
+    Source: 66.114.52.24 (66.114.52.24)
+    Destination: 140.221.251.250 (140.221.251.250)
+Internet Control Message Protocol
+    Type: 8 (Echo (ping) request)
+    Code: 0 ()
+    Checksum: 0xddab [correct]
+    Identifier: 0x1a54
+    Sequence number: 0 (0x0000)
+
+0000  00 1d b5 92 48 bc 00 11 5d 8a 64 00 08 00 45 00   ....H...].d...E.
+0010  00 1c 1a 54 00 00 17 01 8a 2b 42 72 34 18 8c dd   ...T.....+Br4...
+0020  fb fa 08 00 dd ab 1a 54 00 00 00 00 00 00 00 00   .......T........
+0030  00 00 00 00 00 00 00 00 00 00 00 00               ............

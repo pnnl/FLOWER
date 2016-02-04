@@ -1,0 +1,9 @@
+This file exists solely to ensure that imports to CVS and Subversion will
+retain empty directories appropriately.  It also ensures that the -P option
+for checkout and update will still grab needed empty directories.
+
+Reference:
+  Book:  Pragmatic Version Control Using CVS
+  Page:  109
+ 
+  Footnote #2 at the bottom of the page

@@ -1,0 +1,90 @@
+///////////////////////////////////////////////////////////////////////////////
+// COPYRIGHT (C) 2008.  PNNL.  All Rights Reserved.
+//
+// THIS FILE INITIALLY CREATED WITH:
+//     TEMPLATE NAME:  lang_cpp_hdr.template
+//     COMMAND NAME:   gensrc
+//
+// CODING CONVENTIONS:
+//    * Class names are CamelCase with first word upper case
+//    * Functions are camelCase with first word lower case
+//    * Function parameters are lower case with _ and have p_ prefix
+//    * Member variables always use 'this' pointer
+///////////////////////////////////////////////////////////////////////////////
+
+
+#ifndef TIMEUTIL_HPP
+#define TIMEUTIL_HPP
+
+
+// System Includes
+#include <climits>
+#include <time.h>
+// External Includes
+#include <boost/date_time/local_time/local_time.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
+// Internal Includes
+// Application Includes
+#include "global.hpp"
+
+
+#ifdef  __CLASS__
+#undef  __CLASS__
+#endif
+#define __CLASS__ "timeUtil"
+
+
+// Namespaces
+
+using namespace boost::posix_time;
+using namespace boost::gregorian;
+
+
+// Getters/Setters
+
+inline time_t const getEpoch(void) throw()
+{
+  return(0);
+}
+
+
+inline ptime const getEpochUTC(void) throw()
+{
+  static ptime epoch(date(1970,1,1));
+  return(epoch);
+}
+
+
+inline time_t const getFuture(void) throw()
+{
+  return(LONG_MAX);
+}
+
+
+inline ptime const getFutureUTC(void) throw()
+{
+  static ptime future(date(2070,1,1));
+  return(future);
+}
+
+
+inline time_t const getNow(void) throw()
+{
+  time_t now;
+  return(time(&now));
+}
+
+
+inline ptime const getUTC(void) throw()
+{
+  ptime now(microsec_clock::universal_time());
+  return(now);
+}
+
+
+inline u_int64_t getElapsedMilliseconds(void) throw()
+{
+  return((u_int64_t)clock());
+}
+
+#endif // TIMEUTIL_HPP

@@ -1,0 +1,90 @@
+No.     Time                       Source                Destination           Protocol Info
+  33078 2008-11-09 22:08:21.053798 140.221.251.250       192.12.94.30          DNS      Standard query A beacon.securestudies.com
+
+Frame 33078 (95 bytes on wire, 95 bytes captured)
+    Arrival Time: Nov  9, 2008 22:08:21.053798000
+    [Time delta from previous captured frame: 0.063399000 seconds]
+    [Time delta from previous displayed frame: 0.377049000 seconds]
+    [Time since reference or first frame: 245.016619000 seconds]
+    Frame Number: 33078
+    Frame Length: 95 bytes
+    Capture Length: 95 bytes
+    [Frame is marked: False]
+    [Protocols in frame: eth:ip:udp:dns]
+    [Coloring Rule Name: UDP]
+    [Coloring Rule String: udp]
+Ethernet II, Src: JuniperN_92:48:bc (00:1d:b5:92:48:bc), Dst: Cisco_8a:64:00 (00:11:5d:8a:64:00)
+    Destination: Cisco_8a:64:00 (00:11:5d:8a:64:00)
+        Address: Cisco_8a:64:00 (00:11:5d:8a:64:00)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+    Source: JuniperN_92:48:bc (00:1d:b5:92:48:bc)
+        Address: JuniperN_92:48:bc (00:1d:b5:92:48:bc)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+    Type: IP (0x0800)
+Internet Protocol, Src: 140.221.251.250 (140.221.251.250), Dst: 192.12.94.30 (192.12.94.30)
+    Version: 4
+    Header length: 20 bytes
+    Differentiated Services Field: 0x00 (DSCP 0x00: Default; ECN: 0x00)
+        0000 00.. = Differentiated Services Codepoint: Default (0x00)
+        .... ..0. = ECN-Capable Transport (ECT): 0
+        .... ...0 = ECN-CE: 0
+    Total Length: 81
+    Identification: 0xf680 (63104)
+    Flags: 0x00
+        0... = Reserved bit: Not set
+        .0.. = Don't fragment: Not set
+        ..0. = More fragments: Not set
+    Fragment offset: 0
+    Time to live: 62
+    Protocol: UDP (0x11)
+    Header checksum: 0xdf18 [correct]
+        [Good: True]
+        [Bad : False]
+    Source: 140.221.251.250 (140.221.251.250)
+    Destination: 192.12.94.30 (192.12.94.30)
+User Datagram Protocol, Src Port: 48506 (48506), Dst Port: domain (53)
+    Source port: 48506 (48506)
+    Destination port: domain (53)
+    Length: 61
+    Checksum: 0x58b5 [correct]
+        [Good Checksum: True]
+        [Bad Checksum: False]
+Domain Name System (query)
+    [Response In: 33116]
+    Transaction ID: 0xfc45
+    Flags: 0x0000 (Standard query)
+        0... .... .... .... = Response: Message is a query
+        .000 0... .... .... = Opcode: Standard query (0)
+        .... ..0. .... .... = Truncated: Message is not truncated
+        .... ...0 .... .... = Recursion desired: Don't do query recursively
+        .... .... .0.. .... = Z: reserved (0)
+        .... .... ...0 .... = Non-authenticated data OK: Non-authenticated data is unacceptable
+    Questions: 1
+    Answer RRs: 0
+    Authority RRs: 0
+    Additional RRs: 1
+    Queries
+        beacon.securestudies.com: type A, class IN
+            Name: beacon.securestudies.com
+            Type: A (Host address)
+            Class: IN (0x0001)
+    Additional records
+        <Root>: type OPT
+            Name: <Root>
+            Type: OPT (EDNS0 option)
+            UDP payload size: 4096
+            Higher bits in extended RCODE: 0x0
+            EDNS0 version: 0
+            Z: 0x8000
+                Bit 0 (DO bit): 1 (Accepts DNSSEC security RRs)
+                Bits 1-15: 0x0 (reserved)
+            Data length: 0
+
+0000  00 11 5d 8a 64 00 00 1d b5 92 48 bc 08 00 45 00   ..].d.....H...E.
+0010  00 51 f6 80 00 00 3e 11 df 18 8c dd fb fa c0 0c   .Q....>.........
+0020  5e 1e bd 7a 00 35 00 3d 58 b5 fc 45 00 00 00 01   ^..z.5.=X..E....
+0030  00 00 00 00 00 01 06 62 65 61 63 6f 6e 0d 73 65   .......beacon.se
+0040  63 75 72 65 73 74 75 64 69 65 73 03 63 6f 6d 00   curestudies.com.
+0050  00 01 00 01 00 00 29 10 00 00 00 80 00 00 00      ......)........

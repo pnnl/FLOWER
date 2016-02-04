@@ -1,0 +1,61 @@
+.\" See man groff_mdoc for template and other information.
+.Dd January 10, 2009
+.Os Linux/Windows XP
+.Dt FLOWER 8 ENSIP
+.Sh NAME
+.Nm flower
+.Nd Read and summarize IP network packets into network flow records.
+.Sh SYNOPSIS
+To see the command line options and configuration file options:
+    flower \fB\-h\fR | \fB\--help\fR
+
+To see the version information of flower and its libraries: 
+    flower \fB\-v\fR | \fB\--version\fR
+.Sh DESCRIPTION
+.Nm
+will read network packets from an input file containing packets in libpcap format or from a network interface device and write network flow records to files in the output directory.
+.Sh EXAMPLES
+To create network flows from the eth0 network interface:
+    flower --config-file=/etc/flower.conf --device=eth0
+
+To create network flows from all the pcap files in the /data directory:
+    flower --config-file=/etc/flower.conf /data/*.pcap
+
+To create network flows and create output files in /data/flower:
+    flower --device=eth0 --output-data-dir=/data/flower
+.Sh FILES
+No input pcap files or network interfaces are read by default.
+.\" NOTE: Mention input files must be last if no device or input-file specified
+.\" NOTE: Mention output dir
+.\" NOTE: Mention file naming convention
+.\" NOTE: Mention SYSLOG
+.\" NOTE: Mention buffered packets creating pcap files
+.\" NOTE: Mention filters
+.\" NOTE: Mention config file structure
+.\" NOTE: Mention link to libpcap and Boost
+.Sh COMPATIBILITY
+This software was designed and built on the Intel architecture running Redhat Linux Enterprise 3, 4, and 5. The 
+.Nm
+application uses the Linux PF_PACKET MMAP API or the libpcap library for getting network packets from input files and network interface.
+.Nm
+has been ported to Intel architectures running Windows XP and MacOS X and the PowerPC architecture running Linux.
+.Sh SEE ALSO
+.nf
+More documentation can be found at https://cvs.pnl.gov/ensip/wiki/
+  - ENSIP Flower Build Guide
+  - ENSIP Flower Data Guide
+  - ENSIP Flower Operations Guide
+.fi
+.Xr pcap 3
+.Xr tcpdump 8
+.Xr tcpreplay 1
+.Xr tshark 1
+.Bl -tag -width Fl
+.Sh REPORT BUGS
+Please include the version information and problem description at 
+https://cvs.pnl.gov/ensip/newticket
+.Sh HISTORY
+First availability January 2009.
+.Sh AUTHORS
+ENSIP TEAM (Bill Nickless - PM) Battelle Pacific Northwest Laboratory
+.Sh BUGS

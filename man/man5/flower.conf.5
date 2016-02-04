@@ -1,0 +1,122 @@
+.\" See man groff_mdoc for template and other information.
+.Dd January 10, 2009
+.Os Linux/Windows XP
+.Dt FLOWER 5 ENSIP
+.Sh NAME
+.Nm flower.conf
+.Nd flower(8) configuration file.
+.Sh DESCRIPTION
+.Nm
+will read network packets from an input file containing packets in libpcap format or from a network interface device and write network flow records to files in the output directory.
+.Sh EXAMPLES
+.Cm
+.Nm
+-i=eth0 -d=/data/flower
+.Pp
+Reads network packets from eth0 and writes network flow records to files in /data/flower.
+.Sh CONFIGURATION
+ #
+ #  NOTE: After saving any changes run the following as root:
+ #        service flower restart
+ #
+ 
+ #  Name of site where data is collected
+ site-name                   = pnnl_dev
+ 
+ #
+ #  Configure output file and directories
+ #
+ #  The output data directory where all output files will be created
+ output-data-dir             = /data/flower
+ #  The file extention to add to output data files
+ output-file-ext             = dat
+ #  The output files will be owned by this group (from /etc/group)
+ output-file-group           = root
+   
+ #
+ #  Set Performance and limits
+ #
+ #  The packet header capture length in bytes (passed to libpcap)
+ snaplen                     = 65535
+ #  The maximum time (in seconds) to keep idle flows in the cache
+ cache-timeout               = 120
+ #  The time (in seconds) to force flows from the cache
+ cache-forceout              = 900
+ #  The time (in seconds) to force summaries to output files
+ summary-forceout            = 900
+ #  The maximum number of flows allowed in the flow cache
+ max-flowcache-size          = 200000
+  
+ # 
+ #  Packet capture settings 
+ # 
+ #  Capture packets during unexpected termination  
+ #    value is 0 for off or 1 for on 
+ buffer-packets              = 1 
+ #  Maximum number of packet to buffer in case of unexpected termination 
+ max-packetbuffer-size       = 10000
+ #  Use the Linux Packet Ring (bypass libpcap)
+ use-ring                    = 1
+.Sh ENVIRONMENT
+.Bl -tag -width Fl
+.It Ev N/A
+.Sh SEE ALSO
+.Xr flower 8
+.Bl -tag -width Fl
+.Sh HISTORY
+First availability January 2009.
+.Sh AUTHORS
+ENSIP TEAM (Bill Nickless - PM) Battelle Pacific Northwest Laboratory
+.Sh BUGS
+.\" 
+.\" .TH - the man page title
+.\" .SH - section headers
+.\" .SS - sub-section headers
+.\" .PP - new paragraph
+.\" .B - bold text
+.\" .I - text in italics
+.\" 
+.\" ." Set the title
+.\" .TH Yahoo Finance
+.\" ." Add a header for the name section
+.\" .SH NAME
+.\" Yahoo Finance Stock Quotes
+.\" .SH SYNOPSIS
+.\" wget -O [
+.\" ." put the key words into italics
+.\" .I output file
+.\" ] [
+.\" .I url
+.\" ] [
+.\" .I company symbols
+.\" ] [
+.\" .I fields
+.\" ]
+.\" .SH DESCRIPTION
+.\" Download Yahoo Finance stock quotes directly into a CSV file.
+.\" .SH OPTIONS
+.\" ." Add a sub-section
+.\" .SS FIELDS
+.\" ." use bold for the field values
+.\" .B s
+.\" the company symbol
+.\" .PP
+.\" .B l1
+.\" latest stock quote
+.\" .PP
+.\" .B c1
+.\" change in stock value
+.\" .PP
+.\" .B d1
+.\" date of the stock quote
+.\" .SH FILES
+.\" http://download.finance.yahoo.com/d/quotes.csv
+.\" .SH EXAMPLE
+.\" ."Add some formatted text
+.\" .nf
+.\" wget -O shares.csv \\
+.\" http://download.finance.yahoo.com/d/quotes.csv?s=RHT,MSFT,NOVL\\
+.\" &f=sl1c1d1&e=.csv
+.\" ." End the formatted text
+.\" .fi
+.\" 

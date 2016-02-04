@@ -1,0 +1,145 @@
+No.     Time                       Source                Destination           Protocol Info
+   5596 2008-11-09 22:04:56.151550 140.221.238.250       208.43.48.106         HTTP     GET /?action=messages&a=get&userid=10591667&key=8ac308cf6e74c7baef67aad03705378c0a963b3a&m=1491d6df-7fac-4f1a-96f8-eea03f7e3a86&g=d2ddbdee-bfa9-4815-9a10-06201bced89b&toolid=56891 HTTP/1.1 
+
+Frame 5596 (993 bytes on wire, 993 bytes captured)
+    Arrival Time: Nov  9, 2008 22:04:56.151550000
+    [Time delta from previous captured frame: 0.001498000 seconds]
+    [Time delta from previous displayed frame: 0.001498000 seconds]
+    [Time since reference or first frame: 40.114371000 seconds]
+    Frame Number: 5596
+    Frame Length: 993 bytes
+    Capture Length: 993 bytes
+    [Frame is marked: False]
+    [Protocols in frame: eth:ip:tcp:http]
+    [Coloring Rule Name: HTTP]
+    [Coloring Rule String: http || tcp.port == 80]
+Ethernet II, Src: JuniperN_92:48:bc (00:1d:b5:92:48:bc), Dst: Cisco_8a:64:00 (00:11:5d:8a:64:00)
+    Destination: Cisco_8a:64:00 (00:11:5d:8a:64:00)
+        Address: Cisco_8a:64:00 (00:11:5d:8a:64:00)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+    Source: JuniperN_92:48:bc (00:1d:b5:92:48:bc)
+        Address: JuniperN_92:48:bc (00:1d:b5:92:48:bc)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+    Type: IP (0x0800)
+Internet Protocol, Src: 140.221.238.250 (140.221.238.250), Dst: 208.43.48.106 (208.43.48.106)
+    Version: 4
+    Header length: 20 bytes
+    Differentiated Services Field: 0x00 (DSCP 0x00: Default; ECN: 0x00)
+        0000 00.. = Differentiated Services Codepoint: Default (0x00)
+        .... ..0. = ECN-Capable Transport (ECT): 0
+        .... ...0 = ECN-CE: 0
+    Total Length: 979
+    Identification: 0x7034 (28724)
+    Flags: 0x04 (Don't Fragment)
+        0... = Reserved bit: Not set
+        .1.. = Don't fragment: Set
+        ..0. = More fragments: Not set
+    Fragment offset: 0
+    Time to live: 126
+    Protocol: TCP (0x06)
+    Header checksum: 0x0c83 [correct]
+        [Good: True]
+        [Bad : False]
+    Source: 140.221.238.250 (140.221.238.250)
+    Destination: 208.43.48.106 (208.43.48.106)
+Transmission Control Protocol, Src Port: prsvp (3455), Dst Port: http (80), Seq: 511129658, Ack: 4050514875, Len: 939
+    Source port: prsvp (3455)
+    Destination port: http (80)
+    Sequence number: 511129658
+    [Next sequence number: 511130597]
+    Acknowledgement number: 4050514875
+    Header length: 20 bytes
+    Flags: 0x18 (PSH, ACK)
+        0... .... = Congestion Window Reduced (CWR): Not set
+        .0.. .... = ECN-Echo: Not set
+        ..0. .... = Urgent: Not set
+        ...1 .... = Acknowledgment: Set
+        .... 1... = Push: Set
+        .... .0.. = Reset: Not set
+        .... ..0. = Syn: Not set
+        .... ...0 = Fin: Not set
+    Window size: 17520
+    Checksum: 0xf3cf [correct]
+        [Good Checksum: True]
+        [Bad Checksum: False]
+Hypertext Transfer Protocol
+    GET /?action=messages&a=get&userid=10591667&key=8ac308cf6e74c7baef67aad03705378c0a963b3a&m=1491d6df-7fac-4f1a-96f8-eea03f7e3a86&g=d2ddbdee-bfa9-4815-9a10-06201bced89b&toolid=56891 HTTP/1.1\r\n
+        Request Method: GET
+        Request URI: /?action=messages&a=get&userid=10591667&key=8ac308cf6e74c7baef67aad03705378c0a963b3a&m=1491d6df-7fac-4f1a-96f8-eea03f7e3a86&g=d2ddbdee-bfa9-4815-9a10-06201bced89b&toolid=56891
+        Request Version: HTTP/1.1
+    Host: xml.freecause.com\r\n
+    User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3\r\n
+    Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\n
+    Accept-Language: en-us,en;q=0.5\r\n
+    ---------------: ------------\r\n
+    Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7\r\n
+    Keep-Alive: 300\r\n
+    Connection: keep-alive\r\n
+    [truncated] Cookie: toolbar_read_messages_56891=; toolbar_deleted_messages_56891=1107%2C1197; freecause_user_56891=10591667; freecause_key_56891=8ac308cf6e74c7baef67aad03705378c0a963b3a; SESSc7b2fb4c6d6005d1a0722ea0d599e00a=2gm6rloia9c1rd2
+    \r\n
+
+0000  00 11 5d 8a 64 00 00 1d b5 92 48 bc 08 00 45 00   ..].d.....H...E.
+0010  03 d3 70 34 40 00 7e 06 0c 83 8c dd ee fa d0 2b   ..p4@.~........+
+0020  30 6a 0d 7f 00 50 1e 77 38 3a f1 6d f3 bb 50 18   0j...P.w8:.m..P.
+0030  44 70 f3 cf 00 00 47 45 54 20 2f 3f 61 63 74 69   Dp....GET /?acti
+0040  6f 6e 3d 6d 65 73 73 61 67 65 73 26 61 3d 67 65   on=messages&a=ge
+0050  74 26 75 73 65 72 69 64 3d 31 30 35 39 31 36 36   t&userid=1059166
+0060  37 26 6b 65 79 3d 38 61 63 33 30 38 63 66 36 65   7&key=8ac308cf6e
+0070  37 34 63 37 62 61 65 66 36 37 61 61 64 30 33 37   74c7baef67aad037
+0080  30 35 33 37 38 63 30 61 39 36 33 62 33 61 26 6d   05378c0a963b3a&m
+0090  3d 31 34 39 31 64 36 64 66 2d 37 66 61 63 2d 34   =1491d6df-7fac-4
+00a0  66 31 61 2d 39 36 66 38 2d 65 65 61 30 33 66 37   f1a-96f8-eea03f7
+00b0  65 33 61 38 36 26 67 3d 64 32 64 64 62 64 65 65   e3a86&g=d2ddbdee
+00c0  2d 62 66 61 39 2d 34 38 31 35 2d 39 61 31 30 2d   -bfa9-4815-9a10-
+00d0  30 36 32 30 31 62 63 65 64 38 39 62 26 74 6f 6f   06201bced89b&too
+00e0  6c 69 64 3d 35 36 38 39 31 20 48 54 54 50 2f 31   lid=56891 HTTP/1
+00f0  2e 31 0d 0a 48 6f 73 74 3a 20 78 6d 6c 2e 66 72   .1..Host: xml.fr
+0100  65 65 63 61 75 73 65 2e 63 6f 6d 0d 0a 55 73 65   eecause.com..Use
+0110  72 2d 41 67 65 6e 74 3a 20 4d 6f 7a 69 6c 6c 61   r-Agent: Mozilla
+0120  2f 35 2e 30 20 28 57 69 6e 64 6f 77 73 3b 20 55   /5.0 (Windows; U
+0130  3b 20 57 69 6e 64 6f 77 73 20 4e 54 20 35 2e 31   ; Windows NT 5.1
+0140  3b 20 65 6e 2d 55 53 3b 20 72 76 3a 31 2e 39 2e   ; en-US; rv:1.9.
+0150  30 2e 33 29 20 47 65 63 6b 6f 2f 32 30 30 38 30   0.3) Gecko/20080
+0160  39 32 34 31 37 20 46 69 72 65 66 6f 78 2f 33 2e   92417 Firefox/3.
+0170  30 2e 33 0d 0a 41 63 63 65 70 74 3a 20 74 65 78   0.3..Accept: tex
+0180  74 2f 68 74 6d 6c 2c 61 70 70 6c 69 63 61 74 69   t/html,applicati
+0190  6f 6e 2f 78 68 74 6d 6c 2b 78 6d 6c 2c 61 70 70   on/xhtml+xml,app
+01a0  6c 69 63 61 74 69 6f 6e 2f 78 6d 6c 3b 71 3d 30   lication/xml;q=0
+01b0  2e 39 2c 2a 2f 2a 3b 71 3d 30 2e 38 0d 0a 41 63   .9,*/*;q=0.8..Ac
+01c0  63 65 70 74 2d 4c 61 6e 67 75 61 67 65 3a 20 65   cept-Language: e
+01d0  6e 2d 75 73 2c 65 6e 3b 71 3d 30 2e 35 0d 0a 2d   n-us,en;q=0.5..-
+01e0  2d 2d 2d 2d 2d 2d 2d 2d 2d 2d 2d 2d 2d 2d 3a 20   --------------: 
+01f0  2d 2d 2d 2d 2d 2d 2d 2d 2d 2d 2d 2d 0d 0a 41 63   ------------..Ac
+0200  63 65 70 74 2d 43 68 61 72 73 65 74 3a 20 49 53   cept-Charset: IS
+0210  4f 2d 38 38 35 39 2d 31 2c 75 74 66 2d 38 3b 71   O-8859-1,utf-8;q
+0220  3d 30 2e 37 2c 2a 3b 71 3d 30 2e 37 0d 0a 4b 65   =0.7,*;q=0.7..Ke
+0230  65 70 2d 41 6c 69 76 65 3a 20 33 30 30 0d 0a 43   ep-Alive: 300..C
+0240  6f 6e 6e 65 63 74 69 6f 6e 3a 20 6b 65 65 70 2d   onnection: keep-
+0250  61 6c 69 76 65 0d 0a 43 6f 6f 6b 69 65 3a 20 74   alive..Cookie: t
+0260  6f 6f 6c 62 61 72 5f 72 65 61 64 5f 6d 65 73 73   oolbar_read_mess
+0270  61 67 65 73 5f 35 36 38 39 31 3d 3b 20 74 6f 6f   ages_56891=; too
+0280  6c 62 61 72 5f 64 65 6c 65 74 65 64 5f 6d 65 73   lbar_deleted_mes
+0290  73 61 67 65 73 5f 35 36 38 39 31 3d 31 31 30 37   sages_56891=1107
+02a0  25 32 43 31 31 39 37 3b 20 66 72 65 65 63 61 75   %2C1197; freecau
+02b0  73 65 5f 75 73 65 72 5f 35 36 38 39 31 3d 31 30   se_user_56891=10
+02c0  35 39 31 36 36 37 3b 20 66 72 65 65 63 61 75 73   591667; freecaus
+02d0  65 5f 6b 65 79 5f 35 36 38 39 31 3d 38 61 63 33   e_key_56891=8ac3
+02e0  30 38 63 66 36 65 37 34 63 37 62 61 65 66 36 37   08cf6e74c7baef67
+02f0  61 61 64 30 33 37 30 35 33 37 38 63 30 61 39 36   aad03705378c0a96
+0300  33 62 33 61 3b 20 53 45 53 53 63 37 62 32 66 62   3b3a; SESSc7b2fb
+0310  34 63 36 64 36 30 30 35 64 31 61 30 37 32 32 65   4c6d6005d1a0722e
+0320  61 30 64 35 39 39 65 30 30 61 3d 32 67 6d 36 72   a0d599e00a=2gm6r
+0330  6c 6f 69 61 39 63 31 72 64 32 38 73 35 69 63 70   loia9c1rd28s5icp
+0340  66 67 6d 71 30 3b 20 5f 5f 75 74 6d 61 3d 32 32   fgmq0; __utma=22
+0350  32 35 32 38 33 33 32 2e 32 38 33 39 30 33 38 32   2528332.28390382
+0360  37 36 31 34 32 33 32 39 30 30 30 2e 31 32 32 36   76142329000.1226
+0370  31 34 30 37 30 39 2e 31 32 32 36 31 34 30 37 30   140709.122614070
+0380  39 2e 31 32 32 36 31 34 30 37 30 39 2e 31 3b 20   9.1226140709.1; 
+0390  5f 5f 75 74 6d 7a 3d 32 32 32 35 32 38 33 33 32   __utmz=222528332
+03a0  2e 31 32 32 36 31 34 30 37 30 39 2e 31 2e 31 2e   .1226140709.1.1.
+03b0  75 74 6d 63 73 72 3d 28 64 69 72 65 63 74 29 7c   utmcsr=(direct)|
+03c0  75 74 6d 63 63 6e 3d 28 64 69 72 65 63 74 29 7c   utmccn=(direct)|
+03d0  75 74 6d 63 6d 64 3d 28 6e 6f 6e 65 29 0d 0a 0d   utmcmd=(none)...
+03e0  0a                                                .

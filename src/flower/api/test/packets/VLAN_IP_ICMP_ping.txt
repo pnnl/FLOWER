@@ -1,0 +1,65 @@
+No.     Time                       Source                Destination           Protocol Info
+      1 2008-11-09 22:05:19.316919 204.56.255.74         140.221.248.55        ICMP     Echo (ping) request
+
+Frame 1 (66 bytes on wire, 66 bytes captured)
+    Arrival Time: Nov  9, 2008 22:05:19.316919000
+    [Time delta from previous captured frame: 0.000000000 seconds]
+    [Time delta from previous displayed frame: 0.000000000 seconds]
+    [Time since reference or first frame: 0.000000000 seconds]
+    Frame Number: 1
+    Frame Length: 66 bytes
+    Capture Length: 66 bytes
+    [Frame is marked: False]
+    [Protocols in frame: eth:vlan:ip:icmp:data]
+    [Coloring Rule Name: ICMP]
+    [Coloring Rule String: icmp]
+Ethernet II, Src: JuniperN_92:48:7e (00:1d:b5:92:48:7e), Dst: Fiberlan_d3:e6:f2 (00:10:cf:d3:e6:f2)
+    Destination: Fiberlan_d3:e6:f2 (00:10:cf:d3:e6:f2)
+        Address: Fiberlan_d3:e6:f2 (00:10:cf:d3:e6:f2)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+    Source: JuniperN_92:48:7e (00:1d:b5:92:48:7e)
+        Address: JuniperN_92:48:7e (00:1d:b5:92:48:7e)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+    Type: 802.1Q Virtual LAN (0x8100)
+802.1Q Virtual LAN, PRI: 0, CFI: 0, ID: 170
+    000. .... .... .... = Priority: 0
+    ...0 .... .... .... = CFI: 0
+    .... 0000 1010 1010 = ID: 170
+    Type: IP (0x0800)
+Internet Protocol, Src: 204.56.255.74 (204.56.255.74), Dst: 140.221.248.55 (140.221.248.55)
+    Version: 4
+    Header length: 20 bytes
+    Differentiated Services Field: 0x00 (DSCP 0x00: Default; ECN: 0x00)
+        0000 00.. = Differentiated Services Codepoint: Default (0x00)
+        .... ..0. = ECN-Capable Transport (ECT): 0
+        .... ...0 = ECN-CE: 0
+    Total Length: 48
+    Identification: 0xe889 (59529)
+    Flags: 0x04 (Don't Fragment)
+        0... = Reserved bit: Not set
+        .1.. = Don't fragment: Set
+        ..0. = More fragments: Not set
+    Fragment offset: 0
+    Time to live: 247
+    Protocol: ICMP (0x01)
+    Header checksum: 0x4aaa [correct]
+        [Good: True]
+        [Bad : False]
+    Source: 204.56.255.74 (204.56.255.74)
+    Destination: 140.221.248.55 (140.221.248.55)
+Internet Control Message Protocol
+    Type: 8 (Echo (ping) request)
+    Code: 0 ()
+    Checksum: 0x0d27 [correct]
+    Identifier: 0xd4e0
+    Sequence number: 28687 (0x700f)
+    Data (20 bytes)
+        Data: 694D21724831B7914917CF1F0004B0CE2E382424
+
+0000  00 10 cf d3 e6 f2 00 1d b5 92 48 7e 81 00 00 aa   ..........H~....
+0010  08 00 45 00 00 30 e8 89 40 00 f7 01 4a aa cc 38   ..E..0..@...J..8
+0020  ff 4a 8c dd f8 37 08 00 0d 27 d4 e0 70 0f 69 4d   .J...7...'..p.iM
+0030  21 72 48 31 b7 91 49 17 cf 1f 00 04 b0 ce 2e 38   !rH1..I........8
+0040  24 24                                             $$

@@ -1,0 +1,85 @@
+
+# after the first install
+
+# REQUIREMENTS
+#   - The directory, /data, must exist
+#   - The CPP config files must be in /opt/cpp or /etc/cpp
+
+# DEVELOPER NOTES:
+#   - The script does the following
+#     - makes sure the /data/flower data directory exists
+#     - copies the $ENSIP_HOME/conf/flower.init to /etc/rc.d/init.d/flower
+#       NOTE - /etc/rc.d/init.d/flower is called the servicefile
+#     - finds the CPP config files and replaces variables in the servicefile
+#     - adds the flower service using chkconfig
+#     - DOES NOT start the flower service
+
+prog="flower"
+datadir="/data"
+defaultdir="/opt/cpp"
+backupdir="/etc/cpp"
+servicefile="/etc/rc.d/init.d/$prog"
+
+#  The cppinstalldir is where the CPP config files were installed
+cppinstalldir=""
+#  The rpminstalldir is where the flower files are being installed
+rpminstalldir=""
+
+#  Assume that we are going to fail
+RETVAL=1;
+
+# DEVELOPER NOTE: The following lines can be useful for debugging
+#set > /var/tmp/set_vars.out
+#/bin/echo "RPM_INSTALL_PREFIX = $RPM_INSTALL_PREFIX"
+
+if [ "1" == "$1" ]; then
+
+  if [ -z "$RPM_INSTALL_PREFIX" ]; then
+    rpminstalldir="$defaultdir"
+  else
+    rpminstalldir="$RPM_INSTALL_PREFIX"
+  fi
+
+  if   [ -e "$defaultdir/conf/sitetag" ]; then
+    cppinstalldir="$defaultdir"
+  elif [ -e "$backupdir/conf/sitetag" ]; then
+    cppinstalldir="$backupdir"
+  else
+    /bin/echo "ERROR:  The CPP sitetag file not found in $defaultdir/conf or $backupdir/conf."
+  fi
+
+  if [ -z "$cppinstalldir" ]; then
+    /bin/echo "ERROR:  Cannot find CPP install directory (e.g. $defaultdir or /etc/cpp)."
+  else
+    if [ -e "$cppinstalldir/conf/monitorinterface" ]; then
+      if [ -e "$rpminstalldir/conf/$prog.init" ]; then
+        if [ -d "$datadir" ]; then
+          if [ ! -d "$datadir/$prog" ]; then
+            /bin/mkdir "$datadir/$prog" 
+          fi
+          cp "$rpminstalldir/conf/$prog.init" "$servicefile"
+          if [ -e "$servicefile" ]; then
+            /bin/chmod 755 $servicefile
+            /bin/echo "NOTE: Updating installdir variable in $servicefile"
+            /usr/bin/perl -p -i -e "s#__CPPINSTALLDIR__#$cppinstalldir#" "$servicefile"
+            /usr/bin/perl -p -i -e "s#__RPMINSTALLDIR__#$rpminstalldir#" "$servicefile"
+            /sbin/chkconfig --add $prog
+            # DO NOT /sbin/service $prog start
+            RETVAL=$?
+          else
+            /bin/echo "ERROR:  File Not Found, $servicefile"
+          fi
+        else
+          /bin/echo "ERROR:  Data directory Not Found, $datadir"
+        fi
+      else
+        /bin/echo "ERROR:  File Not Found, $rpminstalldir/conf/$prog.init"
+      fi
+    else
+      /bin/echo "ERROR:  The CPP monitorinterface file not found in $cppinstalldir/conf."
+    fi
+  fi
+
+fi
+
+exit $RETVAL

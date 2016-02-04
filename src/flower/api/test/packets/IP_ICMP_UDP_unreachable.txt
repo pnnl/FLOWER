@@ -1,0 +1,84 @@
+No.     Time                       Source                Destination           Protocol Info
+      1 2008-11-09 22:09:25.114948 140.221.223.251       202.99.11.99          ICMP     Destination unreachable (Port unreachable)
+
+Frame 1 (70 bytes on wire, 70 bytes captured)
+    Arrival Time: Nov  9, 2008 22:09:25.114948000
+    [Time delta from previous captured frame: 0.000000000 seconds]
+    [Time delta from previous displayed frame: 0.000000000 seconds]
+    [Time since reference or first frame: 0.000000000 seconds]
+    Frame Number: 1
+    Frame Length: 70 bytes
+    Capture Length: 70 bytes
+    [Frame is marked: False]
+    [Protocols in frame: eth:ip:icmp:ip:udp]
+    [Coloring Rule Name: ICMP errors]
+    [Coloring Rule String: icmp.type eq 3 || icmp.type eq 4 || icmp.type eq 5 || icmp.type eq 11]
+Ethernet II, Src: JuniperN_92:48:bc (00:1d:b5:92:48:bc), Dst: Cisco_8a:64:00 (00:11:5d:8a:64:00)
+    Destination: Cisco_8a:64:00 (00:11:5d:8a:64:00)
+        Address: Cisco_8a:64:00 (00:11:5d:8a:64:00)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+    Source: JuniperN_92:48:bc (00:1d:b5:92:48:bc)
+        Address: JuniperN_92:48:bc (00:1d:b5:92:48:bc)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+    Type: IP (0x0800)
+Internet Protocol, Src: 140.221.223.251 (140.221.223.251), Dst: 202.99.11.99 (202.99.11.99)
+    Version: 4
+    Header length: 20 bytes
+    Differentiated Services Field: 0xc0 (DSCP 0x30: Class Selector 6; ECN: 0x00)
+        1100 00.. = Differentiated Services Codepoint: Class Selector 6 (0x30)
+        .... ..0. = ECN-Capable Transport (ECT): 0
+        .... ...0 = ECN-CE: 0
+    Total Length: 56
+    Identification: 0x3ee6 (16102)
+    Flags: 0x00
+        0... = Reserved bit: Not set
+        .0.. = Don't fragment: Not set
+        ..0. = More fragments: Not set
+    Fragment offset: 0
+    Time to live: 252
+    Protocol: ICMP (0x01)
+    Header checksum: 0x3c7f [correct]
+        [Good: True]
+        [Bad : False]
+    Source: 140.221.223.251 (140.221.223.251)
+    Destination: 202.99.11.99 (202.99.11.99)
+Internet Control Message Protocol
+    Type: 3 (Destination unreachable)
+    Code: 3 (Port unreachable)
+    Checksum: 0x0337 [correct]
+    Internet Protocol, Src: 202.99.11.99 (202.99.11.99), Dst: 140.221.223.251 (140.221.223.251)
+        Version: 4
+        Header length: 20 bytes
+        Differentiated Services Field: 0x00 (DSCP 0x00: Default; ECN: 0x00)
+            0000 00.. = Differentiated Services Codepoint: Default (0x00)
+            .... ..0. = ECN-Capable Transport (ECT): 0
+            .... ...0 = ECN-CE: 0
+        Total Length: 404
+        Identification: 0xc462 (50274)
+        Flags: 0x00
+            0... = Reserved bit: Not set
+            .0.. = Don't fragment: Not set
+            ..0. = More fragments: Not set
+        Fragment offset: 0
+        Time to live: 111
+        Protocol: UDP (0x11)
+        Header checksum: 0x4357 [correct]
+            [Good: True]
+            [Bad : False]
+        Source: 202.99.11.99 (202.99.11.99)
+        Destination: 140.221.223.251 (140.221.223.251)
+    User Datagram Protocol, Src Port: menandmice-lpm (1231), Dst Port: ms-sql-m (1434)
+        Source port: menandmice-lpm (1231)
+        Destination port: ms-sql-m (1434)
+        Length: 384
+        Checksum: 0xeddc
+            [Good Checksum: False]
+            [Bad Checksum: False]
+
+0000  00 11 5d 8a 64 00 00 1d b5 92 48 bc 08 00 45 c0   ..].d.....H...E.
+0010  00 38 3e e6 00 00 fc 01 3c 7f 8c dd df fb ca 63   .8>.....<......c
+0020  0b 63 03 03 03 37 00 00 00 00 45 00 01 94 c4 62   .c...7....E....b
+0030  00 00 6f 11 43 57 ca 63 0b 63 8c dd df fb 04 cf   ..o.CW.c.c......
+0040  05 9a 01 80 ed dc                                 ......

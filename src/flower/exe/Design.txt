@@ -1,0 +1,28 @@
+
+Objects
+  - Have their responsibilities 
+  - Have collaborations
+    - Use Event/Delegate model to pass data between objects
+    - Follow the Inversion of Control for loose coupling
+  - Set all their member variables at construction whenever possible
+  - Use getters even within the same object
+  - Specify private default and copy constructors without implementations
+  - Specify destructors
+  - Don't let the compiler generate anything for you by default
+  - Use custom string libraries for performance
+  - Minimize try/catch because of performance hit
+  - Use Boost libraries whenever possible
+  - Never use C semantics or pointers unless absolutely necessary
+
+Visitor Pattern
+  - Used to maximize maintenance
+  - Map behaviors rather than using inheritance
+    - Object composition
+
+
+References:
+  - Modern C++ Design (N years old)
+  - Best Practices
+    -
+  -
+

@@ -1,0 +1,77 @@
+<!-----------------------------------------------------------------------------
+<! COPYRIGHT (C) 2008.  PNNL.  All Rights Reserved. 
+<!
+<! THIS FILE INITIALLY CREATED WITH:  
+<!     TEMPLATE NAME:  file_html.template 
+<!     COMMAND NAME:   genhtml 
+<!
+<! REPOSITORY INFORMATION: 
+<!  $Revision$ 
+<!  $Author$ 
+<!  $Date$ 
+<!---------------------------------------------------------------------------->
+<!DOCTYPE HTML PUBLIC>
+<html>
+
+<?php
+  $WEBENV_DIR = preg_replace("/\/www\/Root\/.*/", '/www/webenv', __FILE__);
+  require_once(array_shift(glob("$WEBENV_DIR/*/webenv.php")));
+  require_once($_ENV['SWAWT_PHPLIB'] . '/mkenv.inc');
+
+  $template = gs('template');
+  $template->print_header('Welcome to ENSIP', '');
+?>
+
+<!-- ===================================================================== -->
+<!-- PUT YOUR WEB CONTENT BELOW THIS LINE -->
+<!-- --------------------------------------------------------------------- -->
+
+<?php
+ $addr  = 'mail' . 'to:chance.younkin' . '@' . 'pnl.gov';
+ $recip = '<a href="' . $addr . '">ensip admin</a>';
+?>
+
+<h2>Are you going to use flower?</h2>
+
+Need a link to non-wiki Flower Documentation when it exists</li>
+
+<hr>
+
+
+<h2>Are you joining the project?</h2>
+
+<ol>
+ <li>
+   Email <?= $recip; ?> with the following information:
+   <ul>
+    <li>Put "start me on ensip" as the subject line</li>
+    <li>Provide your full name</li>
+    <li>Provide your payroll number</li>
+    <li>Provide your email address</li>
+   </ul>
+ <li>
+   You will receive a response with further instructions and documentation to
+   get started on the ensip project
+ </li>
+ <li>
+   Read the "Project Ways and Means" documents at the
+   <a href="http://cvs.pnl.gov/ensip/wiki">ENSIP Wiki</a>
+ </li>
+</ol>
+
+<hr>
+
+
+<h2>Do you want to find relevant documentation about the ENSIP project?</h2>
+
+Check the <a href="http://cvs.pnl.gov/ensip/wiki">ENSIP Wiki</a>
+
+<!-- --------------------------------------------------------------------- -->
+<!-- PUT YOUR WEB CONTENT ABOVE THIS LINE -->
+<!-- ===================================================================== -->
+
+<?php
+  $template->print_footer();
+?>
+
+</html>

@@ -1,0 +1,46 @@
+No.     Time                       Source                Destination           Protocol Info
+      1 2008-12-02 13:22:12.845213 ::                    ff02::1:ff00:2        ICMPv6   Neighbor solicitation
+
+Frame 1 (78 bytes on wire, 78 bytes captured)
+    Arrival Time: Dec  2, 2008 13:22:12.845213000
+    [Time delta from previous captured frame: 0.000000000 seconds]
+    [Time delta from previous displayed frame: 0.000000000 seconds]
+    [Time since reference or first frame: 0.000000000 seconds]
+    Frame Number: 1
+    Frame Length: 78 bytes
+    Capture Length: 78 bytes
+    [Frame is marked: False]
+    [Protocols in frame: eth:ipv6:icmpv6]
+    [Coloring Rule Name: Broadcast]
+    [Coloring Rule String: eth[0] & 1]
+Ethernet II, Src: Vmware_94:10:61 (00:50:56:94:10:61), Dst: IPv6mcast_ff:00:00:02 (33:33:ff:00:00:02)
+    Destination: IPv6mcast_ff:00:00:02 (33:33:ff:00:00:02)
+        Address: IPv6mcast_ff:00:00:02 (33:33:ff:00:00:02)
+        .... ...1 .... .... .... .... = IG bit: Group address (multicast/broadcast)
+        .... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+    Source: Vmware_94:10:61 (00:50:56:94:10:61)
+        Address: Vmware_94:10:61 (00:50:56:94:10:61)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6
+    0110 .... = Version: 6
+        [0110 .... = This field makes the filter "ip.version == 6" possible: 6]
+    .... 0000 0000 .... .... .... .... .... = Traffic class: 0x00000000
+    .... .... .... 0000 0000 0000 0000 0000 = Flowlabel: 0x00000000
+    Payload length: 24
+    Next header: ICMPv6 (0x3a)
+    Hop limit: 255
+    Source: :: (::)
+    Destination: ff02::1:ff00:2 (ff02::1:ff00:2)
+Internet Control Message Protocol v6
+    Type: 135 (Neighbor solicitation)
+    Code: 0
+    Checksum: 0x54a4 [correct]
+    Target: 2600::2
+
+0000  33 33 ff 00 00 02 00 50 56 94 10 61 86 dd 60 00   33.....PV..a..`.
+0010  00 00 00 18 3a ff 00 00 00 00 00 00 00 00 00 00   ....:...........
+0020  00 00 00 00 00 00 ff 02 00 00 00 00 00 00 00 00   ................
+0030  00 01 ff 00 00 02 87 00 54 a4 00 00 00 00 26 00   ........T.....&.
+0040  00 00 00 00 00 00 00 00 00 00 00 00 00 02         ..............

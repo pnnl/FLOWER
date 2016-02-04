@@ -1,0 +1,33 @@
+#!/bin/sh
+
+debug=0
+
+touch $ENSIP_HOME/data/flower/output/2
+rm -rf $ENSIP_HOME/data/flower/output/2*
+
+# Build the libraries before running
+build -comp ensip -auto -type lib,exe
+if [ "$?" != "0" ]; then
+  echo "******************************************************************"
+  echo "******************************************************************"
+  echo "******    build failed"
+  echo "******************************************************************"
+  echo "******************************************************************"
+  exit 1
+fi
+
+for b in $ENSIP_HOME/data/flower/input/ipv*
+do
+  c=`echo $b | awk -F"/" '{print $NF}' | sed -e "s/\.pcap//"`
+  d="$ENSIP_HOME/data/flower/output/$c"
+  rm    -rf $d
+  mkdir -p  $d
+  echo "******************************************************************"
+  echo "Processing Input File: $c"
+  echo "Creating  Output File: $d/$c"
+  flower --site-name=pnnl_dev --config-file=$ENSIP_HOME/conf/flower.conf --output-data-dir=$d --debugLevel=$debug $b
+  echo "Output Line Count = `wc -l $d/*`"
+  echo ""
+done
+
+exit 0

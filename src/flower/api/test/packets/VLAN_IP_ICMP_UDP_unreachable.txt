@@ -1,0 +1,89 @@
+No.     Time                       Source                Destination           Protocol Info
+      1 2008-11-09 22:05:31.533850 140.221.251.18        220.191.255.66        ICMP     Destination unreachable (Port unreachable)
+
+Frame 1 (74 bytes on wire, 74 bytes captured)
+    Arrival Time: Nov  9, 2008 22:05:31.533850000
+    [Time delta from previous captured frame: 0.000000000 seconds]
+    [Time delta from previous displayed frame: 0.000000000 seconds]
+    [Time since reference or first frame: 0.000000000 seconds]
+    Frame Number: 1
+    Frame Length: 74 bytes
+    Capture Length: 74 bytes
+    [Frame is marked: False]
+    [Protocols in frame: eth:vlan:ip:icmp:ip:udp]
+    [Coloring Rule Name: ICMP errors]
+    [Coloring Rule String: icmp.type eq 3 || icmp.type eq 4 || icmp.type eq 5 || icmp.type eq 11]
+Ethernet II, Src: JuniperN_92:48:7e (00:1d:b5:92:48:7e), Dst: JuniperN_75:e4:9d (00:90:69:75:e4:9d)
+    Destination: JuniperN_75:e4:9d (00:90:69:75:e4:9d)
+        Address: JuniperN_75:e4:9d (00:90:69:75:e4:9d)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+    Source: JuniperN_92:48:7e (00:1d:b5:92:48:7e)
+        Address: JuniperN_92:48:7e (00:1d:b5:92:48:7e)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+    Type: 802.1Q Virtual LAN (0x8100)
+802.1Q Virtual LAN, PRI: 0, CFI: 0, ID: 521
+    000. .... .... .... = Priority: 0
+    ...0 .... .... .... = CFI: 0
+    .... 0010 0000 1001 = ID: 521
+    Type: IP (0x0800)
+Internet Protocol, Src: 140.221.251.18 (140.221.251.18), Dst: 220.191.255.66 (220.191.255.66)
+    Version: 4
+    Header length: 20 bytes
+    Differentiated Services Field: 0x00 (DSCP 0x00: Default; ECN: 0x00)
+        0000 00.. = Differentiated Services Codepoint: Default (0x00)
+        .... ..0. = ECN-Capable Transport (ECT): 0
+        .... ...0 = ECN-CE: 0
+    Total Length: 56
+    Identification: 0x18e0 (6368)
+    Flags: 0x00
+        0... = Reserved bit: Not set
+        .0.. = Don't fragment: Not set
+        ..0. = More fragments: Not set
+    Fragment offset: 0
+    Time to live: 254
+    Protocol: ICMP (0x01)
+    Header checksum: 0x3ff2 [correct]
+        [Good: True]
+        [Bad : False]
+    Source: 140.221.251.18 (140.221.251.18)
+    Destination: 220.191.255.66 (220.191.255.66)
+Internet Control Message Protocol
+    Type: 3 (Destination unreachable)
+    Code: 3 (Port unreachable)
+    Checksum: 0x24b9 [correct]
+    Internet Protocol, Src: 220.191.255.66 (220.191.255.66), Dst: 140.221.251.65 (140.221.251.65)
+        Version: 4
+        Header length: 20 bytes
+        Differentiated Services Field: 0x00 (DSCP 0x00: Default; ECN: 0x00)
+            0000 00.. = Differentiated Services Codepoint: Default (0x00)
+            .... ..0. = ECN-Capable Transport (ECT): 0
+            .... ...0 = ECN-CE: 0
+        Total Length: 404
+        Identification: 0x9881 (39041)
+        Flags: 0x00
+            0... = Reserved bit: Not set
+            .0.. = Don't fragment: Not set
+            ..0. = More fragments: Not set
+        Fragment offset: 0
+        Time to live: 115
+        Protocol: UDP (0x11)
+        Header checksum: 0x49b6 [correct]
+            [Good: True]
+            [Bad : False]
+        Source: 220.191.255.66 (220.191.255.66)
+        Destination: 140.221.251.65 (140.221.251.65)
+    User Datagram Protocol, Src Port: 54120 (54120), Dst Port: ms-sql-m (1434)
+        Source port: 54120 (54120)
+        Destination port: ms-sql-m (1434)
+        Length: 384
+        Checksum: 0xfdc0
+            [Good Checksum: False]
+            [Bad Checksum: False]
+
+0000  00 90 69 75 e4 9d 00 1d b5 92 48 7e 81 00 02 09   ..iu......H~....
+0010  08 00 45 00 00 38 18 e0 00 00 fe 01 3f f2 8c dd   ..E..8......?...
+0020  fb 12 dc bf ff 42 03 03 24 b9 00 00 00 00 45 00   .....B..$.....E.
+0030  01 94 98 81 00 00 73 11 49 b6 dc bf ff 42 8c dd   ......s.I....B..
+0040  fb 41 d3 68 05 9a 01 80 fd c0                     .A.h......
