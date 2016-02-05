@@ -15,6 +15,8 @@ AC_PROG_CC
 AC_PROG_MAKE_SET
 AC_PROG_LIBTOOL
 
+AX_CXX_COMPILE_STDCXX_11([ext],[mandatory])
+
 # Checks for libraries.
 
 # Checks for header files.
@@ -40,12 +42,21 @@ AC_FUNC_STAT
 AC_CHECK_FUNCS([gettimeofday memset socket strerror strstr])
 
 AM_INIT_AUTOMAKE([1.11 subdir-objects -Wall -Werror])
-AC_CONFIG_FILES([Makefile
-                 src/flower/api/Makefile
+
+#BOOST_REQUIRE([1.34.1])
+BOOST_REQUIRE
+BOOST_FILESYSTEM
+BOOST_PROGRAM_OPTIONS
+BOOST_REGEX
+BOOST_SYSTEM
+
+AC_CONFIG_FILES([
+                  Makefile
                 ])
-#                 src/flower/api/test/Makefile
-#                 src/flower/api/test/tickets/Makefile
-#                 src/flower/exe/Makefile
-#                 support/other/ide/kde/Makefile])
+#                  src/flower/api/Makefile
+#                  src/flower/exe/Makefile
+#                  src/flower/api/test/Makefile
+#                  src/flower/api/test/tickets/Makefile
+#                  support/other/ide/kde/Makefile])
 
 AC_OUTPUT

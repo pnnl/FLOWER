@@ -24,6 +24,7 @@
 // External Includes
 // Internal Includes
 // Application Includes
+#include "global.hpp"
 #include "Diagnostic.hpp"
 
 // Namespaces
@@ -65,7 +66,8 @@ map<string, string> * Diagnostic::error_codes = 0;
 // ======================================================================
 Diagnostic::Diagnostic(void)
 {
-  debugStart(0, NULL, NULL, NULL, 0, 0, 0);
+  // HACK
+  //debugStart(0, NULL, NULL, NULL, 0, 0, 0);
   this->my_argc           = 0;
   this->my_argv           = 0;
   this->internal_alloc    = true;
@@ -81,11 +83,13 @@ Diagnostic::Diagnostic(int & p_argc, char ** p_argv, int const & p_option, int c
   Diagnostic::error_codes = new map<string, string>();
   if (NULL != p_argv)
   {
-    debugStartCLI(p_argc, p_argv, &this->my_argc, &this->my_argv, p_option, p_facility);
+    // HACK
+    //debugStartCLI(p_argc, p_argv, &this->my_argc, &this->my_argv, p_option, p_facility);
   }
   else
   {
-    debugStart(0, NULL, NULL, NULL, p_option, p_facility, 0);
+    // HACK
+    //debugStart(0, NULL, NULL, NULL, p_option, p_facility, 0);
   }
   return;
 }
@@ -97,11 +101,13 @@ Diagnostic::Diagnostic(int & p_argc, char ** p_argv, map<string, string> * p_err
 
   if (NULL != p_argv)
   {
-    debugStartCLI(p_argc, p_argv, &this->my_argc, &this->my_argv, p_option, p_facility);
+    // HACK
+    //debugStartCLI(p_argc, p_argv, &this->my_argc, &this->my_argv, p_option, p_facility);
   }
   else
   {
-    debugStart(0, NULL, NULL, NULL, p_option, p_facility, 0);
+    // HACK
+    //debugStart(0, NULL, NULL, NULL, p_option, p_facility, 0);
   }
 
   if (NULL != p_error_codes)
@@ -124,7 +130,8 @@ Diagnostic::Diagnostic(int & p_argc, char ** p_argv, map<string, string> * p_err
 
 Diagnostic::~Diagnostic(void)
 {
-  debugEnd();
+  // HACK
+  //debugEnd();
   if (true == this->internal_alloc)
   {
     delete Diagnostic::error_codes;
@@ -158,7 +165,7 @@ const string Diagnostic::caution(
 {
   assert(! p_ecode.empty());
   string item = Diagnostic::get_mesg_string(p_ecode, p_entity);
-  ::caution(p_ecode.c_str(), item.c_str(), p_context.c_str(), p_class, p_func, p_file, p_line);
+  ::message(p_ecode.c_str(), item.c_str(), p_context.c_str(), p_class, p_func, p_file, p_line);
   return(p_ecode);
 }
 
@@ -174,7 +181,7 @@ const string Diagnostic::error(
    )
 {
   string item = Diagnostic::get_mesg_string(p_ecode, p_entity);
-  ::error(p_ecode.c_str(), item.c_str(), p_context.c_str(), p_class, p_func, p_file, p_line);
+  ::message(p_ecode.c_str(), item.c_str(), p_context.c_str(), p_class, p_func, p_file, p_line);
   return(p_ecode);
 }
 
@@ -190,7 +197,7 @@ const string Diagnostic::fatal(
    )
 {
   string item = Diagnostic::get_mesg_string(p_ecode, p_entity);
-  ::fatal(p_ecode.c_str(), item.c_str(), p_context.c_str(), p_class, p_func, p_file, p_line);
+  ::message(p_ecode.c_str(), item.c_str(), p_context.c_str(), p_class, p_func, p_file, p_line);
   return(p_ecode);
 }
 

@@ -36,7 +36,6 @@
 // External Includes
 // Internal Includes
 // Application Includes
-#include "diagnostic.h"
 
 
 #ifdef  __CLASS__
@@ -62,6 +61,7 @@ using namespace std;
 //   thrown directly.  For example:
 //     throw error(...)
 ///////////////////////////////////////////////////////////////////////////////
+/*
 #undef  CAUTION
 #define CAUTION(err_code, item, context) \
   Diagnostic::caution(err_code,item,context,__CLASS__,__MY_FUNC__,__FILE__,__LINE__)
@@ -73,6 +73,7 @@ using namespace std;
 #undef  FATAL
 #define FATAL(err_code, item, context) \
   Diagnostic::fatal(err_code,item,context,__CLASS__,__MY_FUNC__,__FILE__,__LINE__)
+*/
 
 
 #undef  SYSLOG
@@ -135,6 +136,7 @@ public:
 
   // Static Functions
 
+/*
   inline static void breakpoint(
        string const &     p_message,
        const char * const p_class,
@@ -146,6 +148,7 @@ public:
     ::breakpoint((char *)p_message.c_str(), p_class, p_func, p_file, p_line);
     return;
   }
+*/
 
 
   static const string caution(
