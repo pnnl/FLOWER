@@ -108,7 +108,7 @@ int main(int argc, char ** argv)
 
   // Create an instance of global error and debug handling.
   Diagnostic          diag(argc, argv, Exception::getErrorCodes());
-  DEBUG(TRACE, ENTER);
+  //DEBUG(TRACE, ENTER);
 
   // DEVELOPER NOTE: Update only when the data guide version changes
   //                 flr is the name of the application (flower) and
@@ -132,7 +132,7 @@ int main(int argc, char ** argv)
   MetricsEvent        flow_cache_metrics_event("FlowCacheMetricsEvent");
 
 
-  DEBUG(LOTS, "Process the command line options");
+  //DEBUG(LOTS, "Process the command line options");
   ProgramOptions      po;
   if (! po.checkOptions(diag.getArgc(), diag.getArgv(), getDataGuideVersion()))
   {
@@ -301,6 +301,6 @@ int main(int argc, char ** argv)
 
   shutdown_system_event.call(0);
 
-  DEBUG(TRACE, LEAVE);
+  //DEBUG(TRACE, LEAVE);
   return(0);
 }

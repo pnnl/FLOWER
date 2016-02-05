@@ -1,0 +1,17 @@
+*.la
+*.lo
+*.o
+junk*
+.deps
+.dirstamp
+Makefile
+config.h
+config.h.in
+*~
+config.log
+config.status
+libtool
+stamp-h1
+autom4te.cache/output.*
+autom4te.cache/requests
+autom4te.cache/traces.*

@@ -28,6 +28,7 @@
 // External Includes
 // Internal Includes
 // Application Includes
+#include "global.hpp"
 #include "num2string.hpp"
 #include "osUtil.hpp"
 #include "Daemon.hpp"

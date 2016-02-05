@@ -19,6 +19,7 @@
 
 // System Includes
 #include <string>
+#include <cstdint>
 // External Includes
 // Internal Includes
 // Application Includes
@@ -31,8 +32,13 @@
 #define APP_DESC "network packet FLOW analizER (" APP_NAME ")"
 
 
-//#define FATAL(p_ecode, p_item, p_context) message(p_ecode, p_item, p_context, __CLASS__, __func__, __FILE__, __LINE__, EXIT_FAILURE)
-//#define WARN(p_ecode,  p_item, p_context) message(p_ecode, p_item, p_context, __CLASS__, __func__, __FILE__, __LINE__, EXIT_SUCCESS)
+#define ERROR(  p_ecode, p_item, p_context) message(p_ecode, p_item, p_context, __CLASS__, __func__, __FILE__, __LINE__, EXIT_SUCCESS)
+#define FATAL(  p_ecode, p_item, p_context) message(p_ecode, p_item, p_context, __CLASS__, __func__, __FILE__, __LINE__, EXIT_FAILURE)
+#define CAUTION(p_ecode, p_item, p_context) message(p_ecode, p_item, p_context, __CLASS__, __func__, __FILE__, __LINE__, EXIT_SUCCESS)
+#define WARN(   p_ecode, p_item, p_context) message(p_ecode, p_item, p_context, __CLASS__, __func__, __FILE__, __LINE__, EXIT_SUCCESS)
+
+//  HACK TODO: This eliminates all DEBUG messages
+#define DEBUG(p_a, ...)
 
 
 // Namespaces
