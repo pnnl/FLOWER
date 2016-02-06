@@ -27,6 +27,9 @@
 #include <sys/ioctl.h>
 #include <sys/socket.h>
 #endif
+#include <string.h>
+#include <sys/types.h>
+#include <unistd.h>
 // External Includes
 // Internal Includes
 // Application Includes

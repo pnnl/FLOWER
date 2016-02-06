@@ -73,12 +73,11 @@ using namespace std;
 #undef  FATAL
 #define FATAL(err_code, item, context) \
   Diagnostic::fatal(err_code,item,context,__CLASS__,__MY_FUNC__,__FILE__,__LINE__)
-*/
-
 
 #undef  SYSLOG
 #define SYSLOG(prog) \
   debugSyslog(prog)
+*/
 
 
 //==============================================================================

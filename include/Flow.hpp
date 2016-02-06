@@ -313,11 +313,11 @@ public:
                   ) throw();
 
   Flow &    copyFlow(Flow const & p_flow) throw();
-  bool      compare(shared_ptr<Flow> const & p_flow) throw();
+  bool      compare(std::shared_ptr<Flow> const & p_flow) throw();
   string    createFlowString(void) const throw();
   void      forceFake(u_int32_t const p_first_timestamp) throw();
-  void      fragment_pre_merge(shared_ptr<Flow> const & p_flow) throw();
-  bool      merge(shared_ptr<Flow> const & p_flow) throw();
+  void      fragment_pre_merge(std::shared_ptr<Flow> const & p_flow) throw();
+  bool      merge(std::shared_ptr<Flow> const & p_flow) throw();
   ostream & printFlow(ostream& os) const throw();
   void      zero(void) throw();
 

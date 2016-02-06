@@ -165,7 +165,7 @@ const string Diagnostic::caution(
 {
   assert(! p_ecode.empty());
   string item = Diagnostic::get_mesg_string(p_ecode, p_entity);
-  ::message(p_ecode.c_str(), item.c_str(), p_context.c_str(), p_class, p_func, p_file, p_line);
+  ::message(p_ecode.c_str(), item.c_str(), p_context.c_str(), p_class, p_func, p_file, p_line, EXIT_SUCCESS);
   return(p_ecode);
 }
 
@@ -181,7 +181,7 @@ const string Diagnostic::error(
    )
 {
   string item = Diagnostic::get_mesg_string(p_ecode, p_entity);
-  ::message(p_ecode.c_str(), item.c_str(), p_context.c_str(), p_class, p_func, p_file, p_line);
+  ::message(p_ecode.c_str(), item.c_str(), p_context.c_str(), p_class, p_func, p_file, p_line, EXIT_SUCCESS);
   return(p_ecode);
 }
 
@@ -197,7 +197,7 @@ const string Diagnostic::fatal(
    )
 {
   string item = Diagnostic::get_mesg_string(p_ecode, p_entity);
-  ::message(p_ecode.c_str(), item.c_str(), p_context.c_str(), p_class, p_func, p_file, p_line);
+  ::message(p_ecode.c_str(), item.c_str(), p_context.c_str(), p_class, p_func, p_file, p_line, EXIT_FAILURE);
   return(p_ecode);
 }
 

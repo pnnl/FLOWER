@@ -59,7 +59,7 @@ private:
 
   // Variables 
 
-  vector< shared_ptr<T> > objs;
+  vector< std::shared_ptr<T> > objs;
   int unsigned max_size;
 
 
@@ -73,7 +73,7 @@ public:
     objs.reserve(getMaxSize());
     for (int unsigned idx = 0; idx < getMaxSize(); ++idx)
     {
-      objs.push_back(shared_ptr<T>(new T(p_obj)));
+      objs.push_back(std::shared_ptr<T>(new T(p_obj)));
     }
     return;
   }
@@ -89,7 +89,7 @@ public:
 
   // Functions
 
-  bool release(shared_ptr<T> const & p_object) throw()
+  bool release(std::shared_ptr<T> const & p_object) throw()
   {
     if (objs.size() < getMaxSize())
     {      
@@ -105,7 +105,7 @@ public:
   }
 
 
-  bool acquire(shared_ptr<T> & p_ptr) throw()
+  bool acquire(std::shared_ptr<T> & p_ptr) throw()
   {
     if (! objs.empty())
     {
@@ -126,13 +126,13 @@ public:
   }
 
 
-  shared_ptr<T> at(int unsigned const p_idx) throw()
+  std::shared_ptr<T> at(int unsigned const p_idx) throw()
   {
     return(objs.at(p_idx));
   }
 
 
-  shared_ptr<T> const at(int unsigned const p_idx) const throw()
+  std::shared_ptr<T> const at(int unsigned const p_idx) const throw()
   {
     return(objs.at(p_idx));
   }
