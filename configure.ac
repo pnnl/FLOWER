@@ -18,10 +18,11 @@ AC_PROG_LIBTOOL
 AX_CXX_COMPILE_STDCXX_11([ext],[mandatory])
 
 # Checks for libraries.
+AC_CHECK_LIB([pcap],[pcap_create])
 
 # Checks for header files.
 AC_HEADER_STDC
-AC_CHECK_HEADERS([arpa/inet.h fcntl.h memory.h string.h sys/ioctl.h sys/socket.h syslog.h unistd.h])
+AC_CHECK_HEADERS([arpa/inet.h fcntl.h memory.h string.h sys/ioctl.h sys/socket.h syslog.h unistd.h pcap/pcap.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_HEADER_STDBOOL
@@ -43,12 +44,12 @@ AC_CHECK_FUNCS([gettimeofday memset socket strerror strstr])
 
 AM_INIT_AUTOMAKE([1.11 subdir-objects -Wall -Werror])
 
-#BOOST_REQUIRE([1.34.1])
-BOOST_REQUIRE
-BOOST_FILESYSTEM
-BOOST_PROGRAM_OPTIONS
-BOOST_REGEX
-BOOST_SYSTEM
+BOOST_REQUIRE([1.58])
+BOOST_FILESYSTEM([mt-d])
+BOOST_SYSTEM([mt-d])
+BOOST_REGEX([mt-d])
+BOOST_DATE_TIME([mt-d])
+BOOST_PROGRAM_OPTIONS([mt-d])
 
 AC_CONFIG_FILES([
                   Makefile

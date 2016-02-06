@@ -4,6 +4,7 @@
 junk*
 .deps
 .dirstamp
+.libs
 Makefile
 config.h
 config.h.in

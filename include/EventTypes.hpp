@@ -35,8 +35,8 @@
 // Namespaces
 
 
-typedef shared_ptr<Flow>            sharedFlow;
-typedef shared_ptr<Packet>          sharedPacket;
+typedef std::shared_ptr<Flow>       sharedFlow;
+typedef std::shared_ptr<Packet>     sharedPacket;
 
 typedef Event<void, sharedPacket>   PacketAddEvent;
 typedef Event<void, sharedFlow>     FlowAddEvent;

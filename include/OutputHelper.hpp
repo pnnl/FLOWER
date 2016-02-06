@@ -19,6 +19,7 @@
 
 // System Includes
 #include <iostream>
+#include <memory>
 #include <string>
 #include <vector>
 // External Includes
@@ -193,8 +194,8 @@ private:
   OutputHelper & operator=(OutputHelper const & p_output_helper) throw();
   bool           operator<(OutputHelper const & p_output_helper)  const throw();
   bool           operator>(OutputHelper const & p_output_helper)  const throw();
-  bool           operator==(shared_ptr<OutputHelper> const & p_output_helper) const throw();
-  bool           operator!=(shared_ptr<OutputHelper> const & p_output_helper) const throw();
+  bool           operator==(std::shared_ptr<OutputHelper> const & p_output_helper) const throw();
+  bool           operator!=(std::shared_ptr<OutputHelper> const & p_output_helper) const throw();
 
 
   // Variables

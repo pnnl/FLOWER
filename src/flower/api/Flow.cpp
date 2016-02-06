@@ -181,7 +181,7 @@ void Flow::assign(
 }
 
 
-bool Flow::compare(shared_ptr<Flow> const & p_flow) throw()
+bool Flow::compare(std::shared_ptr<Flow> const & p_flow) throw()
 {
   DEBUG(TRACE, ENTER);
   bool           result = false;
@@ -239,7 +239,7 @@ bool Flow::compare(shared_ptr<Flow> const & p_flow) throw()
 // ======================================================================
 
 
-void Flow::fragment_pre_merge(shared_ptr<Flow> const & p_flow) throw()
+void Flow::fragment_pre_merge(std::shared_ptr<Flow> const & p_flow) throw()
 {
   DEBUG(LOTS, ENTER);
 
@@ -249,7 +249,7 @@ void Flow::fragment_pre_merge(shared_ptr<Flow> const & p_flow) throw()
 }
 
 
-bool Flow::merge(shared_ptr<Flow> const & p_flow) throw()
+bool Flow::merge(std::shared_ptr<Flow> const & p_flow) throw()
 {
   DEBUG(LOTS, ENTER);
 

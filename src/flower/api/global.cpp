@@ -138,7 +138,8 @@ void setOutputLocation(bool const p_destination, char * argv0) throw()
   console_or_log = p_destination;
   if (NULL != argv0)
   {
-    SYSLOG(argv0);
+    // HACK
+    //SYSLOG(argv0);
   }
   return;
 }

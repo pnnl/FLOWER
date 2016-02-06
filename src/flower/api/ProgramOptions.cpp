@@ -325,13 +325,13 @@ string ProgramOptions::getVersionRecord(string const & p_data_guide_ver) throw()
 #endif
 
   string record;
-  record  = "Ver:"SVN_TAG_VER" ("SVN_BUILD_TYPE""SVN_VER")"
-            ",Compiler:"CXX_VER
-            ",OptLevel:"CXX_OPTIMIZE_LEVEL
-            ",Debug:"CXX_DEBUG_LEVEL
-            ",BoostLibVer:"BOOST_VER
-            ",PcapLibVer:"PCAP_VER
-            ",Compiled:"__DATE__"  "__TIME__;
+  record  = "Ver:" SVN_TAG_VER " (" SVN_BUILD_TYPE "" SVN_VER ")"
+            ",Compiler:" CXX_VER
+            ",OptLevel:" CXX_OPTIMIZE_LEVEL
+            ",Debug:" CXX_DEBUG_LEVEL
+            ",BoostLibVer:" BOOST_VER
+            ",PcapLibVer:" PCAP_VER
+            ",Compiled:" __DATE__ "  " __TIME__ ;
   record += ",DataGuideVer:" + p_data_guide_ver;
   return(record);
 }
@@ -402,13 +402,13 @@ void ProgramOptions::displayVersion(bool const p_condition, string const & p_dat
 
   string message;
   message  = "\n   " APP_DESC "\n"
-             "\n   " APP_NAME " version:           "SVN_TAG_VER" ("SVN_BUILD_TYPE""SVN_VER")" 
-             "\n   Compiled with:            "CXX_VER
-             "\n     Optimize Level:         "CXX_OPTIMIZE_LEVEL
-             "\n     Debug:                  "CXX_DEBUG_LEVEL
-             "\n     Boost library version:  "BOOST_VER
-             "\n     pcap  library version:  "PCAP_VER
-             "\n   Compiled on:              "__DATE__", "__TIME__;
+             "\n   " APP_NAME " version:           " SVN_TAG_VER " (" SVN_BUILD_TYPE "" SVN_VER ")" 
+             "\n   Compiled with:            " CXX_VER
+             "\n     Optimize Level:         " CXX_OPTIMIZE_LEVEL
+             "\n     Debug:                  " CXX_DEBUG_LEVEL
+             "\n     Boost library version:  " BOOST_VER
+             "\n     pcap  library version:  " PCAP_VER
+             "\n   Compiled on:              " __DATE__ ", " __TIME__ ;
   message += "\n   Data Guide version:       " + p_data_guide_ver + "\n\n";
   message += cpr;
   message += dis;
