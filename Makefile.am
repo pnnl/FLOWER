@@ -57,7 +57,7 @@ flower_CPPFLAGS       =                                                       \
                          $(AM_CPPFLAGS)                                       \
                          $(BOOST_CPPFLAGS)
 
-flower_LDFLAGS        =                                                                                       \
+flower_LDFLAGS        =                                                       \
                          $(BOOST_PROGRAM_OPTIONS_LDFLAGS)                     \
                          $(BOOST_FILESYSTEM_LDFLAGS)                          \
                          $(BOOST_REGEX_LDFLAGS)                               \
@@ -65,10 +65,12 @@ flower_LDFLAGS        =                                                         
                          $(BOOST_THREAD_LDFLAGS)
 
 flower_LDADD          =                                                       \
-                         $(lib_LTLIBRARIES)                                   \
                          -lpcap                                               \
+                          libflower.la                                        \
                          $(BOOST_PROGRAM_OPTIONS_LIBS)                        \
                          $(BOOST_FILESYSTEM_LIBS)                             \
                          $(BOOST_REGEX_LIBS)                                  \
                          $(BOOST_SYSTEM_LIBS)                                 \
                          $(BOOST_THREAD_LIBS)
+
+#
