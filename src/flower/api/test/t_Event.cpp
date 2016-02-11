@@ -21,6 +21,7 @@
 
 // System Includes
 #include <exception>
+#include <memory>
 // External Includes
 #define BOOST_TEST_MODULE Event
 // Internal Includes
@@ -108,7 +109,7 @@ public:
   }
 
 
-  void objNotification(shared_ptr<Obj> const p_obj) throw()
+  void objNotification(std::shared_ptr<Obj> const p_obj) throw()
   {
     this->counter++;
     this->obj = p_obj;
@@ -127,17 +128,17 @@ public:
 
 private:
 
-  int unsigned    counter;
-  int unsigned    value;
-  shared_ptr<Obj> obj;
-  myexception     g_exception;
+  int unsigned         counter;
+  int unsigned         value;
+  std::shared_ptr<Obj> obj;
+  myexception          g_exception;
 
 };
 
 
-typedef Event< void, int unsigned >    TestIntEvent;
-typedef Event< void, shared_ptr<Obj> > TestObjEvent;
-typedef Event< bool, int unsigned >    TestBoolEvent;
+typedef Event< void, int unsigned >         TestIntEvent;
+typedef Event< void, std::shared_ptr<Obj> > TestObjEvent;
+typedef Event< bool, int unsigned >         TestBoolEvent;
 
 struct EventSuiteFixture
 {
@@ -198,7 +199,7 @@ BOOST_AUTO_TEST_CASE(supply_observers_when_event_occurs)
   // Condition: Trigger an event
   int unsigned    value = 12;
   string          name  = "anything";
-  shared_ptr<Obj> obj(new Obj(value, name));
+  std::shared_ptr<Obj> obj(new Obj(value, name));
 
   test_int_event.call(value);
   test_obj_event.call(obj);

@@ -13,10 +13,10 @@
 #  SWAWT automated test script:  exit with 0 => success, 1 => failure 
 ################################################################################
 
-TBIN="$ENSIP_HOME/tbin"
+TBIN="$HOME/git/flower"
 TEST_DIR=`dirname $0`
 
-cd $TEST_DIR
+#cd $TEST_DIR
 TEST_DIR=`pwd`
 
 out="$TEST_DIR/"`basename $0 | awk -F"." '{print $1}'`.out
@@ -47,7 +47,9 @@ total=0
 exitStatus=0
 
 # Build the libraries before running
-build -comp ensip -type lib -v -auto
+#build -comp ensip -type lib -v -auto
+make || exit
+
 if [ "$?" != "0" ]; then
   echo "******************************************************************"
   echo "******************************************************************"

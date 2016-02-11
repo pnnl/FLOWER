@@ -39,7 +39,7 @@
 #define TRIPLE_T (3)
 #define QUAD_T   (4)
 
-const int unsigned ZERO   =  0;
+const u_int32_t    ZERO   =  0;
 const int unsigned TEN    = 10;
 const int unsigned TWENTY = 20;
 
@@ -192,7 +192,10 @@ BOOST_AUTO_TEST_CASE(test_boundary)
   quad_A[3] = 40;
 
   // Post-condition:
-  BOOST_CHECK_NE(ZERO, quad_A[4]);
+  BOOST_CHECK_EQUAL(quad_A[0], 10);
+  BOOST_CHECK_EQUAL(quad_A[1], 20);
+  BOOST_CHECK_EQUAL(quad_A[2], 30);
+  BOOST_CHECK_EQUAL(quad_A[3], 40);
   //BOOST_CHECK_THROW(quad_A.at(4), range_error);  // DEVELOPER NOTE: Removed throw calls in Data.hpp to gain performance
 
   return;

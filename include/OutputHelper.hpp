@@ -86,7 +86,7 @@ public:
     // DEVELOPER NOTE:
     //  Putting the lock file in /dev/shm allows the system to clean them up on
     //  orderly and unorderly shutdowns/reboots
-    return("/dev/shm/"APP_NAME"." + p_device_name + ".lock");
+    return("/dev/shm/" APP_NAME "." + p_device_name + ".lock");
   }
 
 
