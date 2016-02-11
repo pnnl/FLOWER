@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ECHO=/bin/echo
-#ECHO=
+ECHO=
 
 BRANCH=`git status | head -1 | grep -i "on branch" | awk '{print $NF}'`
 
@@ -13,6 +13,7 @@ if [[    "$BRANCH" == "develop" ||
   exit 1
 fi
 
+$ECHO git commit
 $ECHO git checkout develop
 
 $ECHO git merge --no-ff $BRANCH
