@@ -78,7 +78,7 @@ int getNextNum(void)
 }
 
 
-void setArg(char * p_arg)
+void setArg(const char * p_arg)
 {
   int arg_number = getNextNum();
 
@@ -103,7 +103,8 @@ void reset(void)
   }
   for (int idx = 0; idx < ::g_max_num; ++idx)
   {
-    ::g_argv[idx] = "\0";
+    ::g_argv[idx] = (char *) calloc(strlen("\n") + 1, sizeof(char));
+    strncpy(::g_argv[idx], "\n", strlen("\n"));
   }
   ::g_num = -1;
 
@@ -125,7 +126,7 @@ struct ProgramOptionsSuiteFixture
   {
     BOOST_TEST_MESSAGE("ProgramOptionsSuite setup fixture");
     reset();
-    setArg(framework::master_test_suite().argv[0]);
+    setArg(boost::unit_test::framework::master_test_suite().argv[0]);
     return;
   }
 

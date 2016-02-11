@@ -55,8 +55,7 @@ const int unsigned  g_udp_protocol = 0x11;
 // Namespaces
 using namespace boost;
 
-
-Diagnostic    g_diag(framework::master_test_suite().argc, framework::master_test_suite().argv, Exception::getErrorCodes());
+Diagnostic    g_diag(boost::unit_test::framework::master_test_suite().argc, boost::unit_test::framework::master_test_suite().argv, Exception::getErrorCodes());
 
 int unsigned  g_timeout             = 120;
 

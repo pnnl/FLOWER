@@ -55,11 +55,11 @@ struct PacketRingerSuiteFixture
   {
     BOOST_TEST_MESSAGE("PacketRingerSuite setup fixture");
 
-    //cout << "ARGS:" << framework::master_test_suite().argc << endl;
-    if (framework::master_test_suite().argc == 3)
+    //cout << "ARGS:" << boost::unit_test::framework::master_test_suite().argc << endl;
+    if (boost::unit_test::framework::master_test_suite().argc == 3)
     {
-      interface              = lexical_cast<string>(framework::master_test_suite().argv[1]);
-      num_packets_to_capture = lexical_cast<int unsigned>(framework::master_test_suite().argv[2]);
+      interface              = lexical_cast<string>(boost::unit_test::framework::master_test_suite().argv[1]);
+      num_packets_to_capture = lexical_cast<int unsigned>(boost::unit_test::framework::master_test_suite().argv[2]);
     }
     else
     {

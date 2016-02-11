@@ -18,6 +18,7 @@
 
 // System Includes
 #include <iostream>
+#include <memory>
 #include <string>
 // External Includes
 // Internal Includes

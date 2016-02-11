@@ -61,9 +61,7 @@ AM_INIT_AUTOMAKE([1.11 subdir-objects -Wall -Werror])
 AC_CONFIG_FILES([
                   Makefile
                 ])
-#                  src/flower/api/Makefile
-#                  src/flower/exe/Makefile
-#                  src/flower/api/test/Makefile
+
 #                  src/flower/api/test/tickets/Makefile
 #                  support/other/ide/kde/Makefile])
 

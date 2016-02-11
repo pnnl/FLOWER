@@ -4,10 +4,13 @@ AUTOMAKE_OPTIONS       =  foreign
 
 EXTRA_DIST             =  m4/NOTES
 
+CXXFLAGS               =  -g -O3 -std=c++11
+
 AM_CPPFLAGS            =
-AM_CPPFLAGS           +=  -D_GLIBCXX_USE_CXX11_ABI=0
-AM_CPPFLAGS           +=  -Wno-deprecated-declarations
 AM_CPPFLAGS           +=  -I$(top_srcdir)/include
+
+#AM_CPPFLAGS           +=  -D_GLIBCXX_USE_CXX11_ABI=0
+#AM_CPPFLAGS           +=  -Wno-deprecated-declarations
 
 FLOWER_CPP_FLAGS       =
 FLOWER_CPP_FLAGS      +=  $(AM_CPPFLAGS)

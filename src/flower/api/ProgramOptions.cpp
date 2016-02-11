@@ -499,7 +499,7 @@ void ProgramOptions::processConfigFile(void) throw()
   if ((! config_file.empty()) && exists(config_file))
   {
     // Read in the config file, parse command line, and merge results into option_map
-    ifstream ifs(config_file.c_str());
+    std::ifstream ifs(config_file.c_str());
     try
     {
       store(parse_config_file(ifs, this->config_file_options), getOptionMap());

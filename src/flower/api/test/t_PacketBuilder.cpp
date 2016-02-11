@@ -35,8 +35,8 @@ using namespace boost;
 
 // Global Variables
 
-char *       g_my_argv = "t_PacketBuilder";
-int unsigned g_pkts = 4;
+const char * g_my_argv = "t_PacketBuilder";
+int unsigned g_pkts    = 4;
 string       g_pkts_str("4");
 
 
