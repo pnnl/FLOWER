@@ -111,7 +111,6 @@ public:
 
   // Public Functions
 
-  string getVersionRecord(string const & p_data_guide_ver) throw();
   bool   checkOptions(int argc, char ** argv, string const & p_data_guide_ver = "0") throw();
   string getDefaultConfigFile(void) throw();
 

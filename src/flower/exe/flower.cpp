@@ -134,7 +134,7 @@ int main(int argc, char ** argv)
 
   //DEBUG(LOTS, "Process the command line options");
   ProgramOptions      po;
-  if (! po.checkOptions(diag.getArgc(), diag.getArgv(), getDataGuideVersion()))
+  if (! po.checkOptions(argc, argv, getDataGuideVersion()))
   {
     exit(1);
   }

@@ -16,6 +16,7 @@
 // System Includes
 #ifndef _MSC_VER // groups are linux-specific
 #include <grp.h>
+#include <pcap/pcap.h>
 #include <pwd.h>
 #include <net/if.h>
 #include <unistd.h>
@@ -297,8 +298,14 @@ void ProgramOptions::displayHelp(bool const p_condition) throw()
 }
 
 
-string ProgramOptions::getVersionRecord(string const & p_data_guide_ver) throw()
+string ProgramOptions::getVersionRecord(string const & p_data_guide_ver) throw(
 {
+#ifndef APP_DESC
+#define APP_DESC "ERROR"
+#endif
+#ifndef APP_NAME
+#define APP_NAME "ERROR"
+#endif
 #ifndef BOOST_VER
 #define BOOST_VER "ERROR"
 #endif
@@ -311,28 +318,28 @@ string ProgramOptions::getVersionRecord(string const & p_data_guide_ver) throw()
 #ifndef CXX_DEBUG_LEVEL
 #define CXX_DEBUG_LEVEL "ERROR"
 #endif
-#ifndef PCAP_VER
-#define PCAP_VER "ERROR"
+#ifndef MAJOR_VERSION
+#define MAJOR_VERSION "ERROR"
 #endif
-#ifndef SVN_BUILD_TYPE
-#define SVN_BUILD_TYPE "ERROR"
+#ifndef MINOR_VERSION
+#define MINOR_VERSION "ERROR"
 #endif
-#ifndef SVN_TAG_VER
-#define SVN_TAG_VER "ERROR"
-#endif
-#ifndef SVN_VER
-#define SVN_VER "ERROR"
+#ifndef MICRO_VERSION
+#define MICRO_VERSION "ERROR"
 #endif
 
+  string pcap_ver = pcap_lib_version();
   string record;
-  record  = "Ver:" SVN_TAG_VER " (" SVN_BUILD_TYPE "" SVN_VER ")"
+
+  record  = "Ver:" MAJOR_VERSION "." MINOR_VERSION "." MICRO_VERSION
             ",Compiler:" CXX_VER
             ",OptLevel:" CXX_OPTIMIZE_LEVEL
             ",Debug:" CXX_DEBUG_LEVEL
             ",BoostLibVer:" BOOST_VER
-            ",PcapLibVer:" PCAP_VER
+            ",PcapLibVer:" + pcap_ver +
             ",Compiled:" __DATE__ "  " __TIME__ ;
   record += ",DataGuideVer:" + p_data_guide_ver;
+
   return(record);
 }
 
@@ -387,39 +394,31 @@ void ProgramOptions::displayVersion(bool const p_condition, string const & p_dat
 #ifndef CXX_DEBUG_LEVEL
 #define CXX_DEBUG_LEVEL "ERROR"
 #endif
-#ifndef PCAP_VER
-#define PCAP_VER "ERROR"
+#ifndef MAJOR_VERSION
+#define MAJOR_VERSION "ERROR"
 #endif
-#ifndef SVN_BUILD_TYPE
-#define SVN_BUILD_TYPE "ERROR"
+#ifndef MINOR_VERSION
+#define MINOR_VERSION "ERROR"
 #endif
-#ifndef SVN_TAG_VER
-#define SVN_TAG_VER "ERROR"
-#endif
-#ifndef SVN_VER
-#define SVN_VER "ERROR"
+#ifndef MICRO_VERSION
+#define MICRO_VERSION "ERROR"
 #endif
 
+  string pcap_ver = pcap_lib_version();
   string message;
+
   message  = "\n   " APP_DESC "\n"
-             "\n   " APP_NAME " version:           " SVN_TAG_VER " (" SVN_BUILD_TYPE "" SVN_VER ")" 
+             "\n   " APP_NAME " version:           " MAJOR_VERSION "." MINOR_VERSION "." MICRO_VERSION 
+             "\n   Compiled on:              " __DATE__ ", " __TIME__ 
              "\n   Compiled with:            " CXX_VER
              "\n     Optimize Level:         " CXX_OPTIMIZE_LEVEL
              "\n     Debug:                  " CXX_DEBUG_LEVEL
              "\n     Boost library version:  " BOOST_VER
-             "\n     pcap  library version:  " PCAP_VER
-             "\n   Compiled on:              " __DATE__ ", " __TIME__ ;
+             "\n     pcap  library version:  " + pcap_ver;
   message += "\n   Data Guide version:       " + p_data_guide_ver + "\n\n";
   message += cpr;
   message += dis;
   output(message);
-
-#undef BOOST_VER
-#undef CXX_VER
-#undef PCAP_VER
-#undef SVN_BUILD_TYPE
-#undef SVN_TAG_VER
-#undef SVN_VER
 
   exit(EXIT_SUCCESS);
 }

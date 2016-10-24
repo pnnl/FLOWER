@@ -4,17 +4,45 @@ AUTOMAKE_OPTIONS       =  foreign
 
 EXTRA_DIST             =  m4/NOTES
 
-CXXFLAGS               =  -g -O3 -std=c++11
+COMPILETIME            =  $(shell date '+%s')
+CXX_DBG_LEVEL          =  -g
+CXX_OPT_LEVEL          =  -O3
+CXXFLAGS               =  $(CXX_DBG_LEVEL) $(CXX_OPT_LEVEL) -std=c++11
 
 AM_CPPFLAGS            =
 AM_CPPFLAGS           +=  -I$(top_srcdir)/include
-
 #AM_CPPFLAGS           +=  -D_GLIBCXX_USE_CXX11_ABI=0
 #AM_CPPFLAGS           +=  -Wno-deprecated-declarations
+
+
+MAJOR_VERSION          =  $(shell $(AWK) -F'_' '{print $$1}' $(top_srcdir)/VERSION)
+MINOR_VERSION          =  $(shell $(AWK) -F'_' '{print $$2}' $(top_srcdir)/VERSION)
+MICRO_VERSION          =  $(shell $(AWK) -F'_' '{print $$3}' $(top_srcdir)/VERSION)
+NEW_MAJOR_VERSION      =  $(shell $(AWK) -F'_' '{print $$1+1}' $(top_srcdir)/VERSION | bc)
+NEW_MINOR_VERSION      =  $(shell $(AWK) -F'_' '{print $$2+1}' $(top_srcdir)/VERSION | bc)
+NEW_MICRO_VERSION      =  $(shell $(AWK) -F'_' '{print $$3+1}' $(top_srcdir)/VERSION | bc)
+BOOST_ROOT             =  $(shell echo $(BOOST_CPPFLAGS) | sed -e "s/^\s*\-I//" -e "s/\/include//")
+
+
+BOOSTVERDEF            =  -D'BOOST_VER="$(BOOST_ROOT)"'
+COMPILETIMEDEF         =  -D'COMPILE_TIME="$(COMPILETIME)"'
+CXXOPTLEVELDEF         =  -D'CXX_OPTIMIZE_LEVEL="$(CXX_OPT_LEVEL)"'
+CXXDBGLEVELDEF         =  -D'CXX_DEBUG_LEVEL="$(CXX_DBG_LEVEL)"'
+MAJORVERDEF            =  -D'MAJOR_VERSION="$(MAJOR_VERSION)"'
+MINORVERDEF            =  -D'MINOR_VERSION="$(MINOR_VERSION)"'
+MICORVERDEF            =  -D'MICOR_VERSION="$(MICOR_VERSION)"'
+
 
 FLOWER_CPP_FLAGS       =
 FLOWER_CPP_FLAGS      +=  $(AM_CPPFLAGS)
 FLOWER_CPP_FLAGS      +=  $(BOOST_CPPFLAGS)
+FLOWER_CPP_FLAGS      +=  $(BOOSTVERDEF)
+FLOWER_CPP_FLAGS      +=  $(COMPILETIMEDEF)
+FLOWER_CPP_FLAGS      +=  $(CXXOPTLEVELDEF)
+FLOWER_CPP_FLAGS      +=  $(CXXDBGLEVELDEF)
+FLOWER_CPP_FLAGS      +=  $(MAJORVERDEF)
+FLOWER_CPP_FLAGS      +=  $(MINORVERDEF)
+FLOWER_CPP_FLAGS      +=  $(MICROVERDEF)
 
 FLOWER_LD_FLAGS        =
 FLOWER_LD_FLAGS       +=  $(BOOST_PROGRAM_OPTIONS_LDFLAGS)
