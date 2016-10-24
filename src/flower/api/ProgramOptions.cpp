@@ -15,6 +15,7 @@
 
 // System Includes
 #ifndef _MSC_VER // groups are linux-specific
+#include <ctime>
 #include <grp.h>
 #include <pcap/pcap.h>
 #include <pwd.h>
@@ -201,6 +202,17 @@ bool ProgramOptions::checkOptions(int p_argc, char ** p_argv, string const & p_d
     FATAL(BadOption, "Processing options", lexical_cast<string>(e.what()));
   }    
 
+  // Check for expired license
+  std::time_t current_time = std::time(nullptr);
+  std::time_t expire_date  = std::stoi(COMPILE_TIME, nullptr) + 15780000; //  Six (6) months in seconds
+  //std::time_t expire_date  = std::stoi(COMPILE_TIME, nullptr) + 1; //  Expire in 1 second after compile
+
+  if (current_time > expire_date)
+  {
+    displayVersion(getOptionMap().count("version"), p_data_guide_ver); // VERSION
+    FATAL(PermissionDenied, "Expired License", "License expired on " + string(std::asctime(std::localtime(&expire_date))));
+  }
+
   displayRuntimeVariables();
 
   DEBUG(TRACE, LEAVE);
@@ -298,7 +310,7 @@ void ProgramOptions::displayHelp(bool const p_condition) throw()
 }
 
 
-string ProgramOptions::getVersionRecord(string const & p_data_guide_ver) throw(
+string ProgramOptions::getVersionRecord(string const & p_data_guide_ver) throw()
 {
 #ifndef APP_DESC
 #define APP_DESC "ERROR"
@@ -385,6 +397,9 @@ void ProgramOptions::displayVersion(bool const p_condition, string const & p_dat
 #ifndef BOOST_VER
 #define BOOST_VER "ERROR"
 #endif
+#ifndef COMPILE_TIME
+#define COMPILE_TIME "ERROR"
+#endif
 #ifndef CXX_VER
 #define CXX_VER "ERROR"
 #endif
@@ -409,7 +424,7 @@ void ProgramOptions::displayVersion(bool const p_condition, string const & p_dat
 
   message  = "\n   " APP_DESC "\n"
              "\n   " APP_NAME " version:           " MAJOR_VERSION "." MINOR_VERSION "." MICRO_VERSION 
-             "\n   Compiled on:              " __DATE__ ", " __TIME__ 
+             "\n   Compiled on:              " __DATE__ ", " __TIME__ " (" COMPILE_TIME ")"
              "\n   Compiled with:            " CXX_VER
              "\n     Optimize Level:         " CXX_OPTIMIZE_LEVEL
              "\n     Debug:                  " CXX_DEBUG_LEVEL

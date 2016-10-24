@@ -12,7 +12,6 @@ AC_CONFIG_MACRO_DIR([m4])
 AC_PROG_AWK
 AC_PROG_CXX
 AC_PROG_CC
-AC_PROG_DATE
 AC_PROG_GREP
 AC_PROG_LIBTOOL
 AC_PROG_MAKE_SET
@@ -62,6 +61,8 @@ BOOST_DATE_TIME([mt-d])
 BOOST_TEST([mt-d])
 
 AM_INIT_AUTOMAKE([1.11 subdir-objects -Wall -Werror])
+
+AM_MAINTAINER_MODE([enable])
 
 AC_CONFIG_FILES([
                   Makefile

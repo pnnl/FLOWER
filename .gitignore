@@ -12,7 +12,7 @@ config.h.in
 config.log
 config.status
 configure
-flower
+./flower
 junk*
 libtool
 stamp-h1

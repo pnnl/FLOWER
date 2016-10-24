@@ -113,6 +113,7 @@ public:
 
   bool   checkOptions(int argc, char ** argv, string const & p_data_guide_ver = "0") throw();
   string getDefaultConfigFile(void) throw();
+  string getVersionRecord(const string & p_record) throw ();
 
 
   template<class T>
