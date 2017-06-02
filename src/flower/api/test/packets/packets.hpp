@@ -72,7 +72,7 @@ Internet Control Message Protocol v6
 
 string get_IPV6_ICMPV6_str(void)
 {
-  string IPV6_ICMPV6_str = "0,site-name,1228224132.845213,0.000000,,58,,,00000000000000000000000000000000,FF0200000000000000000001FF000002,16,,78,,1,,,,,,8700,,+8700,,,,,,,,,,,,,,,,,,,,,,,,C,,";
+  string IPV6_ICMPV6_str = "0,site-name,1228224132.845213,0.000000,,58,,,0000:0000:0000:0000:0000:0000:0000:0000,ff02:0000:0000:0000:0000:0001:ff00:0002,16,,78,,1,,,,,,8700,,+8700,,,,,,,,,,,,,,,,,,,,,,,,C,,";
 
   return(IPV6_ICMPV6_str);
 }
@@ -185,7 +185,7 @@ Hypertext Transfer Protocol
 
 string get_IPV6_TCP_HTTP_truncated_str(void)
 {
-  string IPV6_TCP_HTTP_truncated_str = "0,site-name,1228308598.416903,0.000000,,6,,,26000000000000000000000000000002,26000000000000000000000000000001,22,,96,,1,,,,1041,80,,,,,,18,,+18,,3377865330,,,,3377865330,,,,,,,,,,,,,C,,00002000";
+  string IPV6_TCP_HTTP_truncated_str = "0,site-name,1228308598.416903,0.000000,,6,,,2600:0000:0000:0000:0000:0000:0000:0002,2600:0000:0000:0000:0000:0000:0000:0001,22,,96,,1,,,,1041,80,,,,,,18,,+18,,3377865330,,,,3377865330,,,,,,,,,,,,,C,,00002000";
 
   return(IPV6_TCP_HTTP_truncated_str);
 }
@@ -280,7 +280,7 @@ Data (34 bytes)
 
 string get_IPV6_UDP_truncated_str(void)
 {
-  string IPV6_UDP_truncated_str = "0,site-name,1228224195.390561,0.000000,,17,,,FE8000000000000075DA69A16392E687,FF02000000000000000000000000000C,34,,96,,1,,,,57443,3702,,,,,,,,,,,,,,,,,,,,,,,,,,,C,,00002000";
+  string IPV6_UDP_truncated_str = "0,site-name,1228224195.390561,0.000000,,17,,,fe80:0000:0000:0000:75da:69a1:6392:e687,ff02:0000:0000:0000:0000:0000:0000:000c,34,,96,,1,,,,57443,3702,,,,,,,,,,,,,,,,,,,,,,,,,,,C,,00002000";
 
   return(IPV6_UDP_truncated_str);
 }
@@ -409,7 +409,7 @@ Internet Control Message Protocol
 
 string get_IP_ICMP_UDP_unreachable_str(void)
 {
-  string IP_ICMP_UDP_unreachable_str = "0,site-name,1226268565.114948,0.000000,,1,140221223251,202099011099,,,28,,70,,1,,,,,,0303,,+0303,,,,,,,,,,,,,,,,,,,,,,,,C,,";
+  string IP_ICMP_UDP_unreachable_str = "0,site-name,1226268565.114948,0.000000,,1,140.221.223.251,202.99.11.99,,,28,,70,,1,,,,,,0303,,+0303,,,,,,,,,,,,,,,,,,,,,,,,C,,";
 
   return(IP_ICMP_UDP_unreachable_str);
 }
@@ -510,7 +510,7 @@ Internet Control Message Protocol
 
 string get_IP_ICMP_ping_str(void)
 {
-  string IP_ICMP_ping_str = "0,site-name,1226268501.682943,0.000000,,1,66114052024,140221251250,,,,,42,,1,,,,,,0800,,+0800,,,,,,,,,,,,,,,,,,,,,,,,C,,";
+  string IP_ICMP_ping_str = "0,site-name,1226268501.682943,0.000000,,1,66.114.52.24,140.221.251.250,,,,,42,,1,,,,,,0800,,+0800,,,,,,,,,,,,,,,,,,,,,,,,C,,";
 
   return(IP_ICMP_ping_str);
 }
@@ -612,7 +612,7 @@ Internet Group Management Protocol
 
 string get_IP_IGMP_str(void)
 {
-  string IP_IGMP_str = "0,site-name,1226268352.424181,0.000000,,2,4071171098,224000000001,,,8,,46,,1,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,C,,";
+  string IP_IGMP_str = "0,site-name,1226268352.424181,0.000000,,2,4.71.171.98,224.0.0.1,,,8,,46,,1,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,C,,";
 
   return(IP_IGMP_str);
 }
@@ -740,7 +740,7 @@ Hypertext Transfer Protocol
 
 string get_IP_TCP_HTTP_str(void)
 {
-  string IP_TCP_HTTP_str = "0,site-name,1226268296.151550,0.000000,,6,140221238250,208043048106,,,939,,993,,1,,,,3455,80,,,,,,18,,+18,,511129658,,,,511129658,,,,,,,,,,,,,C,,";
+  string IP_TCP_HTTP_str = "0,site-name,1226268296.151550,0.000000,,6,140.221.238.250,208.43.48.106,,,939,,993,,1,,,,3455,80,,,,,,18,,+18,,511129658,,,,511129658,,,,,,,,,,,,,C,,";
 
   return(IP_TCP_HTTP_str);
 }
@@ -987,7 +987,7 @@ Domain Name System (query)
 
 string get_IP_UDP_DNS_str(void)
 {
-  string IP_UDP_DNS_str = "0,site-name,1226268501.053798,0.000000,,17,140221251250,192012094030,,,53,,95,,1,,,,48506,53,,,,,,,,,,,,,,,,,,,,,,,,,,,C,,";
+  string IP_UDP_DNS_str = "0,site-name,1226268501.053798,0.000000,,17,140.221.251.250,192.12.94.30,,,53,,95,,1,,,,48506,53,,,,,,,,,,,,,,,,,,,,,,,,,,,C,,";
 
   return(IP_UDP_DNS_str);
 }
@@ -1121,7 +1121,7 @@ Internet Control Message Protocol
 
 string get_VLAN_IP_ICMP_UDP_unreachable_str(void)
 {
-  string VLAN_IP_ICMP_UDP_unreachable_str = "0,site-name,1226268331.533850,0.000000,521,1,140221251018,220191255066,,,28,,74,,1,,,,,,0303,,+0303,,,,,,,,,,,,,,,,,,,,,,,,C,,";
+  string VLAN_IP_ICMP_UDP_unreachable_str = "0,site-name,1226268331.533850,0.000000,521,1,140.221.251.18,220.191.255.66,,,28,,74,,1,,,,,,0303,,+0303,,,,,,,,,,,,,,,,,,,,,,,,C,,";
 
   return(VLAN_IP_ICMP_UDP_unreachable_str);
 }
@@ -1229,7 +1229,7 @@ Internet Control Message Protocol
 
 string get_VLAN_IP_ICMP_ping_str(void)
 {
-  string VLAN_IP_ICMP_ping_str = "0,site-name,1226268319.316919,0.000000,170,1,204056255074,140221248055,,,20,,66,,1,,,,,,0800,,+0800,,,,,,,,,,,,,,,,,,,,,,,,C,,";
+  string VLAN_IP_ICMP_ping_str = "0,site-name,1226268319.316919,0.000000,170,1,204.56.255.74,140.221.248.55,,,20,,66,,1,,,,,,0800,,+0800,,,,,,,,,,,,,,,,,,,,,,,,C,,";
 
   return(VLAN_IP_ICMP_ping_str);
 }
@@ -1337,7 +1337,7 @@ Internet Group Management Protocol
 
 string get_VLAN_IP_IGMP_str(void)
 {
-  string VLAN_IP_IGMP_str = "0,site-name,1226268276.128060,0.000000,521,2,192124226098,224000000001,,,8,,50,,1,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,C,,";
+  string VLAN_IP_IGMP_str = "0,site-name,1226268276.128060,0.000000,521,2,192.124.226.98,224.0.0.1,,,8,,50,,1,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,C,,";
 
   return(VLAN_IP_IGMP_str);
 }
@@ -1471,7 +1471,7 @@ Hypertext Transfer Protocol
 
 string get_VLAN_IP_TCP_HTTP_str(void)
 {
-  string VLAN_IP_TCP_HTTP_str = "0,site-name,1226268299.772389,0.000000,521,6,140221238250,192124226041,,,781,,839,,1,,,,3497,80,,,,,,18,,+18,,4211522027,,,,4211522027,,,,,,,,,,,,,C,,";
+  string VLAN_IP_TCP_HTTP_str = "0,site-name,1226268299.772389,0.000000,521,6,140.221.238.250,192.124.226.41,,,781,,839,,1,,,,3497,80,,,,,,18,,+18,,4211522027,,,,4211522027,,,,,,,,,,,,,C,,";
 
   return(VLAN_IP_TCP_HTTP_str);
 }
@@ -1703,7 +1703,7 @@ Domain Name System (query)
 
 string get_VLAN_IP_UDP_DNS_str(void)
 {
-  string VLAN_IP_UDP_DNS_str = "0,site-name,1226268502.758106,0.000000,521,17,140221251250,68142196063,,,49,,95,,1,,,,5609,53,,,,,,,,,,,,,,,,,,,,,,,,,,,C,,";
+  string VLAN_IP_UDP_DNS_str = "0,site-name,1226268502.758106,0.000000,521,17,140.221.251.250,68.142.196.63,,,49,,95,,1,,,,5609,53,,,,,,,,,,,,,,,,,,,,,,,,,,,C,,";
 
   return(VLAN_IP_UDP_DNS_str);
 }

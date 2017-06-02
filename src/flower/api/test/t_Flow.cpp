@@ -116,8 +116,8 @@ BOOST_AUTO_TEST_CASE(provide_string_representation_of_itself)
   // DEVELOPER NOTE: TODO: 2009/02/25:
   //   Get data from g_good_data in utility.hpp and build the following
   //   strings from those values:
-  string flowFromWire = "0,site-name,0.000000,0.000000,8738,1,240240240240,241241241241,,,,,128,,1,,,,1,13107,0030,,+0030,,,,,,,,,,,,,,,,,,,,,,,,C,,";
-  string flowFromFile = "1,site-name,0.000000,0.000000,8738,1,240240240240,241241241241,,,,,128,,1,,,,1,13107,0030,,+0030,,,,,,,,,,,,,,,,,,,,,,,,A,,";
+  string flowFromWire = "0,site-name,0.000000,0.000000,8738,1,240.240.240.240,241.241.241.241,,,,,128,,1,,,,1,13107,0030,,+0030,,,,,,,,,,,,,,,,,,,,,,,,C,,";
+  string flowFromFile = "1,site-name,0.000000,0.000000,8738,1,240.240.240.240,241.241.241.241,,,,,128,,1,,,,1,13107,0030,,+0030,,,,,,,,,,,,,,,,,,,,,,,,A,,";
 
   bool wire = true;
   bool file = false;
@@ -169,16 +169,16 @@ BOOST_AUTO_TEST_CASE(zero_icmp_flow)
   sharedFlow flow6 = generateFlow(true, 6, 1, ::g_REAL, ::g_icmp_protocol);
 
   string     part1 = "1,site-name,";
-  string     part2 = ".000000,0.000000,8738,1,240240240240,241241241241,,,,,,,,,,,1,13107,0000,,,,,,,,,,,,,,,,,,,,,,,,,,";
+  string     part2 = ".000000,0.000000,8738,1,240.240.240.240,241.241.241.241,,,,,,,,,,,1,13107,0000,,,,,,,,,,,,,,,,,,,,,,,,,,";
   string     part3 = ",,";
 
-  BOOST_CHECK_EQUAL(flow1->createFlowString(), "1,site-name,1.000000,0.000000,8738,1,240240240240,241241241241,,,,,128,,1,,,,1,13107,0030,,+0030,,,,,,,,,,,,,,,,,,,,,,,,A,,");
+  BOOST_CHECK_EQUAL(flow1->createFlowString(), "1,site-name,1.000000,0.000000,8738,1,240.240.240.240,241.241.241.241,,,,,128,,1,,,,1,13107,0030,,+0030,,,,,,,,,,,,,,,,,,,,,,,,A,,");
 
   // Condition: 
   flow1->merge(flow2);
-  BOOST_CHECK_EQUAL(flow1->createFlowString(), "1,site-name,2.000000,1.000000,8738,1,240240240240,241241241241,,,,,256,,2,,,,1,13107,0030,,+0030+0030,,,,,,,,,,,,,,,,,,,,,,,,A,,");
+  BOOST_CHECK_EQUAL(flow1->createFlowString(), "1,site-name,2.000000,1.000000,8738,1,240.240.240.240,241.241.241.241,,,,,256,,2,,,,1,13107,0030,,+0030+0030,,,,,,,,,,,,,,,,,,,,,,,,A,,");
   flow1->setFragType(true);
-  BOOST_CHECK_EQUAL(flow1->createFlowString(), "1,site-name,2.000000,1.000000,8738,1,240240240240,241241241241,,,,,256,,2,,,,1,13107,0030,,+0030+0030,,,,,,,,,,,,,,,,,,,,,,,,F,,");
+  BOOST_CHECK_EQUAL(flow1->createFlowString(), "1,site-name,2.000000,1.000000,8738,1,240.240.240.240,241.241.241.241,,,,,256,,2,,,,1,13107,0030,,+0030+0030,,,,,,,,,,,,,,,,,,,,,,,,F,,");
   flow1->zero();
   BOOST_CHECK_EQUAL(flow1->createFlowString(), part1 + "2" + part2 + "F" + part3);
 
@@ -212,16 +212,16 @@ BOOST_AUTO_TEST_CASE(zero_tcp_flow)
   sharedFlow flow6 = generateFlow(true, 6, 1, ::g_REAL, ::g_tcp_protocol);
 
   string     part1 = "1,site-name,";
-  string     part2 = ".000000,0.000000,8738,6,240240240240,241241241241,,,,,,,,,,,1,13107,,,,,,00,,,,,,,,,,,,,,,,,,,,,";
+  string     part2 = ".000000,0.000000,8738,6,240.240.240.240,241.241.241.241,,,,,,,,,,,1,13107,,,,,,00,,,,,,,,,,,,,,,,,,,,,";
   string     part3 = ",,";
 
-  BOOST_CHECK_EQUAL(flow1->createFlowString(), "1,site-name,1.000000,0.000000,8738,6,240240240240,241241241241,,,,,128,,1,,,,1,13107,,,,,,30,,+30,,888888888,,,,888888888,,,,,,,,,,,,,A,,");
+  BOOST_CHECK_EQUAL(flow1->createFlowString(), "1,site-name,1.000000,0.000000,8738,6,240.240.240.240,241.241.241.241,,,,,128,,1,,,,1,13107,,,,,,30,,+30,,888888888,,,,888888888,,,,,,,,,,,,,A,,");
 
   // Condition:
   flow1->merge(flow2);
-  BOOST_CHECK_EQUAL(flow1->createFlowString(), "1,site-name,2.000000,1.000000,8738,6,240240240240,241241241241,,,,,256,,2,,,,1,13107,,,,,,30,,+30+30,,888888888,,,,888888888,,,,,,,,,,,,,A,,");
+  BOOST_CHECK_EQUAL(flow1->createFlowString(), "1,site-name,2.000000,1.000000,8738,6,240.240.240.240,241.241.241.241,,,,,256,,2,,,,1,13107,,,,,,30,,+30+30,,888888888,,,,888888888,,,,,,,,,,,,,A,,");
   flow1->setFragType(true);
-  BOOST_CHECK_EQUAL(flow1->createFlowString(), "1,site-name,2.000000,1.000000,8738,6,240240240240,241241241241,,,,,256,,2,,,,1,13107,,,,,,30,,+30+30,,888888888,,,,888888888,,,,,,,,,,,,,F,,");
+  BOOST_CHECK_EQUAL(flow1->createFlowString(), "1,site-name,2.000000,1.000000,8738,6,240.240.240.240,241.241.241.241,,,,,256,,2,,,,1,13107,,,,,,30,,+30+30,,888888888,,,,888888888,,,,,,,,,,,,,F,,");
   flow1->zero();
   BOOST_CHECK_EQUAL(flow1->createFlowString(), part1 + "2" + part2 + "F" + part3);
 

@@ -23,7 +23,8 @@
 
 // Namespaces
 
-#define MIN_SITE_NAME_LEN 2
-#define MAX_SITE_NAME_LEN 8
+#define MIN_SITE_NAME_LEN  2
+#define MAX_SITE_NAME_LEN  20
+#define DATA_GUIDE_VERSION "06"
 
 #endif // CONSTANTS_HPP

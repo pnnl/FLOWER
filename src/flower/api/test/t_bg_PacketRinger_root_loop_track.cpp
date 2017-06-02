@@ -73,7 +73,7 @@ struct PacketRingerSuiteFixture
     bool buffer_packets        = false;
       
     string file_ext   = "dat";
-    string out_dir    = getEnsipDataHomeOutput();
+    string out_dir    = getFlowerDataHomeOutput();
     string site_name  = "pnnl_dev";
     output_helper     = new OutputHelper(out_dir, file_ext, 500, site_name, getDataGuideVersion(), ".");
     packet_ringer     = new PacketRinger(*output_helper, &packet_add_event, cache_timeout, num_packets_to_capture, buffer_packets, num_packets_to_capture);

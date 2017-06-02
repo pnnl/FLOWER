@@ -40,8 +40,8 @@ using namespace std;
 string const g_hexdigits("0123456789ABCDEF");
 
 
-int unsigned asEtherType(ByteArray const & p_array, int unsigned p_offset) throw()      
-{      
+int unsigned asEtherType(ByteArray const & p_array, int unsigned p_offset) throw()
+{
   DEBUG(LOTS, ENTER);
 
   int unsigned  result = 0;
@@ -58,41 +58,48 @@ int unsigned asEtherType(ByteArray const & p_array, int unsigned p_offset) throw
 }
 
 
-string asIpv4(u_int32_t const p_ip_address) throw()
-{
-  DEBUG(LOTS, ENTER);
-  DEBUG(LOTS, LEAVE);
-  // DEVELOPER NOTE: Do not pad the first octet with zeros
-  return(uitoa10(p_ip_address & 0xFF, 3) + uitoa10((p_ip_address >> 8) & 0xFF, 3) + uitoa10((p_ip_address >> 16) & 0xFF, 3) + uitoa10(p_ip_address >> 24,0));
-}
-
-
 string asIpv4(IpAddress_t const & p_ip_address) throw()
 {
   DEBUG(LOTS, ENTER);
   DEBUG(LOTS, LEAVE);
   // DEVELOPER NOTE: Do not pad the first octet with zeros
-  return(uitoa10(p_ip_address.at(12),0) + uitoa10(p_ip_address.at(13), 3) + uitoa10(p_ip_address.at(14), 3) + uitoa10(p_ip_address.at(15), 3));
+  return(uitoa10(p_ip_address.at(12), 0) + "." +
+         uitoa10(p_ip_address.at(13), 0) + "." +
+         uitoa10(p_ip_address.at(14), 0) + "." +
+         uitoa10(p_ip_address.at(15), 0));
 }
 
 
 string asIpv6(IpAddress_t const & p_ip_address) throw()
 {
   DEBUG(LOTS, ENTER);
-  
-  static u_int8_t g_hexdigits[] = "0123456789ABCDEF";
+
+  static u_int8_t g_hexdigits[] = "0123456789abcdef";
   int unsigned                          i_idx  = 0;
   int unsigned                          r_idx  = 0;
-  static string                         result("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-  
+  static string                         result("xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx");
+
   for (int unsigned i = 0; i < 16; ++i)
   {
-    result.at(r_idx)    = g_hexdigits[p_ip_address.at(i_idx) >> 4];   // high nibble
-    result.at(++r_idx)  = g_hexdigits[p_ip_address.at(i_idx) &  0x0F];// low nibble
+    result.at(r_idx)    = g_hexdigits[p_ip_address.at(i_idx) >> 4];    // high nibble
+    result.at(++r_idx)  = g_hexdigits[p_ip_address.at(i_idx) &  0x0f]; // low nibble
     ++r_idx;
     ++i_idx;
+
+    switch (i_idx)
+    {
+      case  2:
+      case  4:
+      case  6:
+      case  8:
+      case 10:
+      case 12:
+      case 14:
+        ++r_idx;
+        break;
+    }
   }
-  
+
   DEBUG(LOTS, LEAVE);
   return(result);
 }

@@ -59,19 +59,22 @@ struct PacketBuilderSuiteFixture
   {
     BOOST_TEST_MESSAGE("PacketBuilderSuite setup fixture");
 
-    string ensip_data_home = getEnsipDataHomeInput();
-    pcap_files_good.push_back(ensip_data_home + ::g_pkts_str + "pkts.pcap");
-    pcap_files_missing.push_back(ensip_data_home + "missing.pcap");
-    pcap_files_malformed.push_back(ensip_data_home + "malformed.pcap");
+    string flower_data_home = getFlowerDataHomeInput();
+    string flower_data_nic  = getFlowerDataNic();
+    pcap_files_good.push_back(flower_data_home + ::g_pkts_str + "pkts.pcap");
+    pcap_files_missing.push_back(flower_data_home + "missing.pcap");
+    pcap_files_malformed.push_back(flower_data_home + "malformed.pcap");
     pcap_files_permissions.push_back("/etc/shadow");
     
-    interface            = "eth0";
+    interface            = flower_data_nic;
     interface_not_found  = "asdf";
 
     // sharedPacket packet(new Packet(::g_REAL));
     packet_builder       = new PacketBuilder(&new_pcap_desc_event, &packet_add_event, ::g_pkts, 65535);
     packet_add_event    += new PacketAddEvent::Static("add_event",  &testOnAddEvent);
     new_pcap_desc_event += new NewPcapDescEvent::Static("new_desc", &testOnAddEvent);
+    //  TODO:  2017/06/02 - Don't think we need the following line
+    //packet_builder->initFile(flower_data_home + "missing.pcap");
     return;
   }
 

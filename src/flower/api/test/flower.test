@@ -71,13 +71,15 @@ if [ "$?" != "0" ]; then
 fi
 
 cd $TBIN
-for t_test in `/bin/ls -1 ./t_* | grep -v t_bg | grep -v t_test`
+#for t_test in `/bin/ls -1 ./t_*`
+for t_test in `/bin/ls -1 ./t_* | grep -v t_bg`
 do
   echo "#####  START $t_test"
   sudo=""
   if [ `echo $t_test | grep -c t_sudo` -eq 1 ]; then
     sudo="sudo"
   fi
+  echo $sudo $t_test $showProgress $logLevel $reportFormat $reportLevel $catchSystemError
   $sudo $t_test $showProgress $logLevel $reportFormat $reportLevel $catchSystemError > $out 2> $err
   if [ "$?" != "0" ]; then
     echo "******************************************************************"

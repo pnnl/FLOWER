@@ -104,37 +104,48 @@ void resetTimestamp(void)
 }
 
 
-string getEnsipDataHome ()
+string getFlowerDataNic ()
 {
-  string ensip_data_home;
-  // This has to be char * because sudo will run as root and root
-  // may not have ENSIP_HOME set. The HOME variable will be set to
-  // the user running the command.
-  char * env_ensip_home   = getenv("ENSIP_HOME");
-  if (env_ensip_home)
+  char * env_flower_nic   = getenv("FLOWER_NIC");
+  if (NULL == env_flower_nic)
   {
-    ensip_data_home       = env_ensip_home;
+    cerr << "\nERROR: PLEASE set the environment variable, FLOWER_NIC, to test the ability to read from the wire\n" << endl;
+  }
+  return(string(env_flower_nic));
+}
+
+
+string getFlowerDataHome ()
+{
+  string flower_data_home;
+  // This has to be char * because sudo will run as root and root
+  // may not have FLOWER_HOME set. The HOME variable will be set to
+  // the user running the command.
+  char * env_flower_home   = getenv("FLOWER_HOME");
+  if (env_flower_home)
+  {
+    flower_data_home       = env_flower_home;
   }
   else
   {
-    ensip_data_home      += getenv("HOME");
-    ensip_data_home      += "/dev/ensip";
+    flower_data_home      += getenv("HOME");
+    flower_data_home      += "/dev/flower";
   }
-  ensip_data_home        += "/data/flower/";
+  flower_data_home        += "/data/flower/";
 
-  return(ensip_data_home);
+  return(flower_data_home);
 }
 
 
-string getEnsipDataHomeInput ()
+string getFlowerDataHomeInput ()
 {
-  return(getEnsipDataHome() + "input/");
+  return(getFlowerDataHome() + "input/");
 }
 
 
-string getEnsipDataHomeOutput ()
+string getFlowerDataHomeOutput ()
 {
-  return(getEnsipDataHome() + "output/");
+  return(getFlowerDataHome() + "output/");
 }
 
 

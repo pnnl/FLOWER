@@ -28,9 +28,9 @@
 #include <boost/regex.hpp>
 // Internal Includes
 // Application Includes
+#include "CONSTANTS.hpp"
 #include "global.hpp"
 #include "osUtil.hpp"
-#include "CONSTANTS.hpp"
 #include "EventTypes.hpp"
 #include "Exception.hpp"
 #include "ExceptionHandler.hpp"
@@ -641,8 +641,8 @@ void ProgramOptions::processSiteName(void) throw()
     FATAL(RangeError, "Exception", message.c_str());
   }
 
-  // Make sure site name is not more than 8 characters
-  if (8 < strlen(getOption<string>("site-name").c_str()))
+  // Make sure site name is not more than MAX_SITE_NAME_LEN characters
+  if (MAX_SITE_NAME_LEN < strlen(getOption<string>("site-name").c_str()))
   {
     string message = "The site-name is too long, it cannot be more than " + uitoa10(MAX_SITE_NAME_LEN) + " characters";
     FATAL(RangeError, "Exception", message.c_str());

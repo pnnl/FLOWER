@@ -19,6 +19,7 @@
 // External Includes
 // Internal Includes
 // Application Includes
+#include "CONSTANTS.hpp"
 #include "global.hpp"
 
 
@@ -32,16 +33,16 @@
 using namespace std;
 
 
-bool const     g_REAL               = false;  // NOTE: So flow.isFake() returns false
-bool const     g_FAKE               = true;   // NOTE: So flow.isFake() returns true
+bool const     g_REAL                = false;  // NOTE: So flow.isFake() returns false
+bool const     g_FAKE                = true;   // NOTE: So flow.isFake() returns true
 
-bool const     g_OUTPUT2LOG         = false;  // NOTE: So getConsoleOrLog() returns true
-bool const     g_OUTPUT2CONSOLE     = true;   // NOTE: So getConsoleOrLog() returns false
+bool const     g_OUTPUT2LOG          = false;  // NOTE: So getConsoleOrLog() returns true
+bool const     g_OUTPUT2CONSOLE      = true;   // NOTE: So getConsoleOrLog() returns false
 
-u_int8_t const g_NORMALEXIT         = 0;
-u_int8_t const g_ABNORMALEXIT       = 1;
+u_int8_t const g_NORMALEXIT          = 0;
+u_int8_t const g_ABNORMALEXIT        = 1;
 
-static string  g_DATA_GUIDE_VERSION = "flr05";
+static string  g_DATA_GUIDE_VERSION  = "flr" DATA_GUIDE_VERSION;
 
 static string       site_name        = "site-name";
 
