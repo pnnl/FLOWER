@@ -289,7 +289,7 @@ string PacketBuilder::onMetricsEvent(int unsigned const p_level) throw()
     output("      Packets per second: " + getPacketCounter().getItemsPerSecond());
     result  = "PB";
     result += ":pc#"  + uitoa10(getPacketCounter().getItemCount());
-    result += ":pt#"  + getPacketCounter().getItemProcessingTime();
+    result += ":ppt#" + getPacketCounter().getItemProcessingTime();
     result += ":pps#" + getPacketCounter().getItemsPerSecond();
     getPacketCounter().resetItem();
     getPacketCounter().setStartTime();

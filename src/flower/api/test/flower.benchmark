@@ -17,7 +17,7 @@ do
   echo "******************************************************************"
   echo "Processing Input File: $c"
   echo "Creating  Output File: $d/$c"
-  flower --site-name=pnnl_dev --config-file=$FLOWER_HOME/conf/flower.conf --output-data-dir=$d $b
+  $FLOWER_HOME/flower --site-name=pnnl_dev --config-file=$FLOWER_HOME/conf/flower.conf --output-data-dir=$d $b
   echo "Output Line Count = `wc -l $d/*`"
   echo ""
 done

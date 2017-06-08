@@ -502,10 +502,10 @@ void PacketRinger::finish(void) throw()
 string PacketRinger::onMetricsEvent(int unsigned const p_level) throw()
 {
   DEBUG(TRACE, ENTER);
-  string result = "PR";
+  string result = "";
   if (isRunning())
   {
-    getPacketCounter().setFinishTime(false);
+    getPacketCounter().setFinishTime();
     output("      Heartbeats sent:    " + uitoa10(getHeartbeatCount()));
     output("      Packets captured:   " + uitoa10(getPacketCounter().getItemCount()));
     output("      Processing time:    " + getPacketCounter().getItemProcessingTime());
