@@ -1,0 +1,83 @@
+extends layout
+
+block content
+  h1= title
+  p Select input files and arguments, then click submit
+  form#dropzone(action="/upload", method="post", enctype="multipart/form-data")
+    table
+      tr
+        td Input files (*.fasta)
+        td
+          input(name='fasta_files', type='file', multiple)
+      tr
+        td Outgroup files (*.fasta)
+        td
+          input(name='outgroup_file', type='file')
+      tr
+        td Output Format
+        td
+          input(name='output_format', type='radio', value='html' checked)
+          | HTML (+ Plain Text)
+          br
+          input(name='output_format', type='radio', value='plain')
+          | Plain Text
+      tr
+        th(style={"width":"300px", "padding-top": "25px"}) Ortholog/Paralog Finding Options
+        td
+      tr
+        td Sequence Overlap Cutoff (%) 
+        td
+          input(name='seq_overlap', type='number', value='0.5', min='0.0', max='1.0', step='0.1')
+      tr
+        td Segment Overlap Cutoff (%) 
+        td
+          input(name='seg_overlap', type='number', value='0.25', min='0.0', max='1.0', step='0.01')
+      tr
+        td Group Overlap Cutoff (%) 
+        td
+          input(name='group_overlap', type='number', value='0.5', min='0.0', max='1.0', step='0.1')
+      tr
+        td Outgroup Cutoff (bit score)
+        td
+          input(name='outgroup_cutoff', type='number', value='50', min='0', max='999', step='10')
+      tr
+        td BLAST score Cutoff (bit score)
+        td
+          input(name='blast_cutoff', type='number', value='50', min='0', max='999', step='10')
+      tr
+        td BLAST Subsitition Matrix
+        td
+          select(name='scoring_matrix')
+            option BLOSUM45
+            option(selected) BLOSUM62
+            option BLOSUM80
+            option PAM30
+            option PAM70
+      tr
+        th(style={"padding-top": "25px"}) Clique Finding Options
+        td 
+      tr
+        td Minimum Clique Size
+        td
+          input(name='min_clique_size', type='number', value='2', min='2', max='999', step='1')
+      tr
+        td Edge Threshold (%)
+        td
+          input(name='edge_threshold', type='number', value='0.05', min='0.05', max='1', step='0.01')
+      tr
+        td Graph Types
+        td
+          input(type='checkbox', name='graph_types', value='C', checked) 
+          | Complete
+          br
+          input(type='checkbox', name='graph_types', value='S', checked)
+          |Semicomplete
+          br
+          input(type='checkbox', name='graph_types', value='I', checked)
+          | Incomplete
+          br
+          input(type='checkbox', name='graph_types', value='D', checked)
+          |Degenerate
+      tr
+        td
+          input(type="submit")

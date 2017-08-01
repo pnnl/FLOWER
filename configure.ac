@@ -51,7 +51,7 @@ AC_TYPE_SIGNAL
 AC_CHECK_FUNCS([gettimeofday memset socket strerror strstr])
 
 # Checks for Boost libraries
-BOOST_REQUIRE([1.58])
+BOOST_REQUIRE([1.33])
 BOOST_PROGRAM_OPTIONS([mt-d])
 BOOST_FILESYSTEM([mt-d])
 BOOST_SYSTEM([mt-d])

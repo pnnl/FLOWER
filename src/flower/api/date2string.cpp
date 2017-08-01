@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// COPYRIGHT (C) 2008.  PNNL.  All Rights Reserved. 
+// Copyright (C) (2011-2021) Battelle Memorial Institute. All Rights Reserved.
 //
 // THIS FILE INITIALLY CREATED WITH:  
 //     TEMPLATE NAME:  lang_cpp_class.template 

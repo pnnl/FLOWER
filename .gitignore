@@ -21,6 +21,7 @@ build-aux/depcomp
 build-aux/install-sh
 build-aux/ltmain.sh
 build-aux/missing
+include/tags
 t_Data
 t_Elf
 t_Event

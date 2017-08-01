@@ -1,5 +1,13 @@
 #!/bin/sh
 
+################################################################################
+# Copyright (C) (2011-2021) Battelle Memorial Institute. All Rights Reserved.
+# _____________________________________________________________________________
+#·
+# PURPOSE OF TEST:·
+#  SWAWT automated test script:  exit with 0 => success, 1 => failure·
+################################################################################
+
 debug=0
 
 export FLOWER_HOME=$HOME/dev/flower

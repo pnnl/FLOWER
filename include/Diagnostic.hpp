@@ -1,14 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// COPYRIGHT (C) 2008.  PNNL.  All Rights Reserved. 
-//
-// THIS FILE INITIALLY CREATED WITH:  
-//     TEMPLATE NAME:  lang_cpp_hdr.template 
-//     COMMAND NAME:   gensrc 
-//
-// REPOSITORY INFORMATION: 
-//  $Revision: 1.6 $ 
-//  $Author: younkin $ 
-//  $Date: 2008-06-11 20:34:38 $ 
+// Copyright (C) (2011-2021) Battelle Memorial Institute. All Rights Reserved.
 //
 // CODING CONVENTIONS: 
 //    * Class names are CamelCase with first word upper case 

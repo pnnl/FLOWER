@@ -1,13 +1,7 @@
 ///////////////////////////////////////////////////////////////////////////////
-// COPYRIGHT (C) 2008.  PNNL.  All Rights Reserved. 
-//
-// THIS FILE INITIALLY CREATED WITH:  
-//     TEMPLATE NAME:  lang_cpp_exe.template 
-//     COMMAND NAME:   gensrc 
-//
-// ND exe: $Id$ 
+// Copyright (C) (2011-2021) Battelle Memorial Institute. All Rights Reserved.
 // _____________________________________________________________________________
-// 
+//
 // SYNOPSIS: 
 //  [put a single sentence stating purpose of this file] 
 //

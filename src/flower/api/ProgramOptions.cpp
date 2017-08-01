@@ -1,15 +1,11 @@
 ///////////////////////////////////////////////////////////////////////////////
-// COPYRIGHT (C) 2008.  .  All Rights Reserved. 
+// Copyright (C) (2011-2021) Battelle Memorial Institute. All Rights Reserved.
 //
-// THIS FILE INITIALLY CREATED WITH:  
-//     TEMPLATE NAME:  lang_cpp_class.template 
-//     COMMAND NAME:   gensrc 
-//
-// CODING CONVENTIONS: 
-//    * Class names are CamelCase with first word upper case 
-//    * Functions are camelCase with first word lower case 
-//    * Function parameters are lower case with _ and have p_ prefix 
-//    * Member variables always use 'this' pointer 
+// CODING CONVENTIONS:
+//    * Class names are CamelCase with first word upper case
+//    * Functions are camelCase with first word lower case
+//    * Function parameters are lower case with _ and have p_ prefix
+//    * Member variables always use 'this' pointer
 ///////////////////////////////////////////////////////////////////////////////
 
 
@@ -72,7 +68,7 @@ using boost::lexical_cast;
 //  None discovered
 //
 // SEE ALSO:
-//============================================================================== 
+//==============================================================================
 
 
 // ======================================================================
@@ -151,7 +147,7 @@ bool ProgramOptions::checkOptions(int p_argc, char ** p_argv, string const & p_d
     catch(std::exception & e)
     {
       FATAL(BadOption, "Processing command line options", lexical_cast<string>(e.what()));
-    }    
+    }
 
     // Handle command line only options
 
@@ -181,8 +177,8 @@ bool ProgramOptions::checkOptions(int p_argc, char ** p_argv, string const & p_d
 
     // Handle command line and configuration file options
 
-    setBufferPackets();                                  // BUFFER-PACKETS 
-    setMaxPacketbufferSize();                            // MAX-PACKETBUFFER-SIZE 
+    setBufferPackets();                                  // BUFFER-PACKETS
+    setMaxPacketbufferSize();                            // MAX-PACKETBUFFER-SIZE
     setCacheTimeout();                                   // CACHE-TIMEOUT
     setCacheForceout();                                  // CACHE-FORCEOUT
     setSummaryForceout();                                // SUMMARY-FORCEOUT
@@ -194,24 +190,24 @@ bool ProgramOptions::checkOptions(int p_argc, char ** p_argv, string const & p_d
     // Handle configuration file options
 
     setMaxFlowcacheSize();                               // MAX-FLOWCACHE-SIZE
-    setSuppressIpv4Output();                             // SUPPRESS-IPV4-OUTPUT 
-    setSkipIpv4Packets();                                // SKIP-IPV4-PACKETS 
+    setSuppressIpv4Output();                             // SUPPRESS-IPV4-OUTPUT
+    setSkipIpv4Packets();                                // SKIP-IPV4-PACKETS
   }
   catch(std::exception & e)
   {
     FATAL(BadOption, "Processing options", lexical_cast<string>(e.what()));
-  }    
+  }
 
   // Check for expired license
   std::time_t current_time = std::time(nullptr);
   std::time_t expire_date  = std::stoi(COMPILE_TIME, nullptr) + 15780000; //  Six (6) months in seconds
   //std::time_t expire_date  = std::stoi(COMPILE_TIME, nullptr) + 1; //  Expire in 1 second after compile
 
-  if (current_time > expire_date)
-  {
-    displayVersion(getOptionMap().count("version"), p_data_guide_ver); // VERSION
-    FATAL(PermissionDenied, "Expired License", "License expired on " + string(std::asctime(std::localtime(&expire_date))));
-  }
+  //if (current_time > expire_date)
+  //{
+  //  displayVersion(getOptionMap().count("version"), p_data_guide_ver); // VERSION
+  //  FATAL(PermissionDenied, "Expired License", "License expired on " + string(std::asctime(std::localtime(&expire_date))));
+  //}
 
   displayRuntimeVariables();
 
@@ -364,7 +360,7 @@ void ProgramOptions::displayVersion(bool const p_condition, string const & p_dat
   }
 
   string cpr;
-  cpr += "   Copyright (C) 2008 Pacific Northwest National Laboratory\n\n";
+  cpr += "   Copyright (C) (2011-2021) Battelle Memorial Institute. All Rights Reserved.\n\n";
 
   string dis;
   dis += "This software was prepared as an account of work sponsored by\n";
@@ -386,7 +382,7 @@ void ProgramOptions::displayVersion(bool const p_condition, string const & p_dat
   dis += "   PACIFIC NORTHWEST NATIONAL LABORATORY\n";
   dis += "       operated by BATTELLE for the\n";
   dis += "    UNITED STATES DEPARTMENT OF ENERGY\n";
-  dis += "     under Contract DE-AC05-76RL01830\n";
+  dis += "     under Contract DE-AC06-76RL01830\n";
 
 #ifndef APP_DESC
 #define APP_DESC "ERROR"
@@ -423,7 +419,7 @@ void ProgramOptions::displayVersion(bool const p_condition, string const & p_dat
   string message;
 
   message  = "\n   " APP_DESC "\n"
-             "\n   " APP_NAME " version:           " MAJOR_VERSION "." MINOR_VERSION "." MICRO_VERSION 
+             "\n   " APP_NAME " version:           " MAJOR_VERSION "." MINOR_VERSION "." MICRO_VERSION
              "\n   Compiled on:              " __DATE__ ", " __TIME__ " (" COMPILE_TIME ")"
              "\n   Compiled with:            " CXX_VER
              "\n     Optimize Level:         " CXX_OPTIMIZE_LEVEL
@@ -521,7 +517,7 @@ void ProgramOptions::processConfigFile(void) throw()
     catch(std::exception & e)
     {
       FATAL(BadOption, "Processing configuration file options", lexical_cast<string>(e.what()));
-    }    
+    }
     notify(getOptionMap());
     setConfigFile(config_file);
   }
@@ -714,7 +710,7 @@ bool ProgramOptions::processInputFiles(bool const p_condition) throw()
       result = false;
     }
   }
-  
+
   return(result);
 }
 

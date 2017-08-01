@@ -1,10 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// COPYRIGHT (C) 2008.  .  All Rights Reserved.
-//
-// THIS FILE INITIALLY CREATED WITH:
-//     TEMPLATE NAME:  lang_cpp_test.template
-//     COMMAND NAME:   gensrc
-//
+// Copyright (C) (2011-2021) Battelle Memorial Institute. All Rights Reserved.
 // _____________________________________________________________________________
 //
 // PURPOSE OF TEST:

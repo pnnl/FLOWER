@@ -1,3 +1,7 @@
+#
+#  Copyright (C) (2011-2021) Battelle Memorial Institute. All Rights Reserved.
+#
+
 ACLOCAL_AMFLAGS        =  -I m4 -I build-aux
 
 AUTOMAKE_OPTIONS       =  foreign

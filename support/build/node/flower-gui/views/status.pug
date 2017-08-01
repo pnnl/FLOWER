@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1 status
+  p BLAST is #{progress} percent complete
+  p#additional_status
+  script.
+    (function countdown(remaining) {
+      if (!{done}) { return };
+      if(remaining <= 0) {
+          window.location.reload(true);
+      }
+      setTimeout(function(){ countdown(remaining - 1); }, 1000); 
+    })(5); // 5 seconds
+
+    if (!{done}) {
+      console.log("done");
+      document.getElementById("additional_status").innerHTML = "Processing complete. Downloading results";
+      window.location = "/download";
+    } else {
+      if (!{progress} == "100") {
+        document.getElementById("additional_status").innerHTML = "Processing results";
+      }
+      console.log("not done", !{done});
+    }
