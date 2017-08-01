@@ -29,7 +29,7 @@ my %flowerStats = (
                     'flowsIPv6'    => 0
                   );
 
-my $ENSIP_HOME  = $ENV{'ENSIP_HOME'} || "DOS";
+my $FLOWER_HOME = $ENV{'FLOWER_HOME'} || "DOS";
 my $TMP_DIR     = getTmpDir();
 my $INFILE      = '';
 my $DEBUG       = 0;

@@ -9,7 +9,7 @@ use XML::XPath;
 use XML::DOM;
 use XML::Simple;
 
-my $CONFDIR  = "$ENV{'ENSIP_HOME'}/conf";
+my $CONFDIR  = "$ENV{'FLOWER_HOME'}/conf";
 my $DEBUG    = 0;
 my $HELP     = 0;
 my $FILE     = '';    # Something like "$CONFDIR/flower_defs.xml"
@@ -325,7 +325,7 @@ sub getAssignFunction($%)
   my $body;
 
   # TODO: FIX: This should not be hardcoded
-  open(FH, "$ENV{'ENSIP_HOME'}/conf/flower_sig.conf") || die("Can't open PacketParser.hpp: $!");
+  open(FH, "$ENV{'FLOWER_HOME'}/conf/flower_sig.conf") || die("Can't open PacketParser.hpp: $!");
   while (<FH>)
   {
     $assign_sig  .= $_;

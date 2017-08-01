@@ -1,7 +1,10 @@
 .\" See man groff_mdoc for template and other information.
+.\"
+.\" Copyright (C) (2011-2021) Battelle Memorial Institute. All Rights Reserved.
+.\"
 .Dd January 10, 2009
 .Os Linux/Windows XP
-.Dt FLOWER 8 ENSIP
+.Dt FLOWER 8 FLOWER
 .Sh NAME
 .Nm flower
 .Nd Read and summarize IP network packets into network flow records.
@@ -41,10 +44,10 @@ application uses the Linux PF_PACKET MMAP API or the libpcap library for getting
 has been ported to Intel architectures running Windows XP and MacOS X and the PowerPC architecture running Linux.
 .Sh SEE ALSO
 .nf
-More documentation can be found at https://cvs.pnl.gov/ensip/wiki/
-  - ENSIP Flower Build Guide
-  - ENSIP Flower Data Guide
-  - ENSIP Flower Operations Guide
+More documentation can be found at docs directory
+  - FLOWER Build Guide
+  - FLOWER Data Guide
+  - FLOWER Operations Guide
 .fi
 .Xr pcap 3
 .Xr tcpdump 8
@@ -53,9 +56,10 @@ More documentation can be found at https://cvs.pnl.gov/ensip/wiki/
 .Bl -tag -width Fl
 .Sh REPORT BUGS
 Please include the version information and problem description at 
-https://cvs.pnl.gov/ensip/newticket
+flower-support@pnnl.gov
 .Sh HISTORY
 First availability January 2009.
 .Sh AUTHORS
-ENSIP TEAM (Bill Nickless - PM) Battelle Pacific Northwest Laboratory
+FLOWER TEAM (flower-support@pnnl.gov) Battelle Pacific Northwest Laboratory
 .Sh BUGS
+None have been identified

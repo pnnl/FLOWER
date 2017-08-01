@@ -13,6 +13,7 @@ fail ()
   exit $failure
 }
 
+fail "ERROR: This script no longer works - needs to be updated to support git!"
 
 check_dir ()
 {
@@ -26,13 +27,13 @@ check_dir ()
 
 check_clean ()
 {
-  count=`svn status | egrep -c "^\s*M|^\s*A|^\s*D"`
+  count=`git status | egrep -c "^\s*M|^\s*A|^\s*D"`
   echo $count
 }
 
 
-cd $ENSIP_HOME
-svn update
+cd $FLOWER_HOME
+git update
 
 
 ticket_num=`echo $1 | sed -e "s/[a-zA-Z_-]//g"`
@@ -48,23 +49,25 @@ if [ "0" != "$count" ]; then
 fi
 
 
-svn copy https://cvs.pnl.gov/svn/ensip/ensip/branches/$ticket_id https://cvs.pnl.gov/svn/ensip/ensip/tags/POST-$ticket_id -m "Finish Tag for fixing ticket #$ticket_num."
-svn switch https://cvs.pnl.gov/svn/ensip/ensip/trunk .
-svn update > ./svn_update.out 2>&1
-cat ./svn_update.out
+# TODO: Change to support git
+git copy https://URI/branches/$ticket_id https://URI/tags/POST-$ticket_id -m "Finish Tag for fixing ticket #$ticket_num."
+git switch https://URI/master .
+git pull > ./git_update.out 2>&1
+cat ./git_update.out
 
 
-count=`cat ./svn_update.out | grep -v "^At revision" | wc -l`
-rm -f ./svn_update.out
+count=`cat ./git_update.out | grep -v "^At revision" | wc -l`
+rm -f ./git_update.out
 if [ "0" != "$count" ]; then
-  echo "ERROR: The svn update failed. You need to fix the problem, then run the following two svn commands by hand"
-  echo "svn merge https://cvs.pnl.gov/svn/ensip/ensip/tags/PRE-$ticket_id https://cvs.pnl.gov/svn/ensip/ensip/tags/POST-$ticket_id"
-  echo "svn commit -m \"Merged fix for ticket #$ticket_num.\""
+  echo "ERROR: The git pull failed. You need to fix the problem, then run the following two git commands by hand"
+  echo "git merge https://URI/tags/PRE-$ticket_id https://URI/tags/POST-$ticket_id"
+  echo "git commit -m \"Merged fix for ticket #$ticket_num.\""
   exit $failure
 fi
 
 
-svn merge https://cvs.pnl.gov/svn/ensip/ensip/tags/PRE-$ticket_id https://cvs.pnl.gov/svn/ensip/ensip/tags/POST-$ticket_id
-svn commit -m "Merged fix for ticket #$ticket_num."
+git merge https://URI/tags/PRE-$ticket_id https://URI/tags/POST-$ticket_id
+git commit -m "Merged fix for ticket #$ticket_num."
+git push
 
 exit 0

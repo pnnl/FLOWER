@@ -18,7 +18,7 @@ fi
 
 
 dir=`dirname $0`
-dir="$ENSIP_HOME/src/flower/api/test/tickets"
+dir="$FLOWER_HOME/src/flower/api/test/tickets"
 
 
 ticket_id=`echo $1 | sed -e "s/^ticket//" -e "s/.conf$//"`
@@ -29,10 +29,10 @@ else
 fi
 
 
-input_dir="$ENSIP_HOME/data/flower/input/$ticket_id"
-ticket_output_dir="$ENSIP_HOME/data/flower/output/$ticket_id"
-ensipoutput_dir="$ENSIP_HOME/data/flower/output"
-ref_dir="$ENSIP_HOME/data/flower/ref/$ticket_id"
+input_dir="$FLOWER_HOME/data/flower/input/$ticket_id"
+ticket_output_dir="$FLOWER_HOME/data/flower/output/$ticket_id"
+floweroutput_dir="$FLOWER_HOME/data/flower/output"
+ref_dir="$FLOWER_HOME/data/flower/ref/$ticket_id"
 
 
 check_dir ()
@@ -61,7 +61,7 @@ check_dirs ()
 }
 
 
-check_dirs $input_dir $ensip_output_dir $ref_dir
+check_dirs $input_dir $flower_output_dir $ref_dir
 
 
 #
@@ -88,7 +88,7 @@ fi
 #
 #  Use the default config file unless one exist for this ticket
 #
-conf_file="$ENSIP_HOME/conf/flower.conf"
+conf_file="$FLOWER_HOME/conf/flower.conf"
 if [ -f "$dir/$ticket_id.conf" ]; then
   conf_file="$dir/$ticket_id.conf"
 fi
@@ -100,7 +100,7 @@ fi
 input_files="`/bin/ls -1 $input_dir | grep pcap`"
 for file in $input_files
 do
-  $ENSIP_HOME/bin/flower --site-name=pnnl_dev --config-file=$conf_file --output-data-dir=$ticket_output_dir $input_dir/$file
+  $FLOWER_HOME/bin/flower --site-name=pnnl_dev --config-file=$conf_file --output-data-dir=$ticket_output_dir $input_dir/$file
 # > /dev/null 2>&1
 done
 

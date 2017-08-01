@@ -40,7 +40,7 @@ check_dirs ()
 
 dir=`dirname $0`
 dir=`/bin/pwd`
-dir="$ENSIP_HOME/src/flower/api/test"
+dir="$FLOWER_HOME/src/flower/api/test"
 tickets_test_dir="$dir/tickets"
 check_dirs $tickets_test_dir
 

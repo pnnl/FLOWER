@@ -8,7 +8,7 @@ use File::Basename;
 use Net::IP;
 
 
-my $data_dir = $ENV{'ENSIP_HOME'} . "/src/flower/api/test/packets";
+my $data_dir = $ENV{'FLOWER_HOME'} . "/src/flower/api/test/packets";
 
 
 sub CalculateTimes($)

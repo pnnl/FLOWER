@@ -1,7 +1,7 @@
 #!/bin/bash
 
-pkt_cnt="$ENSIP_HOME/support/other/data_quality/count_pcap_packets.pl"
-pkt_cmp="$ENSIP_HOME/support/other/data_quality/compare_pcap_files.pl"
+pkt_cnt="$FLOWER_HOME/support/other/data_quality/count_pcap_packets.pl"
+pkt_cmp="$FLOWER_HOME/support/other/data_quality/compare_pcap_files.pl"
 tcpreplay="/usr/local/bin/tcpreplay"
 tshark="/usr/sbin/tshark"
 tcpspeed="--topspeed"
@@ -59,7 +59,7 @@ cache_timeout=1000
 max2buffer=1000  # DEVELOPER NOTE: Don't use a number larger than 30451
 min_cnt=0
 max_cnt=$max2buffer
-files=`find $ENSIP_HOME/data/flower/input -name \*.pcap | grep -v IPX | grep -v 1M.pcap | egrep "cpp_verify|phase_one"`
+files=`find $FLOWER_HOME/data/flower/input -name \*.pcap | grep -v IPX | grep -v 1M.pcap | egrep "cpp_verify|phase_one"`
 files_found=`/bin/ls -1 $files | wc -l`
 
 
@@ -113,7 +113,7 @@ root_loop_track ()
     if [ "$cnt" -gt "$min_cnt" -a "$cnt" -lt "$max_cnt" ]; then
       echo "FILE:$t_data"
       sudo rm -f $temp_file
-      rm -f $ENSIP_HOME/data/flower/output/20*.dat > /dev/null 2>&1
+      rm -f $FLOWER_HOME/data/flower/output/20*.dat > /dev/null 2>&1
   
       echo "sudo tcpreplay --quiet $tcpspeed --intf1=$intf $t_data"
       sudo sh -c "sleep 2; $tcpreplay --quiet $tcpspeed --intf1=$intf $t_data > /dev/null 2>&1" &
@@ -155,7 +155,7 @@ root_loop_buffer ()
       echo "FILE:$t_data"
       sudo rm -f $temp_file
       # REMOVE ANY PREVIOUS OUTPUT FILES
-      rm -f $ENSIP_HOME/data/flower/output/20*.pcap > /dev/null 2>&1
+      rm -f $FLOWER_HOME/data/flower/output/20*.pcap > /dev/null 2>&1
 
       echo "sudo tcpreplay --quiet $tcpspeed --intf1=$intf $t_data"
       sudo sh -c "sleep 2; $tcpreplay --quiet $tcpspeed --intf1=$intf $t_data > /dev/null 2>&1" &
@@ -182,7 +182,7 @@ root_loop_buffer ()
         exit 1
       fi
 
-      outfiles=`/bin/ls -1 $ENSIP_HOME/data/flower/output/20*.pcap`
+      outfiles=`/bin/ls -1 $FLOWER_HOME/data/flower/output/20*.pcap`
       echo "$pkt_cmp $cnt $t_data $outfiles"
       $pkt_cmp       $cnt $t_data $outfiles
       result=$?

@@ -56,7 +56,7 @@ sub init()
 
 init();
 
-my $ENSIP_HOME   = $ENV{'ENSIP_HOME'} || "DOS";
+my $FLOWER_HOME  = $ENV{'FLOWER_HOME'} || "DOS";
 my($NUM)         = ($INFILE =~ m/.*?_(\d{2,2})/);
 my $TMP_DIR      = getTmpDir() . '/' . $NUM;
 my $OUT_DIR      = "$TMP_DIR/data";
@@ -67,12 +67,12 @@ my $TMP_FILE_DIR = "$TMP_DIR/tmpfiles";
 my $flo_cmd;
 my $flower_cmd;
 
-$flower_cmd .= "$ENSIP_HOME/bin/flower";
+$flower_cmd .= "$FLOWER_HOME/bin/flower";
 $flower_cmd .= ' --site-name=pnnl_dev';
 $flower_cmd .= ' --cache-timeout=1000000';
 $flower_cmd .= ' --cache-forceout=1000000';
 $flower_cmd .= ' --summary-forceout=1000000';
-$flower_cmd .= " --config-file=$ENSIP_HOME/support/other/data_quality/flower.conf";
+$flower_cmd .= " --config-file=$FLOWER_HOME/support/other/data_quality/flower.conf";
 $flower_cmd .= ' --output-file-ext=flower';
 $flower_cmd .= " --output-data-dir=$TMP_FILE_DIR";
 $flo_cmd    .= '/opt/cpp/sbin/flo';

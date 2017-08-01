@@ -41,7 +41,6 @@ total=0
 exitStatus=0
 
 # Build the libraries before running
-#build -comp ensip -type lib -v -auto
 make || exit
 
 if [ "$?" != "0" ]; then

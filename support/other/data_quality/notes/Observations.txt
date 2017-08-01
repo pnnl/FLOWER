@@ -13,7 +13,7 @@ Methodology:
   Command line options for Flower:
 
    --summary-forceout=1000000
-   --config-file=$ENSIP_HOME/conf/myflower.conf
+   --config-file=$FLOWER_HOME/conf/myflower.conf
    --output-file-ext=flower
    --site-name=pnnl_dev
    --cache-timeout=1000000
@@ -21,7 +21,7 @@ Methodology:
    --output-data-dir=$out_dir
 
   Command line options for Flo:
-  
+
    -3
    --nosem
    -r
@@ -29,4 +29,3 @@ Methodology:
    --sit=1000000
    --sfo=1000000
    --data="$out_dir"
-

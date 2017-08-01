@@ -5,6 +5,11 @@ FROM    intendo/centos7_gcc5_3_boost1_60
 ################################################################################
 
 # ##########################################################
+#   Get prerequisites
+# ##########################################################
+RUN     yum -y install rpm-build
+
+# ##########################################################
 #   SETUP Build Environment
 # ##########################################################
 RUN     mkdir -p /opt/flower/bin /opt/flower/lib
@@ -41,6 +46,8 @@ RUN     ./rebuild_from_scratch.sh
 RUN     /opt/flower/src/flower/api/test/flower.test
 
 RUN     ip a
+
+#RUN mkdir
 
 # build FLOWER gui
 #WORKDIR /opt/flower

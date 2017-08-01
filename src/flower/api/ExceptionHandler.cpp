@@ -112,7 +112,7 @@ void ExceptionHandler::SingletonHandler::Handler(void)
   }
   catch (string & err_code)
   {
-    // DEVELOPER NOTE: Currently all of our ENSIP ERROR macros throw a
+    // DEVELOPER NOTE: Currently all of our FLOWER ERROR macros throw a
     //                 string (e.g. error_code)
     ExceptionHandler::SingletonHandler::shutdown_system_event->call(SIGTERM);
     FATAL(Shutdown, err_code, "");

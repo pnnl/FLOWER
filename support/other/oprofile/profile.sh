@@ -22,19 +22,19 @@ fi
 
 dir=`dirname $script`
 outfile="$dir/opreport.txt"
-ENSIP_HOME="/home/$1/dev/ensip"
-exefile="$ENSIP_HOME/bin/flower"
-configarg="$ENSIP_HOME/conf/myflower.conf"
-outputdirarg="$ENSIP_HOME/data/flower/output"
-inputfilearg="$ENSIP_HOME/data/flower/input/flower_ipv*.pcap /var/tmp/*huge.pcap"
+FLOWER_HOME="/home/$1/dev/flower"
+exefile="$FLOWER_HOME/bin/flower"
+configarg="$FLOWER_HOME/conf/myflower.conf"
+outputdirarg="$FLOWER_HOME/data/flower/output"
+inputfilearg="$FLOWER_HOME/data/flower/input/flower_ipv*.pcap /var/tmp/*huge.pcap"
 
-if [ -z "$ENSIP_HOME" ]; then
-  echo "ERROR: The ENSIP HOME, $ENSIP_HOME, does not exist."
+if [ -z "$FLOWER_HOME" ]; then
+  echo "ERROR: The FLOWER HOME, $FLOWER_HOME, does not exist."
   exit 1
 fi
 
-if [ ! -d "$ENSIP_HOME" ]; then
-  echo "ERROR: The \$ENSIP_HOME dir, $ENSIP_HOME, does not exist."
+if [ ! -d "$FLOWER_HOME" ]; then
+  echo "ERROR: The \$FLOWER_HOME dir, $FLOWER_HOME, does not exist."
   exit 1
 fi
 

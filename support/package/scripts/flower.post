@@ -8,7 +8,7 @@
 # DEVELOPER NOTES:
 #   - The script does the following
 #     - makes sure the /data/flower data directory exists
-#     - copies the $ENSIP_HOME/conf/flower.init to /etc/rc.d/init.d/flower
+#     - copies the $FLOWER_HOME/conf/flower.init to /etc/rc.d/init.d/flower
 #       NOTE - /etc/rc.d/init.d/flower is called the servicefile
 #     - finds the CPP config files and replaces variables in the servicefile
 #     - adds the flower service using chkconfig

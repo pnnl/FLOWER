@@ -43,17 +43,17 @@ char * getConfigFileArg(void)
 {
   string config_file_arg("--config-file=");
   // This has to be char * because sudo will run as root and root
-  // may not have ENSIP_HOME set. The HOME variable will be set to
+  // may not have FLOWER_HOME set. The HOME variable will be set to
   // the user running the command.
-  char * env_ensip_home  = getenv("ENSIP_HOME");
-  if (env_ensip_home)
+  char * env_flower_home  = getenv("FLOWER_HOME");
+  if (env_flower_home)
   {
-    config_file_arg   += env_ensip_home;
+    config_file_arg   += env_flower_home;
   }
   else
   {
     config_file_arg   += getenv("HOME");
-    config_file_arg   += "/dev/ensip";
+    config_file_arg   += "/dev/flower";
   }
   config_file_arg     += "/conf/flower.conf";
 
