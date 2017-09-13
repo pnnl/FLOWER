@@ -28,7 +28,7 @@
 #define APP_DESC "network packet FLOW analizER (" APP_NAME ")"
 
 
-#define ERROR(  p_ecode, p_item, p_context) ::message(p_ecode, p_item, p_context, __CLASS__, __func__, __FILE__, __LINE__, EXIT_SUCCESS)
+#define ERROR_MSG(  p_ecode, p_item, p_context) ::message(p_ecode, p_item, p_context, __CLASS__, __func__, __FILE__, __LINE__, EXIT_SUCCESS)
 #define FATAL(  p_ecode, p_item, p_context) ::message(p_ecode, p_item, p_context, __CLASS__, __func__, __FILE__, __LINE__, EXIT_FAILURE)
 #define CAUTION(p_ecode, p_item, p_context) ::message(p_ecode, p_item, p_context, __CLASS__, __func__, __FILE__, __LINE__, EXIT_SUCCESS)
 #define WARN(   p_ecode, p_item, p_context) ::message(p_ecode, p_item, p_context, __CLASS__, __func__, __FILE__, __LINE__, EXIT_SUCCESS)

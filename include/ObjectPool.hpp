@@ -94,7 +94,7 @@ public:
     }
     else
     {
-      ERROR(RangeError, "Releasing object back to ObjectPool", "Too many objects already in ObjectPool");
+      ERROR_MSG(RangeError, "Releasing object back to ObjectPool", "Too many objects already in ObjectPool");
       return(false);
     }
 
@@ -111,7 +111,7 @@ public:
       return(true);
     }
 
-    ERROR(RangeError, "Getting object from ObjectPool", "No more objects available");
+    ERROR_MSG(RangeError, "Getting object from ObjectPool", "No more objects available");
     return(false);
   }
 

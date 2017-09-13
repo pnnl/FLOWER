@@ -60,7 +60,7 @@ typedef enum
 } error_enum;
 
 
-#define EERROR(a, b, c, d) updateErrorCount(a); ERROR(b, c, d)
+#define EERROR(a, b, c, d) updateErrorCount(a); ERROR_MSG(b, c, d)
 
 
 void updateErrorCount(error_enum p_error) throw();

@@ -198,9 +198,13 @@ bool ProgramOptions::checkOptions(int p_argc, char ** p_argv, string const & p_d
     FATAL(BadOption, "Processing options", lexical_cast<string>(e.what()));
   }
 
+#ifndef COMPILE_TIME
+#define COMPILE_TIME "ERROR"
+#endif
+
   // Check for expired license
   std::time_t current_time = std::time(nullptr);
-  std::time_t expire_date  = std::stoi(COMPILE_TIME, nullptr) + 15780000; //  Six (6) months in seconds
+//  std::time_t expire_date  = std::stoi(COMPILE_TIME, nullptr) + 15780000; //  Six (6) months in seconds
   //std::time_t expire_date  = std::stoi(COMPILE_TIME, nullptr) + 1; //  Expire in 1 second after compile
 
   //if (current_time > expire_date)

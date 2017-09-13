@@ -1,16 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FLOWER", "FLOWER\FLOWER.vcproj", "{C22CBED4-9C30-47C7-93F0-E41480E24419}"
-	ProjectSection(ProjectDependencies) = postProject
-		{9D0EA007-AD16-4128-99A1-342C9731EB79} = {9D0EA007-AD16-4128-99A1-342C9731EB79}
-		{252F68F5-A574-4265-A0C0-47780935D2AA} = {252F68F5-A574-4265-A0C0-47780935D2AA}
-	EndProjectSection
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Flower", "FLOWER\FLOWER.vcxproj", "{C22CBED4-9C30-47C7-93F0-E41480E24419}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FLOWER_DLL", "FLOWER_DLL\FLOWER_DLL.vcproj", "{252F68F5-A574-4265-A0C0-47780935D2AA}"
-	ProjectSection(ProjectDependencies) = postProject
-		{9D0EA007-AD16-4128-99A1-342C9731EB79} = {9D0EA007-AD16-4128-99A1-342C9731EB79}
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FLOWER_DLL", "FLOWER_DLL\FLOWER_DLL.vcxproj", "{252F68F5-A574-4265-A0C0-47780935D2AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,14 +27,6 @@ Global
 		{252F68F5-A574-4265-A0C0-47780935D2AA}.Release|Win32.ActiveCfg = Release|Win32
 		{252F68F5-A574-4265-A0C0-47780935D2AA}.Release|Win32.Build.0 = Release|Win32
 		{252F68F5-A574-4265-A0C0-47780935D2AA}.Release|x64.ActiveCfg = Release|Win32
-		{9D0EA007-AD16-4128-99A1-342C9731EB79}.Debug|Win32.ActiveCfg = Debug|Win32
-		{9D0EA007-AD16-4128-99A1-342C9731EB79}.Debug|Win32.Build.0 = Debug|Win32
-		{9D0EA007-AD16-4128-99A1-342C9731EB79}.Debug|x64.ActiveCfg = Debug|x64
-		{9D0EA007-AD16-4128-99A1-342C9731EB79}.Debug|x64.Build.0 = Debug|x64
-		{9D0EA007-AD16-4128-99A1-342C9731EB79}.Release|Win32.ActiveCfg = Release|Win32
-		{9D0EA007-AD16-4128-99A1-342C9731EB79}.Release|Win32.Build.0 = Release|Win32
-		{9D0EA007-AD16-4128-99A1-342C9731EB79}.Release|x64.ActiveCfg = Release|x64
-		{9D0EA007-AD16-4128-99A1-342C9731EB79}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

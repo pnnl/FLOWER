@@ -147,7 +147,7 @@ bool PacketParser::processTcpOptions(int unsigned p_tcp_hdr_len, int unsigned p_
   if (p_tcp_hdr_len < p_offset_to_options)
   {
 // TODO: 2010-04-19: Change this to EERROR or CAUTION
-cout << "ERROR: bad args for tcp options" << endl;
+cout << "ERROR_MSG: bad args for tcp options" << endl;
     return(false);
   }
 
@@ -160,7 +160,7 @@ cout << "ERROR: bad args for tcp options" << endl;
   if (! isEnoughData(max_option_offset))
   {
 // TODO: 2010-04-19: Change this to EERROR or CAUTION
-cout << "ERROR: not enough data to parse options" << endl;
+cout << "ERROR_MSG: not enough data to parse options" << endl;
     return(false);
   }
 
@@ -1461,11 +1461,11 @@ string PacketParser::onMetricsEvent(int unsigned const p_level) throw()
 
   if (total_bytes_calc != this->total_bytes_received)
   {
-    ERROR(TSNH, "Total bytes received != Total bytes calculated",  (uitoa10(this->total_bytes_received) + " != " + uitoa10(total_bytes_calc)).c_str());
+    ERROR_MSG(TSNH, "Total bytes received != Total bytes calculated",  (uitoa10(this->total_bytes_received) + " != " + uitoa10(total_bytes_calc)).c_str());
   }
   if (total_packets_calc != this->total_packets_received)
   {
-    ERROR(TSNH, "Total packets received != Total packets calculated",  (uitoa10(this->total_packets_received) + " != " + uitoa10(total_packets_calc)).c_str());
+    ERROR_MSG(TSNH, "Total packets received != Total packets calculated",  (uitoa10(this->total_packets_received) + " != " + uitoa10(total_packets_calc)).c_str());
   }
 
   output("      Bytes   received:   " + uitoa10(this->total_bytes_received));
