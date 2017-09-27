@@ -63,3 +63,5 @@ autom4te.cache/traces.*
 *.user
 *.iobj
 *.ipdb
+.vs
+x64
