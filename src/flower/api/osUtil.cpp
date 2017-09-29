@@ -23,6 +23,8 @@
 #include <sys/ioctl.h>
 #include <sys/socket.h>
 #include <unistd.h>
+#else // Windows-specific
+#include <pcap.h>
 #endif
 #include <string.h>
 #include <sys/types.h>
@@ -134,6 +136,20 @@ bool const checkNetworkInterface(string const & p_device) throw()
 
   return(true);
 #else
+
+  char error_buffer[PCAP_ERRBUF_SIZE] = {0};
+  char* dev = pcap_lookupdev(error_buffer);
+
+  if (NULL == dev)
+  {
+    ERROR_MSG("NO_DEV", "Trying to check the network interface: ", error_buffer);
+    return(false);
+  }
+  else
+  {
+    return(true);
+  }
+  
   return(false);
 #endif
 }
