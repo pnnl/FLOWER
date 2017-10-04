@@ -31,6 +31,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FlowerTest_FlowCache", "Flo
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FlowerTest_Event", "FlowerTest_Event\FlowerTest_Event.vcxproj", "{E31E160F-F51E-435E-B433-833426FD2CE0}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FlowerTest_Elf", "FlowerTest_Elf\FlowerTest_Elf.vcxproj", "{66DE002B-1091-4DB3-9C35-9046BDD73027}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -101,6 +103,14 @@ Global
 		{E31E160F-F51E-435E-B433-833426FD2CE0}.Release|x64.Build.0 = Release|x64
 		{E31E160F-F51E-435E-B433-833426FD2CE0}.Release|x86.ActiveCfg = Release|Win32
 		{E31E160F-F51E-435E-B433-833426FD2CE0}.Release|x86.Build.0 = Release|Win32
+		{66DE002B-1091-4DB3-9C35-9046BDD73027}.Debug|x64.ActiveCfg = Debug|x64
+		{66DE002B-1091-4DB3-9C35-9046BDD73027}.Debug|x64.Build.0 = Debug|x64
+		{66DE002B-1091-4DB3-9C35-9046BDD73027}.Debug|x86.ActiveCfg = Debug|Win32
+		{66DE002B-1091-4DB3-9C35-9046BDD73027}.Debug|x86.Build.0 = Debug|Win32
+		{66DE002B-1091-4DB3-9C35-9046BDD73027}.Release|x64.ActiveCfg = Release|x64
+		{66DE002B-1091-4DB3-9C35-9046BDD73027}.Release|x64.Build.0 = Release|x64
+		{66DE002B-1091-4DB3-9C35-9046BDD73027}.Release|x86.ActiveCfg = Release|Win32
+		{66DE002B-1091-4DB3-9C35-9046BDD73027}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
