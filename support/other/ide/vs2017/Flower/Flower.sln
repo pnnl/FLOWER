@@ -26,12 +26,24 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FlowerTest_Flow", "FlowerTe
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FlowerTest_Ip", "FlowerTest_Ip\FlowerTest_Ip.vcxproj", "{962B3675-4E52-465B-B691-1EADF89A2C27}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CDB24FE0-82BA-4FC0-8B10-3C029F1873C4} = {CDB24FE0-82BA-4FC0-8B10-3C029F1873C4}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FlowerTest_FlowCache", "FlowerTest_FlowCache\FlowerTest_FlowCache.vcxproj", "{CC744141-74C7-41A5-B9EF-783A47C664AF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CDB24FE0-82BA-4FC0-8B10-3C029F1873C4} = {CDB24FE0-82BA-4FC0-8B10-3C029F1873C4}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FlowerTest_Event", "FlowerTest_Event\FlowerTest_Event.vcxproj", "{E31E160F-F51E-435E-B433-833426FD2CE0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CDB24FE0-82BA-4FC0-8B10-3C029F1873C4} = {CDB24FE0-82BA-4FC0-8B10-3C029F1873C4}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FlowerTest_Elf", "FlowerTest_Elf\FlowerTest_Elf.vcxproj", "{66DE002B-1091-4DB3-9C35-9046BDD73027}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CDB24FE0-82BA-4FC0-8B10-3C029F1873C4} = {CDB24FE0-82BA-4FC0-8B10-3C029F1873C4}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
