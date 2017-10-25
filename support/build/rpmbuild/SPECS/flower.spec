@@ -10,7 +10,7 @@ Release: 0
 Summary: Flower distribution
 License: GPL+
 Group: System Environment/Base
-Source: flower-6.0.tar
+#Source: flower-6.0.tar
 Prefix: /opt/flower
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 Requires: boost >= 1.6, gcc >= 5.3
@@ -21,7 +21,7 @@ Packager: Laura Curtis <Laura.Curtis@pnnl.gov>
 Flower application
 
 %prep
-%setup
+#%setup
 
 %build
 
@@ -56,13 +56,29 @@ then
 fi
 
 %post
-chown -R root.root %{prefix}
-sed -i "s#NEWPREFIX#${prefix}# %{prefix}/bin/create-flower-config.sh
+chown -R root.root $RPM_INSTALL_PREFIX
+#echo prefix is %{prefix}
+sed -i "s#NEWPREFIX#$RPM_INSTALL_PREFIX#" $RPM_INSTALL_PREFIX/bin/create-flower-config.sh
 #cp %{prefix}/.defaults/flower.sh /etc/profile.d/
 #cp %{prefix}/.defaults/flower.service /etc/systemd/system/flower.service
-%{prefix}/bin/create-flower-config.sh
-systemctl daemon-reload
-systemctl start flower
+#%{prefix}/bin/create-flower-config.sh
+#systemctl daemon-reload
+#systemctl start flower
+echo
+echo
+echo
+echo
+echo You must run:
+echo 
+echo 	 $RPM_INSTALL_PREFIX/bin/create-flower-config.sh
+echo
+echo as root to complete the installation. 
+echo If this step is skipped, you will not be running on a valid 
+echo network interface.
+echo 
+echo
+echo
+
 
 %changelog
 * Fri Oct 20 2017 (Laura Curtis) 6.1

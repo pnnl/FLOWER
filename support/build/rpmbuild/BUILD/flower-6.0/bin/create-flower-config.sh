@@ -12,13 +12,13 @@ echo
 echo 'Setting up flower configuration file'
 echo
 
-if [ ! -f /etc/os-release ] ;
+if [ ! -f /etc/os-release ]
 then 
   release_value=`grep release /etc/redhat-release | awk -F'release ' '{print $2}' | awk -F'.' '{print $1}'`
 else
-  release_value=`grep ^VERSION_ID= /etc/os-release | sed -e 's/"//g' | awk -F' ' '{print $2}' | awk -F'.' '{print $1}'`
+  release_value=`grep ^VERSION_ID= /etc/os-release | sed -e 's/"//g' | awk -F'=' '{print $2}' | awk -F'.' '{print $1}'`
 fi
-#echo $release_value 
+#echo release value - $release_value 
 
 declare -a conffiles=(${prefix}/.defaults/flower.sh ${prefix}/.defaults/flower.service ${prefix}/.defaults/flower ${prefix}/conf/flower.conf ${prefix}/conf/flower.env)
 
@@ -110,7 +110,7 @@ while [ $notverified ]; do
 
 done 
   
-sed -i "s/ExecStart=.*/ExecStart=${prefix}\/bin\/flower -c ${prefix}/conf\/flower\.conf --device=$answer/g" $flowerservice
+sed -i "s#ExecStart=.*#ExecStart=${prefix}\/bin\/flower -c ${prefix}\/conf\/flower\.conf --device=$answer#g" $flowerservice
 
 
 sitename=`grep site-name $flowerconfig | awk -F'=[ \t]*' '{print $2}'`
