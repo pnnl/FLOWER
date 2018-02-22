@@ -2,6 +2,7 @@
 .deps
 .dirstamp
 .libs
+.vscode
 Makefile.in
 Makefile
 config.h
