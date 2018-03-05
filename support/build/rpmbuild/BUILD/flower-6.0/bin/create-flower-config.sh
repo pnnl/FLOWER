@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 #
 
 prefix=NEWPREFIX
 
-if [[ $EUID -ne 0 ]]; then
+if [[ "$EUID" -ne 0 ]]; then
   echo "This script must be run as root."
   exit 1
 fi
@@ -20,7 +20,7 @@ else
 fi
 #echo release value - $release_value 
 
-declare -a conffiles=(${prefix}/.defaults/flower.sh ${prefix}/.defaults/flower.service ${prefix}/.defaults/flower ${prefix}/conf/flower.conf ${prefix}/conf/flower.env)
+declare -a conffiles=( ${prefix}/.defaults/flower.sh ${prefix}/.defaults/flower.service ${prefix}/.defaults/flower ${prefix}/conf/flower.conf ${prefix}/conf/flower.env )
 
 for i in "${conffiles[@]}"
 do 
@@ -36,11 +36,7 @@ case $release_value in
       flowerservice=/etc/systemd/system/flower.service
       cp ${prefix}/.defaults/flower.service  $flowerservice
       ;;
-  14) echo configuring for Ubuntu 14
-      flowerservice=/etc/systemd/system/flower.service
-      cp ${prefix}/.defaults/flower.service  $flowerservice
-      ;;
-  14) echo configuring for Ubuntu 16
+  16) echo configuring for Ubuntu 16
       flowerservice=/etc/systemd/system/flower.service
       cp ${prefix}/.defaults/flower.service  $flowerservice
       ;;
@@ -154,8 +150,14 @@ case $release_value in
      systemctl enable flower
      systemctl start flower
      ;;
+  16) echo starting service for Ubuntu 16
+     systemctl daemon-reload
+     systemctl enable flower
+     systemctl start flower
+     ;;
   *) echo Unknown or unsupported version of OS
      echo release value is --$release_value--
      exit
      ;;
 esac
+
