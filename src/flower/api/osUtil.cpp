@@ -16,8 +16,10 @@
 #include <errno.h>
 #include <grp.h>
 #include <arpa/inet.h>
+#ifdef __linux__
 #include <linux/types.h>
 #include <linux/if_packet.h>
+#endif
 #include <net/ethernet.h>
 #include <net/if.h>
 #include <sys/ioctl.h>
@@ -80,7 +82,7 @@ void output(string const & p_message) throw()
 #ifndef _MSC_VER
   if (getOutputLocation() == g_OUTPUT2LOG)
   {
-    syslog(LOG_ERR, p_message.c_str());
+    syslog(LOG_ERR, "%s", p_message.c_str());
   }
   else
   {

@@ -81,7 +81,8 @@ ProgramOptions::ProgramOptions(void) throw() :
   command_only("Command Line Only"),
   command_and_config("Command Line And Configuration File"),
   config_only("Configuration File Only"),
-  visible("Allowed options on command line and configuration file.\nDefault values are shown as (=DEFAULT)")
+  visible("Allowed options on command line and configuration file.\nDefault values are shown as (=DEFAULT)"),
+  executable_name("")
 {
   DEBUG(TRACE, ENTER);
 
@@ -140,6 +141,7 @@ bool ProgramOptions::checkOptions(int p_argc, char ** p_argv, string const & p_d
 
   try
   {
+    executable_name = p_argv[0];
     try
     {
       store(command_line_parser(p_argc, p_argv).options(this->cmdline_options).positional(this->position_options).run(), getOptionMap());
@@ -455,7 +457,15 @@ string ProgramOptions::getDefaultConfigFile(void) throw()
   int const MAXPATHLEN = 1024;
   char      fullpath[MAXPATHLEN];
 
-#ifndef _MSC_VER
+#ifdef __APPLE__
+  if (NULL == realpath(executable_name.c_str(), fullpath))
+  {
+    fprintf(stderr, "Error resolving realpath\n");
+    exit(EXIT_FAILURE);
+  }
+#elif __MSC_VER
+  GetModuleFileName(NULL, fullpath, MAX_PATH);
+#else
   int       length = readlink("/proc/self/exe", fullpath, sizeof(fullpath));
 
   // Catch some errors:
@@ -473,8 +483,6 @@ string ProgramOptions::getDefaultConfigFile(void) throw()
   // The string this readlink() function returns is appended with a '@'.
   // Strip '@' off the end.
   fullpath[length] = '\0';
-#else
-  GetModuleFileName(NULL, fullpath, MAX_PATH);
 #endif
 
   path pathname(fullpath);
@@ -722,7 +730,7 @@ void ProgramOptions::requiredOption(string const & p_option) throw(logic_error)
 
   if (0 == getOptionMap().count(p_option))
   {
-    throw(logic_error("Missing a required option '" + p_option + "'."));
+    throw logic_error("Missing a required option '" + p_option + "'.");
   }
 
   DEBUG(TRACE, LEAVE);
@@ -737,7 +745,7 @@ void ProgramOptions::requiredOptions(string const & p_opt1, string const & p_opt
 
   if (0 == getOptionMap().count(p_opt1) && 0 == getOptionMap().count(p_opt2))
   {
-    throw(logic_error("Missing a required options '" + p_opt1 + "' or '" + p_opt2 + "'."));
+    throw logic_error("Missing a required options '" + p_opt1 + "' or '" + p_opt2 + "'.");
   }
 
   DEBUG(TRACE, LEAVE);
@@ -815,7 +823,7 @@ void ProgramOptions::conflictingOptions(string const & p_opt1, string const & p_
       getOptionMap().count(p_opt2) && ! getOptionMap()[p_opt2].defaulted()
      )
   {
-    throw(logic_error("Conflicting options '" + p_opt1 + "' and '" + p_opt2 + "'."));
+    throw logic_error("Conflicting options '" + p_opt1 + "' and '" + p_opt2 + "'.");
   }
 
   DEBUG(TRACE, LEAVE);
@@ -833,7 +841,7 @@ void ProgramOptions::optionDependency(string const & p_for_what, string const & 
   {
     if (0 == getOptionMap().count(p_required_option) || getOptionMap()[p_required_option].defaulted())
     {
-      throw(logic_error("Option '" + p_for_what + "' requires option '" + p_required_option + "'."));
+      throw logic_error("Option '" + p_for_what + "' requires option '" + p_required_option + "'.");
     }
   }
 

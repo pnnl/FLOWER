@@ -1,3 +1,5 @@
+CMakeFiles
+CMakeCache.txt
 .DS_Store
 .deps
 .dirstamp
@@ -59,6 +61,15 @@ autom4te.cache/traces.*
 *.la
 *.lo
 *.o
+*.a
 *~
 *.zip
 *.piz
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake

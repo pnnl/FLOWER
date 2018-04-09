@@ -414,6 +414,7 @@ private:
   positional_options_description position_options;
   string                         device_name;
   string                         config_file;
+  string                         executable_name;
   string                         output_data_dir;
   string                         output_file_ext;
   int unsigned                   cache_forceout;
