@@ -4,7 +4,7 @@
 #%define build_timestamp %(date +"%Y%m%d")
 
 Name: flower
-Version: 6.0
+Version: 6.1
 #Release: 0_%{build_timestamp}
 Release: 0
 Summary: Flower distribution
