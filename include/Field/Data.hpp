@@ -85,25 +85,27 @@ public:
   }
 
 
-  T const & at(char unsigned const idx) const throw()
+  T const & at(char unsigned const idx) const throw(out_of_range)
   {
     assert(idx < SIZE);
     if (idx < SIZE)
     {
       return(this->value[idx]);
     }
-    return(*(T*)0);  // Return a null reference to provoke error
+    //return(*(T*)0);  // Return a null reference to provoke error
+    throw(out_of_range("Index: " + to_string(idx) + ", is greater than " + to_string(SIZE)));
   }
 
 
-  T & at(char unsigned const idx) throw()
+  T & at(char unsigned const idx) throw(out_of_range)
   {
     assert(idx < SIZE);
     if (idx < SIZE)
     {
       return(this->value[idx]);
     }
-    return(*(T*)0);  // Return a null reference to provoke error
+    //return(*(T*)0);  // Return a null reference to provoke error
+    throw(out_of_range("Index: " + to_string(idx) + ", is greater than " + to_string(SIZE)));
   }
 
 

@@ -1,0 +1,14 @@
+
+[Unit]
+Description=Flower Service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+EnvironmentFile=PREFIX/conf/flower.env
+ExecStart=PREFIX/bin/flower -c PREFIX/conf/flower.conf --device=eth0
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target

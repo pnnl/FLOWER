@@ -1,0 +1,17 @@
+#
+#  Changes to make
+#     convert all NULL references to nullptr
+#     use aliases (using) instead of typedefs
+#     Consider Item 10 in Effective C++ book to replace enums with class enums for error messages
+#
+#
+#     enum class UserInfoFields { uiName, uiEmail, uiReputation };
+#
+#     using UserInfo =                 // type alias; see Item 9
+#       std::tuple<std::string,        // name
+#                  std::string,        // email
+#                  std::size_t> ;      // reputation
+#
+#     UserInfo uInfo{"Darren", "Darren.Curtis@pnnl.gov", 5};
+#
+#     auto val = std::get<static_cast<std::size_t>(UserInfoFields::uiEmail)>(uInfo);
