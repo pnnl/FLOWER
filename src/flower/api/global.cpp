@@ -153,7 +153,7 @@ void message(string const & p_ecode,
 {
   u_int16_t pad = 14;
 
-  cerr << "\nFATAL ERROR:\n";
+  cerr << "\nFATAL ERROR_MSG:\n";
   cerr << setw(pad) << "File:  "     << p_file        << "(line:" << p_line << ")\n";
   cerr << setw(pad) << "Class:  "    << p_class       << "\n";
   cerr << setw(pad) << "Function:  " << p_func        << "\n";

@@ -99,11 +99,11 @@ void OutputHelper::renameTempFilename(string const & p_temp_filename) throw()
     string error_message("Trying to rename " + p_temp_filename + " to " + filename);
     if (! exists(src))
     {
-      ERROR(NotFound, "Missing temporary file", error_message.c_str());
+      ERROR_MSG(NotFound, "Missing temporary file", error_message.c_str());
     }
     if (exists(dst))
     {
-      ERROR(FileIO, "File already exists", error_message.c_str());
+      ERROR_MSG(FileIO, "File already exists", error_message.c_str());
     }
     try
     {
@@ -111,7 +111,7 @@ void OutputHelper::renameTempFilename(string const & p_temp_filename) throw()
     }
     catch (std::exception & e)
     {
-      ERROR(FileIO, "Rename temporary file", error_message.c_str());
+      ERROR_MSG(FileIO, "Rename temporary file", error_message.c_str());
     }
   }
   DEBUG(TRACE, LEAVE);
@@ -135,7 +135,7 @@ void OutputHelper::setFileSettings(string const & p_filename) throw()
   else
   {
     string error_message("Trying to chown and chmod file: " + p_filename);
-    ERROR(NotFound, "Missing file", error_message.c_str());
+    ERROR_MSG(NotFound, "Missing file", error_message.c_str());
   }
   DEBUG(TRACE, LEAVE);
   return;
@@ -233,17 +233,17 @@ bool OutputHelper::openLocked(string const & p_filename) throw()
     }
     else
     {
-      ERROR(FileIO, "Can't open or lock file", (message + " (" + strerror(errno) + ")").c_str());
+      ERROR_MSG(FileIO, "Can't open or lock file", (message + " (" + strerror(errno) + ")").c_str());
     }
   }
   else if ((0 > fd) && (errno == EEXIST))
   {
     // The file already exist; another process is holding the lock
-    ERROR(FileIO, "Can't lock existing file", (message + " (" + strerror(errno) + ")").c_str());
+    ERROR_MSG(FileIO, "Can't lock existing file", (message + " (" + strerror(errno) + ")").c_str());
   }
   else
   {
-    ERROR(FileIO, "Undefined Behavior", (message + " (" + strerror(errno) + ")").c_str());
+    ERROR_MSG(FileIO, "Undefined Behavior", (message + " (" + strerror(errno) + ")").c_str());
   }
 
 #else
@@ -266,11 +266,11 @@ bool OutputHelper::openLocked(string const & p_filename) throw()
     if (ERROR_FILE_EXISTS == Error)
     {
       // The file already exist; another process is holding the lock
-      ERROR(FileIO, "Can't lock existing file", message.c_str()); 
+      ERROR_MSG(FileIO, "Can't lock existing file", message.c_str()); 
     }
     else
     {
-      ERROR(FileIO, "Can't open file", message.c_str()); 
+      ERROR_MSG(FileIO, "Can't open file", message.c_str()); 
     }
   }
 
@@ -303,7 +303,7 @@ bool OutputHelper::closeLocked(string const & p_filename) throw()
   }
   else
   {
-    ERROR(NotFound, "Can't find file", message.c_str()); 
+    ERROR_MSG(NotFound, "Can't find file", message.c_str()); 
   }
 
 #else
@@ -327,7 +327,7 @@ bool OutputHelper::closeLocked(string const & p_filename) throw()
     else
     {
       DWORD Error = GetLastError();
-      ERROR(FileIO, "Can't close file", message.c_str());
+      ERROR_MSG(FileIO, "Can't close file", message.c_str());
     }
   }
   

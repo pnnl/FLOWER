@@ -24,10 +24,13 @@
 #include <net/if.h>
 #include <sys/ioctl.h>
 #include <sys/socket.h>
+#include <unistd.h>
+#else // Windows-specific
+#include <pcap.h>
 #endif
 #include <string.h>
 #include <sys/types.h>
-#include <unistd.h>
+
 // External Includes
 // Internal Includes
 // Application Includes
@@ -84,13 +87,10 @@ void output(string const & p_message) throw()
   {
     syslog(LOG_ERR, "%s", p_message.c_str());
   }
-  else
-  {
-    cout << p_message << endl;
-  }
-#else
-  cout << "LOG_ERR: " << p_message << endl;
 #endif
+
+  cout << p_message << endl;
+
   return;
 }
 
@@ -116,7 +116,7 @@ bool const checkNetworkInterface(string const & p_device) throw()
   if (0 > sock)   // Did the socket open OK?
   {
     err_message = "The kernel socket did not open correctly: " + static_cast<string>(strerror(errno_save));
-    ERROR(TSNH, "Trying to acquire kernel socket", err_message.c_str());
+    ERROR_MSG(TSNH, "Trying to acquire kernel socket", err_message.c_str());
     DEBUG(TRACE, LEAVE);
     return(false);
   }
@@ -130,13 +130,27 @@ bool const checkNetworkInterface(string const & p_device) throw()
   if (0 > ioctl_result)
   {
     err_message = "The ioctl operation Failed: " + static_cast<string>(strerror(errno_save));
-    ERROR(TSNH, "Trying to acquire interface index", err_message.c_str());
+    ERROR_MSG(TSNH, "Trying to acquire interface index", err_message.c_str());
     DEBUG(TRACE, LEAVE);
     return(false);
   }
 
   return(true);
 #else
+
+  char error_buffer[PCAP_ERRBUF_SIZE] = {0};
+  char* dev = pcap_lookupdev(error_buffer);
+
+  if (NULL == dev)
+  {
+    ERROR_MSG("NO_DEV", "Trying to check the network interface: ", error_buffer);
+    return(false);
+  }
+  else
+  {
+    return(true);
+  }
+  
   return(false);
 #endif
 }

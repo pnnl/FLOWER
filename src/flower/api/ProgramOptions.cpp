@@ -78,11 +78,14 @@ using boost::lexical_cast;
 
 ProgramOptions::ProgramOptions(void) throw() :
   use_device(false),
+  use_ring(false),
   command_only("Command Line Only"),
   command_and_config("Command Line And Configuration File"),
   config_only("Configuration File Only"),
   visible("Allowed options on command line and configuration file.\nDefault values are shown as (=DEFAULT)"),
   executable_name("")
+  max_packetbuffer_size(0),
+  buffer_packets(0)
 {
   DEBUG(TRACE, ENTER);
 
@@ -102,7 +105,7 @@ ProgramOptions::ProgramOptions(void) throw() :
   // Declare group of options that will be allowed both on command line and in config file
   //
   this->command_and_config.add_options()
-    ("buffer-packets,b",        value<int unsigned>()->default_value(1),           "Capture packets in case of unexpected termination: NOTE: Only works with --use-ring option")
+    ("buffer-packets,b",        value<int unsigned>()->default_value(0),           "Capture packets in case of unexpected termination: NOTE: Only works with --use-ring option")
     ("max-packetbuffer-size,m", value<int unsigned>()->default_value(10000),       "Max number of packets to keep in the packet buffer")
     ("cache-timeout,T",         value<int unsigned>()->default_value(120),         "Min time (in seconds) to keep idle flows in the cache")
     ("cache-forceout,C",        value<int unsigned>()->default_value(900),         "Max time (in seconds) to force busy flows from the cache")
@@ -111,7 +114,7 @@ ProgramOptions::ProgramOptions(void) throw() :
     ("output-file-ext,e",       value<string>()->default_value("dat"),             "Output file extension")
     ("site-name,s",             value<string>()->default_value(""),                "Name of site where data is collected")
     ("max-flowcache-size",      value<int unsigned>()->default_value(300000),      "Max number of flows allowed in the flow cache")
-    ("use-ring,r",              value<int unsigned>()->default_value(1),           "Use the linux kernel PF_PACKET mmap API rather than libpcap");
+    ("use-ring,r",              value<int unsigned>()->default_value(0),           "Use the linux kernel PF_PACKET mmap API rather than libpcap");
 
 
   //
@@ -200,9 +203,13 @@ bool ProgramOptions::checkOptions(int p_argc, char ** p_argv, string const & p_d
     FATAL(BadOption, "Processing options", lexical_cast<string>(e.what()));
   }
 
+#ifndef COMPILE_TIME
+#define COMPILE_TIME "ERROR"
+#endif
+
   // Check for expired license
   std::time_t current_time = std::time(nullptr);
-  std::time_t expire_date  = std::stoi(COMPILE_TIME, nullptr) + 15780000; //  Six (6) months in seconds
+//  std::time_t expire_date  = std::stoi(COMPILE_TIME, nullptr) + 15780000; //  Six (6) months in seconds
   //std::time_t expire_date  = std::stoi(COMPILE_TIME, nullptr) + 1; //  Expire in 1 second after compile
 
   //if (current_time > expire_date)
@@ -236,7 +243,12 @@ void ProgramOptions::displayRuntimeVariables(void) throw()
   if (getOptionMap().count("device"))
   {
     output("  Device                      = " + getOption<string>("device"));
+
+  if (isLinux())
+  {
     output("  Use PacketRinger            = " + bools[getOption<int unsigned>("use-ring")]);
+  }
+
     output("  Snaplen                     = " + lexical_cast<string>(getSnaplen()));
   }
   if (getOptionMap().count("input-file"))

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+
+  <!-- Adapter Specific sections -->
+
+  <!-- BoostTest adapter -->
+  <BoostTest>
+    <ForceListContent>true</ForceListContent>
+    <DiscoveryTimeoutMilliseconds>600000</DiscoveryTimeoutMilliseconds>
+    <!-- Both 'true' and '1' are allowable values -->
+    <FailTestOnMemoryLeak>false</FailTestOnMemoryLeak>
+    <LogLevel>TestSuite</LogLevel>
+  </BoostTest>
+
+</RunSettings>

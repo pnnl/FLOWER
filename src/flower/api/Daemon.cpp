@@ -92,28 +92,28 @@ bool Daemon::stop(void) throw()
           int check = unlink(getDeviceLockFilename().c_str());
           if (0 != check)
           {
-            ERROR(FileIO, "Unable to remove Device Lock File", ("Unable to unlink file, " + getDeviceLockFilename() + " (" + uitoa10(check) + ")").c_str());
+            ERROR_MSG(FileIO, "Unable to remove Device Lock File", ("Unable to unlink file, " + getDeviceLockFilename() + " (" + uitoa10(check) + ")").c_str());
           }
           else
           {
             // SUCCESS 
             result = true;
-            //ERROR(FileIO, "Removed Device Lock File", ("Removed device lock file, " + getDeviceLockFilename()).c_str());
+            //ERROR_MSG(FileIO, "Removed Device Lock File", ("Removed device lock file, " + getDeviceLockFilename()).c_str());
           }
         }
         else
         {
-          ERROR(FileIO, "Trying to remove Device Lock File", ("Unable to unlink file, " + getDeviceLockFilename()).c_str());
+          ERROR_MSG(FileIO, "Trying to remove Device Lock File", ("Unable to unlink file, " + getDeviceLockFilename()).c_str());
         }
       }
       else
       {
-        ERROR(FileIO, "Trying to unlock and close Device Lock File", ("Unable to unlock and close file, " + getDeviceLockFilename()).c_str());
+        ERROR_MSG(FileIO, "Trying to unlock and close Device Lock File", ("Unable to unlock and close file, " + getDeviceLockFilename()).c_str());
       }
     }
     else
     {
-      ERROR(FileIO, "Trying to unlock and close Device Lock File", ("Unable to locate device, " + getDevice()).c_str());
+      ERROR_MSG(FileIO, "Trying to unlock and close Device Lock File", ("Unable to locate device, " + getDevice()).c_str());
     }
   }
   DEBUG(TRACE, LEAVE);

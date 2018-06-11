@@ -122,13 +122,13 @@ bool SummaryExporter::openSummaryFile(void) throw()
     this->summary_file = new ofstream(getCurrentFilepath().c_str(), ios::app);
     if (!getSummaryFile() || !getSummaryFile()->is_open())
     {
-      ERROR(FileIO, "Can't open file", ("Can't open summary file: " + getCurrentFilepath()).c_str());
+      ERROR_MSG(FileIO, "Can't open file", ("Can't open summary file: " + getCurrentFilepath()).c_str());
     }
     status = true;
   }
   else
   {
-    ERROR(FileIO, "Can't open or lock file", ("Can't open summary file: " + getCurrentFilepath()).c_str());
+    ERROR_MSG(FileIO, "Can't open or lock file", ("Can't open summary file: " + getCurrentFilepath()).c_str());
   }
   return(status);
 }
@@ -146,7 +146,7 @@ void SummaryExporter::writeSummary(sharedFlow const & p_flow) throw()
   }
   else
   {
-    ERROR(FileIO, "File is not open", ("Trying to write to a unopened file: " + getCurrentFilepath()).c_str());
+    ERROR_MSG(FileIO, "File is not open", ("Trying to write to a unopened file: " + getCurrentFilepath()).c_str());
   }
   return;
 }
@@ -160,7 +160,7 @@ void SummaryExporter::closeSummaryFile(void) throw()
   // Remove the lock and close the file
   if (! getOutputHelper().closeLocked(getCurrentFilepath()))
   {
-    ERROR(FileIO, "File failed to unlock or close", ("Trying to unlock and close file: " + getCurrentFilepath()).c_str());
+    ERROR_MSG(FileIO, "File failed to unlock or close", ("Trying to unlock and close file: " + getCurrentFilepath()).c_str());
   }
   return;
 }

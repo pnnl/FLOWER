@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{CDB24FE0-82BA-4FC0-8B10-3C029F1873C4}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>FlowerLib</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;FLOWERLIB_EXPORTS;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\lib\npcap-sdk-0.1\Include;C:\lib\boost_1_64_0;$(SolutionDir)\..\..\..\..\..\include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalLibraryDirectories>C:\lib\WpdPack\Lib\x64;C:\lib\boost_1_64_0\lib64-msvc-14.1</AdditionalLibraryDirectories>
+      <AdditionalDependencies>wpcap.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;FLOWERLIB_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;FLOWERLIB_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;FLOWERLIB_EXPORTS;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\lib\npcap-sdk-0.1\Include;C:\lib\boost_1_64_0;$(SolutionDir)\..\..\..\..\..\include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\..\include\CONSTANTS.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\Daemon.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\date2string.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\Diagnostic.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\Event.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\EventTypes.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\Exception.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\ExceptionHandler.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\Field\Data.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\Field\FieldCommon.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\Field\FieldMergePolicy.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\Field\FieldToStringPolicy.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\Field\FieldZeroOutPolicy.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\FixedArray.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\Flow.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\FlowCache.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\FlowKey.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\global.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\Ip.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\ItemCounter.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\num2string.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\ObjectPool.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\osUtil.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\OutputHelper.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\Packet.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\PacketBuilder.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\PacketParser.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\PacketRinger.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\ProgramOptions.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\Stats.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\SummaryExporter.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\timeUtil.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\include\uchar2string.hpp" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\..\src\flower\api\Daemon.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\src\flower\api\date2string.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\src\flower\api\Diagnostic.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\src\flower\api\Exception.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\src\flower\api\ExceptionHandler.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\src\flower\api\Flow.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\src\flower\api\FlowCache.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\src\flower\api\FlowKey.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\src\flower\api\global.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\src\flower\api\ItemCounter.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\src\flower\api\num2string.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\src\flower\api\osUtil.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\src\flower\api\OutputHelper.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\src\flower\api\Packet.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\src\flower\api\PacketBuilder.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\src\flower\api\PacketParser.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\src\flower\api\PacketRinger.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\src\flower\api\ProgramOptions.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\src\flower\api\SummaryExporter.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\src\flower\api\uchar2string.cpp" />
+    <ClCompile Include="dllmain.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

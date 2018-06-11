@@ -57,8 +57,8 @@ using namespace std;
 #define CAUTION(err_code, item, context) \
   Diagnostic::caution(err_code,item,context,__CLASS__,__MY_FUNC__,__FILE__,__LINE__)
 
-#undef  ERROR
-#define ERROR(err_code, item, context) \
+#undef  ERROR_MSG
+#define ERROR_MSG(err_code, item, context) \
   Diagnostic::error(err_code,item,context,__CLASS__,__MY_FUNC__,__FILE__,__LINE__)
 
 #undef  FATAL

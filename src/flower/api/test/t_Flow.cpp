@@ -29,14 +29,12 @@ using namespace boost::posix_time;
 
 struct FlowSuiteFixture
 {
-  string duration;
-
 
   FlowSuiteFixture()
   {
     BOOST_TEST_MESSAGE("FlowSuite setup fixture");
     utility_init();
-    duration  = "0.000000";
+
     return;
   }
 
@@ -67,10 +65,11 @@ void checkStats(sharedFlow const p_flow, time_t const p_time, string const p_src
 BOOST_AUTO_TEST_CASE(hold_parsed_network_packet_data)
 {
   // Pre-condition: NONE
+  string duration = "0.000000";
 
   // Condition: Construct a new flow
   sharedFlow flow = generateFlow(true, generateTimestamp(1), 1);
-
+ 
   // Post-condition: the flow has the data right data
   checkStats(flow, generateTimestamp(1), "s1", "d1", duration, 1, 0, sizeof(::g_good_data), 0);
 
@@ -154,6 +153,12 @@ BOOST_AUTO_TEST_CASE(copy_flow)
 
 BOOST_AUTO_TEST_CASE(zero_icmp_flow)
 {
+  bool wire = true;
+  bool file = false;
+
+  // Condition: Construct a new flow as if generated from File
+  setFileOrWireFlag(file);
+
   // Pre-condition: Three Flows
   sharedFlow flow1 = generateFlow(true, 1, 1, ::g_REAL, ::g_icmp_protocol);
   sharedFlow flow2 = generateFlow(true, 2, 1, ::g_REAL, ::g_icmp_protocol);
@@ -197,6 +202,12 @@ BOOST_AUTO_TEST_CASE(zero_icmp_flow)
 
 BOOST_AUTO_TEST_CASE(zero_tcp_flow)
 {
+  bool wire = true;
+  bool file = false;
+
+  // Condition: Construct a new flow as if generated from File
+  setFileOrWireFlag(file);
+
   // Pre-condition: Three Flows
   sharedFlow flow1 = generateFlow(true, 1, 1, ::g_REAL, ::g_tcp_protocol);
   sharedFlow flow2 = generateFlow(true, 2, 1, ::g_REAL, ::g_tcp_protocol);
