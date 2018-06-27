@@ -100,12 +100,12 @@ string asIpv6(IpAddress_t const & p_ip_address) throw()
 }
 
 
-string asIpv4Int(u_int32_t const p_ip_address) throw()
-{
-  DEBUG(LOTS, ENTER);
-  DEBUG(LOTS, LEAVE);
-  return(uitoa10(p_ip_address & 0xFF, 3) + uitoa10((p_ip_address >> 8) & 0xFF, 3) + uitoa10((p_ip_address >> 16) & 0xFF, 3) + uitoa10(p_ip_address >> 24, 0));
-}
+//string asIpv4Int(u_int32_t const p_ip_address) throw()
+//{
+//  DEBUG(LOTS, ENTER);
+//  DEBUG(LOTS, LEAVE);
+//  return(uitoa10(p_ip_address & 0xFF, 3) + uitoa10((p_ip_address >> 8) & 0xFF, 3) + uitoa10((p_ip_address >> 16) & 0xFF, 3) + uitoa10(p_ip_address >> 24, 0));
+//}
 
 
 string asIpv4CPP(IpAddress_t const & p_ip_address) throw()

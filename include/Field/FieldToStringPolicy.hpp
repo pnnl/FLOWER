@@ -391,12 +391,12 @@ struct ToStringIp < Data< IpAddress_t, 2 > >
     if (p_data.at(0).isIpv4())
     {
       // We have an IPv4 Address
-      p_tmp += ',' + asIpv4(p_data.at(0)) + ',' + asIpv4(p_data.at(1)) + ",,";
+      p_tmp += ',' + asIpv4Ptr(p_data.at(0)) + ',' + asIpv4Ptr(p_data.at(1)) + ",,";
       return;
     }
 
     // We have an IPv6 Address
-    p_tmp += ",,," + asIpv6(p_data.at(0)) + ',' + asIpv6(p_data.at(1));
+    p_tmp += ",,," + asIpv6Ptr(p_data.at(0)) + ',' + asIpv6Ptr(p_data.at(1));
     return;
   }
 

@@ -133,6 +133,9 @@ int main(int argc, char ** argv)
     exit(1);
   }
 
+  asIpv4Ptr = asIpv4CPP;
+  asIpv6Ptr = asIpv6CPP;
+
   // Create a helper object that knows how to produce files for other objects
   OutputHelper    output_helper(
                                    po.getOutputDataDir(),
