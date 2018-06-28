@@ -83,7 +83,7 @@ ProgramOptions::ProgramOptions(void) throw() :
   command_and_config("Command Line And Configuration File"),
   config_only("Configuration File Only"),
   visible("Allowed options on command line and configuration file.\nDefault values are shown as (=DEFAULT)"),
-  executable_name("")
+  executable_name(""),
   max_packetbuffer_size(0),
   buffer_packets(0)
 {

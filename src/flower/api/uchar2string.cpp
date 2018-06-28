@@ -34,6 +34,8 @@ using namespace std;
 
 // Global Variables
 string const g_hexdigits("0123456789ABCDEF");
+asIpvXPtr_t asIpv4Ptr = asIpv4;
+asIpvXPtr_t asIpv6Ptr = asIpv6;
 
 
 int unsigned asEtherType(ByteArray const & p_array, int unsigned p_offset) throw()

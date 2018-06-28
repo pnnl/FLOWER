@@ -19,11 +19,15 @@
 // Internal Includes
 // Application Includes
 #include "utility.hpp"
+#include "uchar2string.hpp"
 #include "Ip.hpp"
 
 
 struct IpTestSuiteFixture
 {
+  asIpvXPtr_t asIpv4Ptr = asIpv4CPP;
+  asIpvXPtr_t asIpv6Ptr = asIpv6CPP;
+
   
   IpTestSuiteFixture()
   {
@@ -79,8 +83,8 @@ BOOST_AUTO_TEST_CASE(compare_ipv4_addresses)
     ipv6_address.at(idx) = ipv6_data[idx];
   }
 
-  string out_ipv4_addr = asIpv4(ipv4_address);
-  string out_ipv6_addr = asIpv6(ipv6_address);
+  string out_ipv4_addr = asIpv4Ptr(ipv4_address);
+  string out_ipv6_addr = asIpv6Ptr(ipv6_address);
 
   // Condition:
   cout << ipv4_str << " = " << out_ipv4_addr << endl;

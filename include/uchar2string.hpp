@@ -38,7 +38,8 @@ string       asTcpFlag(short unsigned const p_tcp_flag) throw();
 void         hexdumper(ostream &o, u_int8_t * const p_array, int unsigned const p_length);
 
 // Function Pointers
-string       (*asIpv4Ptr)(IpAddress_t const & p_ip_address);
-string       (*asIpv6Ptr)(IpAddress_t const & p_ip_address);
+typedef string  (*asIpvXPtr_t)(IpAddress_t const & p_ip_address);
+extern  asIpvXPtr_t asIpv4Ptr;
+extern  asIpvXPtr_t asIpv6Ptr;
 
 #endif // UCHAR2STRING_HPP
