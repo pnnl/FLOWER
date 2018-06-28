@@ -153,6 +153,12 @@ public:
   }
 
 
+  inline bool ipAddressFormat(void) throw()
+  {
+    return(this->ip_address_format);
+  }
+
+
   inline string getOutputDataDir(void) throw()
   {
     return(this->output_data_dir);
@@ -307,6 +313,16 @@ private:
   }
 
 
+  void setIpAddressFormat(void) throw()
+  {
+    if (getOptionMap().count("ip-address-format"))
+    {
+      checkEnum("ip-address-format", 0, 1);
+      this->ip_address_format = (1 == getOption<int unsigned>("ip-address-format"));
+    }
+  }
+
+
   inline void setBufferPackets(void) throw()
   {
     checkEnum("buffer-packets", 0, 1);
@@ -404,6 +420,7 @@ private:
   bool                           use_device;
   bool                           suppress_ipv4_output;
   bool                           skip_ipv4_packets;
+  bool                           ip_address_format;
   bool                           use_ring;
   bool                           interactive;
   int unsigned                   output_file_group_id;

@@ -133,8 +133,24 @@ int main(int argc, char ** argv)
     exit(1);
   }
 
+  // DEVELOPER NOTE: 2018/06/28
+  //   The following is a backwards compatible hack to print IP addresses
+  //   in the RFP standard     format
+  //     IPv4 = 127.0.0.1
+  //     IPv6 = 2001:0000:4136:e378:8000:63bf:3fff:fdd2
+  //   or the CPP non-standard format
+  //     IPv4 = 127000000001
+  //     IPv6 = 200100004136E378800063BF3FFFFDD2
+  //   This is accomplished by providing a function pointer to the format
+  //   specified in the flower configuration file. The actual functions
+  //   are in uchar2string.[ch]pp.
   asIpv4Ptr = asIpv4;
   asIpv6Ptr = asIpv6;
+  if (po.skipIpv4Packets())
+  {
+    asIpv4Ptr = asIpv4CPP;
+    asIpv6Ptr = asIpv6CPP;
+  }
 
   // Create a helper object that knows how to produce files for other objects
   OutputHelper    output_helper(
