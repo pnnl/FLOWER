@@ -11,7 +11,6 @@ config.h
 config.h.in
 config.log
 config.status
-configure
 ./flower
 junk*
 *.obj
@@ -31,10 +30,7 @@ libtool
 stamp-h1
 m4/libtool.m4
 m4/lt*.m4
-build-aux/config.guess
-build-aux/config.sub
 build-aux/depcomp
-build-aux/install-sh
 build-aux/ltmain.sh
 build-aux/missing
 include/tags
