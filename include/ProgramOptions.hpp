@@ -274,12 +274,14 @@ private:
   {
     if (getOptionMap().count("use-ring"))
     {
-      if (! isLinux())
+      checkEnum("use-ring", 0, 1);
+      this->use_ring = (1 == getOption<int unsigned>("use-ring"));
+
+      if (this->use_ring && !isLinux())
       {
         FATAL(BadOption, "Exception", "The use-ring option can only be used on a system running Linux");
       }
-      checkEnum("use-ring", 0, 1);
-      this->use_ring = (1 == getOption<int unsigned>("use-ring"));
+
     }
     return;
   }
@@ -414,6 +416,7 @@ private:
   positional_options_description position_options;
   string                         device_name;
   string                         config_file;
+  string                         executable_name;
   string                         output_data_dir;
   string                         output_file_ext;
   int unsigned                   cache_forceout;

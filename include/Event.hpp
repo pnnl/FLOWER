@@ -363,10 +363,10 @@ public:
 
   void printError(string const & errorType, string const & p_message, string const & p_extra = "N/A") const throw()
   {
-#ifdef ERROR
-    ERROR(UnknownException, getContext().c_str(),  (p_message +  p_extra).c_str());
+#ifdef ERROR_MSG
+    ERROR_MSG(UnknownException, getContext().c_str(),  (p_message +  p_extra).c_str());
 #else
-    cerr << "ERROR: " <<    getContext() << ", " << p_message << p_extra << endl;
+    cerr << "ERROR_MSG: " <<    getContext() << ", " << p_message << p_extra << endl;
 #endif
     return;
   }

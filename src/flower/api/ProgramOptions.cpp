@@ -78,10 +78,14 @@ using boost::lexical_cast;
 
 ProgramOptions::ProgramOptions(void) throw() :
   use_device(false),
+  use_ring(false),
   command_only("Command Line Only"),
   command_and_config("Command Line And Configuration File"),
   config_only("Configuration File Only"),
-  visible("Allowed options on command line and configuration file.\nDefault values are shown as (=DEFAULT)")
+  visible("Allowed options on command line and configuration file.\nDefault values are shown as (=DEFAULT)"),
+  executable_name("")
+  max_packetbuffer_size(0),
+  buffer_packets(0)
 {
   DEBUG(TRACE, ENTER);
 
@@ -101,7 +105,7 @@ ProgramOptions::ProgramOptions(void) throw() :
   // Declare group of options that will be allowed both on command line and in config file
   //
   this->command_and_config.add_options()
-    ("buffer-packets,b",        value<int unsigned>()->default_value(1),           "Capture packets in case of unexpected termination: NOTE: Only works with --use-ring option")
+    ("buffer-packets,b",        value<int unsigned>()->default_value(0),           "Capture packets in case of unexpected termination: NOTE: Only works with --use-ring option")
     ("max-packetbuffer-size,m", value<int unsigned>()->default_value(10000),       "Max number of packets to keep in the packet buffer")
     ("cache-timeout,T",         value<int unsigned>()->default_value(120),         "Min time (in seconds) to keep idle flows in the cache")
     ("cache-forceout,C",        value<int unsigned>()->default_value(900),         "Max time (in seconds) to force busy flows from the cache")
@@ -110,7 +114,7 @@ ProgramOptions::ProgramOptions(void) throw() :
     ("output-file-ext,e",       value<string>()->default_value("dat"),             "Output file extension")
     ("site-name,s",             value<string>()->default_value(""),                "Name of site where data is collected")
     ("max-flowcache-size",      value<int unsigned>()->default_value(300000),      "Max number of flows allowed in the flow cache")
-    ("use-ring,r",              value<int unsigned>()->default_value(1),           "Use the linux kernel PF_PACKET mmap API rather than libpcap");
+    ("use-ring,r",              value<int unsigned>()->default_value(0),           "Use the linux kernel PF_PACKET mmap API rather than libpcap");
 
 
   //
@@ -140,6 +144,7 @@ bool ProgramOptions::checkOptions(int p_argc, char ** p_argv, string const & p_d
 
   try
   {
+    executable_name = p_argv[0];
     try
     {
       store(command_line_parser(p_argc, p_argv).options(this->cmdline_options).positional(this->position_options).run(), getOptionMap());
@@ -198,9 +203,13 @@ bool ProgramOptions::checkOptions(int p_argc, char ** p_argv, string const & p_d
     FATAL(BadOption, "Processing options", lexical_cast<string>(e.what()));
   }
 
+#ifndef COMPILE_TIME
+#define COMPILE_TIME "ERROR"
+#endif
+
   // Check for expired license
   std::time_t current_time = std::time(nullptr);
-  std::time_t expire_date  = std::stoi(COMPILE_TIME, nullptr) + 15780000; //  Six (6) months in seconds
+//  std::time_t expire_date  = std::stoi(COMPILE_TIME, nullptr) + 15780000; //  Six (6) months in seconds
   //std::time_t expire_date  = std::stoi(COMPILE_TIME, nullptr) + 1; //  Expire in 1 second after compile
 
   //if (current_time > expire_date)
@@ -234,7 +243,12 @@ void ProgramOptions::displayRuntimeVariables(void) throw()
   if (getOptionMap().count("device"))
   {
     output("  Device                      = " + getOption<string>("device"));
+
+  if (isLinux())
+  {
     output("  Use PacketRinger            = " + bools[getOption<int unsigned>("use-ring")]);
+  }
+
     output("  Snaplen                     = " + lexical_cast<string>(getSnaplen()));
   }
   if (getOptionMap().count("input-file"))
@@ -455,7 +469,15 @@ string ProgramOptions::getDefaultConfigFile(void) throw()
   int const MAXPATHLEN = 1024;
   char      fullpath[MAXPATHLEN];
 
-#ifndef _MSC_VER
+#ifdef __APPLE__
+  if (NULL == realpath(executable_name.c_str(), fullpath))
+  {
+    fprintf(stderr, "Error resolving realpath\n");
+    exit(EXIT_FAILURE);
+  }
+#elif __MSC_VER
+  GetModuleFileName(NULL, fullpath, MAX_PATH);
+#else
   int       length = readlink("/proc/self/exe", fullpath, sizeof(fullpath));
 
   // Catch some errors:
@@ -473,8 +495,6 @@ string ProgramOptions::getDefaultConfigFile(void) throw()
   // The string this readlink() function returns is appended with a '@'.
   // Strip '@' off the end.
   fullpath[length] = '\0';
-#else
-  GetModuleFileName(NULL, fullpath, MAX_PATH);
 #endif
 
   path pathname(fullpath);
@@ -722,7 +742,7 @@ void ProgramOptions::requiredOption(string const & p_option) throw(logic_error)
 
   if (0 == getOptionMap().count(p_option))
   {
-    throw(logic_error("Missing a required option '" + p_option + "'."));
+    throw logic_error("Missing a required option '" + p_option + "'.");
   }
 
   DEBUG(TRACE, LEAVE);
@@ -737,7 +757,7 @@ void ProgramOptions::requiredOptions(string const & p_opt1, string const & p_opt
 
   if (0 == getOptionMap().count(p_opt1) && 0 == getOptionMap().count(p_opt2))
   {
-    throw(logic_error("Missing a required options '" + p_opt1 + "' or '" + p_opt2 + "'."));
+    throw logic_error("Missing a required options '" + p_opt1 + "' or '" + p_opt2 + "'.");
   }
 
   DEBUG(TRACE, LEAVE);
@@ -815,7 +835,7 @@ void ProgramOptions::conflictingOptions(string const & p_opt1, string const & p_
       getOptionMap().count(p_opt2) && ! getOptionMap()[p_opt2].defaulted()
      )
   {
-    throw(logic_error("Conflicting options '" + p_opt1 + "' and '" + p_opt2 + "'."));
+    throw logic_error("Conflicting options '" + p_opt1 + "' and '" + p_opt2 + "'.");
   }
 
   DEBUG(TRACE, LEAVE);
@@ -833,7 +853,7 @@ void ProgramOptions::optionDependency(string const & p_for_what, string const & 
   {
     if (0 == getOptionMap().count(p_required_option) || getOptionMap()[p_required_option].defaulted())
     {
-      throw(logic_error("Option '" + p_for_what + "' requires option '" + p_required_option + "'."));
+      throw logic_error("Option '" + p_for_what + "' requires option '" + p_required_option + "'.");
     }
   }
 

@@ -156,7 +156,7 @@ bool PacketRinger::initDevice(string const & p_device) throw()
   if (0 > getSocket())   // Did the socket open OK?
   {
     err_message = "The kernel socket did not open correctly: " + static_cast<string>(strerror(errno_save));
-    ERROR(TSNH, "Trying to acquire kernel socket", err_message.c_str());
+    ERROR_MSG(TSNH, "Trying to acquire kernel socket", err_message.c_str());
     DEBUG(TRACE, LEAVE);
     return(false);
   }
@@ -170,7 +170,7 @@ bool PacketRinger::initDevice(string const & p_device) throw()
   if (0 > ioctl_result)
   {
     err_message = "The ioctl operation Failed: " + static_cast<string>(strerror(errno_save));
-    ERROR(TSNH, "Trying to acquire interface index", err_message.c_str());
+    ERROR_MSG(TSNH, "Trying to acquire interface index", err_message.c_str());
     DEBUG(TRACE, LEAVE);
     return(false);
   }
@@ -186,7 +186,7 @@ bool PacketRinger::initDevice(string const & p_device) throw()
   if (0 > bind_result)
   {
     err_message = "The bind operation Failed: " + static_cast<string>(strerror(errno_save));
-    ERROR(TSNH, "Trying to bind to the network interface", err_message.c_str());
+    ERROR_MSG(TSNH, "Trying to bind to the network interface", err_message.c_str());
     DEBUG(TRACE, LEAVE);
     return(false);
   }
@@ -218,7 +218,7 @@ bool PacketRinger::initDevice(string const & p_device) throw()
   if (0 > sockopt_result)
   {
     err_message = "The setsockopt operation Failed: " + static_cast<string>(strerror(errno_save));
-    ERROR(TSNH, message.c_str(), err_message.c_str());
+    ERROR_MSG(TSNH, message.c_str(), err_message.c_str());
     DEBUG(TRACE, LEAVE);
     return(false);
   }
@@ -231,7 +231,7 @@ bool PacketRinger::initDevice(string const & p_device) throw()
 
   if (! getRing())
   {
-    ERROR(TSNH, "Trying to access the kernel packet ring", "Call to getRing() Failed");
+    ERROR_MSG(TSNH, "Trying to access the kernel packet ring", "Call to getRing() Failed");
     DEBUG(TRACE, LEAVE);
     return(false);
   }
@@ -255,7 +255,7 @@ bool PacketRinger::readDevice(void) throw()
 
   if (! getRing())
   {
-    ERROR(TSNH, "Trying to access the kernel packet ring", "Call to getRing() Failed");
+    ERROR_MSG(TSNH, "Trying to access the kernel packet ring", "Call to getRing() Failed");
     DEBUG(TRACE, LEAVE);
     return(false);
   }
@@ -432,7 +432,7 @@ bool PacketRinger::promiscuousMode(bool p_on_or_off) throw()
   if (0 > ioctl_result)
   {
     err_message = "The ioctl operation Failed: " + static_cast<string>(strerror(errno_save));
-    ERROR(TSNH, "Trying to query interface flags", err_message.c_str());
+    ERROR_MSG(TSNH, "Trying to query interface flags", err_message.c_str());
     DEBUG(TRACE, LEAVE);
     return(false);
   }
@@ -453,7 +453,7 @@ bool PacketRinger::promiscuousMode(bool p_on_or_off) throw()
   if (0 > ioctl_result)
   {
     err_message = "The ioctl operation Failed: " + static_cast<string>(strerror(errno_save));
-    ERROR(TSNH, "Trying to turn on promiscuous mode on interface", err_message.c_str());
+    ERROR_MSG(TSNH, "Trying to turn on promiscuous mode on interface", err_message.c_str());
     DEBUG(TRACE, LEAVE);
     return(false);
   }

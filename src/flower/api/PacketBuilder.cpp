@@ -117,16 +117,20 @@ bool PacketBuilder::initDevice(string const & p_device) throw()
   getPacketCounter().resetItem();
   setPcapDescriptor(pcap_open_live(p_device.c_str(), getSnaplen(), promiscuous_mode, read_timeout, errbuf));
 
-  error_message = "ERROR: pcap_open_live(" + p_device + "): " + errbuf;
+  error_message = "ERROR_MSG: pcap_open_live(" + p_device + "): " + errbuf;
   if (NULL == getPcapDescriptor())
   {
-    if (NULL != strstr(errbuf, "not permitted"))
+    if (NULL != strstr(errbuf, "not permitted")) // TODO: find windows version of this message
     {
-      ERROR(PermissionDenied, p_device, error_message);
+      ERROR_MSG(PermissionDenied, p_device, error_message);
     }
-    else if (NULL != strstr(errbuf, "No such device"))
+    else if (NULL != strstr(errbuf, "No such device") || NULL != strstr(errbuf, "cannot find the device"))
     {
-      ERROR(NotFound, p_device, error_message);
+      ERROR_MSG(NotFound, p_device, error_message);
+    }
+    else
+    {
+      ERROR_MSG(UnknownException, p_device, error_message);
     }
   }
   else

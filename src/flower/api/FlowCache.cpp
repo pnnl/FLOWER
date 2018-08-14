@@ -423,7 +423,7 @@ void FlowCache::flush(MultiIndexContainer & p_flow_cache, bool const p_is_normal
   {
     --j;
     this->flow_pool.release(*(itors.at(j)));
-    p_flow_cache.get<Timeout>().erase(itors.at(j));
+    p_flow_cache.template get<Timeout>().erase(itors.at(j));
   }
 
   DEBUG(TRACE, LEAVE);

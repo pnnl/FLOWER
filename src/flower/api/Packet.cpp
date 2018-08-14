@@ -92,13 +92,13 @@ void Packet::assign(struct pcap_pkthdr const * const p_header, char unsigned con
   //if (NULL == p_header)
   //{
   //  cout << "p_data is NULL:" << endl;
-  //  ERROR(1);
+  //  ERROR_MSG(1);
   //}
   //
   //if (NULL == p_data)
   //{
   //  cout << "p_data is NULL:" << endl;
-  //  ERROR(1);
+  //  ERROR_MSG(1);
   //}
 
   this->ptr_data.assign(p_data, p_header->caplen);

@@ -82,7 +82,7 @@ void ExceptionHandler::SingletonHandler::Handler(void)
   //  Exception from construction/destruction of global variables
   try
   {
-    output("ERROR: We received a Signal that the software cannot handle. Aborting");
+    output("ERROR_MSG: We received a Signal that the software cannot handle. Aborting");
     throw; //  re-throw
   }
   catch (FloatingPointException & e)
@@ -112,7 +112,7 @@ void ExceptionHandler::SingletonHandler::Handler(void)
   }
   catch (string & err_code)
   {
-    // DEVELOPER NOTE: Currently all of our FLOWER ERROR macros throw a
+    // DEVELOPER NOTE: Currently all of our FLOWER ERROR_MSG macros throw a
     //                 string (e.g. error_code)
     ExceptionHandler::SingletonHandler::shutdown_system_event->call(SIGTERM);
     FATAL(Shutdown, err_code, "");
