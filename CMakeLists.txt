@@ -1,19 +1,20 @@
 cmake_minimum_required (VERSION 3.6)
 project (FLOWER)
 
-#set(CMAKE_C_COMPILER     "/usr/local/gcc/bin/gcc")
-set(CMAKE_CXX_COMPILER    "/usr/local/gcc/bin/g++")
+set(CMAKE_C_COMPILER     "/usr/local/gcc/bin/gcc")
+set(CMAKE_CXX_COMPILER     "/usr/local/gcc/bin/g++")
 
-#set(CMAKE_BUILD_TYPE      Debug)
+set(CMAKE_BUILD_TYPE      Debug)
 set(CXX_OPTIMIZE_LEVEL    "-O0")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 #set(CMAKE_CXX_FLAGS       "-Wall -Wextra")
 
-set(CMAKE_CXX_STANDARD    14)
+set(CMAKE_CXX_STANDARD    11)
 #set(MY_BOOST_VER          "1.67.0")
 #set(MY_GCC_VER            "8.1")
 set(MY_BOOST_VER          "1.60.0")
 set(MY_GCC_VER            "5.3")
+#set(CMAKE_CXX_COMPILER    "/usr/local/gcc-8.1/bin/g++")
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE        Release)
