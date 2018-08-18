@@ -1,0 +1,21 @@
+Building GCC and Boost
+  Mac
+    - https://solarianprogrammer.com/2017/05/21/compiling-gcc-macos/
+    - https://solarianprogrammer.com/2018/08/07/compiling-boost-gcc-clang-macos/
+
+CMAKE NOTES:
+  Cross Platform with Boost dependancy
+    - http://cpprocks.com/using-cmake-to-build-a-cross-platform-project-with-a-boost-dependency/
+  target_compile_options
+    - https://stackoverflow.com/questions/23995019/what-is-the-modern-method-for-setting-general-compile-flags-in-cmake
+  verbose cmake and makefile output
+    - https://stackoverflow.com/questions/2670121/using-cmake-with-gnu-make-how-can-i-see-the-exact-commands
+  managing version numbers
+    - https://cmake.org/cmake-tutorial/
+  book
+    - https://www.packtpub.com/application-development/cmake-cookbook
+  example
+    - http://derekmolloy.ie/hello-world-introductions-to-cmake/
+
+JSON NOTES:
+  - https://nlohmann.github.io/json/index.html

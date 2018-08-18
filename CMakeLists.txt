@@ -31,12 +31,12 @@ string(STRIP ${COMPILE_TIME}  COMPILE_TIME)
 
 #  NOTE: We need to find out the Major, Minor, and Micro version numbers
 #
-execute_process(COMMAND cut -d "_" -f 1 VERSION OUTPUT_VARIABLE MAJOR_VERSION)
-execute_process(COMMAND cut -d "_" -f 2 VERSION OUTPUT_VARIABLE MINOR_VERSION)
-execute_process(COMMAND cut -d "_" -f 3 VERSION OUTPUT_VARIABLE MICRO_VERSION)
-string(STRIP ${MAJOR_VERSION} MAJOR_VERSION)
-string(STRIP ${MINOR_VERSION} MINOR_VERSION)
-string(STRIP ${MICRO_VERSION} MICRO_VERSION)
+execute_process(COMMAND cut -d "_" -f 1 VERSION.txt OUTPUT_VARIABLE MAJOR_VERSION)
+execute_process(COMMAND cut -d "_" -f 2 VERSION.txt OUTPUT_VARIABLE MINOR_VERSION)
+execute_process(COMMAND cut -d "_" -f 3 VERSION.txt OUTPUT_VARIABLE MICRO_VERSION)
+string(STRIP "${MAJOR_VERSION}" MAJOR_VERSION)
+string(STRIP "${MINOR_VERSION}" MINOR_VERSION)
+string(STRIP "${MICRO_VERSION}" MICRO_VERSION)
 
 #  NOTE: We need to find out the version of the compiler that was used
 #
