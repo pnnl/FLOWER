@@ -1,5 +1,6 @@
 cmake_minimum_required (VERSION 3.6)
 project (FLOWER)
+enable_testing()
 
 set(CMAKE_C_COMPILER     "/usr/local/gcc/bin/gcc")
 set(CMAKE_CXX_COMPILER     "/usr/local/gcc/bin/g++")
@@ -59,11 +60,12 @@ set(Boost_USE_MULTITHREADED      ON)
 set(Boost_USE_STATIC_RUNTIME     ON)
 find_package(Boost ${MY_BOOST_VER} REQUIRED COMPONENTS
     date_time
-    program_options
     filesystem
+    program_options
     regex
     thread
     system
+    unit_test_framework
 )
 
 #  NOTE: For Debugging
@@ -119,9 +121,39 @@ target_compile_definitions(flowerapi PRIVATE
 )
 
 target_include_directories(flower PRIVATE include)
+target_link_libraries(flower flowerapi -static-libgcc -static-libstdc++)
 #set_target_properties(flower PROPERTIES
 #                                        C_STANDARD 11
 #                                        C_STANDARD_REQUIRED ON
 #)
 
-target_link_libraries(flower flowerapi -static-libgcc -static-libstdc++)
+
+#         ${TEST_PATH}/t_bg_PacketRinger_root_loop_buffer.cpp
+#         ${TEST_PATH}/t_bg_PacketRinger_root_loop_track.cpp
+#         ${TEST_PATH}/t_bg_PacketRinger_root_noloop.cpp
+#         ${TEST_PATH}/t_sudo_PacketBuilder.cpp
+set(TEST_PATH "src/flower/api/test")
+foreach(testsourcefile
+         ${TEST_PATH}/t_bg_PacketRinger_user_noloop.cpp
+         ${TEST_PATH}/t_Data.cpp
+         ${TEST_PATH}/t_Elf.cpp
+         ${TEST_PATH}/t_Event.cpp
+         ${TEST_PATH}/t_FlowCache.cpp
+         ${TEST_PATH}/t_Flow.cpp
+         ${TEST_PATH}/t_Ip.cpp
+         ${TEST_PATH}/t_ObjectPool.cpp
+         ${TEST_PATH}/t_PacketBuilder.cpp
+         ${TEST_PATH}/t_Packet.cpp
+         ${TEST_PATH}/t_PacketParser.cpp
+         ${TEST_PATH}/t_ProgramOptions.cpp
+         ${TEST_PATH}/t_SummaryExporter.cpp
+       )
+  get_filename_component(t_filename ${testsourcefile} NAME_WE)
+  add_executable(${t_filename} ${testsourcefile})
+  target_include_directories(${t_filename} PRIVATE include ${TEST_PATH} ${TEST_PATH}/packets)
+  # indicates the shared library variant
+  target_link_libraries(${t_filename} ${Boost_LIBRARIES} -static-libgcc -static-libstdc++)
+  target_link_libraries(${t_filename} ${PCAP_LIBRARY}    -static-libgcc -static-libstdc++)
+  target_link_libraries(${t_filename} flowerapi          -static-libgcc -static-libstdc++)
+  add_test(NAME ${t_filename}_test COMMAND ${t_filename})
+endforeach(testsourcefile)

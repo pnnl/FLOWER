@@ -26,7 +26,8 @@
 #include <syslog.h>
 #endif
 // External Includes
-#include <boost/test/included/unit_test.hpp>
+//#include <boost/test/included/unit_test.hpp>
+#include <boost/test/unit_test.hpp>
 #include <boost/date_time/posix_time/ptime.hpp>
 #include <boost/date_time/posix_time/time_formatters.hpp>
 #include <Diagnostic.hpp>
@@ -49,7 +50,7 @@ const int unsigned  g_udp_protocol = 0x11;
 // Namespaces
 using namespace boost;
 
-Diagnostic    g_diag(boost::unit_test::framework::master_test_suite().argc, boost::unit_test::framework::master_test_suite().argv, Exception::getErrorCodes());
+//Diagnostic    g_diag(boost::unit_test::framework::master_test_suite().argc, boost::unit_test::framework::master_test_suite().argv, Exception::getErrorCodes());
 
 int unsigned  g_timeout             = 120;
 
