@@ -2,8 +2,8 @@ cmake_minimum_required (VERSION 3.6)
 project (FLOWER)
 enable_testing()
 
-set(CMAKE_C_COMPILER     "/usr/local/gcc/bin/gcc")
-set(CMAKE_CXX_COMPILER     "/usr/local/gcc/bin/g++")
+#set(CMAKE_C_COMPILER     "/usr/local/gcc/bin/gcc")
+#set(CMAKE_CXX_COMPILER     "/usr/local/gcc/bin/g++")
 
 set(CMAKE_BUILD_TYPE      Debug)
 set(CXX_OPTIMIZE_LEVEL    "-O0")
@@ -15,7 +15,15 @@ set(CMAKE_CXX_STANDARD    11)
 #set(MY_GCC_VER            "8.1")
 set(MY_BOOST_VER          "1.60.0")
 set(MY_GCC_VER            "5.3")
-#set(CMAKE_CXX_COMPILER    "/usr/local/gcc-8.1/bin/g++")
+if(EXISTS "/usr/local/gcc-${MY_GCC_VER}/bin/g++-${MY_GCC_VER}")
+  set(CMAKE_CXX_COMPILER    "/usr/local/gcc-${MY_GCC_VER}/bin/g++-${MY_GCC_VER}")
+else()
+  if(EXISTS "/usr/local/gcc-${MY_GCC_VER}/bin/g++")
+    set(CMAKE_CXX_COMPILER    "/usr/local/gcc-${MY_GCC_VER}/bin/g++")
+  else()
+    set(CMAKE_CXX_COMPILER     "/usr/local/gcc/bin/g++")
+  endif()
+endif()
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE        Release)
@@ -40,7 +48,7 @@ string(STRIP "${MICRO_VERSION}" MICRO_VERSION)
 
 #  NOTE: We need to find out the version of the compiler that was used
 #
-execute_process(COMMAND g++ -dumpversion OUTPUT_VARIABLE GPP_VERSION)
+execute_process(COMMAND "${CMAKE_CXX_COMPILER}" -dumpversion OUTPUT_VARIABLE GPP_VERSION)
 string(STRIP ${GPP_VERSION}   GPP_VERSION)
 
 #  NOTE: For Debugging
@@ -128,13 +136,13 @@ target_link_libraries(flower flowerapi -static-libgcc -static-libstdc++)
 #)
 
 
-#         ${TEST_PATH}/t_bg_PacketRinger_root_loop_buffer.cpp
-#         ${TEST_PATH}/t_bg_PacketRinger_root_loop_track.cpp
-#         ${TEST_PATH}/t_bg_PacketRinger_root_noloop.cpp
-#         ${TEST_PATH}/t_sudo_PacketBuilder.cpp
 set(TEST_PATH "src/flower/api/test")
 foreach(testsourcefile
+         ${TEST_PATH}/t_bg_PacketRinger_root_loop_buffer.cpp
+         ${TEST_PATH}/t_bg_PacketRinger_root_loop_track.cpp
+         ${TEST_PATH}/t_bg_PacketRinger_root_noloop.cpp
          ${TEST_PATH}/t_bg_PacketRinger_user_noloop.cpp
+         ${TEST_PATH}/t_sudo_PacketBuilder.cpp
          ${TEST_PATH}/t_Data.cpp
          ${TEST_PATH}/t_Elf.cpp
          ${TEST_PATH}/t_Event.cpp
@@ -151,9 +159,26 @@ foreach(testsourcefile
   get_filename_component(t_filename ${testsourcefile} NAME_WE)
   add_executable(${t_filename} ${testsourcefile})
   target_include_directories(${t_filename} PRIVATE include ${TEST_PATH} ${TEST_PATH}/packets)
-  # indicates the shared library variant
   target_link_libraries(${t_filename} ${Boost_LIBRARIES} -static-libgcc -static-libstdc++)
   target_link_libraries(${t_filename} ${PCAP_LIBRARY}    -static-libgcc -static-libstdc++)
   target_link_libraries(${t_filename} flowerapi          -static-libgcc -static-libstdc++)
   add_test(NAME ${t_filename}_test COMMAND ${t_filename})
 endforeach(testsourcefile)
+
+
+# Install ##################################################################
+install(TARGETS flower
+  RUNTIME DESTINATION bin
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib)
+#install(DIRECTORY include/foobar DESTINATION include)
+
+# Package Generator  #######################################################
+set(CPACK_PACKAGE_DESCRIPTION   "FLOWER - Network FLOW analyzER")
+set(CPACK_PACKAGE_VERSION_MAJOR "${MAJOR_VERSION}")
+set(CPACK_PACKAGE_VERSION_MINOR "${MINOR_VERSION}")
+set(CPACK_PACKAGE_VERSION_PATCH "${MICRO_VERSION}")
+set(CPACK_PACKAGE_VENDOR        "PNNL")
+set(CPACK_PACKAGE_CONTACT       "flower@pnnl.gov")
+set(CPACK_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}-${MAJOR_VERSION}.${MINOR_VERSION}.${MICRO_VERSION}")
+include (CPack)

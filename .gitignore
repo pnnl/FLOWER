@@ -1,6 +1,9 @@
 configure
 CMakeFiles
 CMakeCache.txt
+CPackConfig.cmake
+CPackSourceConfig.cmake
+_CPack_Packages
 .DS_Store
 .deps
 .dirstamp
@@ -26,7 +29,6 @@ junk*
 *.lib
 *.userprefs
 .suo
-.t_SummaryExporter
 libtool
 stamp-h1
 m4/libtool.m4
@@ -48,6 +50,7 @@ t_bg_PacketRinger_root_loop_buffer
 t_bg_PacketRinger_root_loop_track
 t_bg_PacketRinger_root_noloop
 t_bg_PacketRinger_user_noloop
+t_sudo_PacketBuilder
 aclocal.m4
 autom4te.cache/output.*
 autom4te.cache/requests
