@@ -169,7 +169,7 @@ bool PacketRinger::initDevice(string const & p_device) throw()
 
   if (0 > ioctl_result)
   {
-    err_message = "The ioctl operation Failed: " + static_cast<string>(strerror(errno_save));
+    err_message = "The ioctl operation for interface, " + getInterfaceName() + ", Failed: " + static_cast<string>(strerror(errno_save));
     ERROR_MSG(TSNH, "Trying to acquire interface index", err_message.c_str());
     DEBUG(TRACE, LEAVE);
     return(false);
@@ -502,11 +502,13 @@ string PacketRinger::onMetricsEvent(int unsigned const p_level) throw()
   if (isRunning())
   {
     getPacketCounter().setFinishTime();
+    output("      Interface:          " + getInterfaceName());
     output("      Heartbeats sent:    " + uitoa10(getHeartbeatCount()));
     output("      Packets captured:   " + uitoa10(getPacketCounter().getItemCount()));
     output("      Processing time:    " + getPacketCounter().getItemProcessingTime());
     output("      Packets per second: " + getPacketCounter().getItemsPerSecond());
     result  = "PR";
+    result += ":int#" + getInterfaceName();
     result += ":hbc#" + uitoa10(getHeartbeatCount());
     result += ":pc#"  + uitoa10(getPacketCounter().getItemCount());
     result += ":ppt#" + getPacketCounter().getItemProcessingTime();

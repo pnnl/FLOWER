@@ -113,6 +113,8 @@ BOOST_AUTO_TEST_CASE(track_total_packets_created_including_fake_packets)
     BOOST_CHECK_EQUAL(packet_ringer->getPacketCounter().getItemCount(), num_packets_to_capture);
     BOOST_CHECK_EQUAL(packet_ringer->getHeartbeatCount(), 0);
     BOOST_CHECK_EQUAL(howManyEventCalls(::g_add_event_counter), packet_ringer->getHeartbeatCount() + num_packets_to_capture);
+    string result = packet_ringer->onMetricsEvent(0);
+    BOOST_TEST_MESSAGE("Metrics=" + result);
   }
   else
   {
