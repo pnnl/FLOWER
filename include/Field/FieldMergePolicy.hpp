@@ -203,8 +203,8 @@ struct MergeAdd < Data<u_int64_t, 2> >
 
   static bool merge(Data<u_int64_t, 2> & p_field1, Data<u_int64_t, 2> const & p_field2, bool const p_direction) throw()
   {
-    p_field1.at(0) += (p_field2.at(0) * p_direction);
-    p_field1.at(1) += (p_field2.at(0) * (1 - p_direction));
+    p_field1.at(0) += (p_field2.at(0) * (u_int64_t) p_direction);
+    p_field1.at(1) += (p_field2.at(0) * (1 - (u_int64_t) p_direction));
 
     return(true);
 
@@ -225,8 +225,8 @@ struct MergeAddPayload < Data<u_int64_t, 4> >
 
     // DEVELOPER NOTE: Data index 0 and 1 store the accumulated payload byte counts for source and dest
     //                 Data index 2 and 3 store the previous single packet payload byte counts for soruce and dest
-    p_field1.at(0) += (p_field2.at(0) * p_direction);
-    p_field1.at(1) += (p_field2.at(0) * (1 - p_direction));
+    p_field1.at(0) += (p_field2.at(0) * (u_int64_t) p_direction);
+    p_field1.at(1) += (p_field2.at(0) * (1 - (u_int64_t) p_direction));
 
     if (p_direction)
     {

@@ -163,7 +163,13 @@ bool PacketRinger::initDevice(string const & p_device) throw()
 
   // Find the interface index
   struct ifreq req;
-  strncpy(req.ifr_name, getInterfaceName().c_str(), IFNAMSIZ);
+  if (0 > snprintf(req.ifr_name, IFNAMSIZ, getInterfaceName().c_str()))
+  {
+    err_message = "snprintf returned a negative value";
+    ERROR_MSG(TSNH, "Trying to copy device name to ifreq buffer", err_message.c_str());
+    DEBUG(TRACE, LEAVE);
+    return(false);
+  }
   int ioctl_result = ioctl(getSocket(), SIOCGIFINDEX, &req);
   errno_save = errno;
 
@@ -425,7 +431,14 @@ bool PacketRinger::promiscuousMode(bool p_on_or_off) throw()
   int    ioctl_result;
   struct ifreq req;
 
-  strncpy(req.ifr_name, getInterfaceName().c_str(), IFNAMSIZ);
+  if (0 > snprintf(req.ifr_name, IFNAMSIZ, getInterfaceName().c_str()))
+  {
+    err_message = "snprintf returned a negative value";
+    ERROR_MSG(TSNH, "Trying to copy device name to ifreq buffer", err_message.c_str());
+    DEBUG(TRACE, LEAVE);
+    return(false);
+  }
+
   ioctl_result = ioctl(getSocket(), SIOCGIFFLAGS, &req);
   errno_save = errno;
 

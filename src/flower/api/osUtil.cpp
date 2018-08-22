@@ -123,19 +123,34 @@ bool const checkNetworkInterface(string const & p_device) throw()
 
   // Find the interface index
   struct ifreq req;
-  strncpy(req.ifr_name, p_device.c_str(), IFNAMSIZ);
-  int ioctl_result = ioctl(sock, SIOCGIFINDEX, &req);
-  errno_save = errno;
-
-  if (0 > ioctl_result)
+  if (p_device.length() < IFNAMSIZ)
   {
-    err_message = "The ioctl operation Failed: " + static_cast<string>(strerror(errno_save));
-    ERROR_MSG(TSNH, "Trying to acquire interface index", err_message.c_str());
-    DEBUG(TRACE, LEAVE);
-    return(false);
+    if (0 > snprintf(req.ifr_name, IFNAMSIZ, "%s", p_device.c_str()))
+    {
+      err_message = "snprintf returned a negative value";
+      ERROR_MSG(TSNH, "Trying to copy device name to ifreq buffer", err_message.c_str());
+      DEBUG(TRACE, LEAVE);
+      return(false);
+    }
+
+    int ioctl_result = ioctl(sock, SIOCGIFINDEX, &req);
+    errno_save = errno;
+    if (0 > ioctl_result)
+    {
+      err_message = "The ioctl operation Failed: " + static_cast<string>(strerror(errno_save));
+      ERROR_MSG(TSNH, "Trying to acquire interface index", err_message.c_str());
+      DEBUG(TRACE, LEAVE);
+      return(false);
+    }
+
+    return(true);
   }
 
-  return(true);
+  err_message = "The device name, " + p_device + ", is greater than " + to_string(IFNAMSIZ) + " (too long)";
+  ERROR_MSG(TSNH, "Trying to acquire network interface ", err_message.c_str());
+  DEBUG(TRACE, LEAVE);
+  return(false);
+
 #else
 
   char error_buffer[PCAP_ERRBUF_SIZE] = {0};

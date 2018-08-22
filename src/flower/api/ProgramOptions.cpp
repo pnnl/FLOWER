@@ -647,20 +647,20 @@ void ProgramOptions::processSiteName(void) throw()
   DEBUG(TRACE, ENTER);
 
   // Make sure site name is alphanumeric, no spaces, and exists
-  if (0 == strlen(getOption<string>("site-name").c_str()))
+  if (0 == getOption<string>("site-name").length())
   {
     FATAL(NotFound, "Exception", "The site-name must be specified in the configuration file or on the command line and must start with a letter and be alphanumeric (a-zA-Z0-9_)");
   }
 
   // Make sure site name is MIN_SITE_NAME_LEN or more characters
-  if (MIN_SITE_NAME_LEN > strlen(getOption<string>("site-name").c_str()))
+  if (MIN_SITE_NAME_LEN > getOption<string>("site-name").length())
   {
     string message = "The site-name is too short, it must be at least " + uitoa10(MIN_SITE_NAME_LEN) + " characters";
     FATAL(RangeError, "Exception", message.c_str());
   }
 
   // Make sure site name is not more than MAX_SITE_NAME_LEN characters
-  if (MAX_SITE_NAME_LEN < strlen(getOption<string>("site-name").c_str()))
+  if (MAX_SITE_NAME_LEN < getOption<string>("site-name").length())
   {
     string message = "The site-name is too long, it cannot be more than " + uitoa10(MAX_SITE_NAME_LEN) + " characters";
     FATAL(RangeError, "Exception", message.c_str());

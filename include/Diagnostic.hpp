@@ -110,14 +110,15 @@ public:
 
   // Constructors
 
-  Diagnostic(void);
-  Diagnostic(int & p_argc, char ** p_argv, int const & p_option = LOG_PID, int const & p_facility = LOG_DAEMON);
   Diagnostic(int & p_argc, char ** p_argv, map<string, string> * p_error_codes, int const & p_option = LOG_PID, int const & p_facility = LOG_DAEMON);
 
 
   // Destructor
 
-  ~Diagnostic(void);
+  ~Diagnostic(void)
+  {
+    return;
+  }
 
 
   // Operators
@@ -186,6 +187,8 @@ private:
   // Constructors
 
   Diagnostic(const Diagnostic&);
+  Diagnostic(void);
+  Diagnostic(int & p_argc, char ** p_argv, int const & p_option = LOG_PID, int const & p_facility = LOG_DAEMON);
 
 
   // Operators

@@ -22,6 +22,10 @@
 #endif
 #define __CLASS__ "num2string"
 
+// NOTE: Based on the maximum length of a IEEE double number is 24 + 1 for \0,
+//       we should never get a buffer overflow.
+//       Reference: https://en.wikipedia.org/wiki/IEEE_754-1985
+const size_t MAX_BUF_LEN = 25;
 
 // Namespaces
 
@@ -30,7 +34,7 @@ string itoa10(int64_t const p_value, u_int64_t const p_pad_length) throw()
 {
   string    result(p_pad_length, ' ');
   int       sign;
-  char      temp_str[21];
+  char      temp_str[MAX_BUF_LEN];
   char *    wstr  = temp_str;
   int64_t   value = p_value;
 
@@ -111,7 +115,7 @@ string uitoa16(u_int32_t const p_value, u_int32_t const p_pad_length) throw()
 string uitoa10(u_int64_t const p_value, u_int64_t const p_pad_length) throw()
 {
   string    result(p_pad_length, ' ');
-  char      temp_str[21] = "";
+  char      temp_str[MAX_BUF_LEN] = "";
   char *    wstr  = temp_str;
   u_int64_t value = p_value;
 
@@ -138,7 +142,7 @@ string dtoa(double const p_value, u_int64_t const p_prec) throw()
   double const thres_max = (double)(0x7FFFFFFF);
   double       diff  = 0.0;
   string       result(p_prec, ' ');
-  char         temp_str[21];
+  char         temp_str[MAX_BUF_LEN];
   char *       wstr  = temp_str;
   u_int64_t    prec  = p_prec;
   double       value = p_value;
@@ -185,9 +189,12 @@ string dtoa(double const p_value, u_int64_t const p_prec) throw()
   //
   if (thres_max < value)
   {
-    sprintf(temp_str, "%e", neg ? -value : value);
-    result = temp_str;
-    return(result);
+    if (0 < snprintf(temp_str, sizeof(temp_str), "%e", neg ? -value : value))
+    {
+      result = temp_str;
+      return(result);
+    }
+    return("NaN");
   }
 
   if (0 == prec)
@@ -247,7 +254,7 @@ string ftoa(float const p_value, u_int64_t const p_prec) throw()
   float  const thres_max = (float)(0x7FFFFFFF);
   float        diff  = 0.0;
   string       result(p_prec, ' ');
-  char         temp_str[21];
+  char         temp_str[MAX_BUF_LEN];
   char *       wstr  = temp_str;
   u_int64_t    prec  = p_prec;
   float        value = p_value;
@@ -294,9 +301,12 @@ string ftoa(float const p_value, u_int64_t const p_prec) throw()
   //
   if (thres_max < value)
   {
-    sprintf(temp_str, "%e", neg ? -value : value);
-    result = temp_str;
-    return(result);
+    if (0 < snprintf(temp_str, sizeof(temp_str), "%e", neg ? -value : value))
+    {
+      result = temp_str;
+      return(result);
+    }
+    return("NaN");
   }
 
   if (0 == prec)

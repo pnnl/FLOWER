@@ -81,6 +81,10 @@ public:
 
   ~SummaryExporter(void) throw()
   {
+    if (NULL != summary_file)
+    {
+      delete summary_file;
+    }
     return;
   }
 

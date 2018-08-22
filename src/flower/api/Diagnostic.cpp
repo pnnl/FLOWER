@@ -45,70 +45,22 @@
 // SEE ALSO:
 //============================================================================== 
 
-map<string, string> * Diagnostic::error_codes = 0;
-
 // ======================================================================
 // Get/Set Pairs
 // ======================================================================
 
+map<string, string> * Diagnostic::error_codes = 0;
 
 // ======================================================================
 // Constructors
 // ======================================================================
-Diagnostic::Diagnostic(void)
-{
-  // HACK
-  //debugStart(0, NULL, NULL, NULL, 0, 0, 0);
-  this->my_argc           = 0;
-  this->my_argv           = 0;
-  this->internal_alloc    = true;
-  Diagnostic::error_codes = new map<string, string>();
-  return;
-}
-
-
-Diagnostic::Diagnostic(int & p_argc, char ** p_argv, int const & p_option, int const & p_facility)
-{
-  this->internal_alloc    = true;
-
-  Diagnostic::error_codes = new map<string, string>();
-  if (NULL != p_argv)
-  {
-    // HACK
-    //debugStartCLI(p_argc, p_argv, &this->my_argc, &this->my_argv, p_option, p_facility);
-  }
-  else
-  {
-    // HACK
-    //debugStart(0, NULL, NULL, NULL, p_option, p_facility, 0);
-  }
-  return;
-}
-
-
 Diagnostic::Diagnostic(int & p_argc, char ** p_argv, map<string, string> * p_error_codes, int const & p_option, int const & p_facility)
 {
   this->internal_alloc      = false;
 
-  if (NULL != p_argv)
-  {
-    // HACK
-    //debugStartCLI(p_argc, p_argv, &this->my_argc, &this->my_argv, p_option, p_facility);
-  }
-  else
-  {
-    // HACK
-    //debugStart(0, NULL, NULL, NULL, p_option, p_facility, 0);
-  }
-
   if (NULL != p_error_codes)
   {
     Diagnostic::error_codes = p_error_codes;
-  }
-  else
-  {
-    this->internal_alloc    = true;
-    Diagnostic::error_codes = new map<string, string>();
   }
 
   return;
@@ -117,18 +69,6 @@ Diagnostic::Diagnostic(int & p_argc, char ** p_argv, map<string, string> * p_err
 // ======================================================================
 // Destructor
 // ======================================================================
-
-
-Diagnostic::~Diagnostic(void)
-{
-  // HACK
-  //debugEnd();
-  if (true == this->internal_alloc)
-  {
-    delete Diagnostic::error_codes;
-  }
-  return;
-}
 
 
 // ======================================================================
