@@ -88,3 +88,4 @@ CTestTestfile.cmake
 *.plist
 .vs
 x64
+*.dSYM

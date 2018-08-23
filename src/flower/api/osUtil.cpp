@@ -25,8 +25,8 @@
 #include <sys/ioctl.h>
 #include <sys/socket.h>
 #include <unistd.h>
-#else // Windows-specific
 #include <pcap.h>
+#else // Windows-specific
 #endif
 #include <string.h>
 #include <sys/types.h>
