@@ -38,47 +38,47 @@ using namespace boost::gregorian;
 
 // Getters/Setters
 
-inline time_t const getEpoch(void) throw()
+inline time_t const getEpoch(void) noexcept(true)
 {
   return(0);
 }
 
 
-inline ptime const getEpochUTC(void) throw()
+inline ptime const getEpochUTC(void) noexcept(true)
 {
   static ptime epoch(date(1970,1,1));
   return(epoch);
 }
 
 
-inline time_t const getFuture(void) throw()
+inline time_t const getFuture(void) noexcept(true)
 {
   return(LONG_MAX);
 }
 
 
-inline ptime const getFutureUTC(void) throw()
+inline ptime const getFutureUTC(void) noexcept(true)
 {
   static ptime future(date(2070,1,1));
   return(future);
 }
 
 
-inline time_t const getNow(void) throw()
+inline time_t const getNow(void) noexcept(true)
 {
   time_t now;
   return(time(&now));
 }
 
 
-inline ptime const getUTC(void) throw()
+inline ptime const getUTC(void) noexcept(true)
 {
   ptime now(microsec_clock::universal_time());
   return(now);
 }
 
 
-inline u_int64_t getElapsedMilliseconds(void) throw()
+inline u_int64_t getElapsedMilliseconds(void) noexcept(true)
 {
   return((u_int64_t)clock());
 }

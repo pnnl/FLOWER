@@ -66,7 +66,7 @@ public:
 
   // Getters/Setters
 
-  inline vector<MetricsEvent *> & getMetricsEvents(void) const throw()
+  inline vector<MetricsEvent *> & getMetricsEvents(void) const noexcept(true)
   {
     return(this->metrics_events);
   }
@@ -74,12 +74,12 @@ public:
 
   // Constructors
 
-  SummaryExporter(OutputHelper & p_output_helper, vector<MetricsEvent *> & p_metrics_events, int unsigned const p_summary_forceout, string const & p_version_record, bool const p_suppress_ipv4) throw();
+  SummaryExporter(OutputHelper & p_output_helper, vector<MetricsEvent *> & p_metrics_events, int unsigned const p_summary_forceout, string const & p_version_record, bool const p_suppress_ipv4) noexcept(true);
 
 
   // Destructor
 
-  ~SummaryExporter(void) throw()
+  ~SummaryExporter(void) noexcept(true)
   {
     if (NULL != summary_file)
     {
@@ -91,67 +91,67 @@ public:
 
   // Public Functions
 
-  void   onAddEvent(sharedFlow const p_flow) throw();
-  void   onNewInputEvent(int unsigned const p_level) throw();
-  void   onShutdownSystemEvent(int unsigned const p_level) throw();
+  void   onAddEvent(sharedFlow const p_flow) noexcept(true);
+  void   onNewInputEvent(int unsigned const p_level) noexcept(true);
+  void   onShutdownSystemEvent(int unsigned const p_level) noexcept(true);
 
 
 private:
 
   // Getters/Setters
 
-  inline void deleteSummaryFile(void) throw()
+  inline void deleteSummaryFile(void) noexcept(true)
   {
     delete getSummaryFile();
     this->summary_file = NULL;
   }
 
 
-  inline ofstream * getSummaryFile(void) const throw()
+  inline ofstream * getSummaryFile(void) const noexcept(true)
   {
     return(this->summary_file);
   }
 
 
-  inline int unsigned getSummaryForceout(void) const throw()
+  inline int unsigned getSummaryForceout(void) const noexcept(true)
   {
     return(this->summary_forceout);
   }
 
 
-  inline string getCurrentFilepath(void) const throw()
+  inline string getCurrentFilepath(void) const noexcept(true)
   {
     return(this->current_filepath);
   }
 
 
-  inline void setCurrentFilepath(string const & p_filepath) throw()
+  inline void setCurrentFilepath(string const & p_filepath) noexcept(true)
   {
     this->current_filepath = p_filepath;
     return;
   }
 
 
-  inline OutputHelper & getOutputHelper(void) const throw()
+  inline OutputHelper & getOutputHelper(void) const noexcept(true)
   {
     return(this->output_helper);
   }
 
 
-  inline time_t getFileCloseTime(void) const throw()
+  inline time_t getFileCloseTime(void) const noexcept(true)
   {
     return(this->file_close_time);
   }
 
 
-  inline void setFileCloseTime(time_t const p_time) throw()
+  inline void setFileCloseTime(time_t const p_time) noexcept(true)
   {
     this->file_close_time = p_time;
     return;
   }
 
 
-  inline bool suppressIpv4(void) const throw()
+  inline bool suppressIpv4(void) const noexcept(true)
   {
     return(this->suppress_ipv4);
   }
@@ -159,15 +159,15 @@ private:
 
   // Constructors
 
-  SummaryExporter(void) throw();
-  SummaryExporter(SummaryExporter const & p_summary_exporter) throw();
+  SummaryExporter(void) noexcept(true);
+  SummaryExporter(SummaryExporter const & p_summary_exporter) noexcept(true);
   
 
   // Operators
 
-  SummaryExporter & operator=(SummaryExporter const & p_summary_exporter) throw();
-  bool              operator==(SummaryExporter const & p_summary_exporter) const throw();
-  bool              operator!=(SummaryExporter const & p_summary_exporter) const throw();
+  SummaryExporter & operator=(SummaryExporter const & p_summary_exporter) noexcept(true);
+  bool              operator==(SummaryExporter const & p_summary_exporter) const noexcept(true);
+  bool              operator!=(SummaryExporter const & p_summary_exporter) const noexcept(true);
 
 
   // Variables
@@ -184,13 +184,13 @@ private:
 
   // Private Functions
 
-  void outputMetadata(void) throw();
-  bool openSummaryFile(void) throw();
-  void writeSummary(sharedFlow const & p_flow) throw();
-  void closeSummaryFile(void) throw();
-  void manageFiles(time_t const p_flow_virtual_time) throw();
-  void renameFile(void) throw();
-  void reset(int unsigned const p_level = 0) throw();
+  void outputMetadata(void) noexcept(true);
+  bool openSummaryFile(void) noexcept(true);
+  void writeSummary(sharedFlow const & p_flow) noexcept(true);
+  void closeSummaryFile(void) noexcept(true);
+  void manageFiles(time_t const p_flow_virtual_time) noexcept(true);
+  void renameFile(void) noexcept(true);
+  void reset(int unsigned const p_level = 0) noexcept(true);
 
 };
 

@@ -78,7 +78,7 @@ void PacketBuilder_pcap_handler(u_char * user, struct pcap_pkthdr const * const 
 // ======================================================================
 
 
-PacketBuilder::PacketBuilder(NewPcapDescEvent * const p_new_pcap_desc_event, PacketAddEvent * const p_packet_add_event, int unsigned const p_max_packets, int unsigned const p_snaplen) throw() :
+PacketBuilder::PacketBuilder(NewPcapDescEvent * const p_new_pcap_desc_event, PacketAddEvent * const p_packet_add_event, int unsigned const p_max_packets, int unsigned const p_snaplen) noexcept(true) :
   pcap_descriptor(NULL),
   new_pcap_desc_event(p_new_pcap_desc_event),
   packet_add_event(p_packet_add_event),
@@ -101,7 +101,7 @@ PacketBuilder::PacketBuilder(NewPcapDescEvent * const p_new_pcap_desc_event, Pac
 // ======================================================================
 
 
-bool PacketBuilder::initDevice(string const & p_device) throw()
+bool PacketBuilder::initDevice(string const & p_device) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
 
@@ -152,7 +152,7 @@ bool PacketBuilder::initDevice(string const & p_device) throw()
 }
 
 
-bool PacketBuilder::readDevice(void) throw()
+bool PacketBuilder::readDevice(void) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
   
@@ -180,7 +180,7 @@ bool PacketBuilder::readDevice(void) throw()
 }
 
 
-bool PacketBuilder::initFile(string const & p_filename) throw()
+bool PacketBuilder::initFile(string const & p_filename) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
 
@@ -231,7 +231,7 @@ bool PacketBuilder::initFile(string const & p_filename) throw()
 }
 
 
-bool PacketBuilder::readFile(void) throw()
+bool PacketBuilder::readFile(void) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
 
@@ -259,7 +259,7 @@ bool PacketBuilder::readFile(void) throw()
 }
 
 
-void PacketBuilder::finish(void) throw()
+void PacketBuilder::finish(void) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
 
@@ -277,7 +277,7 @@ void PacketBuilder::finish(void) throw()
 }
 
 
-string PacketBuilder::onMetricsEvent(int unsigned const p_level) throw()
+string PacketBuilder::onMetricsEvent(int unsigned const p_level) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
   string result = "";
@@ -299,7 +299,7 @@ string PacketBuilder::onMetricsEvent(int unsigned const p_level) throw()
 }
 
 
-void PacketBuilder::onShutdownSystemEvent(int unsigned const p_level) throw()
+void PacketBuilder::onShutdownSystemEvent(int unsigned const p_level) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
 
@@ -325,7 +325,7 @@ void PacketBuilder::onShutdownSystemEvent(int unsigned const p_level) throw()
 // ======================================================================
 
 
-void PacketBuilder::pcapProcessPacket(struct pcap_pkthdr const * const p_header, char unsigned const * const p_data) throw()
+void PacketBuilder::pcapProcessPacket(struct pcap_pkthdr const * const p_header, char unsigned const * const p_data) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
 

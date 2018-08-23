@@ -76,7 +76,7 @@ using boost::lexical_cast;
 // ======================================================================
 
 
-ProgramOptions::ProgramOptions(void) throw() :
+ProgramOptions::ProgramOptions(void) noexcept(true) :
   use_device(false),
   use_ring(false),
   command_only("Command Line Only"),
@@ -138,7 +138,7 @@ ProgramOptions::ProgramOptions(void) throw() :
 }
 
 
-bool ProgramOptions::checkOptions(int p_argc, char ** p_argv, string const & p_data_guide_ver) throw()
+bool ProgramOptions::checkOptions(int p_argc, char ** p_argv, string const & p_data_guide_ver) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
   DEBUG(LOTS, "argc:%d", p_argc);
@@ -226,7 +226,7 @@ bool ProgramOptions::checkOptions(int p_argc, char ** p_argv, string const & p_d
 }
 
 
-void ProgramOptions::displayRuntimeVariables(void) throw()
+void ProgramOptions::displayRuntimeVariables(void) noexcept(true)
 {
   string bools[2] = {"false", "true"};
 
@@ -298,7 +298,7 @@ void ProgramOptions::displayRuntimeVariables(void) throw()
 // ======================================================================
 
 
-void ProgramOptions::displayHelp(bool const p_condition) throw()
+void ProgramOptions::displayHelp(bool const p_condition) noexcept(true)
 {
   if (! p_condition)
   {
@@ -322,7 +322,7 @@ void ProgramOptions::displayHelp(bool const p_condition) throw()
 }
 
 
-string ProgramOptions::getVersionRecord(string const & p_data_guide_ver) throw()
+string ProgramOptions::getVersionRecord(string const & p_data_guide_ver) noexcept(true)
 {
 #ifndef APP_DESC
 #define APP_DESC "ERROR"
@@ -368,7 +368,7 @@ string ProgramOptions::getVersionRecord(string const & p_data_guide_ver) throw()
 }
 
 
-void ProgramOptions::displayVersion(bool const p_condition, string const & p_data_guide_ver) throw()
+void ProgramOptions::displayVersion(bool const p_condition, string const & p_data_guide_ver) noexcept(true)
 {
   if (! p_condition)
   {
@@ -451,7 +451,7 @@ void ProgramOptions::displayVersion(bool const p_condition, string const & p_dat
 }
 
 
-string ProgramOptions::getDefaultConfigFile(void) throw()
+string ProgramOptions::getDefaultConfigFile(void) noexcept(true)
 {
   // DEVELOPER NOTE: Derived from:
   // http://www.linuxquestions.org/questions/programming-9/get-full-path-of-a-command-in-c-117965/
@@ -507,7 +507,7 @@ string ProgramOptions::getDefaultConfigFile(void) throw()
 }
 
 
-void ProgramOptions::processConfigFile(void) throw()
+void ProgramOptions::processConfigFile(void) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
 
@@ -553,7 +553,7 @@ void ProgramOptions::processConfigFile(void) throw()
 }
 
 
-void ProgramOptions::processOutputParams(void) throw()
+void ProgramOptions::processOutputParams(void) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
 
@@ -642,7 +642,7 @@ void ProgramOptions::processOutputParams(void) throw()
 }
 
 
-void ProgramOptions::processSiteName(void) throw()
+void ProgramOptions::processSiteName(void) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
 
@@ -680,7 +680,7 @@ void ProgramOptions::processSiteName(void) throw()
 }
 
 
-void ProgramOptions::processDevice(bool const p_condition) throw()
+void ProgramOptions::processDevice(bool const p_condition) noexcept(true)
 {
   if (! p_condition)
   {
@@ -713,7 +713,7 @@ void ProgramOptions::processDevice(bool const p_condition) throw()
 }
 
 
-bool ProgramOptions::processInputFiles(bool const p_condition) throw()
+bool ProgramOptions::processInputFiles(bool const p_condition) noexcept(true)
 {
   bool result = true;
 
@@ -738,7 +738,7 @@ bool ProgramOptions::processInputFiles(bool const p_condition) throw()
 
 
 //  Function used to check that 'option' is used
-void ProgramOptions::requiredOption(string const & p_option) throw(logic_error)
+void ProgramOptions::requiredOption(string const & p_option)
 {
   DEBUG(TRACE, ENTER);
 
@@ -753,7 +753,7 @@ void ProgramOptions::requiredOption(string const & p_option) throw(logic_error)
 
 
 //  Function used to check that one of 'opt1' and 'opt2' are used
-void ProgramOptions::requiredOptions(string const & p_opt1, string const & p_opt2) throw(logic_error)
+void ProgramOptions::requiredOptions(string const & p_opt1, string const & p_opt2)
 {
   DEBUG(TRACE, ENTER);
 
@@ -828,7 +828,7 @@ void ProgramOptions::checkSpecial(string const & p_option, u_int64_t const p_che
 
 
 //  Function used to check that 'opt1' and 'opt2' are not specified at the same time.
-void ProgramOptions::conflictingOptions(string const & p_opt1, string const & p_opt2) throw(logic_error)
+void ProgramOptions::conflictingOptions(string const & p_opt1, string const & p_opt2)
 {
   DEBUG(TRACE, ENTER);
 
@@ -847,7 +847,7 @@ void ProgramOptions::conflictingOptions(string const & p_opt1, string const & p_
 
 //  Function used to check that if 'for_what' is specified, then
 //  'required_option' is specified too.
-void ProgramOptions::optionDependency(string const & p_for_what, string const & p_required_option) throw(logic_error)
+void ProgramOptions::optionDependency(string const & p_for_what, string const & p_required_option)
 {
   DEBUG(TRACE, ENTER);
 

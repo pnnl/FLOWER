@@ -40,25 +40,25 @@ public:
 
   // Getter/Setters
 
-  inline T getFirstValue(void) const throw()
+  inline T getFirstValue(void) const noexcept(true)
   {
     return(this->first.getValue());
   }
 
 
-  inline U getSecondValue(void) const throw()
+  inline U getSecondValue(void) const noexcept(true)
   {
     return(this->second.getValue());
   }
 
 
-  inline bool isValid(void) const throw()
+  inline bool isValid(void) const noexcept(true)
   {
     return(this->first.isValid() | this->second.isValid());
   }
 
 
-  inline void setValid(bool const p_valid) throw()
+  inline void setValid(bool const p_valid) noexcept(true)
   {
     this->first.setValid(p_valid);
     this->second.setValid(p_valid);
@@ -66,7 +66,7 @@ public:
   }
 
 
-  inline void assign(T const & p_first_value, U const & p_second_value, bool const p_valid) throw()
+  inline void assign(T const & p_first_value, U const & p_second_value, bool const p_valid) noexcept(true)
   {
     first.setValue(p_first_value);
     second.setValue(p_second_value);
@@ -83,7 +83,7 @@ public:
 
   // Constructors
 
-  Pair(T const & p_first, U const & p_second, bool const p_valid = false) throw() :
+  Pair(T const & p_first, U const & p_second, bool const p_valid = false) noexcept(true) :
     first(p_first,   p_valid),
     second(p_second, p_valid)
   {
@@ -91,7 +91,7 @@ public:
   }
 
 
-  Pair(Pair const & p_that) throw() :
+  Pair(Pair const & p_that) noexcept(true) :
     first(p_that.first),
     second(p_that.second)
   {
@@ -101,7 +101,7 @@ public:
 
   // Destructor
 
-  ~Pair(void) throw()
+  ~Pair(void) noexcept(true)
   {
     return;
   }
@@ -109,7 +109,7 @@ public:
 
   // Operators
 
-  Pair &    operator=(Pair const & p_that) throw()
+  Pair &    operator=(Pair const & p_that) noexcept(true)
   {
     if (! (*this == p_that))
     {
@@ -121,14 +121,14 @@ public:
   }
 
 
-  bool      operator==(Pair const & p_that) throw()
+  bool      operator==(Pair const & p_that) noexcept(true)
   {
     return((this->first == p_that.first) && (this->second == p_that.second));
   }
 
 
 friend
-  ostream & operator<<(ostream & p_os, const Pair & p_pair) throw()
+  ostream & operator<<(ostream & p_os, const Pair & p_pair) noexcept(true)
   {
     DEBUG(LOTS, ENTER);
     DEBUG(LOTS, LEAVE);
@@ -140,7 +140,7 @@ private:
 
   // Constructors
 
-  Pair(void) throw();
+  Pair(void) noexcept(true);
 
 }; 
 

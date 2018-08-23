@@ -77,7 +77,12 @@ void setArg(const char * p_arg)
   int arg_number = getNextNum();
 
   ::g_argv[arg_number] = (char *) calloc(strlen(p_arg) + 1, sizeof(char));
-  strncpy(::g_argv[arg_number], p_arg, strlen(p_arg));
+  //strncpy(::g_argv[arg_number], p_arg, strlen(p_arg));
+  if (0 < snprintf(::g_argv[arg_number], sizeof(::g_argv[arg_number]), "%s", p_arg))
+  {
+    BOOST_CHECK_EQUAL(true, false);
+    return;
+  }
 
   BOOST_TEST_MESSAGE("ProgramOptionsSuite setArg, arg_number = " + lexical_cast<string>(arg_number) + ", argv = " + lexical_cast<string>(::g_argv[arg_number]));
 

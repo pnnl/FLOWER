@@ -30,11 +30,11 @@ using namespace std;
 static const double g_pow10[] = {1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000};
 
 
-string itoa10(int64_t    const p_value, u_int64_t const p_pad_length = 0) throw();
-string uitoa10(u_int64_t const p_value, u_int64_t const p_pad_length = 0) throw();
-string uitoa16(u_int32_t const p_value, u_int32_t const p_pad_length)     throw();
-string dtoa(double       const p_value, u_int64_t const p_prec       = 2) throw();
-string ftoa(float        const p_value, u_int64_t const p_prec       = 2) throw();
+string itoa10(int64_t    const p_value, u_int64_t const p_pad_length = 0) noexcept(true);
+string uitoa10(u_int64_t const p_value, u_int64_t const p_pad_length = 0) noexcept(true);
+string uitoa16(u_int32_t const p_value, u_int32_t const p_pad_length)     noexcept(true);
+string dtoa(double       const p_value, u_int64_t const p_prec       = 2) noexcept(true);
+string ftoa(float        const p_value, u_int64_t const p_prec       = 2) noexcept(true);
 
 
 #endif // NUM2STRING_HPP

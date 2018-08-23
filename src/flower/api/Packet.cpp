@@ -59,7 +59,7 @@
 // ======================================================================
 
 
-Packet::Packet(bool const p_fake, ByteArray const p_buf, int unsigned const p_caplen, int unsigned const p_len, int unsigned const p_tv_sec, int unsigned const p_tv_usec) throw() :
+Packet::Packet(bool const p_fake, ByteArray const p_buf, int unsigned const p_caplen, int unsigned const p_len, int unsigned const p_tv_sec, int unsigned const p_tv_usec) noexcept(true) :
   ptr_data(p_buf),
   wirelen(p_len),
   fake(p_fake),
@@ -82,7 +82,7 @@ Packet::Packet(bool const p_fake, ByteArray const p_buf, int unsigned const p_ca
 // ======================================================================
 
 
-void Packet::assign(struct pcap_pkthdr const * const p_header, char unsigned const * const p_data, bool const p_is_fake) throw()
+void Packet::assign(struct pcap_pkthdr const * const p_header, char unsigned const * const p_data, bool const p_is_fake) noexcept(true)
 {
   DEBUG(LOTS, ENTER);
 
@@ -113,7 +113,7 @@ void Packet::assign(struct pcap_pkthdr const * const p_header, char unsigned con
 }
 
 
-ostream & Packet::printPacket(ostream & p_os) const throw()
+ostream & Packet::printPacket(ostream & p_os) const noexcept(true)
 {
   //DEBUG(LOTS, ENTER);
   stringstream          ss;  // Needed to print out packet
@@ -138,7 +138,7 @@ typedef struct pcaprec_hdr_s {
 } pcaprec_hdr_t;
 
 
-void Packet::printPacketPcap(ostream & p_os) const throw()
+void Packet::printPacketPcap(ostream & p_os) const noexcept(true)
 {
   //DEBUG(LOTS, ENTER);
   pcaprec_hdr_t pcaprec_hdr;
@@ -160,7 +160,7 @@ void Packet::printPacketPcap(ostream & p_os) const throw()
 // Friends
 // -------------------------------------
 
-ostream & operator<<(ostream & p_os, Packet const * const p_packet) throw()
+ostream & operator<<(ostream & p_os, Packet const * const p_packet) noexcept(true)
 {
   //DEBUG(LOTS, ENTER);
   //DEBUG(LOTS, LEAVE);

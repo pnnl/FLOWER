@@ -74,19 +74,19 @@ public:
 
   // Getters/Setters
 
-  inline variables_map & getOptionMap(void) throw() // Cannot be const
+  inline variables_map & getOptionMap(void) noexcept(true) // Cannot be const
   {
     return(this->option_map);
   }
 
 
-  inline int unsigned getOutputFileGroupId(void) const throw()
+  inline int unsigned getOutputFileGroupId(void) const noexcept(true)
   {
     return(this->output_file_group_id);
   }
 
 
-  inline string getDevice(void) const throw()
+  inline string getDevice(void) const noexcept(true)
   {
     return(this->device_name);
   }
@@ -94,12 +94,12 @@ public:
 
   // Constructors
 
-  ProgramOptions(void) throw();
+  ProgramOptions(void) noexcept(true);
 
 
   // Destructor
 
-  ~ProgramOptions(void) throw()
+  ~ProgramOptions(void) noexcept(true)
   {
     return;
   }
@@ -107,13 +107,13 @@ public:
 
   // Public Functions
 
-  bool   checkOptions(int argc, char ** argv, string const & p_data_guide_ver = "0") throw();
-  string getDefaultConfigFile(void) throw();
-  string getVersionRecord(const string & p_record) throw ();
+  bool   checkOptions(int argc, char ** argv, string const & p_data_guide_ver = "0") noexcept(true);
+  string getDefaultConfigFile(void) noexcept(true);
+  string getVersionRecord(const string & p_record) noexcept(true);
 
 
   template<class T>
-  const T & getOption(string const & p_option) const throw(logic_error)
+  const T & getOption(string const & p_option) const
   {
     if (this->option_map.count(p_option))
     {
@@ -123,109 +123,109 @@ public:
   }
 
 
-  inline bool useDevice(void) throw()
+  inline bool useDevice(void) noexcept(true)
   {
     return(this->use_device);
   }
 
 
-  inline bool useRing(void) throw()
+  inline bool useRing(void) noexcept(true)
   {
     return(this->use_ring);
   }
 
 
-  inline bool isInteractive(void) throw()
+  inline bool isInteractive(void) noexcept(true)
   {
     return(this->interactive);
   }
 
 
-  inline bool suppressIpv4Output(void) throw()
+  inline bool suppressIpv4Output(void) noexcept(true)
   {
     return(this->suppress_ipv4_output);
   }
 
 
-  inline bool skipIpv4Packets(void) throw()
+  inline bool skipIpv4Packets(void) noexcept(true)
   {
     return(this->skip_ipv4_packets);
   }
 
 
-  inline bool ipAddressFormat(void) throw()
+  inline bool ipAddressFormat(void) noexcept(true)
   {
     return(this->ip_address_format);
   }
 
 
-  inline string getOutputDataDir(void) throw()
+  inline string getOutputDataDir(void) noexcept(true)
   {
     return(this->output_data_dir);
   }
 
 
-  inline string getOutputFileExt(void) throw()
+  inline string getOutputFileExt(void) noexcept(true)
   {
     return(this->output_file_ext);
   }
 
 
-  inline int unsigned getCacheForceout(void) throw()
+  inline int unsigned getCacheForceout(void) noexcept(true)
   {
     return(this->cache_forceout);
   }
 
 
-  inline int unsigned getCacheTimeout(void) throw()
+  inline int unsigned getCacheTimeout(void) noexcept(true)
   {
     return(this->cache_timeout);
   }
 
 
-  inline int unsigned getSummaryForceout(void) throw()
+  inline int unsigned getSummaryForceout(void) noexcept(true)
   {
     return(this->summary_forceout);
   }
 
 
-  inline int unsigned getMaxFlowcacheSize(void) throw()
+  inline int unsigned getMaxFlowcacheSize(void) noexcept(true)
   {
     return(this->max_flowcache_size);
   }
 
 
-  inline int unsigned getMaxPacketbufferSize(void) throw()
+  inline int unsigned getMaxPacketbufferSize(void) noexcept(true)
   {
     return(this->max_packetbuffer_size);
   }
 
 
-  inline int unsigned getPackets(void) throw()
+  inline int unsigned getPackets(void) noexcept(true)
   {
     return(this->packets);
   }
 
 
-  inline int unsigned getSnaplen(void) throw()
+  inline int unsigned getSnaplen(void) noexcept(true)
   {
     return(this->snaplen);
   }
 
 
-  inline int unsigned getBufferPackets(void) throw()
+  inline int unsigned getBufferPackets(void) noexcept(true)
   {
     return(this->buffer_packets);
   }
 
 
-  inline bool bufferPackets(void) throw()
+  inline bool bufferPackets(void) noexcept(true)
   {
     return(lexical_cast<bool>(getBufferPackets()));
   }
 
 
-  inline vector<string> getInputFiles(void) throw()
+  inline vector<string> getInputFiles(void) noexcept(true)
   {
     return(getOption< vector<string> >("input-file"));
   }
@@ -235,48 +235,48 @@ private:
 
   // Getters/Setters
 
-  inline string getConfigFile(void) throw()
+  inline string getConfigFile(void) noexcept(true)
   {
     return(this->config_file);
   }
 
 
-  inline void setDeviceName(string const p_value) throw()
+  inline void setDeviceName(string const p_value) noexcept(true)
   {
     this->device_name = p_value;
     return;
   }
 
 
-  inline void setOutputDataDir(string const p_value) throw()
+  inline void setOutputDataDir(string const p_value) noexcept(true)
   {
     this->output_data_dir = p_value;
     return;
   }
 
 
-  inline void setOutputFileExt(string const p_value) throw()
+  inline void setOutputFileExt(string const p_value) noexcept(true)
   {
     this->output_file_ext = p_value;
     return;
   }
 
 
-  inline void setOutputFileGroupId(int unsigned const p_id) throw()
+  inline void setOutputFileGroupId(int unsigned const p_id) noexcept(true)
   {
     this->output_file_group_id = p_id;
     return;
   }
 
 
-  inline void setUseDevice(bool const p_value) throw()
+  inline void setUseDevice(bool const p_value) noexcept(true)
   {
     this->use_device = p_value;
     return;
   }
 
 
-  void setUseRing(void) throw()
+  void setUseRing(void) noexcept(true)
   {
     if (getOptionMap().count("use-ring"))
     {
@@ -293,7 +293,7 @@ private:
   }
 
 
-  void setSuppressIpv4Output(void) throw()
+  void setSuppressIpv4Output(void) noexcept(true)
   {
     if (getOptionMap().count("suppress-ipv4-output"))
     {
@@ -303,7 +303,7 @@ private:
   }
 
 
-  void setSkipIpv4Packets(void) throw()
+  void setSkipIpv4Packets(void) noexcept(true)
   {
     if (getOptionMap().count("skip-ipv4-packets"))
     {
@@ -313,7 +313,7 @@ private:
   }
 
 
-  void setIpAddressFormat(void) throw()
+  void setIpAddressFormat(void) noexcept(true)
   {
     if (getOptionMap().count("ip-address-format"))
     {
@@ -323,7 +323,7 @@ private:
   }
 
 
-  inline void setBufferPackets(void) throw()
+  inline void setBufferPackets(void) noexcept(true)
   {
     checkEnum("buffer-packets", 0, 1);
     this->buffer_packets = getOption<int unsigned>("buffer-packets");
@@ -331,7 +331,7 @@ private:
   }
 
 
-  inline void setPackets(void) throw()
+  inline void setPackets(void) noexcept(true)
   {
     checkRange("packets", 0, ULONG_MAX);
     this->packets = getOption<int unsigned>("packets");
@@ -339,7 +339,7 @@ private:
   }
 
 
-  inline void setCacheForceout(void) throw()
+  inline void setCacheForceout(void) noexcept(true)
   {
     checkRange("cache-forceout", 0, 2500);
     this->cache_forceout = getOption<int unsigned>("cache-forceout");
@@ -347,7 +347,7 @@ private:
   }
 
 
-  inline void setCacheTimeout(void) throw()
+  inline void setCacheTimeout(void) noexcept(true)
   {
     checkRange("cache-timeout", 0, 2500);
     this->cache_timeout = getOption<int unsigned>("cache-timeout");
@@ -355,7 +355,7 @@ private:
   }
 
 
-  inline void setSummaryForceout(void) throw()
+  inline void setSummaryForceout(void) noexcept(true)
   {
     checkRange("summary-forceout", 0, 2500);
     this->summary_forceout = getOption<int unsigned>("summary-forceout");
@@ -363,7 +363,7 @@ private:
   }
 
 
-  inline void setMaxFlowcacheSize(void) throw()
+  inline void setMaxFlowcacheSize(void) noexcept(true)
   {
     checkSpecial("max-flowcache-size", 0, 30000);
     this->max_flowcache_size = getOption<int unsigned>("max-flowcache-size");
@@ -371,7 +371,7 @@ private:
   }
 
 
-  inline void setMaxPacketbufferSize(void) throw()
+  inline void setMaxPacketbufferSize(void) noexcept(true)
   {
     checkRange("max-packetbuffer-size", 0, 30000);
     this->max_packetbuffer_size = getOption<int unsigned>("max-packetbuffer-size");
@@ -379,7 +379,7 @@ private:
   }
 
 
-  inline void setSnaplen(void) throw()
+  inline void setSnaplen(void) noexcept(true)
   {
     checkRange(  "snaplen", 0, 65536);  // Must be less than 65536 - FATAL
     checkSpecial("snaplen", 0, 65535);  // Should be 65535         - WARN
@@ -388,14 +388,14 @@ private:
   }
 
 
-  inline void setConfigFile(string const p_value) throw()
+  inline void setConfigFile(string const p_value) noexcept(true)
   {
     this->config_file = p_value;
     return;
   }
 
 
-  inline void setInteractive(bool const p_value) throw()
+  inline void setInteractive(bool const p_value) noexcept(true)
   {
     this->interactive = p_value;
     return;
@@ -404,14 +404,14 @@ private:
 
   // Constructors
 
-  ProgramOptions(ProgramOptions const & p_program_options) throw();
+  ProgramOptions(ProgramOptions const & p_program_options) noexcept(true);
 
 
   // Operators
 
-  ProgramOptions & operator=(ProgramOptions const & p_program_options) throw();
-  bool             operator==(ProgramOptions const & p_program_options) const throw();
-  bool             operator!=(ProgramOptions const & p_program_options) const throw();
+  ProgramOptions & operator=(ProgramOptions const & p_program_options) noexcept(true);
+  bool             operator==(ProgramOptions const & p_program_options) const noexcept(true);
+  bool             operator!=(ProgramOptions const & p_program_options) const noexcept(true);
 
 
   // Variables
@@ -449,23 +449,23 @@ private:
 
   // Private Functions
 
-  void displayHelp(bool const p_condition) throw();
-  void displayRuntimeVariables(void) throw();
-  void displayVersion(bool const p_condition, string const & p_data_guide_ver) throw();
-  void processConfigFile(void) throw();
-  void processDevice(bool const p_condition) throw();
-  bool processInputFiles(bool const p_condition) throw();
-  void processOutputParams(void) throw();
-  void processSiteName(void) throw();
+  void displayHelp(bool const p_condition) noexcept(true);
+  void displayRuntimeVariables(void) noexcept(true);
+  void displayVersion(bool const p_condition, string const & p_data_guide_ver) noexcept(true);
+  void processConfigFile(void) noexcept(true);
+  void processDevice(bool const p_condition) noexcept(true);
+  bool processInputFiles(bool const p_condition) noexcept(true);
+  void processOutputParams(void) noexcept(true);
+  void processSiteName(void) noexcept(true);
 
   void checkEnum(string const & p_option, int unsigned const p_check0, int unsigned const p_check1);
   void checkRange(string const & p_option, u_int64_t const p_check0, u_int64_t const p_check1);
   void checkGreater(string const & p_option0, string const & p_option1);
   void checkSpecial(string const & p_option, u_int64_t const p_check0, u_int64_t const p_check1);
-  void conflictingOptions(string const & p_opt1, string const & p_opt2) throw(logic_error);
-  void optionDependency(string const & p_for_what, string const & p_required_option) throw(logic_error);
-  void requiredOption(string const & p_option) throw(logic_error);
-  void requiredOptions(string const & p_opt1, string const & p_opt2) throw(logic_error);
+  void conflictingOptions(string const & p_opt1, string const & p_opt2);
+  void optionDependency(string const & p_for_what, string const & p_required_option);
+  void requiredOption(string const & p_option);
+  void requiredOptions(string const & p_opt1, string const & p_opt2);
 
 };
 

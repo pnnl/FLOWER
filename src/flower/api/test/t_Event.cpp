@@ -27,7 +27,7 @@ using namespace std;
 
 struct myexception : public std::exception
 {
-  virtual const char * what() const throw()
+  virtual const char * what() const noexcept(true)
   {
     return("EXCEPTION_MESSAGE");
   }
@@ -55,7 +55,7 @@ class TestClass
 
 public:
 
-  TestClass(void) throw() :
+  TestClass(void) noexcept(true) :
     counter(0),
     value(0)
   {
@@ -63,13 +63,13 @@ public:
   }
 
 
-  ~TestClass(void) throw()
+  ~TestClass(void) noexcept(true)
   {
     return;
   }
 
 
-  bool returnBoolNotification(int unsigned const p_value) throw()
+  bool returnBoolNotification(int unsigned const p_value) noexcept(true)
   {
     this->counter++;
     this->value = p_value;
@@ -77,13 +77,13 @@ public:
   }
 
 
-  inline int unsigned getValue(void) const throw()
+  inline int unsigned getValue(void) const noexcept(true)
   {
     return(this->value);
   }
 
 
-  void intNotification(int unsigned const p_value) throw()
+  void intNotification(int unsigned const p_value) noexcept(true)
   {
     this->counter++;
     this->value = p_value;
@@ -91,19 +91,19 @@ public:
   }
 
 
-  inline string getObjName(void) const throw()
+  inline string getObjName(void) const noexcept(true)
   {
     return(this->obj->name);
   }
 
 
-  inline int unsigned getObjNumber(void) const throw()
+  inline int unsigned getObjNumber(void) const noexcept(true)
   {
     return(this->obj->number);
   }
 
 
-  void objNotification(std::shared_ptr<Obj> const p_obj) throw()
+  void objNotification(std::shared_ptr<Obj> const p_obj) noexcept(true)
   {
     this->counter++;
     this->obj = p_obj;
@@ -111,7 +111,7 @@ public:
   }
 
 
-  void throwNotification(int unsigned const p_value) throw(myexception)
+  void throwNotification(int unsigned const p_value)
   {
     this->counter++;
     this->value = p_value;
@@ -148,14 +148,14 @@ struct EventSuiteFixture
   myexception   g_exception;
 
 
-  EventSuiteFixture() throw()
+  EventSuiteFixture() noexcept(true)
   {
     BOOST_TEST_MESSAGE("EventSuite setup fixture");
     return;
   }
 
 
-  ~EventSuiteFixture() throw()
+  ~EventSuiteFixture() noexcept(true)
   {
     BOOST_TEST_MESSAGE("EventSuite teardown fixture");
     return;

@@ -62,14 +62,14 @@ ShutdownSystemEvent * ExceptionHandler::SingletonHandler::shutdown_system_event 
 // ======================================================================
 
 
-ExceptionHandler::ExceptionHandler(ShutdownSystemEvent * p_shutdown_system_event) throw()
+ExceptionHandler::ExceptionHandler(ShutdownSystemEvent * p_shutdown_system_event) noexcept(true)
 {
   static SingletonHandler handler(p_shutdown_system_event);
   return;
 }
 
 
-ExceptionHandler::SingletonHandler::SingletonHandler(ShutdownSystemEvent * p_shutdown_system_event) throw()
+ExceptionHandler::SingletonHandler::SingletonHandler(ShutdownSystemEvent * p_shutdown_system_event) noexcept(true)
 {
   ExceptionHandler::SingletonHandler::shutdown_system_event = p_shutdown_system_event;
   set_terminate(SingletonHandler::Handler);

@@ -62,26 +62,26 @@ public:
   
   // Getters/Setters
 
-  inline int unsigned size(void) const throw()
+  inline int unsigned size(void) const noexcept(true)
   {
     return(getCount());
   }
 
 
-  inline int unsigned capacity(void) const throw()
+  inline int unsigned capacity(void) const noexcept(true)
   {
     return(getCount());
   }
 
 
-  inline T at(int unsigned p_idx) throw()
+  inline T at(int unsigned p_idx) noexcept(true)
   {
     assert(p_idx < getCount());
     return(buffer[p_idx]);
   }
 
 
-  inline T const at(int unsigned p_idx) const throw()
+  inline T const at(int unsigned p_idx) const noexcept(true)
   {
     assert(p_idx < getCount());
     return(buffer[p_idx]);
@@ -90,35 +90,35 @@ public:
 
   // DEVELOPER NOTE: The at2 and at4 functions assume network byte order
   //                 and x86 hardware platform.
-  inline u_int16_t at2(int unsigned p_idx) throw()
+  inline u_int16_t at2(int unsigned p_idx) noexcept(true)
   {
     assert((p_idx + 1) < getCount());
     return((buffer[p_idx] << 8) + buffer[p_idx + 1]);
   }
 
 
-  inline u_int16_t const at2(int unsigned p_idx) const throw()
+  inline u_int16_t const at2(int unsigned p_idx) const noexcept(true)
   {
     assert((p_idx + 1) < getCount());
     return((buffer[p_idx] << 8) + buffer[p_idx + 1]);
   }
 
 
-  inline u_int32_t at4(int unsigned p_idx) throw()
+  inline u_int32_t at4(int unsigned p_idx) noexcept(true)
   {
     assert((p_idx + 3) < getCount());
     return((buffer[p_idx] << 24) + (buffer[p_idx + 1] << 16) + (buffer[p_idx + 2] << 8) + buffer[p_idx + 3]);
   }
 
 
-  inline u_int32_t const at4(int unsigned p_idx) const throw()
+  inline u_int32_t const at4(int unsigned p_idx) const noexcept(true)
   {
     assert((p_idx + 3) < getCount());
     return((buffer[p_idx] << 24) + (buffer[p_idx + 1] << 16) + (buffer[p_idx + 2] << 8) + buffer[p_idx + 3]);
   }
 
 
-  inline void assign(T * p_data, int unsigned p_size) throw()
+  inline void assign(T * p_data, int unsigned p_size) noexcept(true)
   {
     //assert(p_data);
     this->buffer = p_data;
@@ -128,7 +128,7 @@ public:
 
   // Constructor
 
-  FixedArray(T * p_data, int unsigned p_size) throw() :
+  FixedArray(T * p_data, int unsigned p_size) noexcept(true) :
     buffer(p_data),
     count(p_size)
   {
@@ -136,7 +136,7 @@ public:
   }
 
 
-  FixedArray(FixedArray<T> const & p_array) throw() :
+  FixedArray(FixedArray<T> const & p_array) noexcept(true) :
     buffer(p_array.buffer),
     count(p_array.count)
   {
@@ -146,7 +146,7 @@ public:
 
   // Destructors
  
-  ~FixedArray(void) throw()
+  ~FixedArray(void) noexcept(true)
   {
     return;
   }
@@ -154,7 +154,7 @@ public:
 
   // Operators
 
-  bool      operator==(FixedArray<T> const & p_that) const throw()
+  bool      operator==(FixedArray<T> const & p_that) const noexcept(true)
   {
     if (this->size() == p_that.size())
     {
@@ -227,7 +227,7 @@ public:
 
 
 friend
-  ostream & operator<<(ostream & p_os, FixedArray<T> const & p_array) throw()
+  ostream & operator<<(ostream & p_os, FixedArray<T> const & p_array) noexcept(true)
   {
     hexdump(p_os, p_array);
     return(p_os);
@@ -237,13 +237,13 @@ friend
 
   // Getters/Setters
 
-  inline int unsigned getCount(void) const throw()
+  inline int unsigned getCount(void) const noexcept(true)
   {
     return(this->count);
   }
 
 
-  inline T * getBuffer(void) const throw()
+  inline T * getBuffer(void) const noexcept(true)
   {
     return(this->buffer);
   }
@@ -252,7 +252,7 @@ private:
 
   // Constructors
 
-  FixedArray(void) throw();
+  FixedArray(void) noexcept(true);
 
 
   // Variables

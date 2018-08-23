@@ -69,7 +69,7 @@ public:
 
   // Getters/Setters
 
-  inline const ByteArray & getData(void) const throw()
+  inline const ByteArray & getData(void) const noexcept(true)
   {
     DEBUG(LOTS, ENTER);
     //if (isDebugLevelSet(INFO))
@@ -83,31 +83,31 @@ public:
   }
 
 
-  inline int unsigned getLength(void) const throw()
+  inline int unsigned getLength(void) const noexcept(true)
   {
     return(this->wirelen);
   }
 
 
-  inline bool isFake(void) const throw()
+  inline bool isFake(void) const noexcept(true)
   {
     return(getFake());
   }
 
 
-  inline int unsigned getCapLength(void) const throw()
+  inline int unsigned getCapLength(void) const noexcept(true)
   {
     return(this->caplen);
   }
 
 
-  inline int unsigned getHeaderSeconds(void) const throw()
+  inline int unsigned getHeaderSeconds(void) const noexcept(true)
   {
     return(this->tv_sec);
   }
 
 
-  inline int unsigned getHeaderMicroSeconds(void) const throw()
+  inline int unsigned getHeaderMicroSeconds(void) const noexcept(true)
   {
     return(this->tv_usec);
   }
@@ -115,13 +115,13 @@ public:
 
   // Constructors
 
-  Packet(bool const p_fake, ByteArray const p_buf = ByteArray(NULL, 0), int unsigned const p_caplen = 0 , int unsigned const p_len = 0, int unsigned const p_tv_sec = 0, int unsigned const p_tv_usec = 0) throw() ;
-  Packet(Packet const & p_packet) throw();
+  Packet(bool const p_fake, ByteArray const p_buf = ByteArray(NULL, 0), int unsigned const p_caplen = 0 , int unsigned const p_len = 0, int unsigned const p_tv_sec = 0, int unsigned const p_tv_usec = 0) noexcept(true) ;
+  Packet(Packet const & p_packet) noexcept(true);
 
 
   // Destructor
 
-  ~Packet(void) throw()
+  ~Packet(void) noexcept(true)
   {
     return;
   }
@@ -129,29 +129,29 @@ public:
 
   // Public Functions
 
-  void      assign(struct pcap_pkthdr const * const p_header, char unsigned const * const p_data, bool const p_is_fake = ::g_REAL) throw();
-  ostream & printPacket(ostream & p_os) const throw();
-  void printPacketPcap(ostream & p_os) const throw();
+  void      assign(struct pcap_pkthdr const * const p_header, char unsigned const * const p_data, bool const p_is_fake = ::g_REAL) noexcept(true);
+  ostream & printPacket(ostream & p_os) const noexcept(true);
+  void printPacketPcap(ostream & p_os) const noexcept(true);
 
 
   // Operators
 
 friend
-  ostream & operator<<(ostream & p_os, Packet const * p_packet) throw();
+  ostream & operator<<(ostream & p_os, Packet const * p_packet) noexcept(true);
 friend
-  ostream & operator<<(ostream & p_os, Packet const & p_packet) throw();
+  ostream & operator<<(ostream & p_os, Packet const & p_packet) noexcept(true);
 
 
 private:
 
   // Constructors
 
-  Packet(void) throw();
+  Packet(void) noexcept(true);
 
 
   // Getters/Setters
 
-  inline bool getFake(void) const throw()
+  inline bool getFake(void) const noexcept(true)
   {
     return(this->fake);
   }

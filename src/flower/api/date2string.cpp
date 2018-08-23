@@ -38,7 +38,7 @@ using namespace boost::gregorian;
 
 // Getters/Setters
 
-string & getDateStringAll(time_t const p_time, string & p_result) throw()
+string & getDateStringAll(time_t const p_time, string & p_result) noexcept(true)
 {
   DEBUG(LOTS, ENTER);
   ptime         ts   = from_time_t(p_time);
@@ -55,7 +55,7 @@ string & getDateStringAll(time_t const p_time, string & p_result) throw()
 }
 
 
-string & getDateString(time_t const p_time, string & p_format, string & p_result) throw()
+string & getDateString(time_t const p_time, string & p_format, string & p_result) noexcept(true)
 {
   string::iterator itor;
   string::iterator itor_end = p_format.end();

@@ -67,91 +67,91 @@ public:
   // Getters/Setters
   
 
-  inline bool isEnoughData(int unsigned const p_check) const throw()
+  inline bool isEnoughData(int unsigned const p_check) const noexcept(true)
   {
     return(getData().size() >= p_check);
   }
 
 
-  inline u_int64_t getTotalBytesReceived(void) const throw()
+  inline u_int64_t getTotalBytesReceived(void) const noexcept(true)
   {
     return(this->total_bytes_received);
   }
 
 
-  inline u_int64_t getTotalPacketsReceived(void) const throw()
+  inline u_int64_t getTotalPacketsReceived(void) const noexcept(true)
   {
     return(this->total_packets_received);
   }
 
 
-  inline u_int64_t getTotalDroppedPacketCount(void) const throw()
+  inline u_int64_t getTotalDroppedPacketCount(void) const noexcept(true)
   {
     return(getBadEthPacketCount() + getBadIpv4PacketCount() + getBadIpv6PacketCount());
   }
 
 
-  inline u_int64_t getTotalDroppedBytes(void) const throw()
+  inline u_int64_t getTotalDroppedBytes(void) const noexcept(true)
   {
     return(getBadEthByteCount() + getBadIpv4ByteCount() + getBadIpv6ByteCount());
   }
 
 
-  inline u_int64_t getBadEthPacketCount(void) const throw()
+  inline u_int64_t getBadEthPacketCount(void) const noexcept(true)
   {
     return(this->eth_bad_packet_count);
   }
 
 
-  inline u_int64_t getBadEthByteCount(void) const throw()
+  inline u_int64_t getBadEthByteCount(void) const noexcept(true)
   {
     return(this->eth_bad_bytes_count);
   }
 
 
-  inline u_int64_t getBadIpv4PacketCount(void) const throw()
+  inline u_int64_t getBadIpv4PacketCount(void) const noexcept(true)
   {
     return(this->ipv4_bad_packet_count);
   }
 
 
-  inline u_int64_t getBadIpv4ByteCount(void) const throw()
+  inline u_int64_t getBadIpv4ByteCount(void) const noexcept(true)
   {
     return(this->ipv4_bad_bytes_count);
   }
 
 
-  inline u_int64_t getBadIpv6PacketCount(void) const throw()
+  inline u_int64_t getBadIpv6PacketCount(void) const noexcept(true)
   {
     return(this->ipv6_bad_packet_count);
   }
 
 
-  inline u_int64_t getBadIpv6ByteCount(void) const throw()
+  inline u_int64_t getBadIpv6ByteCount(void) const noexcept(true)
   {
     return(this->ipv6_bad_bytes_count);
   }
 
 
-  inline u_int64_t getGoodIpv4PacketCount(void) const throw()
+  inline u_int64_t getGoodIpv4PacketCount(void) const noexcept(true)
   {
     return(this->ipv4_good_packet_count);
   }
 
 
-  inline u_int64_t getGoodIpv4ByteCount(void) const throw()
+  inline u_int64_t getGoodIpv4ByteCount(void) const noexcept(true)
   {
     return(this->ipv4_good_bytes_count);
   }
 
 
-  inline u_int64_t getGoodIpv6PacketCount(void) const throw()
+  inline u_int64_t getGoodIpv6PacketCount(void) const noexcept(true)
   {
     return(this->ipv6_good_packet_count);
   }
 
 
-  inline u_int64_t getGoodIpv6ByteCount(void) const throw()
+  inline u_int64_t getGoodIpv6ByteCount(void) const noexcept(true)
   {
     return(this->ipv6_good_bytes_count);
   }
@@ -166,12 +166,12 @@ public:
                int unsigned const   p_cache_forceout,
                bool         const   p_use_vlan,
                bool const           p_skip_ipv4_packets
-              ) throw();
+              ) noexcept(true);
 
 
   // Destructor
 
-  ~PacketParser(void) throw()
+  ~PacketParser(void) noexcept(true)
   {
     return;
   }
@@ -179,24 +179,24 @@ public:
 
   // Public Functions
 
-  void   onAddEvent(sharedPacket const p_packet) throw();
-  string onMetricsEvent(int unsigned const p_level) throw();
-  void   onShutdownSystemEvent(int unsigned const p_level) throw();
+  void   onAddEvent(sharedPacket const p_packet) noexcept(true);
+  string onMetricsEvent(int unsigned const p_level) noexcept(true);
+  void   onShutdownSystemEvent(int unsigned const p_level) noexcept(true);
 
 
 private:
 
   // Constructors
 
-  PacketParser(void) throw();
-  PacketParser(PacketParser const & p_packet_parser) throw();
+  PacketParser(void) noexcept(true);
+  PacketParser(PacketParser const & p_packet_parser) noexcept(true);
 
 
   // Operators
 
-  PacketParser &  operator=(PacketParser const & p_packet_parser) throw();
-  bool           operator==(PacketParser const & p_packet_parser) const throw();
-  bool           operator!=(PacketParser const & p_packet_parser) const throw();
+  PacketParser &  operator=(PacketParser const & p_packet_parser) noexcept(true);
+  bool           operator==(PacketParser const & p_packet_parser) const noexcept(true);
+  bool           operator!=(PacketParser const & p_packet_parser) const noexcept(true);
 
 
   // Variables
@@ -309,57 +309,57 @@ private:
 
   // Private Functions
 
-  void resetTunnelVars(void) throw();
-  void initVars(void) throw();
-  void resetVars(void) throw();
+  void resetTunnelVars(void) noexcept(true);
+  void initVars(void) noexcept(true);
+  void resetVars(void) noexcept(true);
 
-  bool processTeredo(void) throw();
+  bool processTeredo(void) noexcept(true);
 
-  bool processTcpOptions(int unsigned p_tcp_hdr_len, int unsigned p_options_offset) throw();
+  bool processTcpOptions(int unsigned p_tcp_hdr_len, int unsigned p_options_offset) noexcept(true);
 
-  bool processIcmp(void) throw();
-  bool processTcp(void) throw();
-  bool processUdp(void) throw();
-  bool processOther(void) throw();
+  bool processIcmp(void) noexcept(true);
+  bool processTcp(void) noexcept(true);
+  bool processUdp(void) noexcept(true);
+  bool processOther(void) noexcept(true);
 
-  bool processGreHdr(int unsigned const p_gre_hdr_offset) throw();
-  bool processTunnel(int unsigned const p_offset) throw();
+  bool processGreHdr(int unsigned const p_gre_hdr_offset) noexcept(true);
+  bool processTunnel(int unsigned const p_offset) noexcept(true);
 
-  bool processIpv4Hdr(int unsigned const p_ip_hdr_offset) throw();
-  void processIpv4Frag(int unsigned const p_ip_hdr_offset) throw();
-  bool processIpv6ExtensionHdrs(int unsigned & p_extension_hdr_offset, u_int8_t & p_next_hdr_type) throw();
-  void processIpv6FragHdr(int unsigned const p_offset) throw();
-  bool processIpv6Hdr(int unsigned const p_ip_hdr_offset) throw();
+  bool processIpv4Hdr(int unsigned const p_ip_hdr_offset) noexcept(true);
+  void processIpv4Frag(int unsigned const p_ip_hdr_offset) noexcept(true);
+  bool processIpv6ExtensionHdrs(int unsigned & p_extension_hdr_offset, u_int8_t & p_next_hdr_type) noexcept(true);
+  void processIpv6FragHdr(int unsigned const p_offset) noexcept(true);
+  bool processIpv6Hdr(int unsigned const p_ip_hdr_offset) noexcept(true);
 
-  bool processVlan(void) throw();
-  void processMpls(void) throw();
+  bool processVlan(void) noexcept(true);
+  void processMpls(void) noexcept(true);
 
-  int unsigned parseTeredoHeader(int unsigned const p_offset) throw();
+  int unsigned parseTeredoHeader(int unsigned const p_offset) noexcept(true);
 
-  bool dropEthernetHardwareHeaders(void) throw();
-  void skipEthernetHardwareHeaders(void) throw();
+  bool dropEthernetHardwareHeaders(void) noexcept(true);
+  void skipEthernetHardwareHeaders(void) noexcept(true);
 
-  bool processEthernetLayer2(void) throw();
-  bool processIpLayer3(void) throw();
-  bool processProtocolLayer4(void) throw();
+  bool processEthernetLayer2(void) noexcept(true);
+  bool processIpLayer3(void) noexcept(true);
+  bool processProtocolLayer4(void) noexcept(true);
 
-  void createFlow(sharedPacket const & p_packet) throw();
+  void createFlow(sharedPacket const & p_packet) noexcept(true);
 
-  inline void incrTotalBytesReceived(u_int64_t const p_bytes) throw()
+  inline void incrTotalBytesReceived(u_int64_t const p_bytes) noexcept(true)
   {
     this->total_bytes_received += p_bytes;
     return;
   }
 
-  inline void incrTotalPacketsReceived(void) throw()
+  inline void incrTotalPacketsReceived(void) noexcept(true)
   {
     this->total_packets_received += 1;
     return;
   }
 
-  void         setTunnelVars(void) throw();
+  void         setTunnelVars(void) noexcept(true);
 
-  inline void dropEthPacket(void) throw()
+  inline void dropEthPacket(void) noexcept(true)
   {
     DEBUG(LOTS, ENTER);
     this->eth_bad_bytes_count  += getData().size();
@@ -369,7 +369,7 @@ private:
   }
 
 
-  inline void dropIpv4Packet(void) throw()
+  inline void dropIpv4Packet(void) noexcept(true)
   {
     DEBUG(LOTS, ENTER);
     this->ipv4_bad_bytes_count  += getData().size();
@@ -379,7 +379,7 @@ private:
   }
 
 
-  inline void dropIpv6Packet(void) throw()
+  inline void dropIpv6Packet(void) noexcept(true)
   {
     DEBUG(LOTS, ENTER);
     this->ipv6_bad_bytes_count  += getData().size();
@@ -389,7 +389,7 @@ private:
   }
 
 
-  inline void keepIpv4Packet(void) throw()
+  inline void keepIpv4Packet(void) noexcept(true)
   {
     DEBUG(LOTS, ENTER);
     this->ipv4_good_bytes_count  += getData().size();
@@ -399,7 +399,7 @@ private:
   }
 
 
-  inline void keepIpv6Packet(void) throw()
+  inline void keepIpv6Packet(void) noexcept(true)
   {
     DEBUG(LOTS, ENTER);
     this->ipv6_good_bytes_count  += getData().size();
@@ -411,38 +411,38 @@ private:
 
   // Private Getters/Setters
 
-  inline int unsigned getCacheForceout(void) const throw()
+  inline int unsigned getCacheForceout(void) const noexcept(true)
   {
     return(this->cache_forceout);
   }
 
 
-  inline int unsigned getCacheTimeout(void) const throw()
+  inline int unsigned getCacheTimeout(void) const noexcept(true)
   {
     return(this->cache_timeout);
   }
 
 
-  inline FlowAddEvent * getFlowAddEvent(void) const throw()
+  inline FlowAddEvent * getFlowAddEvent(void) const noexcept(true)
   {
     return(this->flow_add_event);
   }
 
 
-  inline ByteArray const & getData(void) const throw()
+  inline ByteArray const & getData(void) const noexcept(true)
   {
     return(this->data);
   }
 
 
-  inline void setData(ByteArray const & p_data) throw()
+  inline void setData(ByteArray const & p_data) noexcept(true)
   {
     this->data = p_data;
     return;
   }
 
 
-  inline bool isIslEncapsulation(void) const throw()
+  inline bool isIslEncapsulation(void) const noexcept(true)
   {
     // DEVELOPER NOTE: Assume the calling function has checked to
     //                 make sure there is enough data for getData().at
@@ -457,7 +457,7 @@ private:
   }
 
 
-  inline bool isSpanningTreeProtocol(void) const throw()
+  inline bool isSpanningTreeProtocol(void) const noexcept(true)
   {
     // DEVELOPER NOTE: Assume the calling function has checked to
     //                 make sure there is enough data for getData().at
@@ -473,7 +473,7 @@ private:
   }
 
 
-  inline bool isPvstProtocol(void) const throw()
+  inline bool isPvstProtocol(void) const noexcept(true)
   {
     // DEVELOPER NOTE: Assume the calling function has checked to
     //                 make sure there is enough data for getData().at
@@ -489,149 +489,149 @@ private:
   }
 
 
-  inline bool isIcmp(void) const throw()
+  inline bool isIcmp(void) const noexcept(true)
   {
     return(this->is_icmp);
   }
 
 
-  inline void setIcmp(bool const p_icmp) throw()
+  inline void setIcmp(bool const p_icmp) noexcept(true)
   {
     this->is_icmp = p_icmp;
     return;
   }
 
 
-  inline bool isTcp(void) const throw()
+  inline bool isTcp(void) const noexcept(true)
   {
     return(this->is_tcp);
   }
 
 
-  inline void setTcp(bool const p_tcp) throw()
+  inline void setTcp(bool const p_tcp) noexcept(true)
   {
     this->is_tcp = p_tcp;
     return;
   }
 
-  inline bool isUdp(void) const throw()
+  inline bool isUdp(void) const noexcept(true)
   {
     return(this->is_udp);
   }
 
 
-  inline void setUdp(bool const p_udp) throw()
+  inline void setUdp(bool const p_udp) noexcept(true)
   {
     this->is_udp = p_udp;
     return;
   }
 
 
-  inline bool isLastIpFrag(void) const throw()
+  inline bool isLastIpFrag(void) const noexcept(true)
   {
     return(this->is_last_ip_frag);
   }
 
 
-  inline void setLastIpFrag(bool const p_last_ip_frag) throw()
+  inline void setLastIpFrag(bool const p_last_ip_frag) noexcept(true)
   {
     this->is_last_ip_frag = p_last_ip_frag;
     return;
   }
 
 
-  inline bool isFirstIpFrag(void) const throw()
+  inline bool isFirstIpFrag(void) const noexcept(true)
   {
     return(this->is_first_ip_frag);
   }
 
 
-  inline void setFirstIpFrag(bool const p_first_ip_frag) throw()
+  inline void setFirstIpFrag(bool const p_first_ip_frag) noexcept(true)
   {
     this->is_first_ip_frag = p_first_ip_frag;
     return;
   }
 
 
-  inline bool isIpFrag(void) const throw()
+  inline bool isIpFrag(void) const noexcept(true)
   {
     return(this->is_ip_frag);
   }
 
 
-  inline void setIpFrag(bool const p_ip_frag) throw()
+  inline void setIpFrag(bool const p_ip_frag) noexcept(true)
   {
     this->is_ip_frag = p_ip_frag;
     return;
   }
 
 
-  inline bool isSrcFirst(void) const throw()
+  inline bool isSrcFirst(void) const noexcept(true)
   {
     return(this->is_src_first);
   }
 
 
-  inline void setSrcFirst(bool const p_src_first) throw()
+  inline void setSrcFirst(bool const p_src_first) noexcept(true)
   {
     this->is_src_first = p_src_first;
     return;
   }
 
 
-  inline bool isTunnel(void) const throw()
+  inline bool isTunnel(void) const noexcept(true)
   {
     return(this->is_tunnel);
   }
 
 
-  inline void setTunnel(bool const p_tunnel) throw()
+  inline void setTunnel(bool const p_tunnel) noexcept(true)
   {
     this->is_tunnel = p_tunnel;
     return;
   }
 
 
-  inline u_int16_t getIpIdent(void) const throw()
+  inline u_int16_t getIpIdent(void) const noexcept(true)
   {
     return(this->ip_ident);
   }
 
 
-  inline void setIpIdent(u_int16_t const p_ip_ident) throw()
+  inline void setIpIdent(u_int16_t const p_ip_ident) noexcept(true)
   {
     this->ip_ident = p_ip_ident;
     return;
   }
 
 
-  inline int unsigned getEtherTypeOffset(void) const throw()
+  inline int unsigned getEtherTypeOffset(void) const noexcept(true)
   {
     return(this->ether_hdr_offset);
   }
 
 
-  inline void incrEtherTypeOffset(int unsigned const p_offset) throw()
+  inline void incrEtherTypeOffset(int unsigned const p_offset) noexcept(true)
   {
     setEtherTypeOffset(getEtherTypeOffset() + p_offset);
     return;
   }
 
 
-  inline void setEtherTypeOffset(int unsigned const p_ether_hdr_offset) throw()
+  inline void setEtherTypeOffset(int unsigned const p_ether_hdr_offset) noexcept(true)
   {
     this->ether_hdr_offset = p_ether_hdr_offset;
     return;
   }
 
 
-  inline int unsigned getEtherType(void) const throw()
+  inline int unsigned getEtherType(void) const noexcept(true)
   {
     return(this->ether_type);
   }
 
 
-  inline bool updateEtherType(void) throw()
+  inline bool updateEtherType(void) noexcept(true)
   {
     if (isEnoughData(getEtherTypeOffset() + 2))
     {
@@ -643,20 +643,20 @@ private:
   }
 
 
-  inline void setEtherType(int unsigned const p_ether_type) throw()
+  inline void setEtherType(int unsigned const p_ether_type) noexcept(true)
   {
     this->ether_type = p_ether_type;
     return;
   }
 
 
-  inline u_int16_t getVlanId(void) const throw()
+  inline u_int16_t getVlanId(void) const noexcept(true)
   {
     return(this->vlan_id);
   }
 
 
-  inline bool updateVlanId(void) throw()
+  inline bool updateVlanId(void) noexcept(true)
   {
     const int unsigned ether_hdr_vlan_offset_byte = 2;
 
@@ -672,7 +672,7 @@ private:
   }
 
 
-  inline void setVlanId(u_int16_t const p_vlan_id) throw()
+  inline void setVlanId(u_int16_t const p_vlan_id) noexcept(true)
   {
     if (useVlan())
     {
@@ -682,39 +682,39 @@ private:
   }
 
 
-  inline void setIsVlan(bool const p_is_vlan) throw()
+  inline void setIsVlan(bool const p_is_vlan) noexcept(true)
   {
     this->is_vlan = p_is_vlan;
     return;
   }
 
 
-  inline int unsigned getIpVersion(void) const throw()
+  inline int unsigned getIpVersion(void) const noexcept(true)
   {
     return(this->ip_version);
   }
 
 
-  inline void setIpVersion(int unsigned const p_ip_version) throw()
+  inline void setIpVersion(int unsigned const p_ip_version) noexcept(true)
   {
     this->ip_version = p_ip_version;
     return;
   }
 
 
-  inline bool useVlan(void) const throw()
+  inline bool useVlan(void) const noexcept(true)
   {
     return(this->use_vlan);
   }
 
 
-  inline bool skipIpv4Packets(void) const throw()
+  inline bool skipIpv4Packets(void) const noexcept(true)
   {
     return(this->skip_ipv4_packets);
   }
 
 
-  inline bool isVlan(void) const throw()
+  inline bool isVlan(void) const noexcept(true)
   {
     if (useVlan())
     {
@@ -727,97 +727,97 @@ private:
   }
 
 
-  inline bool isIpv4(void) const throw()
+  inline bool isIpv4(void) const noexcept(true)
   {
     return(4 == getIpVersion());
   }
 
 
-  inline bool isIpv6(void) const throw()
+  inline bool isIpv6(void) const noexcept(true)
   {
     return(6 == getIpVersion());
   }
 
 
-  inline int unsigned getFirstSeenIpHdrOffset(void) const throw()
+  inline int unsigned getFirstSeenIpHdrOffset(void) const noexcept(true)
   {
     return(this->ip_hdr_offset);
   }
 
 
-  inline void incrFirstSeenIpHdrOffset(int unsigned const p_offset) throw()
+  inline void incrFirstSeenIpHdrOffset(int unsigned const p_offset) noexcept(true)
   {
     setFirstSeenIpHdrOffset(getEtherTypeOffset() + p_offset);
     return;
   }
 
 
-  inline void setFirstSeenIpHdrOffset(int unsigned const p_ip_hdr_offset) throw()
+  inline void setFirstSeenIpHdrOffset(int unsigned const p_ip_hdr_offset) noexcept(true)
   {
     this->ip_hdr_offset = p_ip_hdr_offset;
     return;
   }
 
 
-  inline u_int8_t getIpProtocol(void) const throw()
+  inline u_int8_t getIpProtocol(void) const noexcept(true)
   {
     return(this->ip_protocol);
   }
 
 
-  inline void setIpProtocol(u_int8_t const p_ip_protocol) throw()
+  inline void setIpProtocol(u_int8_t const p_ip_protocol) noexcept(true)
   {
     this->ip_protocol = p_ip_protocol;
     return;
   }
 
 
-  inline u_int8_t getTunnelIpProtocol(void) const throw()
+  inline u_int8_t getTunnelIpProtocol(void) const noexcept(true)
   {
     return(this->tunnel_ip_protocol);
   }
 
 
-  inline void setTunnelIpProtocol(u_int8_t const p_ip_protocol) throw()
+  inline void setTunnelIpProtocol(u_int8_t const p_ip_protocol) noexcept(true)
   {
     this->tunnel_ip_protocol = p_ip_protocol;
     return;
   }
 
 
-  inline int unsigned getIpOpt(void) const throw()
+  inline int unsigned getIpOpt(void) const noexcept(true)
   {
     return(this->ip_opt);
   }
 
 
-  inline void setIpOpt(int unsigned const p_ip_opt) throw()
+  inline void setIpOpt(int unsigned const p_ip_opt) noexcept(true)
   {
     this->ip_opt = p_ip_opt;
     return;
   }
 
 
-  inline int unsigned getProtoHdrOffset(void) const throw()
+  inline int unsigned getProtoHdrOffset(void) const noexcept(true)
   {
     return(this->proto_hdr_offset);
   }
 
 
-  inline void setProtoHdrOffset(int unsigned const p_proto_hdr_offset) throw()
+  inline void setProtoHdrOffset(int unsigned const p_proto_hdr_offset) noexcept(true)
   {
     this->proto_hdr_offset = p_proto_hdr_offset;
     return;
   }
 
 
-  inline int unsigned getTotalBytes(void) const throw()
+  inline int unsigned getTotalBytes(void) const noexcept(true)
   {
     return(this->total_bytes);
   }
 
 
-  inline void setTotalBytes(int unsigned const p_total_bytes) throw()
+  inline void setTotalBytes(int unsigned const p_total_bytes) noexcept(true)
   {
     if (p_total_bytes <= getData().size())
     {
@@ -831,91 +831,91 @@ private:
   }
 
 
-  inline int unsigned getTcpOpt(void) const throw()
+  inline int unsigned getTcpOpt(void) const noexcept(true)
   {
     return(this->tcp_opt);
   }
 
 
-  inline void setTcpOpt(int unsigned const p_tcp_opt) throw()
+  inline void setTcpOpt(int unsigned const p_tcp_opt) noexcept(true)
   {
     this->tcp_opt = p_tcp_opt;
     return;
   }
 
 
-  inline u_int16_t getDstPort(void) const throw()
+  inline u_int16_t getDstPort(void) const noexcept(true)
   {
     return(this->dst_port);
   }
 
 
-  inline void setDstPort(u_int16_t const p_dst_port) throw()
+  inline void setDstPort(u_int16_t const p_dst_port) noexcept(true)
   {
     this->dst_port = p_dst_port;
     return;
   }
 
 
-  inline u_int16_t getSrcPort(void) const throw()
+  inline u_int16_t getSrcPort(void) const noexcept(true)
   {
     return(this->src_port);
   }
 
 
-  inline void setSrcPort(u_int16_t const p_src_port) throw()
+  inline void setSrcPort(u_int16_t const p_src_port) noexcept(true)
   {
     this->src_port = p_src_port;
     return;
   }
 
 
-  inline u_int16_t getTunnelDstPort(void) const throw()
+  inline u_int16_t getTunnelDstPort(void) const noexcept(true)
   {
     return(this->tunnel_dst_port);
   }
 
 
-  inline void setTunnelDstPort(u_int16_t const p_dst_port) throw()
+  inline void setTunnelDstPort(u_int16_t const p_dst_port) noexcept(true)
   {
     this->tunnel_dst_port = p_dst_port;
     return;
   }
 
 
-  inline u_int16_t getTunnelSrcPort(void) const throw()
+  inline u_int16_t getTunnelSrcPort(void) const noexcept(true)
   {
     return(this->tunnel_src_port);
   }
 
 
-  inline void setTunnelSrcPort(u_int16_t const p_src_port) throw()
+  inline void setTunnelSrcPort(u_int16_t const p_src_port) noexcept(true)
   {
     this->tunnel_src_port = p_src_port;
     return;
   }
 
 
-  inline short unsigned getFlagSum(void) const throw()
+  inline short unsigned getFlagSum(void) const noexcept(true)
   {
     return(this->flag_sum);
   }
 
 
-  inline void setFlagSum(short unsigned const p_flag_sum) throw()
+  inline void setFlagSum(short unsigned const p_flag_sum) noexcept(true)
   {
     this->flag_sum = p_flag_sum;
     return;
   }
 
 
-  inline int unsigned getPayload(void) const throw()
+  inline int unsigned getPayload(void) const noexcept(true)
   {
     return(this->payload);
   }
 
 
-  inline void calcPayload(int unsigned const p_hdr_size) throw()
+  inline void calcPayload(int unsigned const p_hdr_size) noexcept(true)
   {
     int unsigned bytes = getProtoHdrOffset() + p_hdr_size;
 
@@ -933,51 +933,51 @@ private:
   }  
 
 
-  inline void setPayload(int unsigned const p_payload) throw()
+  inline void setPayload(int unsigned const p_payload) noexcept(true)
   {
     this->payload = p_payload;
     return;
   }
 
 
-  inline int unsigned getTcpSeq(void) const throw()
+  inline int unsigned getTcpSeq(void) const noexcept(true)
   {
     return(this->tcp_seq);
   }
 
 
-  inline void setTcpSeq(int unsigned const p_tcp_seq) throw()
+  inline void setTcpSeq(int unsigned const p_tcp_seq) noexcept(true)
   {
     this->tcp_seq = p_tcp_seq;
     return;
   }
 
 
-  inline IpAddress_t & getDstIpAddress(void) throw()
+  inline IpAddress_t & getDstIpAddress(void) noexcept(true)
   {
     return(this->dst_ip_address);
   }
 
 
-  inline IpAddress_t & getSrcIpAddress(void) throw()
+  inline IpAddress_t & getSrcIpAddress(void) noexcept(true)
   {
     return(this->src_ip_address);
   }
 
 
-  inline IpAddress_t & getTunnelDstIpAddress(void) throw()
+  inline IpAddress_t & getTunnelDstIpAddress(void) noexcept(true)
   {
     return(this->tunnel_dst_ip_address);
   }
 
 
-  inline IpAddress_t & getTunnelSrcIpAddress(void) throw()
+  inline IpAddress_t & getTunnelSrcIpAddress(void) noexcept(true)
   {
     return(this->tunnel_src_ip_address);
   }
 
 
-  void setIpAddress(IpAddress_t & p_address, int unsigned const p_ipv4_addr_offset, int unsigned const p_ipv6_addr_offset_start, int unsigned const p_ipv6_addr_offset_end) throw()
+  void setIpAddress(IpAddress_t & p_address, int unsigned const p_ipv4_addr_offset, int unsigned const p_ipv6_addr_offset_start, int unsigned const p_ipv6_addr_offset_end) noexcept(true)
   {
     // DEVELOPER NOTE: Assume the calling function chain has checked to
     //                 make sure there is enough data for getData().at
@@ -1015,7 +1015,7 @@ private:
   }
 
 
-  void setDstIpAddress(int unsigned const p_ip_hdr_offset) throw()
+  void setDstIpAddress(int unsigned const p_ip_hdr_offset) noexcept(true)
   {
     DEBUG(TRACE, ENTER);
     setIpAddress(getDstIpAddress(), p_ip_hdr_offset + 4, p_ip_hdr_offset + 24, p_ip_hdr_offset + 40);
@@ -1024,7 +1024,7 @@ private:
   }
 
 
-  void setSrcIpAddress(int unsigned const p_ip_hdr_offset) throw()
+  void setSrcIpAddress(int unsigned const p_ip_hdr_offset) noexcept(true)
   {
     DEBUG(TRACE, ENTER);
     setIpAddress(getSrcIpAddress(), p_ip_hdr_offset + 0, p_ip_hdr_offset +  8, p_ip_hdr_offset + 24);
@@ -1032,62 +1032,62 @@ private:
     return;
   }
 
-  inline void incrTunnelDepth(void) throw()
+  inline void incrTunnelDepth(void) noexcept(true)
   {
     ++(this->tunnel_depth);
     return;
   }
 
 
-  inline void setTunnelDepth(u_int8_t const p_depth) throw()
+  inline void setTunnelDepth(u_int8_t const p_depth) noexcept(true)
   {
     this->tunnel_depth = p_depth;
     return;
   }
 
 
-  inline u_int8_t getTunnelDepth(void) const throw()
+  inline u_int8_t getTunnelDepth(void) const noexcept(true)
   {
     return(this->tunnel_depth);
   }
 
 
-  inline void addAnomaly(Anomaly p_anomaly) throw()
+  inline void addAnomaly(Anomaly p_anomaly) noexcept(true)
   {
     this->anomaly |= p_anomaly;
     return;
   }
 
 
-  inline u_int32_t getAnomaly(void) const throw()
+  inline u_int32_t getAnomaly(void) const noexcept(true)
   {
     return(this->anomaly);
   }
 
 
-  inline void setAnomaly(u_int32_t const p_anomaly) throw()
+  inline void setAnomaly(u_int32_t const p_anomaly) noexcept(true)
   {
     this->anomaly = p_anomaly;
     return;
   }
 
-  inline u_int32_t getTcpOptionTsv(void) throw()
+  inline u_int32_t getTcpOptionTsv(void) noexcept(true)
   {
     return(this->tcp_option_tsv);
   }
 
-  inline u_int32_t getTcpOptionTse(void) throw()
+  inline u_int32_t getTcpOptionTse(void) noexcept(true)
   {
     return(this->tcp_option_tse);
   }
 
-  inline void setTcpOptionTsv(u_int32_t const p_timestamp_value) throw()
+  inline void setTcpOptionTsv(u_int32_t const p_timestamp_value) noexcept(true)
   {
     this->tcp_option_tsv = p_timestamp_value;
     return;
   }
 
-  inline void setTcpOptionTse(u_int32_t const p_timestamp_echo) throw()
+  inline void setTcpOptionTse(u_int32_t const p_timestamp_echo) noexcept(true)
   {
     this->tcp_option_tse = p_timestamp_echo;
     return;

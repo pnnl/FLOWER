@@ -63,8 +63,8 @@ typedef enum
 #define EERROR(a, b, c, d) updateErrorCount(a); ERROR_MSG(b, c, d)
 
 
-void updateErrorCount(error_enum p_error) throw();
-string getErrorRecord(void) throw();
+void updateErrorCount(error_enum p_error) noexcept(true);
+string getErrorRecord(void) noexcept(true);
 
 
 //
@@ -97,7 +97,7 @@ public:
 
   // Getters/Setters
 
-  static map<string, string> * getErrorCodes(void) throw();
+  static map<string, string> * getErrorCodes(void) noexcept(true);
 
 
 private:
@@ -114,7 +114,7 @@ private:
 
   // Destructor
   
-  ~Exception(void) throw()
+  ~Exception(void) noexcept(true)
   {
     return;
   }

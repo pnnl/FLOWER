@@ -88,7 +88,7 @@ Flow::Flow(
            bool const p_is_first_ip_frag,
            bool const p_is_last_ip_frag,
            bool const p_is_ipv4
-          ) throw() :
+          ) noexcept(true) :
   flow_key(p_flow_key),
   timeout(p_first_timestamp + p_timeout),
   forceout(p_first_timestamp + p_forceout),
@@ -107,7 +107,7 @@ Flow::Flow(
 }
 
 
-Flow::Flow(Flow const & p_flow) throw()
+Flow::Flow(Flow const & p_flow) noexcept(true)
 {
   DEBUG(LOTS, ENTER);
   
@@ -123,7 +123,7 @@ Flow::Flow(Flow const & p_flow) throw()
 // ======================================================================
 
 
-Flow & Flow::copyFlow(Flow const & p_flow) throw()
+Flow & Flow::copyFlow(Flow const & p_flow) noexcept(true)
 {
   DEBUG(LOTS, ENTER);
   this->timeout                 = p_flow.timeout;
@@ -157,7 +157,7 @@ void Flow::assign(
                   bool const              p_is_first_ip_frag,
                   bool const              p_is_last_ip_frag,
                   bool const              p_is_ipv4
-                 ) throw()
+                 ) noexcept(true)
 {
   DEBUG(LOTS, ENTER);
   this->timeout                 = p_first_timestamp + p_timeout;
@@ -177,7 +177,7 @@ void Flow::assign(
 }
 
 
-bool Flow::compare(std::shared_ptr<Flow> const & p_flow) throw()
+bool Flow::compare(std::shared_ptr<Flow> const & p_flow) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
   bool           result = false;
@@ -235,7 +235,7 @@ bool Flow::compare(std::shared_ptr<Flow> const & p_flow) throw()
 // ======================================================================
 
 
-void Flow::fragment_pre_merge(std::shared_ptr<Flow> const & p_flow) throw()
+void Flow::fragment_pre_merge(std::shared_ptr<Flow> const & p_flow) noexcept(true)
 {
   DEBUG(LOTS, ENTER);
 
@@ -245,7 +245,7 @@ void Flow::fragment_pre_merge(std::shared_ptr<Flow> const & p_flow) throw()
 }
 
 
-bool Flow::merge(std::shared_ptr<Flow> const & p_flow) throw()
+bool Flow::merge(std::shared_ptr<Flow> const & p_flow) noexcept(true)
 {
   DEBUG(LOTS, ENTER);
 
@@ -355,7 +355,7 @@ bool Flow::merge(std::shared_ptr<Flow> const & p_flow) throw()
 }
 
 
-string Flow::createFlowString(void) const throw()
+string Flow::createFlowString(void) const noexcept(true)
 {
   DEBUG(LOTS, ENTER);
   static string flow_str(512, ' ');
@@ -400,7 +400,7 @@ string Flow::createFlowString(void) const throw()
 }
 
 
-void Flow::forceFake(u_int32_t const p_first_timestamp) throw()
+void Flow::forceFake(u_int32_t const p_first_timestamp) noexcept(true)
 {
   assign(::g_FAKE);
   assignFields();
@@ -409,7 +409,7 @@ void Flow::forceFake(u_int32_t const p_first_timestamp) throw()
 }
 
 
-void Flow::zero(void) throw()
+void Flow::zero(void) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
   // ZEROOUT_VISITOR_START
@@ -488,7 +488,7 @@ void Flow::assignFields(
                         u_int16_t const     p_tunnel_dst_port,
                         bool const          p_fragment,
                         u_int32_t const     p_anomaly
-                       ) throw()
+                       ) noexcept(true)
 {
 
   // ASSIGN_VISITOR_START
@@ -574,7 +574,7 @@ void Flow::assignFields(
 // -------------------------------------
 
 
-ostream & operator<<(ostream & p_os, Flow const * p_flow) throw()
+ostream & operator<<(ostream & p_os, Flow const * p_flow) noexcept(true)
 {
   //DEBUG(LOTS, ENTER);
   //DEBUG(LOTS, LEAVE);
@@ -582,7 +582,7 @@ ostream & operator<<(ostream & p_os, Flow const * p_flow) throw()
 }
 
 
-ostream & operator<<(ostream & p_os, Flow const & p_flow) throw()
+ostream & operator<<(ostream & p_os, Flow const & p_flow) noexcept(true)
 {
   //DEBUG(LOTS, ENTER);
   //DEBUG(LOTS, LEAVE);

@@ -38,7 +38,7 @@
 
 // Constructors
 
-Daemon::Daemon(OutputHelper & p_output_helper, string const & p_user, string const p_dir, bool const p_started) throw() :
+Daemon::Daemon(OutputHelper & p_output_helper, string const & p_user, string const p_dir, bool const p_started) noexcept(true) :
   output_helper(p_output_helper),
   device(""),
   user(p_user),
@@ -61,14 +61,14 @@ Daemon::Daemon(OutputHelper & p_output_helper, string const & p_user, string con
 
 // Public Functions
 
-void Daemon::onShutdownSystemEvent(int unsigned const p_level) throw()
+void Daemon::onShutdownSystemEvent(int unsigned const p_level) noexcept(true)
 {
   stop();
   return;
 }
 
 
-bool Daemon::stop(void) throw()
+bool Daemon::stop(void) noexcept(true)
 {
 #ifdef _MSC_VER
   return false;
@@ -123,7 +123,7 @@ bool Daemon::stop(void) throw()
 }
 
 
-bool Daemon::lockDevice(string const & p_device) throw()
+bool Daemon::lockDevice(string const & p_device) noexcept(true)
 {
   setDevice(p_device);
 
@@ -139,7 +139,7 @@ bool Daemon::lockDevice(string const & p_device) throw()
 }
 
 
-bool Daemon::start(string const & p_device) throw()
+bool Daemon::start(string const & p_device) noexcept(true)
 {
 #ifdef _MSC_VER
   return(true);

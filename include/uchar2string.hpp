@@ -26,15 +26,15 @@
 using namespace std;
 
 
-int unsigned asEtherType(ByteArray const & p_array, int unsigned p_offset) throw(); 
-string       asIpv4(IpAddress_t const & p_ip_address) throw();
-string       asIpv4CPP(IpAddress_t const & p_ip_address) throw();
-//string       asIpv4Int(u_int32_t const p_ip_address) throw();
-string       asIpv6(IpAddress_t const & p_ip_address) throw();
-string       asIpv6CPP(IpAddress_t const & p_ip_address) throw();
-string       asMac(ByteArray const & p_array, int unsigned p_offset) throw();
-string       asIcmpFlag(short unsigned const p_icmp_flag) throw();
-string       asTcpFlag(short unsigned const p_tcp_flag) throw();
+int unsigned asEtherType(ByteArray const & p_array, int unsigned p_offset) noexcept(true); 
+string       asIpv4(IpAddress_t const & p_ip_address) noexcept(true);
+string       asIpv4CPP(IpAddress_t const & p_ip_address) noexcept(true);
+//string       asIpv4Int(u_int32_t const p_ip_address) noexcept(true);
+string       asIpv6(IpAddress_t const & p_ip_address) noexcept(true);
+string       asIpv6CPP(IpAddress_t const & p_ip_address) noexcept(true);
+string       asMac(ByteArray const & p_array, int unsigned p_offset) noexcept(true);
+string       asIcmpFlag(short unsigned const p_icmp_flag) noexcept(true);
+string       asTcpFlag(short unsigned const p_tcp_flag) noexcept(true);
 void         hexdumper(ostream &o, u_int8_t * const p_array, int unsigned const p_length);
 
 // Function Pointers

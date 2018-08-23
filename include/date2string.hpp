@@ -25,8 +25,8 @@
 using namespace std;
 
 
-string & getDateStringAll(time_t const p_time,                    string & p_result) throw();
-string & getDateString(   time_t const p_time, string & p_format, string & p_result) throw();
+string & getDateStringAll(time_t const p_time,                    string & p_result) noexcept(true);
+string & getDateString(   time_t const p_time, string & p_format, string & p_result) noexcept(true);
 
 
 #endif // DATE2STRING_HPP

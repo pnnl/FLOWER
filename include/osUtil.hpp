@@ -35,11 +35,11 @@ using namespace std;
 
 // Getters/Setters
 
-string const & getPathSeparator(void) throw();
-bool   const   isPriviledgedUser(void) throw();
-void           output(string const & p_message) throw();
-void           outputSeparator(void) throw();
-bool   const   isLinux(void) throw();
-bool   const   checkNetworkInterface(string const & p_device) throw();
+string const & getPathSeparator(void) noexcept(true);
+bool   const   isPriviledgedUser(void) noexcept(true);
+void           output(string const & p_message) noexcept(true);
+void           outputSeparator(void) noexcept(true);
+bool   const   isLinux(void) noexcept(true);
+bool   const   checkNetworkInterface(string const & p_device) noexcept(true);
 
 #endif // OSUTIL_HPP

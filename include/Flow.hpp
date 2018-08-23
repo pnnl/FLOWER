@@ -162,7 +162,7 @@ public:
 
   // Getters/Setters
 
-  inline void setFragType(bool const p_more_flag, bool const p_shutdown_flag = false) throw()
+  inline void setFragType(bool const p_more_flag, bool const p_shutdown_flag = false) noexcept(true)
   {
     u_int8_t more_flag = this->physical_struct.frag_type.at(0);
     this->physical_struct.frag_type.assign(p_more_flag, more_flag, p_shutdown_flag);
@@ -170,93 +170,93 @@ public:
   }
 
 
-  inline u_int32_t getVirtualTime(void) const throw()
+  inline u_int32_t getVirtualTime(void) const noexcept(true)
   {
     return(this->physical_struct.time_duration.at(2));
   }
 
 
-  inline u_int32_t getTimeout(void) const throw()
+  inline u_int32_t getTimeout(void) const noexcept(true)
   {
     return(this->timeout);
   }
 
 
-  inline u_int32_t getForceout(void) const throw()
+  inline u_int32_t getForceout(void) const noexcept(true)
   {
     return(this->forceout);
   }
 
 
-  inline void setForceout(u_int32_t const p_forceout) throw()
+  inline void setForceout(u_int32_t const p_forceout) noexcept(true)
   {
     this->forceout = p_forceout + getCacheForceout();
     return;
   }
 
 
-  inline FlowKey & getFlowKey(void) throw() // cannot be const
+  inline FlowKey & getFlowKey(void) noexcept(true) // cannot be const
   {
     return(this->flow_key);
   }
 
 
-  inline norm_flow_key_t & getNormFlowKey(void) throw() // cannot be const
+  inline norm_flow_key_t & getNormFlowKey(void) noexcept(true) // cannot be const
   {
     return(this->flow_key.norm_flow_key);
   }
 
 
-  inline frag_flow_key_t & getFragFlowKey(void) throw() // cannot be const
+  inline frag_flow_key_t & getFragFlowKey(void) noexcept(true) // cannot be const
   {
     return(this->flow_key.frag_flow_key);
   }
 
 
-  inline void setNormFlowKey(norm_flow_key_t const & p_norm_flow_key) throw()
+  inline void setNormFlowKey(norm_flow_key_t const & p_norm_flow_key) noexcept(true)
   {
     this->flow_key.norm_flow_key = p_norm_flow_key;
     return;
   }
 
 
-  inline bool isFake(void) const throw()
+  inline bool isFake(void) const noexcept(true)
   {
     return(getFake());
   }
 
 
-  inline bool isTcp(void) const throw()
+  inline bool isTcp(void) const noexcept(true)
   {
     return(this->is_tcp);
   }
 
 
-  inline bool isIcmp(void) const throw()
+  inline bool isIcmp(void) const noexcept(true)
   {
     return(this->is_icmp);
   }
 
 
-  inline bool isIpFrag(void) const throw()
+  inline bool isIpFrag(void) const noexcept(true)
   {
     return(this->is_ip_frag);
   }
 
 
-  inline bool isFirstIpFrag(void) const throw()
+  inline bool isFirstIpFrag(void) const noexcept(true)
   {
     return(this->is_first_ip_frag);
   }
 
 
-  inline bool isLastIpFrag(void) const throw()
+  inline bool isLastIpFrag(void) const noexcept(true)
   {
     return(this->is_last_ip_frag);
   }
 
 
-  inline bool isIpv4(void) const throw()
+  inline bool isIpv4(void) const noexcept(true)
   {
     return(this->is_ipv4);
   }
@@ -277,13 +277,13 @@ public:
        bool const         p_is_first_ip_frag = false,
        bool const         p_is_last_ip_frag  = false,
        bool const         p_is_ipv4          = false
-      ) throw();
-  Flow(Flow const & p_flow) throw();
+      ) noexcept(true);
+  Flow(Flow const & p_flow) noexcept(true);
 
 
   // Destructor
 
-  ~Flow(void) throw()
+  ~Flow(void) noexcept(true)
   {
     return;
   }
@@ -307,16 +307,16 @@ public:
                     bool const         p_is_first_ip_frag = false,
                     bool const         p_is_last_ip_frag  = false,
                     bool const         p_is_ipv4          = false
-                  ) throw();
+                  ) noexcept(true);
 
-  Flow &    copyFlow(Flow const & p_flow) throw();
-  bool      compare(std::shared_ptr<Flow> const & p_flow) throw();
-  string    createFlowString(void) const throw();
-  void      forceFake(u_int32_t const p_first_timestamp) throw();
-  void      fragment_pre_merge(std::shared_ptr<Flow> const & p_flow) throw();
-  bool      merge(std::shared_ptr<Flow> const & p_flow) throw();
-  ostream & printFlow(ostream& os) const throw();
-  void      zero(void) throw();
+  Flow &    copyFlow(Flow const & p_flow) noexcept(true);
+  bool      compare(std::shared_ptr<Flow> const & p_flow) noexcept(true);
+  string    createFlowString(void) const noexcept(true);
+  void      forceFake(u_int32_t const p_first_timestamp) noexcept(true);
+  void      fragment_pre_merge(std::shared_ptr<Flow> const & p_flow) noexcept(true);
+  bool      merge(std::shared_ptr<Flow> const & p_flow) noexcept(true);
+  ostream & printFlow(ostream& os) const noexcept(true);
+  void      zero(void) noexcept(true);
 
 
   // ASSIGN_PROTOTYPE_START
@@ -349,33 +349,33 @@ public:
     u_int16_t const                p_tunnel_dst_port       = 0,
     bool const                     p_fragment              = 0,
     u_int32_t const                p_anomaly               = 0
-  ) throw();
+  ) noexcept(true);
   // ASSIGN_PROTOTYPE_END
 
 private:
 
   // Getters/Setters
 
-  inline bool getFake(void) const throw()
+  inline bool getFake(void) const noexcept(true)
   {
     return(this->fake);
   }
 
 
-  inline bool getFlowDirection(void) const throw()
+  inline bool getFlowDirection(void) const noexcept(true)
   {
     return(this->flow_direction);
   }
 
 
-  inline void setTimeout(u_int32_t const p_timeout) throw()
+  inline void setTimeout(u_int32_t const p_timeout) noexcept(true)
   {
     this->timeout = p_timeout;
     return;
   }
 
 
-  inline void setVirtualTime(u_int32_t const p_time) throw()
+  inline void setVirtualTime(u_int32_t const p_time) noexcept(true)
   {
     this->physical_struct.time_duration.assign(p_time, 0, p_time, 0);
     return;
@@ -384,18 +384,18 @@ private:
 
   // Constructors
 
-  Flow(void) throw();
+  Flow(void) noexcept(true);
 
   // Operators
-  Flow &    operator=(Flow const & p_flow) throw();
+  Flow &    operator=(Flow const & p_flow) noexcept(true);
 
 friend
-  ostream & operator<<(ostream & p_os, Flow const * p_flow) throw();
+  ostream & operator<<(ostream & p_os, Flow const * p_flow) noexcept(true);
 friend
-  ostream & operator<<(ostream & p_os, Flow const & p_flow) throw();
+  ostream & operator<<(ostream & p_os, Flow const & p_flow) noexcept(true);
 
-  bool      operator<(Flow const & p_flow) const throw();
-  bool      operator>(Flow const & p_flow) const throw();
+  bool      operator<(Flow const & p_flow) const noexcept(true);
+  bool      operator>(Flow const & p_flow) const noexcept(true);
 
 
  // Variables

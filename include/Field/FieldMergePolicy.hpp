@@ -50,7 +50,7 @@ template <>
 struct MergeFlags < Data< Elf_t, 1> >
 {
 
-  static bool merge(Data< Elf_t, 1 > & p_field1, Data< Elf_t, 1 > const & p_field2, bool const p_direction, bool const p_valid) throw()
+  static bool merge(Data< Elf_t, 1 > & p_field1, Data< Elf_t, 1 > const & p_field2, bool const p_direction, bool const p_valid) noexcept(true)
   {
 
     if (! p_valid)
@@ -138,7 +138,7 @@ template <>
 struct MergeBitsum < Data<u_int16_t, 2> >
 {
 
-  static bool merge(Data<u_int16_t, 2> & p_field1, Data<u_int16_t, 2> const & p_field2, bool const p_direction, u_int64_t & p_field1_valid1) throw()
+  static bool merge(Data<u_int16_t, 2> & p_field1, Data<u_int16_t, 2> const & p_field2, bool const p_direction, u_int64_t & p_field1_valid1) noexcept(true)
   {
     if (p_direction)
     {
@@ -161,7 +161,7 @@ template <typename T>
 struct MergeNone
 {
 
-  static bool merge(T & p_field1, T const & p_field2, bool const p_direction) throw()
+  static bool merge(T & p_field1, T const & p_field2, bool const p_direction) noexcept(true)
   {
     UNUSED(p_field1);
     UNUSED(p_field2);
@@ -179,7 +179,7 @@ template <>
 struct MergePort < Data<u_int16_t, 2> >
 {
 
-  static bool merge(Data<u_int16_t, 2> & p_field1, Data<u_int16_t, 2> const & p_field2, bool const p_direction) throw()
+  static bool merge(Data<u_int16_t, 2> & p_field1, Data<u_int16_t, 2> const & p_field2, bool const p_direction) noexcept(true)
   {
     // DEVELOPER NOTE: This is needed for IPv4 when field 1 is a fragmented flow.
     if ((0 == p_field1.at(0)) && (0 == p_field1.at(1)))
@@ -201,7 +201,7 @@ template <>
 struct MergeAdd < Data<u_int64_t, 2> >
 {
 
-  static bool merge(Data<u_int64_t, 2> & p_field1, Data<u_int64_t, 2> const & p_field2, bool const p_direction) throw()
+  static bool merge(Data<u_int64_t, 2> & p_field1, Data<u_int64_t, 2> const & p_field2, bool const p_direction) noexcept(true)
   {
     p_field1.at(0) += (p_field2.at(0) * (u_int64_t) p_direction);
     p_field1.at(1) += (p_field2.at(0) * (1 - (u_int64_t) p_direction));
@@ -220,7 +220,7 @@ template <>
 struct MergeAddPayload < Data<u_int64_t, 4> >
 {
 
-  static bool merge(Data<u_int64_t, 4> & p_field1, Data<u_int64_t, 4> const & p_field2, bool const p_direction) throw()
+  static bool merge(Data<u_int64_t, 4> & p_field1, Data<u_int64_t, 4> const & p_field2, bool const p_direction) noexcept(true)
   {
 
     // DEVELOPER NOTE: Data index 0 and 1 store the accumulated payload byte counts for source and dest
@@ -247,7 +247,7 @@ template <>
 struct MergeAdd < Data<u_int32_t, 4> >
 {
 
-  static bool merge(Data<u_int32_t, 4> & p_field1, Data<u_int32_t, 4> const & p_field2, bool const p_direction) throw()
+  static bool merge(Data<u_int32_t, 4> & p_field1, Data<u_int32_t, 4> const & p_field2, bool const p_direction) noexcept(true)
   {
     UNUSED(p_direction);
     p_field1.at(2) = p_field2.at(2);
@@ -265,7 +265,7 @@ template <>
 struct MergeAdjustTime < Data<u_int32_t, 4> >
 {
 
-  static bool merge(Data<u_int32_t, 4> & p_field1, Data<u_int32_t, 4> & p_field2) throw()
+  static bool merge(Data<u_int32_t, 4> & p_field1, Data<u_int32_t, 4> & p_field2) noexcept(true)
   {
     if (p_field2.at(0) < p_field1.at(0))
     {
@@ -301,7 +301,7 @@ template <typename T>
 struct MergeOr
 {
 
-  static bool merge(T & p_field1, T const & p_field2, bool const p_direction) throw()
+  static bool merge(T & p_field1, T const & p_field2, bool const p_direction) noexcept(true)
   {
     UNUSED(p_direction);
     p_field1.at(0) |= p_field2.at(0);
@@ -315,7 +315,7 @@ template <typename T>
 struct MergeInitseq
 {
 
-  static bool merge(T & p_field1, T const & p_field2, bool const p_direction, u_int64_t & p_field1_valid1) throw()
+  static bool merge(T & p_field1, T const & p_field2, bool const p_direction, u_int64_t & p_field1_valid1) noexcept(true)
   {
     if (p_direction)
     {
@@ -338,7 +338,7 @@ template <typename T>
 struct MergeLastseq
 {
 
-  static bool merge(T & p_field1, T const & p_field2, bool const p_direction, u_int64_t & p_field1_valid1) throw()
+  static bool merge(T & p_field1, T const & p_field2, bool const p_direction, u_int64_t & p_field1_valid1) noexcept(true)
   {
     if (p_direction)
     {
@@ -363,7 +363,7 @@ template <typename T>
 struct MergeHistoricalSeq
 {
 
-  static bool merge(T & p_hist_tcp_last_seq, Data<u_int32_t, 4> const & p_last_seq_from_wire, bool const p_direction, bool p_has_payload) throw()
+  static bool merge(T & p_hist_tcp_last_seq, Data<u_int32_t, 4> const & p_last_seq_from_wire, bool const p_direction, bool p_has_payload) noexcept(true)
   {
     // DEVELOPER NOTE: We only update these sequence numbers for packets with payload
     if (! p_has_payload)
@@ -400,7 +400,7 @@ struct MergeTcpRetrans
                     u_int64_t p_previous_src_payload,
                     u_int64_t p_previous_dst_payload,
                     Data<u_int32_t, 4> const & p_hist_last_seq
-                   ) throw()
+                   ) noexcept(true)
   {
     // Ignore packets without payloads
     if (! p_has_payload)
@@ -463,7 +463,7 @@ template <typename T>
 struct MergeTbd
 {
 
-  static bool merge(T & p_field1, T const & p_field2, bool const p_direction) throw()
+  static bool merge(T & p_field1, T const & p_field2, bool const p_direction) noexcept(true)
   {
     UNUSED(p_field2);
     UNUSED(p_direction);

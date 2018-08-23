@@ -65,7 +65,7 @@ namespace fs = boost::filesystem;
 // ======================================================================
 
 
-OutputHelper::OutputHelper(string const & p_output_data_dir, string const & p_output_file_ext, int unsigned const p_output_file_group_id, string const & p_site_name, string const & p_data_guide_ver, string const & p_delimeter) throw() :
+OutputHelper::OutputHelper(string const & p_output_data_dir, string const & p_output_file_ext, int unsigned const p_output_file_group_id, string const & p_site_name, string const & p_data_guide_ver, string const & p_delimeter) noexcept(true) :
   output_data_dir(p_output_data_dir),
   output_file_ext(p_output_file_ext),
   output_file_group_id(p_output_file_group_id),
@@ -84,7 +84,7 @@ OutputHelper::OutputHelper(string const & p_output_data_dir, string const & p_ou
 // ======================================================================
 
 
-void OutputHelper::renameTempFilename(string const & p_temp_filename) throw()
+void OutputHelper::renameTempFilename(string const & p_temp_filename) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
   string filename = p_temp_filename;
@@ -119,7 +119,7 @@ void OutputHelper::renameTempFilename(string const & p_temp_filename) throw()
 }
 
 
-void OutputHelper::setFileSettings(string const & p_filename) throw()
+void OutputHelper::setFileSettings(string const & p_filename) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
   fs::path filename(p_filename);
@@ -143,7 +143,7 @@ void OutputHelper::setFileSettings(string const & p_filename) throw()
 
 #ifndef _MSC_VER
 
-int OutputHelper::getFileDescriptor(string const & p_filename) throw()
+int OutputHelper::getFileDescriptor(string const & p_filename) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
   int fd = -1;
@@ -161,7 +161,7 @@ int OutputHelper::getFileDescriptor(string const & p_filename) throw()
 }
 
 
-bool OutputHelper::eraseFileDescriptor(string const & p_filename) throw()
+bool OutputHelper::eraseFileDescriptor(string const & p_filename) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
 
@@ -181,7 +181,7 @@ bool OutputHelper::eraseFileDescriptor(string const & p_filename) throw()
 
 #else
 
-HANDLE OutputHelper::getFileDescriptor(string const & p_filename) throw()
+HANDLE OutputHelper::getFileDescriptor(string const & p_filename) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
   HANDLE fd = INVALID_HANDLE_VALUE;
@@ -192,7 +192,7 @@ HANDLE OutputHelper::getFileDescriptor(string const & p_filename) throw()
   return(fd);
 }
 
-bool OutputHelper::eraseFileDescriptor(string const & p_filename) throw()
+bool OutputHelper::eraseFileDescriptor(string const & p_filename) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
 
@@ -207,7 +207,7 @@ bool OutputHelper::eraseFileDescriptor(string const & p_filename) throw()
 #endif
 
 
-bool OutputHelper::openLocked(string const & p_filename) throw()
+bool OutputHelper::openLocked(string const & p_filename) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
 
@@ -281,7 +281,7 @@ bool OutputHelper::openLocked(string const & p_filename) throw()
 }
 
 
-bool OutputHelper::closeLocked(string const & p_filename) throw()
+bool OutputHelper::closeLocked(string const & p_filename) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
   bool result    = false;

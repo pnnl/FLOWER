@@ -35,7 +35,7 @@ public:
   u_int8_t  bytes[16];
 
 
-  void clear(void) throw()
+  void clear(void) noexcept(true)
   {
     qwords[0] = 0;
     qwords[1] = 0;
@@ -49,13 +49,13 @@ public:
 
   // Constructors
 
-  IpAddress_t(void) throw()
+  IpAddress_t(void) noexcept(true)
   {
     clear();
     return;
   }
 
-  IpAddress_t(u_int32_t const p_ip_address) throw()
+  IpAddress_t(u_int32_t const p_ip_address) noexcept(true)
   {
     clear();
     this->bytes[12] = p_ip_address  >> 24;
@@ -66,7 +66,7 @@ public:
   }
 
 
-  IpAddress_t(IpAddress_t const & p_ip_address) throw()
+  IpAddress_t(IpAddress_t const & p_ip_address) noexcept(true)
   {
     *this = p_ip_address;
     return;
@@ -75,21 +75,21 @@ public:
 
   // Functions
 
-  inline u_int8_t & at(int unsigned const idx) throw()
+  inline u_int8_t & at(int unsigned const idx) noexcept(true)
   {
     assert(idx < sizeof(bytes));
     return bytes[idx];
   }
 
 
-  inline u_int8_t const at(int unsigned const idx) const throw()
+  inline u_int8_t const at(int unsigned const idx) const noexcept(true)
   {
     assert(idx < sizeof(bytes));
     return bytes[idx];
   }
 
 
-  inline bool isIpv4(void) const throw()
+  inline bool isIpv4(void) const noexcept(true)
   {
     return( (0 == qwords[0]) && (0xFFFF0000 == dwords[2]));
   }
@@ -97,7 +97,7 @@ public:
 
   // Operators
 
-  IpAddress_t & operator=(IpAddress_t const & p_ip_address) throw()
+  IpAddress_t & operator=(IpAddress_t const & p_ip_address) noexcept(true)
   {
     qwords[0] = p_ip_address.qwords[0];
     qwords[1] = p_ip_address.qwords[1];
@@ -105,7 +105,7 @@ public:
   }
 
 
-  inline bool operator>(IpAddress_t const & p_ip_address) throw()
+  inline bool operator>(IpAddress_t const & p_ip_address) noexcept(true)
   {
     for (int unsigned idx = 0; idx < sizeof(bytes); ++idx)
     {
@@ -124,13 +124,13 @@ public:
   }
 
 
-  inline bool operator==(IpAddress_t const & p_ip_address) const throw()
+  inline bool operator==(IpAddress_t const & p_ip_address) const noexcept(true)
   {
     return(this->qwords[0] == p_ip_address.qwords[0] && this->qwords[1] == p_ip_address.qwords[1]);
   }
 
 
-  inline bool operator!=(IpAddress_t const & p_ip_address) const throw()
+  inline bool operator!=(IpAddress_t const & p_ip_address) const noexcept(true)
   {
     return( !(*this == p_ip_address) );
   }

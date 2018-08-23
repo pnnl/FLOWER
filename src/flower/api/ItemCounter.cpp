@@ -56,7 +56,7 @@
 // ======================================================================
 
 
-ItemCounter::ItemCounter(string const & p_name) throw() :
+ItemCounter::ItemCounter(string const & p_name) noexcept(true) :
   start_time(getUTC()),
   finish_time(start_time),
   item_stats(p_name),

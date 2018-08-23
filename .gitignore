@@ -85,5 +85,6 @@ CTestTestfile.cmake
 *.user
 *.iobj
 *.ipdb
+*.plist
 .vs
 x64

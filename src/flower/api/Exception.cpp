@@ -29,7 +29,7 @@
 static map<error_enum, int unsigned> error_map;
 
 
-void updateErrorCount(error_enum p_error) throw()
+void updateErrorCount(error_enum p_error) noexcept(true)
 {
   map<error_enum, int unsigned>::iterator itor = error_map.find(p_error);
   if (itor != error_map.end())
@@ -42,7 +42,7 @@ void updateErrorCount(error_enum p_error) throw()
 }
 
 
-string getErrorRecord(void) throw()
+string getErrorRecord(void) noexcept(true)
 {
   map<error_enum, int unsigned>::iterator itor = error_map.begin();
   map<error_enum, int unsigned>::iterator etor = error_map.end();
@@ -55,7 +55,7 @@ string getErrorRecord(void) throw()
 }
 
 
-map<string, string> * Exception::getErrorCodes(void) throw()
+map<string, string> * Exception::getErrorCodes(void) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
   static map<string, string> * error_codes = new map<string, string>();

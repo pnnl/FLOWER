@@ -75,7 +75,7 @@ private:
 
     // Constructors
 
-    SingletonTranslator(void) throw()
+    SingletonTranslator(void) noexcept(true)
     {
       signal(T::GetSignalNumber(), SignalHandler);
       return;
@@ -84,7 +84,7 @@ private:
 
     // Destructor
 
-    ~SingletonTranslator(void) throw()
+    ~SingletonTranslator(void) noexcept(true)
     {
       return;
     }
@@ -125,7 +125,7 @@ public:
 
   // Constructor
 
-  SignalTranslator(void) throw()
+  SignalTranslator(void) noexcept(true)
   {
     static SingletonTranslator translator;
     return;
@@ -134,7 +134,7 @@ public:
 
   // Destructor
 
-  ~SignalTranslator(void) throw()
+  ~SignalTranslator(void) noexcept(true)
   {
     return;
   }
@@ -148,7 +148,7 @@ class ExceptionTracer
 
 public:
 
-  ExceptionTracer(void) throw()
+  ExceptionTracer(void) noexcept(true)
   {
     int unsigned const depth = 10;
     void *       addresses[depth];
@@ -178,28 +178,28 @@ private:
 
 public:
 
-  explicit SigAbrt(const string & p_message = "SigAbrt") throw() :
+  explicit SigAbrt(const string & p_message = "SigAbrt") noexcept(true) :
     message(p_message)
   {
     return;
   }
 
-  virtual ~SigAbrt() throw()
+  virtual ~SigAbrt() noexcept(true)
   {
     return;
   }
 
-  virtual const char * what(void) const throw()
+  virtual const char * what(void) const noexcept(true)
   {
     return(message.c_str());
   }
 
-  static string GetSignalName(void) throw()
+  static string GetSignalName(void) noexcept(true)
   {
     return("SIGABRT");
   }
 
-  static int GetSignalNumber(void) throw()
+  static int GetSignalNumber(void) noexcept(true)
   {
     return(SIGABRT);
   }
@@ -216,28 +216,28 @@ private:
 
 public:
 
-  explicit SigSegv(const string & p_message = "SigSegv") throw() :
+  explicit SigSegv(const string & p_message = "SigSegv") noexcept(true) :
     message(p_message)
   {
     return;
   }
 
-  virtual ~SigSegv() throw()
+  virtual ~SigSegv() noexcept(true)
   {
     return;
   }
 
-  virtual const char * what(void) const throw()
+  virtual const char * what(void) const noexcept(true)
   {
     return(message.c_str());
   }
 
-  static string GetSignalName(void) throw()
+  static string GetSignalName(void) noexcept(true)
   {
     return("SIGSEGV");
   }
 
-  static int GetSignalNumber(void) throw()
+  static int GetSignalNumber(void) noexcept(true)
   {
     return(SIGSEGV);
   }
@@ -255,28 +255,28 @@ private:
 
 public:
 
-  explicit SigTerm(const string & p_message = "SIGTERM") throw() :
+  explicit SigTerm(const string & p_message = "SIGTERM") noexcept(true) :
     message(p_message)
   {
     return;
   }
 
-  virtual ~SigTerm() throw()
+  virtual ~SigTerm() noexcept(true)
   {
     return;
   }
 
-  virtual const char * what(void) const throw()
+  virtual const char * what(void) const noexcept(true)
   {
     return(message.c_str());
   }
 
-  static string GetSignalName(void) throw()
+  static string GetSignalName(void) noexcept(true)
   {
     return("SIGTERM");
   }
 
-  static int GetSignalNumber(void) throw()
+  static int GetSignalNumber(void) noexcept(true)
   {
     return(SIGTERM);
   }
@@ -293,28 +293,28 @@ private:
 
 public:
 
-  explicit FloatingPointException(const string & p_message = "FloatingPointException") throw() :
+  explicit FloatingPointException(const string & p_message = "FloatingPointException") noexcept(true) :
     message(p_message)
   {
     return;
   }
 
-  virtual ~FloatingPointException() throw()
+  virtual ~FloatingPointException() noexcept(true)
   {
     return;
   }
 
-  virtual const char * what(void) const throw()
+  virtual const char * what(void) const noexcept(true)
   {
     return(message.c_str());
   }
 
-  static string GetSignalName(void) throw()
+  static string GetSignalName(void) noexcept(true)
   {
     return("SIGFPE");
   }
 
-  static int GetSignalNumber(void) throw()
+  static int GetSignalNumber(void) noexcept(true)
   {
     return(SIGFPE);
   }
@@ -331,28 +331,28 @@ private:
 
 public:
 
-  explicit SigInt(const string & p_message = "SigInt") throw() :
+  explicit SigInt(const string & p_message = "SigInt") noexcept(true) :
     message(p_message)
   {
     return;
   }
 
-  virtual ~SigInt() throw()
+  virtual ~SigInt() noexcept(true)
   {
     return;
   }
 
-  virtual const char * what(void) const throw()
+  virtual const char * what(void) const noexcept(true)
   {
     return(message.c_str());
   }
 
-  static string GetSignalName(void) throw()
+  static string GetSignalName(void) noexcept(true)
   {
     return("SIGINT");
   }
 
-  static int GetSignalNumber(void) throw()
+  static int GetSignalNumber(void) noexcept(true)
   {
     return(SIGINT);
   }
@@ -367,12 +367,12 @@ public:
 
   // Constructors
 
-  ExceptionHandler(ShutdownSystemEvent * p_shutdown_system_event) throw();
+  ExceptionHandler(ShutdownSystemEvent * p_shutdown_system_event) noexcept(true);
 
 
   // Destructor
 
-  ~ExceptionHandler(void) throw()
+  ~ExceptionHandler(void) noexcept(true)
   {
     return;
   }
@@ -387,12 +387,12 @@ private:
 
     // Constructors
 
-    SingletonHandler(ShutdownSystemEvent * p_shutdown_system_event) throw();
+    SingletonHandler(ShutdownSystemEvent * p_shutdown_system_event) noexcept(true);
 
 
     // Destructor
 
-    ~SingletonHandler(void) throw()
+    ~SingletonHandler(void) noexcept(true)
     {
       return;
     }

@@ -41,7 +41,7 @@ private:
 
   // Getters/Setters
 
-  inline int unsigned getMaxSize(void) const throw()
+  inline int unsigned getMaxSize(void) const noexcept(true)
   {
     return(this->max_size);
   }
@@ -63,7 +63,7 @@ public:
 
   // Constructors
 
-  ObjectPool(int unsigned const p_max_size, T const & p_obj) throw() :
+  ObjectPool(int unsigned const p_max_size, T const & p_obj) noexcept(true) :
     max_size(p_max_size + 1)
   {
     objs.reserve(getMaxSize());
@@ -77,7 +77,7 @@ public:
 
   // Destructors
 
-  ~ObjectPool(void) throw()
+  ~ObjectPool(void) noexcept(true)
   {
     return;
   }
@@ -85,7 +85,7 @@ public:
 
   // Functions
 
-  bool release(std::shared_ptr<T> const & p_object) throw()
+  bool release(std::shared_ptr<T> const & p_object) noexcept(true)
   {
     if (objs.size() < getMaxSize())
     {      
@@ -101,7 +101,7 @@ public:
   }
 
 
-  bool acquire(std::shared_ptr<T> & p_ptr) throw()
+  bool acquire(std::shared_ptr<T> & p_ptr) noexcept(true)
   {
     if (! objs.empty())
     {
@@ -116,19 +116,19 @@ public:
   }
 
 
-  int unsigned size(void) const throw()
+  int unsigned size(void) const noexcept(true)
   {
     return(objs.size());
   }
 
 
-  std::shared_ptr<T> at(int unsigned const p_idx) throw()
+  std::shared_ptr<T> at(int unsigned const p_idx) noexcept(true)
   {
     return(objs.at(p_idx));
   }
 
 
-  std::shared_ptr<T> const at(int unsigned const p_idx) const throw()
+  std::shared_ptr<T> const at(int unsigned const p_idx) const noexcept(true)
   {
     return(objs.at(p_idx));
   }

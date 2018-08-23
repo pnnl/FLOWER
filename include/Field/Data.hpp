@@ -55,37 +55,37 @@ public:
 
   // Getters/Setters
 
-  inline bool isValid(void) const throw()
+  inline bool isValid(void) const noexcept(true)
   {
     return(true);
   }
 
 
-  iterator begin(void) throw()
+  iterator begin(void) noexcept(true)
   {
     return(this->value + 0);
   }
 
 
-  const_iterator begin(void) const throw()
+  const_iterator begin(void) const noexcept(true)
   {
     return(this->value + 0);
   }
 
 
-  iterator end(void) throw()
+  iterator end(void) noexcept(true)
   {
     return(this->value + SIZE);
   }
 
 
-  const_iterator end(void) const throw()
+  const_iterator end(void) const noexcept(true)
   {
     return(this->value + SIZE);
   }
 
 
-  T const & at(char unsigned const idx) const throw(out_of_range)
+  T const & at(char unsigned const idx) const
   {
     assert(idx < SIZE);
     if (idx < SIZE)
@@ -97,7 +97,7 @@ public:
   }
 
 
-  T & at(char unsigned const idx) throw(out_of_range)
+  T & at(char unsigned const idx)
   {
     assert(idx < SIZE);
     if (idx < SIZE)
@@ -109,7 +109,7 @@ public:
   }
 
 
-  inline size_type size(void) const throw()
+  inline size_type size(void) const noexcept(true)
   {
     return(SIZE);
   }
@@ -117,7 +117,7 @@ public:
 
   // Functions
 
-  inline void assign(T const & p_value0) throw()
+  inline void assign(T const & p_value0) noexcept(true)
   {
     this->value[0] = p_value0;
 //printf("Data0:%lX\n", &value[0]);
@@ -125,7 +125,7 @@ public:
   }
 
 
-  inline void assign(T const & p_value0, T const & p_value1) throw()
+  inline void assign(T const & p_value0, T const & p_value1) noexcept(true)
   {
     assign(p_value0);
     this->value[1] = p_value1;
@@ -134,7 +134,7 @@ public:
   }
 
 
-  inline void assign(T const & p_value0, T const & p_value1, T const & p_value2) throw()
+  inline void assign(T const & p_value0, T const & p_value1, T const & p_value2) noexcept(true)
   {
     assign(p_value0, p_value1);
     this->value[2] = p_value2;
@@ -143,7 +143,7 @@ public:
   }
 
 
-  inline void assign(T const & p_value0, T const & p_value1, T const & p_value2, T const & p_value3) throw()
+  inline void assign(T const & p_value0, T const & p_value1, T const & p_value2, T const & p_value3) noexcept(true)
   {
     assign(p_value0, p_value1, p_value2);
     this->value[3] = p_value3;
@@ -154,7 +154,7 @@ public:
 
   // Constructors
 
-  Data(const iterator p_value) throw()
+  Data(const iterator p_value) noexcept(true)
   {
     for (int unsigned idx = 0; idx < SIZE; ++idx)
     {
@@ -164,7 +164,7 @@ public:
   }
 
 
-  Data(T const & p_value0) throw(range_error)
+  Data(T const & p_value0)
   {
     if (SINGLE_T != SIZE)
     {
@@ -175,7 +175,7 @@ public:
   }
 
 
-  Data(T const & p_value0, T const & p_value1) throw(range_error)
+  Data(T const & p_value0, T const & p_value1)
   {
     if (PAIR_T != SIZE)
     {
@@ -186,7 +186,7 @@ public:
   }
 
 
-  Data(T const & p_value0, T const & p_value1,  T const & p_value2) throw(range_error)
+  Data(T const & p_value0, T const & p_value1,  T const & p_value2)
   {
     if (TRIPLE_T != SIZE)
     {
@@ -197,7 +197,7 @@ public:
   }
 
 
-  Data(T const & p_value0, T const & p_value1, T const & p_value2, T const & p_value3) throw(range_error)
+  Data(T const & p_value0, T const & p_value1, T const & p_value2, T const & p_value3)
   {
     if (QUAD_T != SIZE)
     {
@@ -208,14 +208,14 @@ public:
   }
 
 
-  Data(Data const & p_that) throw()
+  Data(Data const & p_that) noexcept(true)
   {
     *this = p_that;
     return;
   }
 
 
-  Data(void) throw()
+  Data(void) noexcept(true)
   {
     memset(value, 0, sizeof(value));
     return;
@@ -224,7 +224,7 @@ public:
 
   // Destructor
 
-  ~Data(void) throw()
+  ~Data(void) noexcept(true)
   {
     return;
   }
@@ -232,7 +232,7 @@ public:
 
   // Operators
 
-  Data &    operator=(Data const & p_that) throw()
+  Data &    operator=(Data const & p_that) noexcept(true)
   {
     if (! (*this == p_that))
     {
@@ -245,7 +245,7 @@ public:
   }
 
 
-  bool      operator==(Data const & p_that) const throw()
+  bool      operator==(Data const & p_that) const noexcept(true)
   {
     for (int unsigned idx = 0; idx < SIZE; ++idx)
     {
@@ -258,20 +258,20 @@ public:
   }
 
 
-  T & operator[](char unsigned idx) throw()
+  T & operator[](char unsigned idx) noexcept(true)
   {
     return(this->value[idx]);
   }
 
 
-  T const & operator[](char unsigned idx) const throw()
+  T const & operator[](char unsigned idx) const noexcept(true)
   {
     return(this->value[idx]);
   }
 
 
 friend
-  ostream & operator<<(ostream & p_os, const Data & p_single) throw()
+  ostream & operator<<(ostream & p_os, const Data & p_single) noexcept(true)
   {
     static int unsigned end = SIZE - 1;
     for (int unsigned idx = 0; idx < end; ++idx)

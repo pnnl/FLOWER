@@ -81,7 +81,7 @@ typedef union norm_flow_key_
     flow_key_ip_t ip;
   };
 
-  inline bool operator==(norm_flow_key_ const & p_flow_key) const throw()
+  inline bool operator==(norm_flow_key_ const & p_flow_key) const noexcept(true)
   {
     return(
            (this->src_port            == p_flow_key.src_port           ) &&
@@ -95,7 +95,7 @@ typedef union norm_flow_key_
           );
   }
 
-  inline bool const operator<(norm_flow_key_ const & p_flow_key) const throw()
+  inline bool const operator<(norm_flow_key_ const & p_flow_key) const noexcept(true)
   {
     // DEVELOPER NOTE: The followin is not efficient -> Don't uncomment
     //if (*this == p_flow_key)
@@ -172,7 +172,7 @@ typedef union frag_flow_key_
   };
   
 
-  inline bool operator==(frag_flow_key_ const & p_flow_key) const throw()
+  inline bool operator==(frag_flow_key_ const & p_flow_key) const noexcept(true)
   {
     return(
            (this->ident               == p_flow_key.ident              ) &&
@@ -185,7 +185,7 @@ typedef union frag_flow_key_
           );
   }
 
-  inline bool const operator<(frag_flow_key_ const & p_flow_key) const throw()
+  inline bool const operator<(frag_flow_key_ const & p_flow_key) const noexcept(true)
   {
     // DEVELOPER NOTE: The following is not efficient -> Don't uncomment
     //if (*this == p_flow_key)
@@ -289,7 +289,7 @@ union FlowKey
 
   // Copy Constructor
 
-  FlowKey(FlowKey const & p_flow_key) throw()
+  FlowKey(FlowKey const & p_flow_key) noexcept(true)
   {
     *this = p_flow_key;
     return;
@@ -306,7 +306,7 @@ union FlowKey
 
   // Operators
 
-  FlowKey & operator=(FlowKey const & p_flow_key) throw()
+  FlowKey & operator=(FlowKey const & p_flow_key) noexcept(true)
   {
     for(int unsigned i = 0; i < FLOW_KEY_QWORD_COUNT; ++i)
     {
@@ -317,20 +317,20 @@ union FlowKey
   }
 
 
-  inline u_int64_t const & at(int unsigned const idx) const throw()
+  inline u_int64_t const & at(int unsigned const idx) const noexcept(true)
   {
     assert(idx < FLOW_KEY_QWORD_COUNT);
     return qwords[idx];
   }
 
-  inline u_int64_t & at(int unsigned const idx) throw()
+  inline u_int64_t & at(int unsigned const idx) noexcept(true)
   {
     assert(idx < FLOW_KEY_QWORD_COUNT);
     return qwords[idx];
   }
 
 
-  inline bool operator==(FlowKey const & p_flow_key) const throw()
+  inline bool operator==(FlowKey const & p_flow_key) const noexcept(true)
   {
     u_int8_t equal = 1;
 
@@ -343,14 +343,14 @@ union FlowKey
   }
 
 
-  inline bool operator!=(FlowKey const & p_flow_key) const throw()
+  inline bool operator!=(FlowKey const & p_flow_key) const noexcept(true)
   {
     return(! (*this == p_flow_key));
   }
 
 
-  //static string createFlowKeyString(FlowKey const & p_flow_key) throw()
-  inline string createFlowKeyString() const throw()
+  //static string createFlowKeyString(FlowKey const & p_flow_key) noexcept(true)
+  inline string createFlowKeyString() const noexcept(true)
   {
     IpAddress_t src;
     IpAddress_t dst;
@@ -385,13 +385,13 @@ union FlowKey
                       u_int8_t    const    p_protocol  = 0,
                       IpAddress_t const &  p_src_ip    = IpAddress_t(),
                       IpAddress_t const &  p_dst_ip    = IpAddress_t()
-                    ) throw();
+                    ) noexcept(true);
 
 
 friend
-  ostream & operator<<(ostream & p_os, union FlowKey const * p_flow_key) throw();
+  ostream & operator<<(ostream & p_os, union FlowKey const * p_flow_key) noexcept(true);
 friend
-  ostream & operator<<(ostream & p_os, union FlowKey const & p_flow_key) throw();
+  ostream & operator<<(ostream & p_os, union FlowKey const & p_flow_key) noexcept(true);
 
 };
 

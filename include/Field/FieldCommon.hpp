@@ -46,14 +46,14 @@ struct Elf_t
 
   // Constructors
 
-  Elf_t(void) throw()
+  Elf_t(void) noexcept(true)
   {
     clear();
     return;
   }
 
 
-  Elf_t(u_int16_t const p_value, bool const p_is_icmp) throw()
+  Elf_t(u_int16_t const p_value, bool const p_is_icmp) noexcept(true)
   {
     clear();
     value[0]           = p_value;
@@ -68,7 +68,7 @@ struct Elf_t
 
   // Operators 
 
-  inline Elf_t & operator=(Elf_t const & p_elf) throw()
+  inline Elf_t & operator=(Elf_t const & p_elf) noexcept(true)
   {
     //memcpy(this, &p_elf, sizeof(Elf_t));  // memcpy is as slow or slower
 
@@ -81,7 +81,7 @@ struct Elf_t
   }
 
 
-  inline bool operator==(Elf_t const & p_elf) const throw()
+  inline bool operator==(Elf_t const & p_elf) const noexcept(true)
   {
     // memcmp is slower
 
@@ -96,7 +96,7 @@ struct Elf_t
   }
 
 
-  inline bool operator!=(Elf_t const & p_elf) const throw()
+  inline bool operator!=(Elf_t const & p_elf) const noexcept(true)
   {
     return(! (*this == p_elf));
   }
@@ -104,7 +104,7 @@ struct Elf_t
 
   // Constructors
 
-  Elf_t(Elf_t const & p_elf) throw()
+  Elf_t(Elf_t const & p_elf) noexcept(true)
   {
     *this = p_elf;
     return;
@@ -113,7 +113,7 @@ struct Elf_t
 
   // Functions
 
-  inline void clear(void) throw()
+  inline void clear(void) noexcept(true)
   {
     u_int8_t save = this->is_icmp;
     memset(this, 0, sizeof(Elf_t));               // This is faster

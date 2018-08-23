@@ -83,7 +83,7 @@ void FlowKey::buildFlowKeys(
                             u_int8_t    const p_protocol,
                             IpAddress_t const &  p_src_ip,
                             IpAddress_t const &  p_dst_ip
-                           ) throw()
+                           ) noexcept(true)
 {
 
   this->norm_flow_key.qwords[1]   = 0;
@@ -126,7 +126,7 @@ void FlowKey::buildFlowKeys(
 // -------------------------------------
 
 
-ostream & operator<<(ostream & p_os, FlowKey const * p_flow_key) throw()
+ostream & operator<<(ostream & p_os, FlowKey const * p_flow_key) noexcept(true)
 {
   //DEBUG(LOTS, ENTER);
   //DEBUG(LOTS, LEAVE);
@@ -134,7 +134,7 @@ ostream & operator<<(ostream & p_os, FlowKey const * p_flow_key) throw()
 }
 
 
-ostream & operator<<(ostream & p_os, FlowKey const & p_flow_key) throw()
+ostream & operator<<(ostream & p_os, FlowKey const & p_flow_key) noexcept(true)
 {
   //DEBUG(LOTS, ENTER);
   //DEBUG(LOTS, LEAVE);

@@ -66,7 +66,7 @@ public:
 
   // Getters/Setters
 
-  inline string getName(void) const throw()
+  inline string getName(void) const noexcept(true)
   {
     if (this->name.empty())
     {
@@ -76,13 +76,13 @@ public:
   }
 
 
-  inline u_int64_t getCount(void) const throw()
+  inline u_int64_t getCount(void) const noexcept(true)
   {
     return(this->count);
   }
 
 
-  inline T getTotal(void) const throw()
+  inline T getTotal(void) const noexcept(true)
   {
     return(this->total);
   }
@@ -90,7 +90,7 @@ public:
 
   // Constructors
 
-  Stats(string const & p_name, u_int64_t const p_count = 0, T const p_total = 0) throw() :
+  Stats(string const & p_name, u_int64_t const p_count = 0, T const p_total = 0) noexcept(true) :
     name(p_name),
     count(p_count),
     total(p_total)
@@ -101,7 +101,7 @@ public:
 
   // Destructor
 
-  ~Stats(void) throw()
+  ~Stats(void) noexcept(true)
   {
     return;
   }
@@ -109,14 +109,14 @@ public:
 
   // Operators
 
-  Stats &    operator++(void) throw()          // prefix
+  Stats &    operator++(void) noexcept(true)          // prefix
   {
     this->push(1);
     return(*this);
   }
 
 
-  Stats &    operator+=(T const & p_count) throw()
+  Stats &    operator+=(T const & p_count) noexcept(true)
   {
     this->push(p_count);
     return(*this);
@@ -124,7 +124,7 @@ public:
 
 
 friend
-  ostream &  operator<<(ostream & p_os, const Stats & p_stats) throw()
+  ostream &  operator<<(ostream & p_os, const Stats & p_stats) noexcept(true)
   {
     return(p_os << p_stats.getName() << "," << p_stats.getCount() << "," << p_stats.getTotal());
   }
@@ -132,14 +132,14 @@ friend
 
   // Public Functions
 
-  inline void reset(void) throw()
+  inline void reset(void) noexcept(true)
   {
     this->count = 0;
     this->total = 0;
   }
 
 
-  inline void push(T const & p_value = 0) throw()
+  inline void push(T const & p_value = 0) noexcept(true)
   {
     // DEVELOPER NOTE: 2009/02/09
     //                 Plug the following into Google to see that we won't overflow
@@ -159,7 +159,7 @@ friend
   }
 
 
-  inline T average(void) throw()
+  inline T average(void) noexcept(true)
   {
     T avg = (T)0;
 
@@ -175,16 +175,16 @@ private:
 
   // Constructors
 
-  Stats(void) throw();
-  Stats(Stats<T> const & p_stats) throw();
+  Stats(void) noexcept(true);
+  Stats(Stats<T> const & p_stats) noexcept(true);
 
 
   // Operators
 
-  Stats<T> & operator=(Stats<T> const & p_stats) throw();
-  bool       operator==(Stats const & p_stats) const throw();
-  bool       operator!=(Stats const & p_stats) const throw();
-  Stats &    operator++(int p_count) throw()   // postfix
+  Stats<T> & operator=(Stats<T> const & p_stats) noexcept(true);
+  bool       operator==(Stats const & p_stats) const noexcept(true);
+  bool       operator!=(Stats const & p_stats) const noexcept(true);
+  Stats &    operator++(int p_count) noexcept(true)   // postfix
   {
     this->push(p_count);
     return(*this);

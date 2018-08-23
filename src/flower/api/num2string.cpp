@@ -30,7 +30,7 @@ const size_t MAX_BUF_LEN = 25;
 // Namespaces
 
 
-string itoa10(int64_t const p_value, u_int64_t const p_pad_length) throw()
+string itoa10(int64_t const p_value, u_int64_t const p_pad_length) noexcept(true)
 {
   string    result(p_pad_length, ' ');
   int       sign;
@@ -66,7 +66,7 @@ string itoa10(int64_t const p_value, u_int64_t const p_pad_length) throw()
 }
 
 
-string uitoa16(u_int32_t const p_value, u_int32_t const p_pad_length) throw()
+string uitoa16(u_int32_t const p_value, u_int32_t const p_pad_length) noexcept(true)
 {
   u_int8_t hexdigits[] = "0123456789ABCDEF";
 
@@ -112,7 +112,7 @@ string uitoa16(u_int32_t const p_value, u_int32_t const p_pad_length) throw()
 }
 
 
-string uitoa10(u_int64_t const p_value, u_int64_t const p_pad_length) throw()
+string uitoa10(u_int64_t const p_value, u_int64_t const p_pad_length) noexcept(true)
 {
   string    result(p_pad_length, ' ');
   char      temp_str[MAX_BUF_LEN] = "";
@@ -136,7 +136,7 @@ string uitoa10(u_int64_t const p_value, u_int64_t const p_pad_length) throw()
 }
 
 
-string dtoa(double const p_value, u_int64_t const p_prec) throw()
+string dtoa(double const p_value, u_int64_t const p_prec) noexcept(true)
 {
   // if input is larger than thres_max, revert to exponential
   double const thres_max = (double)(0x7FFFFFFF);
@@ -248,7 +248,7 @@ string dtoa(double const p_value, u_int64_t const p_prec) throw()
 }
 
 
-string ftoa(float const p_value, u_int64_t const p_prec) throw()
+string ftoa(float const p_value, u_int64_t const p_prec) noexcept(true)
 {
   // if input is larger than thres_max, revert to exponential
   float  const thres_max = (float)(0x7FFFFFFF);

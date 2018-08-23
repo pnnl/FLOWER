@@ -51,33 +51,33 @@ public:
 
   // Getters/Setters
 
-  inline T getValue(void) const throw()
+  inline T getValue(void) const noexcept(true)
   {
     return(this->value);
   }
 
 
-  inline void setValue(T const & p_value) throw()
+  inline void setValue(T const & p_value) noexcept(true)
   {
     this->value = p_value;
     return;
   }
 
 
-  inline bool isValid(void) const throw()
+  inline bool isValid(void) const noexcept(true)
   {
     return(this->valid);
   }
 
 
-  inline void setValid(bool const p_valid) throw()
+  inline void setValid(bool const p_valid) noexcept(true)
   {
     this->valid = p_valid;
     return;
   }
 
 
-  inline void assign(T const & p_value, bool const p_valid) throw()
+  inline void assign(T const & p_value, bool const p_valid) noexcept(true)
   {
     setValue(p_value);
     setValid(p_valid);
@@ -87,7 +87,7 @@ public:
 
   // Constructors
 
-  Single(T const & p_value, bool const p_valid = false) throw() :
+  Single(T const & p_value, bool const p_valid = false) noexcept(true) :
     value(p_value),
     valid(p_valid)
   {
@@ -96,7 +96,7 @@ public:
   }
 
 
-  Single(Single const & p_that) throw() :
+  Single(Single const & p_that) noexcept(true) :
     value(p_that.value),
     valid(p_that.isValid())
   {
@@ -104,7 +104,7 @@ public:
   }
 
 
-  Single(void) throw()
+  Single(void) noexcept(true)
   {
     return;
   }
@@ -112,7 +112,7 @@ public:
 
   // Destructor
 
-  ~Single(void) throw()
+  ~Single(void) noexcept(true)
   {
     return;
   }
@@ -120,7 +120,7 @@ public:
 
   // Operators
 
-  Single &  operator=(Single const & p_that) throw()
+  Single &  operator=(Single const & p_that) noexcept(true)
   {
     if (! (*this == p_that))
     {
@@ -132,7 +132,7 @@ public:
   }
 
 
-  bool      operator==(Single const & p_that) throw()
+  bool      operator==(Single const & p_that) noexcept(true)
   {
     return(
             (isValid()  == p_that.isValid() ) &&
@@ -142,7 +142,7 @@ public:
 
 
 friend
-  ostream & operator<<(ostream & p_os, const Single & p_single) throw()
+  ostream & operator<<(ostream & p_os, const Single & p_single) noexcept(true)
   {
     DEBUG(LOTS, ENTER);
     DEBUG(LOTS, LEAVE);

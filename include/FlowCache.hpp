@@ -116,62 +116,62 @@ private:
 
   // Getters/Setters
 
-  inline u_int32_t getVirtualTime(void) const throw()
+  inline u_int32_t getVirtualTime(void) const noexcept(true)
   {
     return(this->virtual_time);
   }
 
 
-  inline void setVirtualTime(u_int32_t const p_virtual_time) throw()
+  inline void setVirtualTime(u_int32_t const p_virtual_time) noexcept(true)
   {
     this->virtual_time = p_virtual_time;
     return;
   }
 
 
-  inline int unsigned getMaxFragFlowCacheSize(void) const throw()
+  inline int unsigned getMaxFragFlowCacheSize(void) const noexcept(true)
   {
     return(this->max_frag_flowcache_size);
   }
 
 
-  inline int unsigned getMaxNormFlowCacheSize(void) const throw()
+  inline int unsigned getMaxNormFlowCacheSize(void) const noexcept(true)
   {
     return(this->max_norm_flowcache_size);
   }
 
 
-  inline frag_flow_multi_index_container & getFragFlowCache(void) throw() // Cannot be const
+  inline frag_flow_multi_index_container & getFragFlowCache(void) noexcept(true) // Cannot be const
   {
     return(this->frag_flow_cache);
   }
 
 
-  inline norm_flow_multi_index_container & getNormFlowCache(void) throw() // Cannot be const
+  inline norm_flow_multi_index_container & getNormFlowCache(void) noexcept(true) // Cannot be const
   {
     return(this->norm_flow_cache);
   }
 
 
-  inline int unsigned getNormFlowCacheSize(void) const throw()
+  inline int unsigned getNormFlowCacheSize(void) const noexcept(true)
   {
     return(this->norm_flow_cache.size());
   }
 
 
-  inline int unsigned getFragFlowCacheSize(void) const throw()
+  inline int unsigned getFragFlowCacheSize(void) const noexcept(true)
   {
     return(this->frag_flow_cache.size());
   }
 
 
-  inline SummaryAddEvent * getSummaryAddEvent(void) const throw()
+  inline SummaryAddEvent * getSummaryAddEvent(void) const noexcept(true)
   {
     return(this->summary_add_event);
   }
 
 
-  inline void setSummaryAddEvent(SummaryAddEvent * const p_summary_add_event) throw()
+  inline void setSummaryAddEvent(SummaryAddEvent * const p_summary_add_event) noexcept(true)
   {
     this->summary_add_event = p_summary_add_event;
   }
@@ -180,7 +180,7 @@ private:
   // Constructors
 
   FlowCache(void);
-  FlowCache(FlowCache const & p_norm_flow_cache) throw();
+  FlowCache(FlowCache const & p_norm_flow_cache) noexcept(true);
 
 
   // Operators
@@ -207,49 +207,49 @@ private:
 
   // Encapsulated Behavior
 
-  bool add(sharedFlow const & p_flow) throw();
-  bool real_add(sharedFlow const & p_flow) throw();
-  bool real_frag_add(sharedFlow const & p_flow) throw();
-  void flushAndZero(norm_flow_multi_index_container::index<NormFlowKey>::type::iterator & p_itor) throw();
-  void reset(int unsigned const p_level = 0) throw();
+  bool add(sharedFlow const & p_flow) noexcept(true);
+  bool real_add(sharedFlow const & p_flow) noexcept(true);
+  bool real_frag_add(sharedFlow const & p_flow) noexcept(true);
+  void flushAndZero(norm_flow_multi_index_container::index<NormFlowKey>::type::iterator & p_itor) noexcept(true);
+  void reset(int unsigned const p_level = 0) noexcept(true);
 
   template<typename Tag, typename MultiIndexContainer>
-  void printBy(MultiIndexContainer const & p_flow_cache, Tag * = 0) throw();
+  void printBy(MultiIndexContainer const & p_flow_cache, Tag * = 0) noexcept(true);
   
   template<typename MultiIndexContainer> 
-  void flush(MultiIndexContainer & p_flow_cache, bool const p_is_normal_cache, u_int32_t const p_virtual_time, bool const p_shutdown = false) throw();
+  void flush(MultiIndexContainer & p_flow_cache, bool const p_is_normal_cache, u_int32_t const p_virtual_time, bool const p_shutdown = false) noexcept(true);
 
 
 public:
 
   // Getters/Setters
 
-  inline int unsigned getMaxSize(void) const throw()
+  inline int unsigned getMaxSize(void) const noexcept(true)
   {
     return(getMaxNormFlowCacheSize());
   }
 
 
-  inline int unsigned size(void) const throw()
+  inline int unsigned size(void) const noexcept(true)
   {
     return(getNormFlowCacheSize());
   }
 
 
-  inline u_int64_t getFragFlowCount(void) const throw()
+  inline u_int64_t getFragFlowCount(void) const noexcept(true)
   {
     return(this->frag_flow_count);
   }
 
 
-  inline void resetFragFlowCount(void) throw()
+  inline void resetFragFlowCount(void) noexcept(true)
   {
     this->frag_flow_count = 0;
     return;
   }
 
 
-  inline void updateFragFlowCount(void) throw()
+  inline void updateFragFlowCount(void) noexcept(true)
   {
     if (getFragFlowCacheSize() > getFragFlowCount())
     {
@@ -259,40 +259,40 @@ public:
   }
 
 
-  inline u_int64_t getMergeCount(void) const throw()
+  inline u_int64_t getMergeCount(void) const noexcept(true)
   {
     return(this->merge_count);
   }
 
 
-  inline void incrMergeCount(void) throw()
+  inline void incrMergeCount(void) noexcept(true)
   {
     ++this->merge_count;
     return;
   }
 
 
-  inline void resetMergeCount(void) throw()
+  inline void resetMergeCount(void) noexcept(true)
   {
     this->merge_count = 0;
     return;
   }
 
 
-  inline u_int64_t getNormFlowCount(void) const throw()
+  inline u_int64_t getNormFlowCount(void) const noexcept(true)
   {
     return(this->norm_flow_count);
   }
 
 
-  inline void resetNormFlowCount(void) throw()
+  inline void resetNormFlowCount(void) noexcept(true)
   {
     this->norm_flow_count = 0;
     return;
   }
 
 
-  inline void updateNormFlowCount(void) throw()
+  inline void updateNormFlowCount(void) noexcept(true)
   {
     if (getNormFlowCacheSize() > getNormFlowCount())
     {
@@ -302,20 +302,20 @@ public:
   }
 
 
-  inline u_int64_t getSummaryCount(void) const throw()
+  inline u_int64_t getSummaryCount(void) const noexcept(true)
   {
     return(this->summary_count);
   }
 
 
-  inline void incrSummaryCount(void) throw()
+  inline void incrSummaryCount(void) noexcept(true)
   {
     ++this->summary_count;
     return;
   }
 
 
-  inline void resetSummaryCount(void) throw()
+  inline void resetSummaryCount(void) noexcept(true)
   {
     this->summary_count = 0;
     return;
@@ -324,12 +324,12 @@ public:
 
   // Constructors
 
-  FlowCache(SummaryAddEvent * const p_summary_add_event, ObjectPool<Flow> & p_flow_pool, int unsigned const p_max_frag_flowcache_size, int unsigned const p_max_norm_flowcache_size) throw();
+  FlowCache(SummaryAddEvent * const p_summary_add_event, ObjectPool<Flow> & p_flow_pool, int unsigned const p_max_frag_flowcache_size, int unsigned const p_max_norm_flowcache_size) noexcept(true);
 
 
   // Destructor
 
-  ~FlowCache(void) throw()
+  ~FlowCache(void) noexcept(true)
   {
     return;
   }
@@ -343,18 +343,18 @@ public:
 
   // Public Functions
 
-  bool findByNormFlowKey(sharedFlow const & p_flow, norm_flow_cache_flowkey_itor & p_itor) throw();
-  bool findByFragFlowKey(sharedFlow const & p_flow, frag_flow_cache_flowkey_itor & p_itor) throw();
-  void printByNormFlowKey(void) throw();
+  bool findByNormFlowKey(sharedFlow const & p_flow, norm_flow_cache_flowkey_itor & p_itor) noexcept(true);
+  bool findByFragFlowKey(sharedFlow const & p_flow, frag_flow_cache_flowkey_itor & p_itor) noexcept(true);
+  void printByNormFlowKey(void) noexcept(true);
 
 
   // Event-based behavior interface Functions
 
-  void   onAddEvent(sharedFlow const p_flow) throw();
-  string onMetricsEvent(int unsigned const p_level) throw();
-  void   onNewInputEvent(int unsigned const p_level) throw();
-  void   onNewOutputEvent(int unsigned const p_level) throw();
-  void   onShutdownSystemEvent(int unsigned const p_level) throw();
+  void   onAddEvent(sharedFlow const p_flow) noexcept(true);
+  string onMetricsEvent(int unsigned const p_level) noexcept(true);
+  void   onNewInputEvent(int unsigned const p_level) noexcept(true);
+  void   onNewOutputEvent(int unsigned const p_level) noexcept(true);
+  void   onShutdownSystemEvent(int unsigned const p_level) noexcept(true);
 
 };
 

@@ -77,7 +77,7 @@ public:
 
   // Getters/Setters
 
-  inline string getDeviceFileLock(string const & p_device_name) const throw()
+  inline string getDeviceFileLock(string const & p_device_name) const noexcept(true)
   {
     // DEVELOPER NOTE:
     //  Putting the lock file in /dev/shm allows the system to clean them up on
@@ -86,13 +86,13 @@ public:
   }
 
 
-  inline string getOutputLongFilename(time_t const p_time, string const & p_ext = "") const throw()
+  inline string getOutputLongFilename(time_t const p_time, string const & p_ext = "") const noexcept(true)
   {
     return(getAbsFilename(false, p_time, p_ext));
   }
 
 
-  inline string getOutputTempFilename(time_t const p_time, string const & p_ext = "") const throw()
+  inline string getOutputTempFilename(time_t const p_time, string const & p_ext = "") const noexcept(true)
   {
     return(getAbsFilename(true, p_time, p_ext));
   }
@@ -100,12 +100,12 @@ public:
 
   // Constructors
 
-  OutputHelper(string const & p_output_data_dir, string const & p_output_file_ext, int unsigned const p_group_id, string const & p_site_name, string const & p_data_guide_ver, string const & p_delimeter = ".") throw();
+  OutputHelper(string const & p_output_data_dir, string const & p_output_file_ext, int unsigned const p_group_id, string const & p_site_name, string const & p_data_guide_ver, string const & p_delimeter = ".") noexcept(true);
 
 
   // Destructor
 
-  ~OutputHelper(void) throw()
+  ~OutputHelper(void) noexcept(true)
   {
     return;
   }
@@ -113,23 +113,23 @@ public:
 
   // Public Functions
 
-  void   renameTempFilename(string const & p_filename) throw();
-  void   setFileSettings(string const & p_filename) throw();
-  bool   openLocked(string const & p_filename) throw();
-  bool   closeLocked(string const & p_filename) throw();
+  void   renameTempFilename(string const & p_filename) noexcept(true);
+  void   setFileSettings(string const & p_filename) noexcept(true);
+  bool   openLocked(string const & p_filename) noexcept(true);
+  bool   closeLocked(string const & p_filename) noexcept(true);
 #ifndef _MSC_VER
-  int    getFileDescriptor(string const & p_filename) throw();
+  int    getFileDescriptor(string const & p_filename) noexcept(true);
 #else
-  HANDLE getFileDescriptor(string const & p_filename) throw();
+  HANDLE getFileDescriptor(string const & p_filename) noexcept(true);
 #endif
-  bool   eraseFileDescriptor(string const & p_filename) throw();
+  bool   eraseFileDescriptor(string const & p_filename) noexcept(true);
 
 
 private:
 
   // Getters/Setters
 
-  inline string getAbsFilename(bool const p_hidden, time_t const p_time, string const & p_ext = "") const throw()
+  inline string getAbsFilename(bool const p_hidden, time_t const p_time, string const & p_ext = "") const noexcept(true)
   {
     static string lut[2]   = {"", "."};
     static string ymdhms   = "YMDhms";
@@ -151,28 +151,28 @@ private:
   }
 
 #ifndef _MSC_VER
-  inline map<string, int>    & getFileLookup(void) throw() // Cannot be const
+  inline map<string, int>    & getFileLookup(void) noexcept(true) // Cannot be const
 #else
-  inline map<string, HANDLE> & getFileLookup(void) throw() // Cannot be const
+  inline map<string, HANDLE> & getFileLookup(void) noexcept(true) // Cannot be const
 #endif
   {
     return(this->file_lookup);
   }
 
 
-  inline string getOutputFileExt(void) const throw()
+  inline string getOutputFileExt(void) const noexcept(true)
   {
     return(this->output_file_ext);
   }
 
 
-  inline int unsigned getOutputFileGroupId(void) const throw()
+  inline int unsigned getOutputFileGroupId(void) const noexcept(true)
   {
     return(this->output_file_group_id);
   }
 
 
-  inline string getSiteName(void) const throw()
+  inline string getSiteName(void) const noexcept(true)
   {
     return(this->site_name);
   }
@@ -180,18 +180,18 @@ private:
 
   // Constructors
 
-  OutputHelper(void) throw();
+  OutputHelper(void) noexcept(true);
 
-  OutputHelper(OutputHelper const & p_output_helper) throw();
+  OutputHelper(OutputHelper const & p_output_helper) noexcept(true);
 
 
   // Operators
 
-  OutputHelper & operator=(OutputHelper const & p_output_helper) throw();
-  bool           operator<(OutputHelper const & p_output_helper)  const throw();
-  bool           operator>(OutputHelper const & p_output_helper)  const throw();
-  bool           operator==(std::shared_ptr<OutputHelper> const & p_output_helper) const throw();
-  bool           operator!=(std::shared_ptr<OutputHelper> const & p_output_helper) const throw();
+  OutputHelper & operator=(OutputHelper const & p_output_helper) noexcept(true);
+  bool           operator<(OutputHelper const & p_output_helper)  const noexcept(true);
+  bool           operator>(OutputHelper const & p_output_helper)  const noexcept(true);
+  bool           operator==(std::shared_ptr<OutputHelper> const & p_output_helper) const noexcept(true);
+  bool           operator!=(std::shared_ptr<OutputHelper> const & p_output_helper) const noexcept(true);
 
 
   // Variables

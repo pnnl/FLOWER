@@ -72,7 +72,7 @@ public:
 
   // Getters/Setters
 
-  inline ItemCounter & getPacketCounter(void) throw()
+  inline ItemCounter & getPacketCounter(void) noexcept(true)
   {
     return(this->packet_counter);
   }
@@ -80,12 +80,12 @@ public:
 
   // Constructors
 
-  PacketBuilder(NewPcapDescEvent * const p_new_pcap_desc_event, PacketAddEvent * const p_packet_add_event, int unsigned const p_max_packets, int unsigned const p_snaplen) throw();
+  PacketBuilder(NewPcapDescEvent * const p_new_pcap_desc_event, PacketAddEvent * const p_packet_add_event, int unsigned const p_max_packets, int unsigned const p_snaplen) noexcept(true);
 
 
   // Destructor
 
-  ~PacketBuilder(void) throw()
+  ~PacketBuilder(void) noexcept(true)
   {
     return;
   }
@@ -93,64 +93,64 @@ public:
 
   // Public Functions
 
-  bool   initDevice(string const & p_device) throw();
-  bool   initFile(string const & p_file) throw();
-  bool   readDevice(void) throw();
-  bool   readFile(void) throw();
-  void   onIdleSystemEvent(int unsigned const p_timeout) throw();
-  string onMetricsEvent(int unsigned const p_level) throw();
-  void   onShutdownSystemEvent(int unsigned const p_level) throw();
-  void   finish(void) throw();
-  void   pcapProcessPacket(struct pcap_pkthdr const * const p_header, char unsigned const * const p_data) throw();
+  bool   initDevice(string const & p_device) noexcept(true);
+  bool   initFile(string const & p_file) noexcept(true);
+  bool   readDevice(void) noexcept(true);
+  bool   readFile(void) noexcept(true);
+  void   onIdleSystemEvent(int unsigned const p_timeout) noexcept(true);
+  string onMetricsEvent(int unsigned const p_level) noexcept(true);
+  void   onShutdownSystemEvent(int unsigned const p_level) noexcept(true);
+  void   finish(void) noexcept(true);
+  void   pcapProcessPacket(struct pcap_pkthdr const * const p_header, char unsigned const * const p_data) noexcept(true);
 
 
 private:
 
   // Getters/Setters
 
-  inline int unsigned getMaxPackets(void) const throw()
+  inline int unsigned getMaxPackets(void) const noexcept(true)
   {
     return(this->max_packets);
   }
 
 
-  inline NewPcapDescEvent * getNewPcapDescEvent(void) const throw()
+  inline NewPcapDescEvent * getNewPcapDescEvent(void) const noexcept(true)
   {
     return(this->new_pcap_desc_event);
   }
 
 
-  inline sharedPacket & getPacket(void) throw()
+  inline sharedPacket & getPacket(void) noexcept(true)
   {
     return(this->packet);
   }
 
 
-  inline PacketAddEvent * getPacketAddEvent(void) const throw()
+  inline PacketAddEvent * getPacketAddEvent(void) const noexcept(true)
   {
     return(this->packet_add_event);
   }
 
 
-  inline pcap_t * getPcapDescriptor(void) const throw()
+  inline pcap_t * getPcapDescriptor(void) const noexcept(true)
   {
     return(this->pcap_descriptor);
   }
 
 
-  inline int unsigned getSnaplen(void) const throw()
+  inline int unsigned getSnaplen(void) const noexcept(true)
   {
     return(this->snaplen);
   }
 
 
-  inline time_t getVirtualTime(void) throw()
+  inline time_t getVirtualTime(void) noexcept(true)
   {
     return (this->virtual_time);
   }
 
 
-  inline void incrementTime(int unsigned const p_timeout) throw()
+  inline void incrementTime(int unsigned const p_timeout) noexcept(true)
   {
     // DEVELOPER NOTE: 2008/07/16: Bill Nickless says this formula is correct
     this->virtual_time += p_timeout - 1;
@@ -158,19 +158,19 @@ private:
   }
 
 
-  inline bool isPcapDescriptorInitialized(void) throw()
+  inline bool isPcapDescriptorInitialized(void) noexcept(true)
   {
     return(this->pcap_descriptor_initialized);
   }
 
 
-  inline bool isRunning(void) const throw()
+  inline bool isRunning(void) const noexcept(true)
   {
     return(this->running);
   }
 
 
-  inline void setPcapDescriptor(pcap_t * p_descriptor) throw()
+  inline void setPcapDescriptor(pcap_t * p_descriptor) noexcept(true)
   {
     this->pcap_descriptor = p_descriptor;
     getNewPcapDescEvent()->call(p_descriptor);
@@ -179,14 +179,14 @@ private:
   }
 
 
-  inline void setRunning(bool const & p_value) throw()
+  inline void setRunning(bool const & p_value) noexcept(true)
   {
     this->running = p_value;
     return;
   }
 
 
-  inline void setVirtualTime(time_t const p_time) throw()
+  inline void setVirtualTime(time_t const p_time) noexcept(true)
   {
      this->virtual_time = p_time;
      return;
@@ -195,15 +195,15 @@ private:
 
   // Constructors
 
-  PacketBuilder(void) throw();
-  PacketBuilder(PacketBuilder const & p_packet_builder) throw();
+  PacketBuilder(void) noexcept(true);
+  PacketBuilder(PacketBuilder const & p_packet_builder) noexcept(true);
 
 
   // Operators
 
-  PacketBuilder &  operator=(PacketBuilder const & p_packet_builder) throw();
-  bool            operator==(PacketBuilder const & p_packet_builder) const throw();
-  bool            operator!=(PacketBuilder const & p_packet_builder) const throw();
+  PacketBuilder &  operator=(PacketBuilder const & p_packet_builder) noexcept(true);
+  bool            operator==(PacketBuilder const & p_packet_builder) const noexcept(true);
+  bool            operator!=(PacketBuilder const & p_packet_builder) const noexcept(true);
   
 
   // Variables

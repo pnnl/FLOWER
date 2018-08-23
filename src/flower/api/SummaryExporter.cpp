@@ -56,7 +56,7 @@
 // ======================================================================
 
 
-SummaryExporter::SummaryExporter(OutputHelper & p_output_helper, vector<MetricsEvent *> & p_metrics_events, int unsigned const p_summary_forceout, string const & p_version_record, bool const p_suppress_ipv4) throw() :
+SummaryExporter::SummaryExporter(OutputHelper & p_output_helper, vector<MetricsEvent *> & p_metrics_events, int unsigned const p_summary_forceout, string const & p_version_record, bool const p_suppress_ipv4) noexcept(true) :
   summary_forceout(p_summary_forceout),
   output_helper(p_output_helper),
   metrics_events(p_metrics_events),
@@ -76,7 +76,7 @@ SummaryExporter::SummaryExporter(OutputHelper & p_output_helper, vector<MetricsE
 // ======================================================================
 
 
-void SummaryExporter::renameFile(void) throw()
+void SummaryExporter::renameFile(void) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
   if (NULL != getSummaryFile())
@@ -92,7 +92,7 @@ void SummaryExporter::renameFile(void) throw()
 }
 
 
-void SummaryExporter::outputMetadata(void) throw()
+void SummaryExporter::outputMetadata(void) noexcept(true)
 {
   string metric_record;
   vector<MetricsEvent *>::iterator itor = getMetricsEvents().begin();
@@ -113,7 +113,7 @@ void SummaryExporter::outputMetadata(void) throw()
 }
 
 
-bool SummaryExporter::openSummaryFile(void) throw()
+bool SummaryExporter::openSummaryFile(void) noexcept(true)
 {
   bool status = false;
 
@@ -134,7 +134,7 @@ bool SummaryExporter::openSummaryFile(void) throw()
 }
 
 
-void SummaryExporter::writeSummary(sharedFlow const & p_flow) throw()
+void SummaryExporter::writeSummary(sharedFlow const & p_flow) noexcept(true)
 {
   if (getSummaryFile() && getSummaryFile()->is_open())
   {
@@ -152,7 +152,7 @@ void SummaryExporter::writeSummary(sharedFlow const & p_flow) throw()
 }
 
 
-void SummaryExporter::closeSummaryFile(void) throw()
+void SummaryExporter::closeSummaryFile(void) noexcept(true)
 {
   // Close the file stream
   getSummaryFile()->close();
@@ -166,7 +166,7 @@ void SummaryExporter::closeSummaryFile(void) throw()
 }
 
 
-void SummaryExporter::manageFiles(time_t const p_flow_virtual_time) throw()
+void SummaryExporter::manageFiles(time_t const p_flow_virtual_time) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
   if (p_flow_virtual_time > getFileCloseTime())
@@ -188,7 +188,7 @@ void SummaryExporter::manageFiles(time_t const p_flow_virtual_time) throw()
 }
 
 
-void SummaryExporter::onAddEvent(sharedFlow const p_flow) throw()
+void SummaryExporter::onAddEvent(sharedFlow const p_flow) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
   manageFiles(p_flow->getVirtualTime());
@@ -198,7 +198,7 @@ void SummaryExporter::onAddEvent(sharedFlow const p_flow) throw()
 }
 
 
-void SummaryExporter::reset(int unsigned const p_level) throw()
+void SummaryExporter::reset(int unsigned const p_level) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
   renameFile();
@@ -208,7 +208,7 @@ void SummaryExporter::reset(int unsigned const p_level) throw()
 }
 
 
-void SummaryExporter::onNewInputEvent(int unsigned const p_level) throw()
+void SummaryExporter::onNewInputEvent(int unsigned const p_level) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
   reset(p_level);
@@ -218,7 +218,7 @@ void SummaryExporter::onNewInputEvent(int unsigned const p_level) throw()
 }
 
 
-void SummaryExporter::onShutdownSystemEvent(int unsigned const p_level) throw()
+void SummaryExporter::onShutdownSystemEvent(int unsigned const p_level) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
   reset(p_level);

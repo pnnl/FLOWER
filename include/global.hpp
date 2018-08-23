@@ -57,20 +57,20 @@ extern bool const     g_OUTPUT2CONSOLE;
 extern u_int8_t const g_NORMALEXIT;
 extern u_int8_t const g_ABNORMALEXIT;
 
-string const & getDataGuideVersion(void) throw();
-string const & getFileOrWireStr(void) throw();
-int unsigned   getCacheForceout(void) throw();
-int unsigned   getCacheTimeout(void) throw();
-int unsigned   getFileOrWireFlag(void) throw();
-int unsigned   getFileFlag(void) throw();
-int unsigned   getWireFlag(void) throw();
-void           setFileOrWireFlag(bool const p_use_device) throw();
-void           setSiteName(string const & p_site_name) throw();
-void           setCacheForceout(int unsigned const p_seconds) throw();
-void           setCacheTimeout(int unsigned const p_seconds) throw();
-string const & getSiteName(void) throw();
-bool const     getOutputLocation(void) throw();
-void           setOutputLocation(bool const p_destination, char * argv0 = NULL) throw();
+string const & getDataGuideVersion(void) noexcept(true);
+string const & getFileOrWireStr(void) noexcept(true);
+int unsigned   getCacheForceout(void) noexcept(true);
+int unsigned   getCacheTimeout(void) noexcept(true);
+int unsigned   getFileOrWireFlag(void) noexcept(true);
+int unsigned   getFileFlag(void) noexcept(true);
+int unsigned   getWireFlag(void) noexcept(true);
+void           setFileOrWireFlag(bool const p_use_device) noexcept(true);
+void           setSiteName(string const & p_site_name) noexcept(true);
+void           setCacheForceout(int unsigned const p_seconds) noexcept(true);
+void           setCacheTimeout(int unsigned const p_seconds) noexcept(true);
+string const & getSiteName(void) noexcept(true);
+bool const     getOutputLocation(void) noexcept(true);
+void           setOutputLocation(bool const p_destination, char * argv0 = NULL) noexcept(true);
 
 
 void   message(string const & p_ecode,
@@ -80,6 +80,6 @@ void   message(string const & p_ecode,
                string const & p_func,
                string const & p_file,
                int    const   p_line,
-               int    const   p_status) throw();
+               int    const   p_status) noexcept(true);
 
 #endif // GLOBAL_HPP

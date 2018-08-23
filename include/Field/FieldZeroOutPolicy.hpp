@@ -48,7 +48,7 @@ template <typename T>
 struct ZeroOutTbd
 {
 
-  static void zeroOut(T & p_data) throw()
+  static void zeroOut(T & p_data) noexcept(true)
   {
     DEBUG(INFO, "ZeroOutTbd - Not Implemented Yet");
     UNUSED(p_data);
@@ -62,7 +62,7 @@ template <typename T>
 struct ZeroOutNone
 {
 
-  static void zeroOut(T & p_data) throw()
+  static void zeroOut(T & p_data) noexcept(true)
   {
     UNUSED(p_data);
     return;
@@ -78,7 +78,7 @@ template <>
 struct ZeroOut < Data< Elf_t, 1> >
 {
 
-  static void zeroOut(Data< Elf_t, 1> & p_data) throw()
+  static void zeroOut(Data< Elf_t, 1> & p_data) noexcept(true)
   {
     // DEVELOPER NOTE: The bool defines whether the field is ICMP or TCP
     p_data.at(0).clear();
@@ -93,7 +93,7 @@ template <>
 struct ZeroOut < Data<u_int32_t, 4> >
 {
 
-  static void zeroOut(Data<u_int32_t, 4> & p_data) throw()
+  static void zeroOut(Data<u_int32_t, 4> & p_data) noexcept(true)
   {
     // DEVELOPER NOTE:
     //  Set the start time to the end time of the last flow so
@@ -115,7 +115,7 @@ template <>
 struct ZeroOut < Data<u_int8_t, 1> >
 {
 
-  static void zeroOut(Data<u_int8_t, 1> & p_data) throw()
+  static void zeroOut(Data<u_int8_t, 1> & p_data) noexcept(true)
   {
     p_data.at(0) = 0;
     return;
@@ -128,7 +128,7 @@ template <>
 struct ZeroOut < Data<u_int32_t, 1> >
 {
 
-  static void zeroOut(Data<u_int32_t, 1> & p_data) throw()
+  static void zeroOut(Data<u_int32_t, 1> & p_data) noexcept(true)
   {
     p_data.at(0) = 0;
     return;
@@ -141,7 +141,7 @@ template <>
 struct ZeroOut < Data<u_int16_t, 2> >
 {
 
-  static void zeroOut(Data<u_int16_t, 2> & p_data) throw()
+  static void zeroOut(Data<u_int16_t, 2> & p_data) noexcept(true)
   {
     p_data.at(0) = 0;
     p_data.at(1) = 0;
@@ -155,7 +155,7 @@ template <>
 struct ZeroOut < Data<u_int64_t, 2> >
 {
 
-  static void zeroOut(Data<u_int64_t, 2> & p_data) throw()
+  static void zeroOut(Data<u_int64_t, 2> & p_data) noexcept(true)
   {
     p_data.at(0) = 0;
     p_data.at(1) = 0;
@@ -169,7 +169,7 @@ template <>
 struct ZeroOut < Data<u_int64_t, 4> >
 {
 
-  static void zeroOut(Data<u_int64_t, 4> & p_data) throw()
+  static void zeroOut(Data<u_int64_t, 4> & p_data) noexcept(true)
   {
     p_data.at(0) = 0;
     p_data.at(1) = 0;
@@ -188,7 +188,7 @@ template <>
 struct ZeroOutSeq < Data<u_int32_t, 2> >
 {
 
-  static void zeroOut(Data<u_int32_t, 2> & p_data) throw()
+  static void zeroOut(Data<u_int32_t, 2> & p_data) noexcept(true)
   {
     p_data.at(0) = 0;
     p_data.at(1) = 0;
@@ -201,7 +201,7 @@ template <>
 struct ZeroOutSeq < Data<u_int32_t, 4> >
 {
 
-  static void zeroOut(Data<u_int32_t, 4> & p_data) throw()
+  static void zeroOut(Data<u_int32_t, 4> & p_data) noexcept(true)
   {
     p_data.at(0) = 0;
     p_data.at(1) = 0;

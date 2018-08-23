@@ -51,25 +51,25 @@ static bool         console_or_log   = true;   // NOTE: true = Console, false = 
 
 // Getters/Setters
 
-string const & getDataGuideVersion(void) throw()
+string const & getDataGuideVersion(void) noexcept(true)
 {
   return(::g_DATA_GUIDE_VERSION);
 }
 
 
-string const & getFileOrWireStr(void) throw()
+string const & getFileOrWireStr(void) noexcept(true)
 {
   return(wire_or_file_str);
 }
 
 
-int unsigned getFileOrWireFlag(void) throw()
+int unsigned getFileOrWireFlag(void) noexcept(true)
 {
   return(wire_or_file_num);
 }
 
 
-void setFileOrWireFlag(bool const p_use_device) throw()
+void setFileOrWireFlag(bool const p_use_device) noexcept(true)
 {
   if (p_use_device)
   {
@@ -85,52 +85,52 @@ void setFileOrWireFlag(bool const p_use_device) throw()
 }
 
 
-string const & getSiteName(void) throw()
+string const & getSiteName(void) noexcept(true)
 {
   return(site_name);
 }
 
 
-void setSiteName(string const & p_site_name) throw()
+void setSiteName(string const & p_site_name) noexcept(true)
 {
   site_name = p_site_name;
   return;
 }
 
 
-int unsigned getCacheForceout(void) throw()
+int unsigned getCacheForceout(void) noexcept(true)
 {
   return(cache_forceout);
 }
 
 
-void setCacheForceout(int unsigned const p_seconds) throw()
+void setCacheForceout(int unsigned const p_seconds) noexcept(true)
 {
   cache_forceout = p_seconds;
   return;
 }
 
 
-int unsigned getCacheTimeout(void) throw()
+int unsigned getCacheTimeout(void) noexcept(true)
 {
   return(cache_timeout);
 }
 
 
-void setCacheTimeout(int unsigned const p_seconds) throw()
+void setCacheTimeout(int unsigned const p_seconds) noexcept(true)
 {
   cache_timeout = p_seconds;
   return;
 }
 
 
-bool const getOutputLocation(void) throw()
+bool const getOutputLocation(void) noexcept(true)
 {
   return(console_or_log);
 }
 
 
-void setOutputLocation(bool const p_destination, char * argv0) throw()
+void setOutputLocation(bool const p_destination, char * argv0) noexcept(true)
 {
   console_or_log = p_destination;
   if (NULL != argv0)
@@ -149,7 +149,7 @@ void message(string const & p_ecode,
              string const & p_func,
              string const & p_file,
              int    const   p_line,
-             int    const   p_status) throw()
+             int    const   p_status) noexcept(true)
 {
   u_int16_t pad = 14;
 

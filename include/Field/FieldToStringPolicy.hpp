@@ -57,7 +57,7 @@ template <typename T>
 struct ToStringNone
 {
 
-  static void toString(T const & p_data, string & p_tmp) throw()
+  static void toString(T const & p_data, string & p_tmp) noexcept(true)
   {
     UNUSED(p_data);
     p_tmp += ",NONE";
@@ -74,7 +74,7 @@ template <typename T>
 struct ToStringHexNonzero < Data<T, 1> >
 {
 
-  static void toString(Data<T, 1> const & p_data, string & p_tmp, bool const valid) throw()
+  static void toString(Data<T, 1> const & p_data, string & p_tmp, bool const valid) noexcept(true)
   {
     if (! valid || 0 == p_data.at(0))
     {
@@ -95,7 +95,7 @@ template <typename T>
 struct ToStringNonzero < Data<T, 1> >
 {
 
-  static void toString(Data<T, 1> const & p_data, string & p_tmp, bool const valid) throw()
+  static void toString(Data<T, 1> const & p_data, string & p_tmp, bool const valid) noexcept(true)
   {
     if (! valid || 0 == p_data.at(0))
     {
@@ -113,7 +113,7 @@ template <typename T>
 struct ToStringNonzero < Data<T, 2> >
 {
 
-  static void toString(Data<T, 2> const & p_data, string & p_tmp, bool const valid_0, bool const valid_1) throw()
+  static void toString(Data<T, 2> const & p_data, string & p_tmp, bool const valid_0, bool const valid_1) noexcept(true)
   {
     if (! (valid_0 | valid_1))
     {
@@ -142,7 +142,7 @@ template <typename T>
 struct ToStringPayloadNonzero < Data<T, 4> >
 {
 
-  static void toString(Data<T, 4> const & p_data, string & p_tmp, bool const valid_0, bool const valid_1) throw()
+  static void toString(Data<T, 4> const & p_data, string & p_tmp, bool const valid_0, bool const valid_1) noexcept(true)
   {
     if (! (valid_0 | valid_1))
     {
@@ -169,7 +169,7 @@ struct ToStringPayloadNonzero < Data<T, 4> >
 template <typename T>
 struct ToStringFlags
 {
-  static void toString(T const & p_data, string & p_tmp, u_int8_t const valid) throw()
+  static void toString(T const & p_data, string & p_tmp, u_int8_t const valid) noexcept(true)
   {
     p_tmp += ',';
     if (0 == valid || p_data.at(0).is_zero)
@@ -231,7 +231,7 @@ struct ToStringFlags
 template <typename T>
 struct ToStringIcmpflags
 {
-  static void toString(T const & p_data, string & p_tmp, bool const valid_0, bool const valid_1) throw()
+  static void toString(T const & p_data, string & p_tmp, bool const valid_0, bool const valid_1) noexcept(true)
   {
     p_tmp += ',';
     if (valid_0)
@@ -251,7 +251,7 @@ struct ToStringIcmpflags
 template <typename T>
 struct ToStringTcpflags
 {
-  static void toString(T const & p_data, string & p_tmp, bool const valid_0, bool const valid_1) throw()
+  static void toString(T const & p_data, string & p_tmp, bool const valid_0, bool const valid_1) noexcept(true)
   {
     p_tmp += ',';
     if (valid_0)
@@ -279,7 +279,7 @@ template <>
 struct ToString < Data<u_int64_t, 1> >
 {
 
-  static void toString(Data<u_int64_t, 1> const & p_data, string & p_tmp, bool const valid) throw()
+  static void toString(Data<u_int64_t, 1> const & p_data, string & p_tmp, bool const valid) noexcept(true)
   {
     if (! valid)
     {
@@ -297,7 +297,7 @@ template <>
 struct ToString < Data<u_int8_t, 1> >
 {
 
-  static void toString(Data<u_int8_t, 1> const & p_data, string & p_tmp, bool const valid) throw()
+  static void toString(Data<u_int8_t, 1> const & p_data, string & p_tmp, bool const valid) noexcept(true)
   {
     if (! valid)
     {
@@ -315,7 +315,7 @@ template <>
 struct ToString < Data<u_int32_t, 4> >
 {
 
-  static void toString(Data<u_int32_t, 4> const & p_data, string & p_tmp, bool const valid_0, bool const valid_1, bool const valid_2, bool const valid_3) throw()
+  static void toString(Data<u_int32_t, 4> const & p_data, string & p_tmp, bool const valid_0, bool const valid_1, bool const valid_2, bool const valid_3) noexcept(true)
   {
     // DEVELOPER NOTE:
     //   first  - start time - seconds
@@ -345,7 +345,7 @@ struct ToStringSeq < Data<u_int32_t, 4> >
 
   // DEVELOPER NOTE: This is for the First/Last Seen Src/Dst Tcp Sequence Number
 
-  static void toString(Data<u_int32_t, 4> const & p_data, string & p_tmp, bool const valid_0, bool const valid_1) throw()
+  static void toString(Data<u_int32_t, 4> const & p_data, string & p_tmp, bool const valid_0, bool const valid_1) noexcept(true)
   {
     p_tmp += ',';
     if (valid_0 & (0 != p_data.at(0)))
@@ -380,7 +380,7 @@ template <>
 struct ToStringIp < Data< IpAddress_t, 2 > >
 {
 
-  static void toString(Data< IpAddress_t, 2 > const & p_data, string & p_tmp, bool const valid_0, bool const valid_1) throw()
+  static void toString(Data< IpAddress_t, 2 > const & p_data, string & p_tmp, bool const valid_0, bool const valid_1) noexcept(true)
   {
     if (! (valid_0 & valid_1))
     {
@@ -410,7 +410,7 @@ template <>
 struct ToStringFragType < Data<u_int8_t, 3> >
 {
 
-  static void toString(Data<u_int8_t, 3> const & p_data, string & p_tmp, bool const valid_0, bool const valid_1, bool const valid_2) throw()
+  static void toString(Data<u_int8_t, 3> const & p_data, string & p_tmp, bool const valid_0, bool const valid_1, bool const valid_2) noexcept(true)
   {
     // We always print the FragType even though we pass in the valid_*
 

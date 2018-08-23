@@ -85,7 +85,7 @@ PacketParser::PacketParser(
                            int unsigned const   p_cache_forceout,
                            bool const           p_use_vlan,
                            bool const           p_skip_ipv4_packets
-                          ) throw() :
+                          ) noexcept(true) :
   fake_flow(new Flow(::g_FAKE)),
   data(fake_data),
   flow_add_event(p_flow_add_event),
@@ -114,7 +114,7 @@ PacketParser::PacketParser(
 }
 
 
-bool PacketParser::processIcmp(void) throw()
+bool PacketParser::processIcmp(void) noexcept(true)
 {
   static int unsigned const min_icmp_hdr_bytes = 8;
 
@@ -139,7 +139,7 @@ bool PacketParser::processIcmp(void) throw()
 }
 
 
-bool PacketParser::processTcpOptions(int unsigned p_tcp_hdr_len, int unsigned p_offset_to_options) throw()
+bool PacketParser::processTcpOptions(int unsigned p_tcp_hdr_len, int unsigned p_offset_to_options) noexcept(true)
 {
   // DEVELOPER NOTE: Return true if at least one recognized option was parsed, false otherwise
   bool status = false;
@@ -292,7 +292,7 @@ cout << "BAD OPTION LENGTH: " << current_option_length << endl;
 }
 
 
-bool PacketParser::processTcp(void) throw()
+bool PacketParser::processTcp(void) noexcept(true)
 {
   int unsigned tcp_hdr_len                   =  0;
   int unsigned const min_tcp_hdr_bytes       = 20;
@@ -342,7 +342,7 @@ bool PacketParser::processTcp(void) throw()
 }
 
 
-bool PacketParser::processUdp(void) throw()
+bool PacketParser::processUdp(void) noexcept(true)
 {
   int unsigned const min_udp_hdr_bytes = 8;
 
@@ -368,7 +368,7 @@ bool PacketParser::processUdp(void) throw()
 }
 
 
-int unsigned PacketParser::parseTeredoHeader(int unsigned const p_offset) throw()
+int unsigned PacketParser::parseTeredoHeader(int unsigned const p_offset) noexcept(true)
 {
   //  http://tools.ietf.org/html/rfc4380
 
@@ -472,7 +472,7 @@ int unsigned PacketParser::parseTeredoHeader(int unsigned const p_offset) throw(
 }
 
 
-void PacketParser::setTunnelVars(void) throw()
+void PacketParser::setTunnelVars(void) noexcept(true)
 {
   incrTunnelDepth();
 
@@ -499,7 +499,7 @@ void PacketParser::setTunnelVars(void) throw()
 }
 
 
-void PacketParser::processIpv4Frag(int unsigned const p_ip_hdr_offset) throw()
+void PacketParser::processIpv4Frag(int unsigned const p_ip_hdr_offset) noexcept(true)
 {
   static int unsigned const ip_hdr_ident_offset = 4;
   static int unsigned const ip_hdr_frag_offset  = 6;
@@ -529,7 +529,7 @@ void PacketParser::processIpv4Frag(int unsigned const p_ip_hdr_offset) throw()
 }
 
 
-bool PacketParser::processIpv4Hdr(int unsigned const p_ip_hdr_offset) throw()
+bool PacketParser::processIpv4Hdr(int unsigned const p_ip_hdr_offset) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
 
@@ -626,7 +626,7 @@ bool PacketParser::processIpv4Hdr(int unsigned const p_ip_hdr_offset) throw()
 }
 
 
-void PacketParser::processIpv6FragHdr(int unsigned const p_offset) throw()
+void PacketParser::processIpv6FragHdr(int unsigned const p_offset) noexcept(true)
 {
   // IPv6 Fragment header
   //+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -669,7 +669,7 @@ void PacketParser::processIpv6FragHdr(int unsigned const p_offset) throw()
 }
 
 
-bool PacketParser::processIpv6ExtensionHdrs(int unsigned & p_extension_hdr_offset, u_int8_t & p_next_hdr_type) throw()
+bool PacketParser::processIpv6ExtensionHdrs(int unsigned & p_extension_hdr_offset, u_int8_t & p_next_hdr_type) noexcept(true)
 {
   // DEVELOPER NOTE: see http://tools.ietf.org/html/rfc2460 ==> IPv6 in general
   //                     http://tools.ietf.org/html/rfc4302 ==> Auth Headers
@@ -853,7 +853,7 @@ bool PacketParser::processIpv6ExtensionHdrs(int unsigned & p_extension_hdr_offse
 }
 
    
-bool PacketParser::processGreHdr(int unsigned const p_gre_hdr_offset) throw()
+bool PacketParser::processGreHdr(int unsigned const p_gre_hdr_offset) noexcept(true)
 {
   //  Generic Routing Encapsulation http://tools.ietf.org/html/rfc2890
   //
@@ -939,7 +939,7 @@ bool PacketParser::processGreHdr(int unsigned const p_gre_hdr_offset) throw()
 }
 
 
-bool PacketParser::processTunnel(int unsigned const p_offset) throw()
+bool PacketParser::processTunnel(int unsigned const p_offset) noexcept(true)
 {
   u_int8_t const six_in_six = 41;
   if (six_in_six == getIpProtocol())
@@ -1000,7 +1000,7 @@ bool PacketParser::processTunnel(int unsigned const p_offset) throw()
 }
 
 
-bool PacketParser::processIpv6Hdr(int unsigned const p_ip_hdr_offset) throw()
+bool PacketParser::processIpv6Hdr(int unsigned const p_ip_hdr_offset) noexcept(true)
 {
   //  http://tools.ietf.org/html/rfc2460
 
@@ -1072,7 +1072,7 @@ bool PacketParser::processIpv6Hdr(int unsigned const p_ip_hdr_offset) throw()
 }
 
 
-void PacketParser::createFlow(sharedPacket const & p_packet) throw()
+void PacketParser::createFlow(sharedPacket const & p_packet) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
 
@@ -1155,7 +1155,7 @@ void PacketParser::createFlow(sharedPacket const & p_packet) throw()
 }
 
 
-bool PacketParser::dropEthernetHardwareHeaders(void) throw()
+bool PacketParser::dropEthernetHardwareHeaders(void) noexcept(true)
 {
   if (isSpanningTreeProtocol() || isPvstProtocol())
   {
@@ -1167,7 +1167,7 @@ bool PacketParser::dropEthernetHardwareHeaders(void) throw()
 }
 
 
-void PacketParser::skipEthernetHardwareHeaders(void) throw()
+void PacketParser::skipEthernetHardwareHeaders(void) noexcept(true)
 {
   // DEVELOPER NOTE: From http://www.cisco.com/en/US/tech/tk389/tk689/technologies_tech_note09186a0080094665.shtml#topic1
   if (isIslEncapsulation())
@@ -1179,7 +1179,7 @@ void PacketParser::skipEthernetHardwareHeaders(void) throw()
 }
 
 
-bool PacketParser::processVlan(void) throw()
+bool PacketParser::processVlan(void) noexcept(true)
 {
   int unsigned const vlan_type = 0x8100;
 
@@ -1201,7 +1201,7 @@ bool PacketParser::processVlan(void) throw()
 }
 
 
-void PacketParser::processMpls(void) throw()
+void PacketParser::processMpls(void) noexcept(true)
 {
   int unsigned const mlps_type = 0x8847; // Multi Protocol Layered Switching
   int unsigned const ipv4_type = 0x0800;
@@ -1219,7 +1219,7 @@ void PacketParser::processMpls(void) throw()
 }
 
 
-bool PacketParser::processEthernetLayer2(void) throw()
+bool PacketParser::processEthernetLayer2(void) noexcept(true)
 {
   skipEthernetHardwareHeaders();
 
@@ -1264,7 +1264,7 @@ bool PacketParser::processEthernetLayer2(void) throw()
 }
 
 
-bool PacketParser::processIpLayer3(void) throw()
+bool PacketParser::processIpLayer3(void) noexcept(true)
 {
   // DEVELOPER NOTE: processIpv* is responsible for dropping bad packets
   //                 and reporting an error when the packet cannot be parsed.
@@ -1289,13 +1289,13 @@ bool PacketParser::processIpLayer3(void) throw()
 }
 
 
-bool PacketParser::processOther(void) throw()
+bool PacketParser::processOther(void) noexcept(true)
 {
   return(true);
 }
 
 
-bool PacketParser::processProtocolLayer4(void) throw()
+bool PacketParser::processProtocolLayer4(void) noexcept(true)
 {
   // DEVELOPER NOTE: The following code is faster than a switch/case statement
 
@@ -1321,7 +1321,7 @@ bool PacketParser::processProtocolLayer4(void) throw()
 }
 
 
-void PacketParser::resetTunnelVars(void) throw()
+void PacketParser::resetTunnelVars(void) noexcept(true)
 {
   setTunnelDepth(0);
   setTunnelIpProtocol(0);
@@ -1335,7 +1335,7 @@ void PacketParser::resetTunnelVars(void) throw()
 }
 
 
-void PacketParser::initVars(void) throw()
+void PacketParser::initVars(void) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
 
@@ -1363,7 +1363,7 @@ void PacketParser::initVars(void) throw()
 }
 
 
-void PacketParser::resetVars(void) throw()
+void PacketParser::resetVars(void) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
 
@@ -1403,7 +1403,7 @@ void PacketParser::resetVars(void) throw()
 }
 
 
-void PacketParser::onAddEvent(sharedPacket const p_packet) throw()
+void PacketParser::onAddEvent(sharedPacket const p_packet) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
 
@@ -1454,7 +1454,7 @@ void PacketParser::onAddEvent(sharedPacket const p_packet) throw()
 }
 
 
-string PacketParser::onMetricsEvent(int unsigned const p_level) throw()
+string PacketParser::onMetricsEvent(int unsigned const p_level) noexcept(true)
 {
   u_int64_t total_bytes_calc   = this->eth_bad_bytes_count  + this->ipv4_bad_bytes_count  + this->ipv6_bad_bytes_count  + this->ipv4_good_bytes_count  + this->ipv6_good_bytes_count;
   u_int64_t total_packets_calc = this->eth_bad_packet_count + this->ipv4_bad_packet_count + this->ipv6_bad_packet_count + this->ipv4_good_packet_count + this->ipv6_good_packet_count;
@@ -1498,7 +1498,7 @@ string PacketParser::onMetricsEvent(int unsigned const p_level) throw()
 }
 
 
-void PacketParser::onShutdownSystemEvent(int unsigned const p_level) throw()
+void PacketParser::onShutdownSystemEvent(int unsigned const p_level) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
   DEBUG(TRACE, LEAVE);

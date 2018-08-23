@@ -66,19 +66,19 @@ public:
 
   // Getters/Setters
 
-  inline int unsigned getHeartbeatCount(void) const throw()
+  inline int unsigned getHeartbeatCount(void) const noexcept(true)
   {
     return(this->heartbeat_count);
   }
 
 
-  inline ItemCounter & getPacketCounter(void) throw()
+  inline ItemCounter & getPacketCounter(void) noexcept(true)
   {
     return(this->packet_count);
   }
 
 
-  sharedPacket & getFakePacket(void) throw()
+  sharedPacket & getFakePacket(void) noexcept(true)
   {
     static struct timeval tv;
 #ifndef _MSC_VER
@@ -96,12 +96,12 @@ public:
 
   // Constructors
 
-  PacketRinger(OutputHelper & p_output_helper, PacketAddEvent * const p_packet_add_event, int unsigned const p_timeout, int unsigned const p_max_packets, bool const p_buffer_packets, int unsigned const p_max_packetbuffer_size) throw();
+  PacketRinger(OutputHelper & p_output_helper, PacketAddEvent * const p_packet_add_event, int unsigned const p_timeout, int unsigned const p_max_packets, bool const p_buffer_packets, int unsigned const p_max_packetbuffer_size) noexcept(true);
 
 
   // Destructor
 
-  ~PacketRinger(void) throw()
+  ~PacketRinger(void) noexcept(true)
   {
     return;
   }
@@ -109,191 +109,191 @@ public:
 
   // Public Functions
 
-  static bool checkDevice(string const & p_device, struct ifreq * p_req = NULL) throw();
+  static bool checkDevice(string const & p_device, struct ifreq * p_req = NULL) noexcept(true);
 
-  void   finish() throw();
-  bool   initDevice(string const & p_device) throw();
-  string onMetricsEvent(int unsigned const p_level) throw();
-  void   onShutdownSystemEvent(int unsigned const p_level) throw();
-  bool   readDevice(void) throw();
-  void   writePacketsToFile(void) throw();
+  void   finish() noexcept(true);
+  bool   initDevice(string const & p_device) noexcept(true);
+  string onMetricsEvent(int unsigned const p_level) noexcept(true);
+  void   onShutdownSystemEvent(int unsigned const p_level) noexcept(true);
+  bool   readDevice(void) noexcept(true);
+  void   writePacketsToFile(void) noexcept(true);
 
 
 private:
 
   // Getters/Setters
 
-  inline bool bufferPackets(void) const throw()
+  inline bool bufferPackets(void) const noexcept(true)
   {
     return(this->buffer_packets);
   }
 
 
-  inline u_int64_t getBufferCnt(void) const throw()
+  inline u_int64_t getBufferCnt(void) const noexcept(true)
   {
     return(this->buffer_cnt);
   }
 
 
-  inline u_int8_t * getBufferIdx(void) const throw()
+  inline u_int8_t * getBufferIdx(void) const noexcept(true)
   {
     return(this->buffer_idx);
   }
 
 
-  inline int getSocket(void) const throw()
+  inline int getSocket(void) const noexcept(true)
   {
     return(this->network_socket);
   }
 
 
-  inline string getInterfaceName(void) const throw()
+  inline string getInterfaceName(void) const noexcept(true)
   {
     return(this->interface_name);
   }
 
 
-  inline int unsigned getMaxPackets(void) const throw()
+  inline int unsigned getMaxPackets(void) const noexcept(true)
   {
     return(this->max_packets);
   }
 
 
-  inline OutputHelper & getOutputHelper(void) const throw()
+  inline OutputHelper & getOutputHelper(void) const noexcept(true)
   {
     return(this->output_helper);
   }
 
 
-  inline sharedPacket & getPacket(void) throw()
+  inline sharedPacket & getPacket(void) noexcept(true)
   {
     return(this->packet);
   }
 
 
-  inline PacketAddEvent * getPacketAddEvent(void) const throw()
+  inline PacketAddEvent * getPacketAddEvent(void) const noexcept(true)
   {
     return(this->packet_add_event);
   }
 
 
-  inline char unsigned * getPacketData(void) throw()
+  inline char unsigned * getPacketData(void) noexcept(true)
   {
     return(this->packet_data);
   }
 
 
-  inline struct pcap_pkthdr & getPacketHeader(void) throw()
+  inline struct pcap_pkthdr & getPacketHeader(void) noexcept(true)
   {
     return(this->packet_header);
   }
 
 
-  inline u_int8_t * getRing(void) const throw()
+  inline u_int8_t * getRing(void) const noexcept(true)
   {
     return(this->ring);
   }
 
 
-  inline u_int8_t * getRingEnd(void) const throw()
+  inline u_int8_t * getRingEnd(void) const noexcept(true)
   {
     return(this->ring_end);
   }
 
 
-  inline int unsigned getTimeout(void) const throw()
+  inline int unsigned getTimeout(void) const noexcept(true)
   {
     return(this->timeout);
   }
 
 
-  inline int unsigned getTpFrameSize(void) const throw()
+  inline int unsigned getTpFrameSize(void) const noexcept(true)
   {
     return(this->tp_frame_size);
   }
 
 
-  inline int unsigned getTpFrameNr(void) const throw()
+  inline int unsigned getTpFrameNr(void) const noexcept(true)
   {
     return(this->tp_frame_nr);
   }
 
 
-  inline int unsigned getTpBlockSize(void) const throw()
+  inline int unsigned getTpBlockSize(void) const noexcept(true)
   {
     return(this->tp_block_size);
   }
 
 
-  inline int unsigned getTpBlockNr(void) const throw()
+  inline int unsigned getTpBlockNr(void) const noexcept(true)
   {
     return(this->tp_block_nr);
   }
 
 
-  inline void incrHeartbeatCount(void) throw()
+  inline void incrHeartbeatCount(void) noexcept(true)
   {
     ++this->heartbeat_count;
     return;
   }
 
 
-  inline bool isRunning(void) const throw()
+  inline bool isRunning(void) const noexcept(true)
   {
     return(this->running);
   }
 
 
-  inline void setBufferIdx(u_int8_t * p_buffer_idx) throw()
+  inline void setBufferIdx(u_int8_t * p_buffer_idx) noexcept(true)
   {
     this->buffer_idx = p_buffer_idx;
     return;
   }
 
 
-  inline void resetHeartbeatCount(void) throw()
+  inline void resetHeartbeatCount(void) noexcept(true)
   {
     this->heartbeat_count = 0;
     return;
   }
 
 
-  inline void setInterfaceName(string const & p_name) throw()
+  inline void setInterfaceName(string const & p_name) noexcept(true)
   {
     this->interface_name = p_name;
     return;
   }
 
 
-  inline void setPacketData(char unsigned * p_value) throw()
+  inline void setPacketData(char unsigned * p_value) noexcept(true)
   {
     this->packet_data = p_value;
     return;
   }
 
 
-  inline void setRing(u_int8_t * p_value) throw()
+  inline void setRing(u_int8_t * p_value) noexcept(true)
   {
     this->ring = p_value;
     return;
   }
 
 
-  inline void setRingEnd(u_int8_t * p_value) throw()
+  inline void setRingEnd(u_int8_t * p_value) noexcept(true)
   {
     this->ring_end = p_value;
     return;
   }
 
 
-  inline void setRunning(bool const & p_value) throw()
+  inline void setRunning(bool const & p_value) noexcept(true)
   {
     this->running = p_value;
     return;
   }
 
 
-  inline void setSocket(int const p_value) throw()
+  inline void setSocket(int const p_value) noexcept(true)
   {
     this->network_socket = p_value;
     return;
@@ -302,21 +302,21 @@ private:
 
   // Constructors
 
-  PacketRinger(void) throw();
-  PacketRinger(PacketRinger const & p_packet_ringer) throw();
+  PacketRinger(void) noexcept(true);
+  PacketRinger(PacketRinger const & p_packet_ringer) noexcept(true);
 
 
   // Operators
 
-  PacketRinger &   operator=(PacketRinger const & p_packet_ringer) throw();
-  bool            operator==(PacketRinger const & p_packet_ringer) const throw();
-  bool            operator!=(PacketRinger const & p_packet_ringer) const throw();
+  PacketRinger &   operator=(PacketRinger const & p_packet_ringer) noexcept(true);
+  bool            operator==(PacketRinger const & p_packet_ringer) const noexcept(true);
+  bool            operator!=(PacketRinger const & p_packet_ringer) const noexcept(true);
   
 
   // Functions
 
-  void resetCounters(void) throw();
-  bool promiscuousMode(bool p_on_or_off) throw();
+  void resetCounters(void) noexcept(true);
+  bool promiscuousMode(bool p_on_or_off) noexcept(true);
 
 
   // Variables

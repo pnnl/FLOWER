@@ -77,7 +77,7 @@ private:
 
     // Constructors
 
-    Base(string const & p_name) throw() :
+    Base(string const & p_name) noexcept(true) :
       name(p_name)
     {
       return;
@@ -86,7 +86,7 @@ private:
 
     // Destructor
 
-    virtual ~Base(void) throw()
+    virtual ~Base(void) noexcept(true)
     {
       // Required for polymorphic destruction to work properly
       return;
@@ -99,7 +99,7 @@ private:
     virtual Return operator()(Data const & p_data) = 0;
 
 
-    virtual string getName(void) const throw()
+    virtual string getName(void) const noexcept(true)
     {
       return(this->name);
     }
@@ -124,7 +124,7 @@ private:
   };  // End Base class
     
 
-  inline int unsigned nextIndex(void) throw()  // Cannot be const
+  inline int unsigned nextIndex(void) noexcept(true)  // Cannot be const
   {
     int unsigned temp = this->index;
     ++this->index;
@@ -170,7 +170,7 @@ public:
 
     // Constructor
 
-    New(string const & p_name, Class * p_instance, Func const & p_function) throw() :
+    New(string const & p_name, Class * p_instance, Func const & p_function) noexcept(true) :
       Base(p_name),
       delegate_instance(p_instance),
       member_function(p_function)
@@ -181,7 +181,7 @@ public:
 
     // Destructor
 
-    ~New(void) throw()
+    ~New(void) noexcept(true)
     {
       this->delegate_instance  = NULL;
       this->member_function    = NULL;
@@ -191,7 +191,7 @@ public:
 
     // Operators
 
-    virtual Return operator()(Data const & p_data) throw()
+    virtual Return operator()(Data const & p_data) noexcept(true)
     {
       // Invoke the function through the pointer-to-member
       return(delegate_instance->*member_function)(p_data);
@@ -220,7 +220,7 @@ public:
 
     // Constuctors
 
-    Static(string const & p_name, Func const & p_function) throw() :
+    Static(string const & p_name, Func const & p_function) noexcept(true) :
       Base(p_name),
       member_function(p_function)
     {
@@ -230,7 +230,7 @@ public:
 
     // Destructor
 
-    ~Static(void) throw()
+    ~Static(void) noexcept(true)
     {
       this->member_function = NULL; 
       return;
@@ -239,7 +239,7 @@ public:
 
     // Operators
 
-    virtual Return operator()(Data const & p_data) throw()
+    virtual Return operator()(Data const & p_data) noexcept(true)
     {
       // Invoke the function throught the pointer-to-member
       return(member_function(p_data));
@@ -257,7 +257,7 @@ public:
 
   // Constructors
 
-  Event(string const & p_name = "No Event Name Available") throw() :
+  Event(string const & p_name = "No Event Name Available") noexcept(true) :
     index(0),
     eventName(p_name)
   {
@@ -267,7 +267,7 @@ public:
 
   // Destructor
 
-  ~Event(void) throw()
+  ~Event(void) noexcept(true)
   {
     typename map<int unsigned, Base *>::iterator end = this->delegates.end();
     typename map<int unsigned, Base *>::iterator itor;
@@ -283,7 +283,7 @@ public:
 
   // Operators 
 
-  Event & operator+=(Base * p_function) throw()
+  Event & operator+=(Base * p_function) noexcept(true)
   {
     // Add a new target (callee) to our list
     int unsigned index = nextIndex();
@@ -294,7 +294,7 @@ public:
   }
 
 
-  Event & operator-=(string const & p_name) throw()
+  Event & operator-=(string const & p_name) noexcept(true)
   {
     map<string, int unsigned>::iterator l_end  = this->lookup.end();
     map<string, int unsigned>::iterator l_itor = this->lookup.find(p_name);
@@ -323,7 +323,7 @@ public:
   }
 
 
-  Return  operator()(Data const & p_data) throw()
+  Return  operator()(Data const & p_data) noexcept(true)
   {
     // Call all the targets - there will be horrible undefined behaviour
     // if the callee object no longer exists. You have been warned!
@@ -361,7 +361,7 @@ public:
 
   // Public Functions
 
-  void printError(string const & errorType, string const & p_message, string const & p_extra = "N/A") const throw()
+  void printError(string const & errorType, string const & p_message, string const & p_extra = "N/A") const noexcept(true)
   {
 #ifdef ERROR_MSG
     ERROR_MSG(UnknownException, getContext().c_str(),  (p_message +  p_extra).c_str());
@@ -372,7 +372,7 @@ public:
   }
 
 
-  Return call(Data const & p_data) throw()
+  Return call(Data const & p_data) noexcept(true)
   {
     // Just some syntactic sugar so that the user can use
     //   delegate->call(data)
@@ -382,19 +382,19 @@ public:
   }
 
 
-  inline string getEventName(void) const throw()
+  inline string getEventName(void) const noexcept(true)
   {
     return(this->eventName);
   }
 
 
-  inline string getContext(void) const throw()
+  inline string getContext(void) const noexcept(true)
   {
     return("Event (" + getEventName() + ")");
   }
 
 
-  inline string getMessage(int unsigned const p_idx) const throw()
+  inline string getMessage(int unsigned const p_idx) const noexcept(true)
   {
     map<int unsigned, string>::const_iterator itor = this->reverse_lookup.find(p_idx);
 
@@ -407,7 +407,7 @@ public:
   }
 
 
-  vector<string> getDelegateNames(void) throw()
+  vector<string> getDelegateNames(void) noexcept(true)
   {
     map<int unsigned, string>::iterator end  = this->reverse_lookup.end();
     map<int unsigned, string>::iterator itor = this->reverse_lookup.begin();
@@ -424,7 +424,7 @@ public:
   }
 
 
-  string printDelegateNames(string const & p_separator = ",", string const & p_prefix = "") throw()
+  string printDelegateNames(string const & p_separator = ",", string const & p_prefix = "") noexcept(true)
   {
     string result = getEventName() + ":";
     vector<string> names = getDelegateNames();
@@ -440,7 +440,7 @@ public:
   }
 
 
-  inline int unsigned size(void) const throw()
+  inline int unsigned size(void) const noexcept(true)
   {
     return(this->delegates.size());
   }

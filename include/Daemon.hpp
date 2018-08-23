@@ -41,12 +41,12 @@ public:
 
   // Constructors
 
-  Daemon(OutputHelper & p_output_helper, string const & p_user = "daemon", string const p_dir = "/", bool const p_started = false) throw();
+  Daemon(OutputHelper & p_output_helper, string const & p_user = "daemon", string const p_dir = "/", bool const p_started = false) noexcept(true);
 
 
   // Destructors
 
-  ~Daemon(void) throw()
+  ~Daemon(void) noexcept(true)
   {
     DEBUG(TRACE, ENTER);
     DEBUG(TRACE, LEAVE);
@@ -56,59 +56,59 @@ public:
 
   // Public Functions
 
-  void onShutdownSystemEvent(int unsigned const p_level) throw();
-  bool start(string const & p_device) throw();
-  bool stop(void) throw();
+  void onShutdownSystemEvent(int unsigned const p_level) noexcept(true);
+  bool start(string const & p_device) noexcept(true);
+  bool stop(void) noexcept(true);
 
 
 private:
 
   // Getters/Setters
 
-  inline string getDeviceLockFilename(void) const throw()
+  inline string getDeviceLockFilename(void) const noexcept(true)
   {
     return(getOutputHelper().getDeviceFileLock(getDevice()).c_str());
   }
 
 
-  inline string getDevice(void) const throw()
+  inline string getDevice(void) const noexcept(true)
   {
     return(this->device);
   }
 
 
-  inline void setDevice(string const & p_device) throw()
+  inline void setDevice(string const & p_device) noexcept(true)
   {
     this->device = p_device;
     return;
   }
 
 
-  inline string getDir(void) const throw()
+  inline string getDir(void) const noexcept(true)
   {
     return(this->dir);
   }
 
 
-  inline string getUser(void) const throw()
+  inline string getUser(void) const noexcept(true)
   {
     return(this->user);
   }
 
 
-  inline OutputHelper & getOutputHelper(void) const throw()
+  inline OutputHelper & getOutputHelper(void) const noexcept(true)
   {
     return(this->output_helper);
   }
 
 
-  inline bool getStart(void) const throw()
+  inline bool getStart(void) const noexcept(true)
   {
     return(this->started);
   }
 
 
-  inline void setStart(bool const p_started) throw()
+  inline void setStart(bool const p_started) noexcept(true)
   {
     this->started = p_started;
     return;
@@ -128,7 +128,7 @@ private:
 
   // Private Functions
 
-  bool lockDevice(string const & p_device) throw();
+  bool lockDevice(string const & p_device) noexcept(true);
 
 
   // Variables

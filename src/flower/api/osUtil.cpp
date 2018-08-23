@@ -50,7 +50,7 @@ using namespace std;
 
 // Getters/Setters
 
-string const & getPathSeparator(void) throw()
+string const & getPathSeparator(void) noexcept(true)
 {
 #ifndef _MSC_VER
   static string path_separator("/");
@@ -61,7 +61,7 @@ string const & getPathSeparator(void) throw()
 }
 
 
-bool const isPriviledgedUser(void) throw()
+bool const isPriviledgedUser(void) noexcept(true)
 {
 #ifndef _MSC_VER
   return((0 == getuid()) || (0 == geteuid()));
@@ -73,14 +73,14 @@ bool const isPriviledgedUser(void) throw()
 }
 
 
-void outputSeparator(void) throw()
+void outputSeparator(void) noexcept(true)
 {
   output("-------------------------------------------------------------------------------");
   return;
 }
 
 
-void output(string const & p_message) throw()
+void output(string const & p_message) noexcept(true)
 {
 #ifndef _MSC_VER
   if (getOutputLocation() == g_OUTPUT2LOG)
@@ -95,7 +95,7 @@ void output(string const & p_message) throw()
 }
 
 
-bool const isLinux(void) throw()
+bool const isLinux(void) noexcept(true)
 {
 #ifdef __linux__
   return(true);
@@ -105,7 +105,7 @@ bool const isLinux(void) throw()
 }
 
 
-bool const checkNetworkInterface(string const & p_device) throw()
+bool const checkNetworkInterface(string const & p_device) noexcept(true)
 {
 #ifdef __linux__
   // Open a socket against that interface

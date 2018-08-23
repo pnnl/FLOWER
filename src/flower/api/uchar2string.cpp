@@ -38,7 +38,7 @@ asIpvXPtr_t asIpv4Ptr = asIpv4;
 asIpvXPtr_t asIpv6Ptr = asIpv6;
 
 
-int unsigned asEtherType(ByteArray const & p_array, int unsigned p_offset) throw()
+int unsigned asEtherType(ByteArray const & p_array, int unsigned p_offset) noexcept(true)
 {
   DEBUG(LOTS, ENTER);
 
@@ -56,7 +56,7 @@ int unsigned asEtherType(ByteArray const & p_array, int unsigned p_offset) throw
 }
 
 
-string asIpv4(IpAddress_t const & p_ip_address) throw()
+string asIpv4(IpAddress_t const & p_ip_address) noexcept(true)
 {
   DEBUG(LOTS, ENTER);
   DEBUG(LOTS, LEAVE);
@@ -67,7 +67,7 @@ string asIpv4(IpAddress_t const & p_ip_address) throw()
 }
 
 
-string asIpv6(IpAddress_t const & p_ip_address) throw()
+string asIpv6(IpAddress_t const & p_ip_address) noexcept(true)
 {
   DEBUG(LOTS, ENTER);
 
@@ -102,7 +102,7 @@ string asIpv6(IpAddress_t const & p_ip_address) throw()
 }
 
 
-//string asIpv4Int(u_int32_t const p_ip_address) throw()
+//string asIpv4Int(u_int32_t const p_ip_address) noexcept(true)
 //{
 //  DEBUG(LOTS, ENTER);
 //  DEBUG(LOTS, LEAVE);
@@ -110,7 +110,7 @@ string asIpv6(IpAddress_t const & p_ip_address) throw()
 //}
 
 
-string asIpv4CPP(IpAddress_t const & p_ip_address) throw()
+string asIpv4CPP(IpAddress_t const & p_ip_address) noexcept(true)
 {
   DEBUG(LOTS, ENTER);
   DEBUG(LOTS, LEAVE);
@@ -119,7 +119,7 @@ string asIpv4CPP(IpAddress_t const & p_ip_address) throw()
 }
 
 
-string asIpv6CPP(IpAddress_t const & p_ip_address) throw()
+string asIpv6CPP(IpAddress_t const & p_ip_address) noexcept(true)
 {
   DEBUG(LOTS, ENTER);
 
@@ -141,7 +141,7 @@ string asIpv6CPP(IpAddress_t const & p_ip_address) throw()
 }
 
 
-string asMac(ByteArray & p_array, int unsigned p_offset) throw()
+string asMac(ByteArray & p_array, int unsigned p_offset) noexcept(true)
 {
   DEBUG(LOTS, ENTER);
 
@@ -166,7 +166,7 @@ string asMac(ByteArray & p_array, int unsigned p_offset) throw()
 }
 
 
-string asIcmpFlag(u_int16_t const p_flag) throw()
+string asIcmpFlag(u_int16_t const p_flag) noexcept(true)
 {
   DEBUG(LOTS, ENTER);
 
@@ -181,7 +181,7 @@ string asIcmpFlag(u_int16_t const p_flag) throw()
 }
 
 
-string asTcpFlag(u_int16_t const p_flag) throw()
+string asTcpFlag(u_int16_t const p_flag) noexcept(true)
 {
   DEBUG(LOTS, ENTER);
 

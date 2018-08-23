@@ -58,7 +58,7 @@
 // ======================================================================
 
 
-FlowCache::FlowCache(SummaryAddEvent * const p_summary_add_event, ObjectPool<Flow> & p_flow_pool, int unsigned const p_max_frag_flowcache_size, int unsigned const p_max_norm_flowcache_size) throw() :
+FlowCache::FlowCache(SummaryAddEvent * const p_summary_add_event, ObjectPool<Flow> & p_flow_pool, int unsigned const p_max_frag_flowcache_size, int unsigned const p_max_norm_flowcache_size) noexcept(true) :
   frag_flow_count(0),
   merge_count(0),
   norm_flow_count(0),
@@ -79,7 +79,7 @@ FlowCache::FlowCache(SummaryAddEvent * const p_summary_add_event, ObjectPool<Flo
 // Public Functions
 // ======================================================================
 
-bool FlowCache::findByNormFlowKey(sharedFlow const & p_flow, norm_flow_cache_flowkey_itor & p_itor) throw()
+bool FlowCache::findByNormFlowKey(sharedFlow const & p_flow, norm_flow_cache_flowkey_itor & p_itor) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
   
@@ -97,7 +97,7 @@ bool FlowCache::findByNormFlowKey(sharedFlow const & p_flow, norm_flow_cache_flo
 }
 
 
-bool FlowCache::findByFragFlowKey(sharedFlow const & p_flow, frag_flow_cache_flowkey_itor & p_itor) throw()
+bool FlowCache::findByFragFlowKey(sharedFlow const & p_flow, frag_flow_cache_flowkey_itor & p_itor) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
 
@@ -115,7 +115,7 @@ bool FlowCache::findByFragFlowKey(sharedFlow const & p_flow, frag_flow_cache_flo
 }
 
 
-void FlowCache::flushAndZero(norm_flow_cache_flowkey_itor & p_itor) throw()
+void FlowCache::flushAndZero(norm_flow_cache_flowkey_itor & p_itor) noexcept(true)
 {
   DEBUG(TRACE, ENTER); 
   (*p_itor)->setFragType(true);
@@ -128,7 +128,7 @@ void FlowCache::flushAndZero(norm_flow_cache_flowkey_itor & p_itor) throw()
 }
 
 
-bool FlowCache::add(sharedFlow const & p_flow) throw() 
+bool FlowCache::add(sharedFlow const & p_flow) noexcept(true) 
 {
   DEBUG(TRACE, ENTER); 
  
@@ -316,7 +316,7 @@ bool FlowCache::add(sharedFlow const & p_flow) throw()
 }
 
 
-bool FlowCache::real_frag_add(sharedFlow const & p_flow) throw()
+bool FlowCache::real_frag_add(sharedFlow const & p_flow) noexcept(true)
 {
   if (getMaxFragFlowCacheSize() > getFragFlowCacheSize())
   {
@@ -342,7 +342,7 @@ bool FlowCache::real_frag_add(sharedFlow const & p_flow) throw()
 }
 
 
-bool FlowCache::real_add(sharedFlow const & p_flow) throw() 
+bool FlowCache::real_add(sharedFlow const & p_flow) noexcept(true) 
 {
   if (getMaxNormFlowCacheSize() > getNormFlowCacheSize())
   {
@@ -369,7 +369,7 @@ bool FlowCache::real_add(sharedFlow const & p_flow) throw()
 
 
 template<typename MultiIndexContainer>
-void FlowCache::flush(MultiIndexContainer & p_flow_cache, bool const p_is_normal_cache, u_int32_t const p_virtual_time, bool const p_shutdown) throw()
+void FlowCache::flush(MultiIndexContainer & p_flow_cache, bool const p_is_normal_cache, u_int32_t const p_virtual_time, bool const p_shutdown) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
 
@@ -432,7 +432,7 @@ void FlowCache::flush(MultiIndexContainer & p_flow_cache, bool const p_is_normal
 
 
 template<typename Tag, typename MultiIndexContainer>
-void FlowCache::printBy(MultiIndexContainer const & p_flow_cache, Tag *) throw()
+void FlowCache::printBy(MultiIndexContainer const & p_flow_cache, Tag *) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
   // DEVELOPER NOTE: obtain a reference to the index tagged by Tag
@@ -445,7 +445,7 @@ void FlowCache::printBy(MultiIndexContainer const & p_flow_cache, Tag *) throw()
 }
 
 
-void FlowCache::printByNormFlowKey(void) throw()
+void FlowCache::printByNormFlowKey(void) noexcept(true)
 {
   DEBUG(LOTS, ENTER);
   printBy<NormFlowKey>(getNormFlowCache());
@@ -454,7 +454,7 @@ void FlowCache::printByNormFlowKey(void) throw()
 }
 
 
-void FlowCache::onAddEvent(sharedFlow const p_flow) throw()
+void FlowCache::onAddEvent(sharedFlow const p_flow) noexcept(true)
 {
   DEBUG(LOTS, ENTER);
   add(p_flow);
@@ -463,7 +463,7 @@ void FlowCache::onAddEvent(sharedFlow const p_flow) throw()
 }
 
 
-void FlowCache::reset(int unsigned const p_level) throw()
+void FlowCache::reset(int unsigned const p_level) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
   setVirtualTime(getFuture());
@@ -474,7 +474,7 @@ void FlowCache::reset(int unsigned const p_level) throw()
 }
 
 
-string FlowCache::onMetricsEvent(int unsigned const p_level) throw()
+string FlowCache::onMetricsEvent(int unsigned const p_level) noexcept(true)
 {
   string result  = "FC";
   result        += ":mff#" + uitoa10(getFragFlowCount());
@@ -493,7 +493,7 @@ string FlowCache::onMetricsEvent(int unsigned const p_level) throw()
 }
 
 
-void FlowCache::onNewInputEvent(int unsigned const p_level) throw()
+void FlowCache::onNewInputEvent(int unsigned const p_level) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
   reset(p_level);
@@ -503,7 +503,7 @@ void FlowCache::onNewInputEvent(int unsigned const p_level) throw()
 }
 
 
-void FlowCache::onShutdownSystemEvent(int unsigned const p_level) throw()
+void FlowCache::onShutdownSystemEvent(int unsigned const p_level) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
   reset(p_level);

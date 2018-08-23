@@ -88,7 +88,7 @@ void noOpPacketRingerDeallocator(Packet * p)
 // ======================================================================
 
 #ifdef __linux__
-PacketRinger::PacketRinger(OutputHelper & p_output_helper, PacketAddEvent * const p_packet_add_event, int unsigned const p_timeout, int unsigned const p_max_packets, bool const p_buffer_packets, int unsigned const p_max_packetbuffer_size) throw() :
+PacketRinger::PacketRinger(OutputHelper & p_output_helper, PacketAddEvent * const p_packet_add_event, int unsigned const p_timeout, int unsigned const p_max_packets, bool const p_buffer_packets, int unsigned const p_max_packetbuffer_size) noexcept(true) :
   buffer_packets(p_buffer_packets),
   buffer_cnt(p_max_packetbuffer_size),
   output_helper(p_output_helper),
@@ -110,7 +110,7 @@ PacketRinger::PacketRinger(OutputHelper & p_output_helper, PacketAddEvent * cons
   return;
 }
 #else
-PacketRinger::PacketRinger(OutputHelper & p_output_helper, PacketAddEvent * const p_packet_add_event, int unsigned const p_timeout, int unsigned const p_max_packets, bool const p_buffer_packets, int unsigned const p_max_packetbuffer_size) throw() :
+PacketRinger::PacketRinger(OutputHelper & p_output_helper, PacketAddEvent * const p_packet_add_event, int unsigned const p_timeout, int unsigned const p_max_packets, bool const p_buffer_packets, int unsigned const p_max_packetbuffer_size) noexcept(true) :
   buffer_packets(false),
   buffer_cnt(0),
   output_helper(p_output_helper),
@@ -136,7 +136,7 @@ PacketRinger::PacketRinger(OutputHelper & p_output_helper, PacketAddEvent * cons
 // ======================================================================
 
 
-bool PacketRinger::initDevice(string const & p_device) throw()
+bool PacketRinger::initDevice(string const & p_device) noexcept(true)
 {
 #ifdef __linux__
   DEBUG(TRACE, ENTER);
@@ -252,7 +252,7 @@ bool PacketRinger::initDevice(string const & p_device) throw()
 }
 
 
-bool PacketRinger::readDevice(void) throw()
+bool PacketRinger::readDevice(void) noexcept(true)
 {
 #ifdef __linux__
   DEBUG(TRACE, ENTER);
@@ -374,7 +374,7 @@ bool PacketRinger::readDevice(void) throw()
 }
 
 
-void PacketRinger::writePacketsToFile(void) throw()
+void PacketRinger::writePacketsToFile(void) noexcept(true)
 {
 #ifdef __linux__
   DEBUG(TRACE, ENTER);
@@ -422,7 +422,7 @@ void PacketRinger::writePacketsToFile(void) throw()
 }
 
 
-bool PacketRinger::promiscuousMode(bool p_on_or_off) throw()
+bool PacketRinger::promiscuousMode(bool p_on_or_off) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
 #ifdef __linux__
@@ -479,7 +479,7 @@ bool PacketRinger::promiscuousMode(bool p_on_or_off) throw()
 }
 
 
-void PacketRinger::resetCounters(void) throw()
+void PacketRinger::resetCounters(void) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
 
@@ -491,7 +491,7 @@ void PacketRinger::resetCounters(void) throw()
 }
 
 
-void PacketRinger::finish(void) throw()
+void PacketRinger::finish(void) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
 #ifdef __linux__
@@ -508,7 +508,7 @@ void PacketRinger::finish(void) throw()
 }
 
 
-string PacketRinger::onMetricsEvent(int unsigned const p_level) throw()
+string PacketRinger::onMetricsEvent(int unsigned const p_level) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
   string result = "";
@@ -534,7 +534,7 @@ string PacketRinger::onMetricsEvent(int unsigned const p_level) throw()
 }
 
 
-void PacketRinger::onShutdownSystemEvent(int unsigned const p_level) throw()
+void PacketRinger::onShutdownSystemEvent(int unsigned const p_level) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
 
