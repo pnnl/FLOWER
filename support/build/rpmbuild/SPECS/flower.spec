@@ -6,16 +6,16 @@
 Name: flower
 Version: 6.1
 #Release: 0_%{build_timestamp}
-Release: 0
+Release: 1
 Summary: Flower distribution
 License: GPL+
 Group: System Environment/Base
 #Source: flower-6.0.tar
 Prefix: /opt/flower
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
-Requires: boost >= 1.6, gcc >= 5.3
+#Requires: boost >= 1.6, gcc >= 5.3
 
-Packager: Laura Curtis <Laura.Curtis@pnnl.gov>
+Packager: Flower <flower@pnnl.gov>
 
 %description
 Flower application
@@ -29,8 +29,8 @@ Flower application
 echo ${RPM_BUILD_ROOT}
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf %{buildroot}
 mkdir -p %{buildroot}%{prefix}
-cp -a ${RPM_BUILD_DIR}/flower-6.0/* %{buildroot}%{prefix}
-cp -a ${RPM_BUILD_DIR}/flower-6.0/.??* %{buildroot}%{prefix}
+cp -a ${RPM_BUILD_DIR}/%{name}-%{version}/* %{buildroot}%{prefix}
+cp -a ${RPM_BUILD_DIR}/%{name}-%{version}/.??* %{buildroot}%{prefix}
 
 %clean
 #rm -rf %{buildroot}
@@ -81,6 +81,7 @@ echo
 
 
 %changelog
+* Wed Sep 05 2018 (Laura Curtis) 6.1.1
 * Fri Oct 20 2017 (Laura Curtis) 6.1
 -- Bug fixes, change to use root user and changes to help with Ubuntu port
 * Fri Jun 09 2017 (Laura Curtis) 6.0
