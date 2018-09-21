@@ -108,6 +108,12 @@ private:
 
   // Getters/Setters
 
+  inline string getInterfaceName(void) noexcept(true)
+  {
+    return(this->interface_name);
+  }
+
+
   inline int unsigned getMaxPackets(void) const noexcept(true)
   {
     return(this->max_packets);
@@ -170,6 +176,13 @@ private:
   }
 
 
+  inline void setInterfaceName(string const & p_name) noexcept(true)
+  {
+    this->interface_name = p_name;
+    return;
+  }
+
+
   inline void setPcapDescriptor(pcap_t * p_descriptor) noexcept(true)
   {
     this->pcap_descriptor = p_descriptor;
@@ -208,6 +221,7 @@ private:
 
   // Variables
 
+  string             interface_name;
   pcap_t *           pcap_descriptor;
   NewPcapDescEvent * new_pcap_desc_event;
   PacketAddEvent *   packet_add_event;
