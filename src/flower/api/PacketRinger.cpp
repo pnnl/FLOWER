@@ -208,7 +208,8 @@ bool PacketRinger::initDevice(string const & p_device) noexcept(true)
   tpr.tp_block_size  = getTpBlockSize();  // frames per megabyte block
   tpr.tp_block_nr    = getTpBlockNr();    // number of blocks
   tpr.tp_frame_nr    = getTpFrameNr();
-  size_t map_length  = tpr.tp_block_size * tpr.tp_block_nr;
+  //size_t map_length  = tpr.tp_block_size * tpr.tp_block_nr;
+  setMapLength(tpr.tp_block_size * tpr.tp_block_nr);
   int sockopt_result = setsockopt(getSocket(), SOL_PACKET, PACKET_RX_RING, (void *)&tpr, sizeof(tpr));
   errno_save = errno;
 
@@ -233,9 +234,147 @@ bool PacketRinger::initDevice(string const & p_device) noexcept(true)
     output(message);
   }
 
-  setRing((u_int8_t *) mmap(0, map_length, PROT_READ|PROT_WRITE, MAP_SHARED, getSocket(), 0));
+  setRing((u_int8_t *) mmap(0, getMapLength(), PROT_READ|PROT_WRITE, MAP_SHARED, getSocket(), 0));
 
   if (! getRing())
+  {
+    ERROR_MSG(TSNH, "Trying to access the kernel packet ring", "Call to getRing() Failed");
+    DEBUG(TRACE, LEAVE);
+    return(false);
+  }
+
+  getPacketCounter().resetItem();
+  setRunning(true);
+  DEBUG(TRACE, LEAVE);
+  return(true);
+#else
+  return(false);
+#endif
+}
+
+
+bool PacketRinger::initDevice3(string const & p_device) noexcept(true)
+{
+#ifdef __linux__
+  DEBUG(TRACE, ENTER);
+  int    errno_save;
+  string err_message;
+
+  // DEVELOPER NOTE: This code was inspired by sites like:
+  // http://www.mjmwired.net/kernel/Documentation/networking/packet_mmap.txt
+  // http://wiki.ipxwarzone.com/index.php5?title=Linux_packet_mmap
+
+  setInterfaceName(p_device);
+
+  // Open a socket against that interface
+  setSocket(socket(PF_PACKET, SOCK_RAW, htons(ETH_P_ALL)));
+  errno_save = errno;
+
+  if (0 > getSocket())   // Did the socket open OK?
+  {
+    err_message = "The kernel socket did not open correctly: " + static_cast<string>(strerror(errno_save));
+    ERROR_MSG(TSNH, "Trying to acquire kernel socket", err_message.c_str());
+    DEBUG(TRACE, LEAVE);
+    return(false);
+  }
+
+  // Find the interface index
+  struct ifreq req;
+  memset(&req, 0, sizeof(req));
+  if (0 > snprintf(req.ifr_name, IFNAMSIZ, getInterfaceName().c_str()))
+  {
+    err_message = "snprintf returned a negative value";
+    ERROR_MSG(TSNH, "Trying to copy device name to ifreq buffer", err_message.c_str());
+    DEBUG(TRACE, LEAVE);
+    return(false);
+  }
+
+  int ioctl_result = ioctl(getSocket(), SIOCGIFINDEX, &req);
+  errno_save = errno;
+  if (0 > ioctl_result)
+  {
+    err_message = "The ioctl operation for interface, " + getInterfaceName() + ", Failed: " + static_cast<string>(strerror(errno_save));
+    ERROR_MSG(TSNH, "Trying to acquire interface index", err_message.c_str());
+    DEBUG(TRACE, LEAVE);
+    return(false);
+  }
+
+  // Bind to just the requested interface
+  struct sockaddr_ll sall;
+  memset(&sall, 0, sizeof(sall));
+  sall.sll_family   = AF_PACKET;
+  sall.sll_protocol = htons(ETH_P_ALL);
+  sall.sll_ifindex  = req.ifr_ifindex;
+  int bind_result   = bind(getSocket(), (struct sockaddr *)&sall, sizeof(sall));
+  errno_save = errno;
+
+  if (0 > bind_result)
+  {
+    err_message = "The bind operation Failed: " + static_cast<string>(strerror(errno_save));
+    ERROR_MSG(TSNH, "Trying to bind to the network interface", err_message.c_str());
+    DEBUG(TRACE, LEAVE);
+    return(false);
+  }
+
+  // NOTE: This is trying set promiscuousMode on the socket configured above
+  if (! promiscuousMode(true))
+  {
+    return(false);
+  }
+
+  // Request a ring
+  struct tpacket_req3 tpr;
+  memset(&tpr, 0, sizeof(tpr));
+  tpr.tp_frame_size       = getTpFrameSize();  // byte frames
+  tpr.tp_block_size       = getTpBlockSize();  // frames per megabyte block
+  tpr.tp_block_nr         = getTpBlockNr();    // number of blocks
+  tpr.tp_frame_nr         = getTpFrameNr();
+  tpr.tp_retire_blk_tov   = 60;                // timeout value in milliseconds
+  tpr.tp_feature_req_word = TP_FT_REQ_FILL_RXHASH;
+
+  setMapLength(tpr.tp_block_size * tpr.tp_block_nr);
+
+  int sockopt_result;
+  int tpacket_ver    = TPACKET_V3;
+  string message;
+
+  sockopt_result = setsockopt(getSocket(), SOL_PACKET, PACKET_VERSION, &tpacket_ver, sizeof(tpacket_ver));
+  errno_save = errno;
+  if (0 > sockopt_result)
+  {
+    message    += "Linux trying to set socket packet version to TPACKET_V3 (";
+    message    += uitoa10(tpacket_ver);
+    message    += ")";
+    err_message = "The setsockopt operation Failed: " + static_cast<string>(strerror(errno_save));
+    ERROR_MSG(TSNH, message.c_str(), err_message.c_str());
+    DEBUG(TRACE, LEAVE);
+    return(false);
+  }
+
+  sockopt_result = setsockopt(getSocket(), SOL_PACKET, PACKET_RX_RING, (void *)&tpr, sizeof(tpr));
+  errno_save = errno;
+
+  message += "Linux PF_PACKET ring: FrameSize(";
+  message += uitoa10(getTpFrameSize());
+  message += "), BlockSize(";
+  message += uitoa10(getTpBlockSize());
+  message += "), BlockNum(";
+  message += uitoa10(getTpBlockNr());
+  message += "), FrameNum(";
+  message += uitoa10(getTpFrameNr()) + ")";
+  if (0 > sockopt_result)
+  {
+    err_message = "The setsockopt operation Failed: " + static_cast<string>(strerror(errno_save));
+    ERROR_MSG(TSNH, message.c_str(), err_message.c_str());
+    DEBUG(TRACE, LEAVE);
+    return(false);
+  }
+
+  output(message);
+
+  setRing((u_int8_t *) mmap(0, getMapLength(), PROT_READ|PROT_WRITE, MAP_SHARED, getSocket(), 0));
+
+  if (getRing() == MAP_FAILED)
   {
     ERROR_MSG(TSNH, "Trying to access the kernel packet ring", "Call to getRing() Failed");
     DEBUG(TRACE, LEAVE);
@@ -497,6 +636,8 @@ void PacketRinger::finish(void) noexcept(true)
 #ifdef __linux__
   if (isRunning())
   {
+
+    munmap(getRing(), getMapLength());
     promiscuousMode(false);
     close(getSocket());
     setRing(NULL);

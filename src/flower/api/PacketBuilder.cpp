@@ -111,6 +111,8 @@ bool PacketBuilder::initDevice(string const & p_device) noexcept(true)
   int unsigned promiscuous_mode = 1;
   bool         result           = false;
 
+  setInterfaceName(p_device);
+
   // Zero out the error buffer
   memset(errbuf, 0, sizeof(errbuf));
 
@@ -284,10 +286,12 @@ string PacketBuilder::onMetricsEvent(int unsigned const p_level) noexcept(true)
   if (isRunning())
   {
     getPacketCounter().setFinishTime(false);
+    output("      Interface:          " + getInterfaceName());
     output("      Packets captured:   " + uitoa10(getPacketCounter().getItemCount()));
     output("      Processing time:    " + getPacketCounter().getItemProcessingTime());
     output("      Packets per second: " + getPacketCounter().getItemsPerSecond());
     result  = "PB";
+    result += ":int#" + getInterfaceName();
     result += ":pc#"  + uitoa10(getPacketCounter().getItemCount());
     result += ":ppt#" + getPacketCounter().getItemProcessingTime();
     result += ":pps#" + getPacketCounter().getItemsPerSecond();

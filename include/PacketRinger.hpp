@@ -109,13 +109,15 @@ public:
 
   // Public Functions
 
-  static bool checkDevice(string const & p_device, struct ifreq * p_req = NULL) noexcept(true);
+  //static bool checkDevice(string const & p_device, struct ifreq * p_req = NULL) noexcept(true);
 
   void   finish() noexcept(true);
   bool   initDevice(string const & p_device) noexcept(true);
+  bool   initDevice3(string const & p_device) noexcept(true);
   string onMetricsEvent(int unsigned const p_level) noexcept(true);
   void   onShutdownSystemEvent(int unsigned const p_level) noexcept(true);
   bool   readDevice(void) noexcept(true);
+  bool   readDevice3(void) noexcept(true);
   void   writePacketsToFile(void) noexcept(true);
 
 
@@ -138,6 +140,12 @@ private:
   inline u_int8_t * getBufferIdx(void) const noexcept(true)
   {
     return(this->buffer_idx);
+  }
+
+
+  inline size_t getMapLength(void) const noexcept(true)
+  {
+    return(this->map_length);
   }
 
 
@@ -265,6 +273,13 @@ private:
   }
 
 
+  inline void setMapLength(size_t const p_value) noexcept(true)
+  {
+    this->map_length = p_value;
+    return;
+  }
+
+
   inline void setPacketData(char unsigned * p_value) noexcept(true)
   {
     this->packet_data = p_value;
@@ -321,6 +336,7 @@ private:
 
   // Variables
 
+  size_t             map_length;
   string             interface_name;
   bool               buffer_packets;
   u_int64_t          buffer_cnt;

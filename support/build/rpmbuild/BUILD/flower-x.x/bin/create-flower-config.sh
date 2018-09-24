@@ -20,7 +20,8 @@ else
 fi
 #echo release value - $release_value 
 
-declare -a conffiles=( ${prefix}/.defaults/flower.sh ${prefix}/.defaults/flower.service ${prefix}/.defaults/flower ${prefix}/conf/flower.conf ${prefix}/conf/flower.env )
+#declare -a conffiles=( ${prefix}/.defaults/flower.sh ${prefix}/.defaults/flower.service ${prefix}/.defaults/flower ${prefix}/conf/flower.conf ${prefix}/conf/flower.env )
+declare -a conffiles=( ${prefix}/.defaults/flower.service ${prefix}/.defaults/flower ${prefix}/conf/flower.conf )
 
 for i in "${conffiles[@]}"
 do 
