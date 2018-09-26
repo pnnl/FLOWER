@@ -557,7 +557,7 @@ bool PacketParser::processIpv4Hdr(int unsigned const p_ip_hdr_offset) noexcept(t
     setIpProtocol(getData().at(p_ip_hdr_offset + ip_protocol_offset));
 
     u_int32_t const ip_protocol_total_len_offset = 2;
-    setTotalBytes(p_ip_hdr_offset + getData().at2(p_ip_hdr_offset + ip_protocol_total_len_offset));
+    setTotalBytes(p_ip_hdr_offset + getData().at2(p_ip_hdr_offset + ip_protocol_total_len_offset), __LINE__);
     setProtoHdrOffset(p_ip_hdr_offset + (ip_hdr_len * 4));
     calcPayload(0);
 
@@ -1025,14 +1025,14 @@ bool PacketParser::processIpv6Hdr(int unsigned const p_ip_hdr_offset) noexcept(t
     setProtoHdrOffset(offset);
 
     calcPayload(0);
-    setTotalBytes(offset + payload_len);
+    setTotalBytes(offset + payload_len, __LINE__);
 
     // DEVELOPER NOTE: payload_len should only be 0 if this is an IPv6 Jumbogram
     //                 which should never have Ethernet trailers so getData().size()
     //                 should always be correct.
     if (0 == payload_len)
     {
-      setTotalBytes(getData().size());
+      setTotalBytes(getData().size(), __LINE__);
     }
 
     //  Get the next header from the IPv6 header
@@ -1423,7 +1423,7 @@ void PacketParser::onAddEvent(sharedPacket const p_packet) noexcept(true)
     if (isEnoughData(min_valid_packet_size))
     {
       initVars();
-      setTotalBytes(getData().size());
+      setTotalBytes(getData().size(), __LINE__);
 
       // DEVELOPER NOTE: processEthernetLayer2 and processIpLayer3 are
       //                 responsible to drop the packet and report an

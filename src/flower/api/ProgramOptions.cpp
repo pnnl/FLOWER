@@ -605,7 +605,7 @@ void ProgramOptions::processOutputParams(void) noexcept(true)
         struct group * grp = getgrnam(getOption<string>("output-file-group").c_str());
         if (! grp)
         {
-          FATAL(NotFound, "output-file-group", ("The output-file-group (" + getOption<string>("output-file-group") + ") specified in the configration file does not exist in /etc/group.").c_str());
+          FATAL(NotFound, "output-file-group", ("The output-file-group (" + getOption<string>("output-file-group") + ") specified in the configuration file does not exist in /etc/group.").c_str());
         }
         group_found = true;
         group_id    = grp->gr_gid;
@@ -631,7 +631,7 @@ void ProgramOptions::processOutputParams(void) noexcept(true)
   {
     if (group_found)
     {
-      string message = "The user is not a member of the group (" + getOption<string>("output-file-group") + ") specified by the output-file-group in the configration file.";
+      string message = "The user is not a member of the group (" + getOption<string>("output-file-group") + ") specified by the output-file-group in the configuration file, or the group is not specified in the systemd flower.service file.";
       FATAL(NotFound, "output-file-group", message.c_str());
     }
   }

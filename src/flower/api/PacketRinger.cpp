@@ -325,10 +325,10 @@ bool PacketRinger::initDevice3(string const & p_device) noexcept(true)
   // Request a ring
   struct tpacket_req3 tpr;
   memset(&tpr, 0, sizeof(tpr));
-  tpr.tp_frame_size       = getTpFrameSize();  // byte frames
-  tpr.tp_block_size       = getTpBlockSize();  // frames per megabyte block
-  tpr.tp_block_nr         = getTpBlockNr();    // number of blocks
-  tpr.tp_frame_nr         = getTpFrameNr();
+  tpr.tp_frame_size       = 1 << 11; // getTpFrameSize();  // byte frames
+  tpr.tp_block_size       = 1 << 22; // getTpBlockSize();  // frames per megabyte block
+  tpr.tp_block_nr         = 64;      // getTpBlockNr();    // number of blocks
+  tpr.tp_frame_nr         = 1 << 17; // getTpFrameNr();
   tpr.tp_retire_blk_tov   = 60;                // timeout value in milliseconds
   tpr.tp_feature_req_word = TP_FT_REQ_FILL_RXHASH;
 

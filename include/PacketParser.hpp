@@ -817,7 +817,7 @@ private:
   }
 
 
-  inline void setTotalBytes(int unsigned const p_total_bytes) noexcept(true)
+  inline void setTotalBytes(int unsigned const p_total_bytes, int unsigned const caller_line) noexcept(true)
   {
     if (p_total_bytes <= getData().size())
     {
@@ -825,7 +825,7 @@ private:
       return;
     }
     this->total_bytes = getData().size();
-    CAUTION(RangeError, "Adjust TotalBytes", "Expected total bytes (" + uitoa10(p_total_bytes) + ") to be less than or equal to bytes on the wire (" + uitoa10(getData().size()) + ")");
+    CAUTION(RangeError, "Adjust TotalBytes", "Expected total bytes (" + uitoa10(p_total_bytes) + ") to be less than or equal to bytes on the wire (" + uitoa10(getData().size()) + ") from caller line: " + uitoa10(caller_line));
     addAnomaly(anomaly_total_bytes_mismatch);
     return;
   }
