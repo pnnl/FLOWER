@@ -60,6 +60,7 @@ FLOWER_LD_FLAGS       +=  $(BOOST_SYSTEM_LDFLAGS)
 FLOWER_LD_FLAGS       +=  $(BOOST_THREAD_LDFLAGS)
 
 FLOWER_LIBS            =
+FLOWER_LIBS           +=  -lpcap
 FLOWER_LIBS           +=  libflower.la
 FLOWER_LIBS           +=  $(BOOST_PROGRAM_OPTIONS_LIBS)
 FLOWER_LIBS           +=  $(BOOST_DATE_TIME_LIBS)
@@ -67,7 +68,6 @@ FLOWER_LIBS           +=  $(BOOST_FILESYSTEM_LIBS)
 FLOWER_LIBS           +=  $(BOOST_REGEX_LIBS)
 FLOWER_LIBS           +=  $(BOOST_SYSTEM_LIBS)
 FLOWER_LIBS           +=  $(BOOST_THREAD_LIBS)
-FLOWER_LIBS           +=  -lpcap
 
 FLOWER_TCPP_FLAGS      =  $(FLOWER_CPP_FLAGS)
 FLOWER_TCPP_FLAGS     +=  -I$(top_srcdir)/src/flower/api/test
