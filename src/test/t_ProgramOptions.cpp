@@ -19,8 +19,6 @@
 // External Includes
 #define BOOST_TEST_MODULE ProgramOptions
 #include <boost/lexical_cast.hpp>
-#include <boost/scoped_ptr.hpp>
-#include <boost/test/included/unit_test.hpp>
 #include <boost/tokenizer.hpp>
 // Internal Includes
 // Application Includes

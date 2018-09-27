@@ -16,7 +16,6 @@
 // System Includes
 // External Includes
 #define BOOST_TEST_MODULE PacketRinger
-#include <boost/scoped_ptr.hpp>
 // Internal Includes
 // Application Includes
 #include "utility.hpp"

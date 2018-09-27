@@ -16,7 +16,6 @@
 // System Includes
 // External Includes
 #define BOOST_TEST_MODULE PacketRinger
-#include <boost/scoped_ptr.hpp>
 // Internal Includes
 // Application Includes
 #include "utility.hpp"
@@ -29,12 +28,18 @@
 using namespace boost;
   
 
+// Global Variables
+
+SignalTranslator<SigTerm>                g_objSigTermTranslator;
+
+
 struct PacketRingerSuiteFixture
 {
   // Declare any instance variables here that are used in the constructor
   // or destructor.
   // NOTE: These variables will appear as local variables in each test case.
   string             interface;
+  int unsigned       num_packets_to_capture;
   OutputHelper *     output_helper;
   PacketAddEvent     packet_add_event;
   PacketRinger *     packet_ringer;
@@ -43,13 +48,29 @@ struct PacketRingerSuiteFixture
   {
     BOOST_TEST_MESSAGE("PacketRingerSuite setup fixture");
 
-    interface            = "eth1";
+    //cout << "ARGS:" << boost::unit_test::framework::master_test_suite().argc << endl;
+    if (boost::unit_test::framework::master_test_suite().argc == 3)
+    {
+      interface              = lexical_cast<string>(boost::unit_test::framework::master_test_suite().argv[1]);
+      num_packets_to_capture = lexical_cast<int unsigned>(boost::unit_test::framework::master_test_suite().argv[2]);
+    }
+    else
+    {
+      cout << "\nERROR: Must supply arguments" << endl;
+      cout << "  interface"                    << endl;
+      cout << "  num_packets_to_capture"       << endl;
+      exit(1);
+    }
+
+    int unsigned cache_timeout = 1000000;
+    bool buffer_packets        = true;
       
     string file_ext   = "dat";
-    string out_dir    = "/tmp";
+    string out_dir    = getFlowerDataHomeOutput();
     string site_name  = "pnnl_dev";
     output_helper     = new OutputHelper(out_dir, file_ext, 500, site_name, getDataGuideVersion(), ".");
-    packet_ringer     = new PacketRinger(*output_helper, &packet_add_event, 1, 1, 1, 1);
+    packet_ringer     = new PacketRinger(*output_helper, &packet_add_event, cache_timeout, num_packets_to_capture, buffer_packets, num_packets_to_capture);
+    packet_add_event += new PacketAddEvent::Static("add_event",  &testOnAddEvent);
 
     return;
   }
@@ -59,6 +80,9 @@ struct PacketRingerSuiteFixture
   {
     BOOST_TEST_MESSAGE("PacketRingerSuite teardown fixture");
 
+    // Reset the counter for Event Calls between each test case
+    howManyEventCalls(::g_add_event_counter);
+    packet_ringer->onShutdownSystemEvent(0); //   NORMAL
     delete(packet_ringer);
     delete(output_helper);
 
@@ -69,25 +93,29 @@ struct PacketRingerSuiteFixture
 
 BOOST_FIXTURE_TEST_SUITE(PacketRingerSuite, PacketRingerSuiteFixture)
 
-BOOST_AUTO_TEST_CASE(handle_permission_denied_on_interface)
+BOOST_AUTO_TEST_CASE(buffer_packets)
 {
+
   // Pre-condition:
-  //   the network interface exists
   //   the user is not root
   // Condition:
-  //   try to read the network interface
+  //   call the onIdleSystemEvent
   // Post-condition:
-  //   an Permission Denied message should be caught
+  //   a Not Found message should be caught
 
   if (0 == geteuid())
   {
-    // The user is root so don't do this test
-    BOOST_CHECK_EQUAL(true, false);
+    BOOST_CHECK_EQUAL(packet_ringer->initDevice(interface), true);
+    packet_ringer->readDevice();
+    packet_ringer->onShutdownSystemEvent(SIGSEGV); // ABNORMAL
+    BOOST_CHECK_EQUAL(packet_ringer->getPacketCounter().getItemCount(), num_packets_to_capture);
+    BOOST_CHECK_EQUAL(packet_ringer->getHeartbeatCount(), 0);
+    BOOST_CHECK_EQUAL(howManyEventCalls(::g_add_event_counter), packet_ringer->getHeartbeatCount() + num_packets_to_capture);
   }
   else
   {
-    cout << "DEVELOPER NOTE: There should be an permission denied on interface ERROR message that follows" << endl;
-    BOOST_CHECK_EQUAL(packet_ringer->initDevice(interface), false);
+    // The user is NOT root so don't do this test
+    BOOST_CHECK_EQUAL(true, false);
   }
 
   return;

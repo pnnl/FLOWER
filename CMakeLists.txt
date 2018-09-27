@@ -1,5 +1,43 @@
 cmake_minimum_required (VERSION 3.6)
+
 project (FLOWER)
+
+include(GNUInstallDirs)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
+message(STATUS "Project will be installed to ${CMAKE_INSTALL_PREFIX}")
+
+# Offer the user the choice of overriding the installation directories
+set(INSTALL_LIBDIR ${CMAKE_INSTALL_LIBDIR} CACHE PATH "Installation directory for libraries")
+set(INSTALL_BINDIR ${CMAKE_INSTALL_BINDIR} CACHE PATH "Installation directory for executables")
+set(INSTALL_INCLUDEDIR ${CMAKE_INSTALL_INCLUDEDIR} CACHE PATH "Installation directory for header files")
+if(WIN32 AND NOT CYGWIN)
+  set(DEF_INSTALL_CMAKEDIR CMake)
+else()
+  set(DEF_INSTALL_CMAKEDIR share/cmake/${PROJECT_NAME})
+endif()
+set(INSTALL_CMAKEDIR ${DEF_INSTALL_CMAKEDIR} CACHE PATH "Installation directory for CMake files")
+
+# Report to user
+foreach(p LIB BIN INCLUDE CMAKE)
+  file(TO_NATIVE_PATH ${CMAKE_INSTALL_PREFIX}/${INSTALL_${p}DIR} _path )
+  message(STATUS "Installing ${p} components to ${_path}")
+  unset(_path)
+endforeach()
+
+# Search for pkg-config and UUID
+find_package(PkgConfig QUIET)
+if(PKG_CONFIG_FOUND)
+  pkg_search_module(UUID uuid IMPORTED_TARGET)
+  if(TARGET PkgConfig::UUID)
+    message(STATUS "Found libuuid")
+    set(UUID_FOUND TRUE)
+  endif()
+endif()
+
+#message(FATAL_ERROR "Testing to here")
+
 enable_testing()
 
 #set(CMAKE_BUILD_TYPE      Debug)
@@ -24,30 +62,26 @@ else()
 endif()
 
 if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE        Release)
+  set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type" FORCE)
   set(CMAKE_CXX_FLAGS_RELEASE "-O2")
   set(CXX_OPTIMIZE_LEVEL      "${CMAKE_CXX_FLAGS_RELEASE}")
 endif()
 
 
-#  NOTE: We need to find out the time the compile was executed
-#        The best we can do is to find out when cmake was run last
-execute_process(COMMAND date "+%Y-%m-%d-%H:%M" OUTPUT_VARIABLE COMPILE_TIME)
-string(STRIP ${COMPILE_TIME}  COMPILE_TIME)
-
-#  NOTE: We need to find out the Major, Minor, and Micro version numbers
-#
-execute_process(COMMAND cut -d "_" -f 1 VERSION.txt OUTPUT_VARIABLE MAJOR_VERSION)
-execute_process(COMMAND cut -d "_" -f 2 VERSION.txt OUTPUT_VARIABLE MINOR_VERSION)
-execute_process(COMMAND cut -d "_" -f 3 VERSION.txt OUTPUT_VARIABLE MICRO_VERSION)
-string(STRIP "${MAJOR_VERSION}" MAJOR_VERSION)
-string(STRIP "${MINOR_VERSION}" MINOR_VERSION)
-string(STRIP "${MICRO_VERSION}" MICRO_VERSION)
-
 #  NOTE: We need to find out the version of the compiler that was used
 #
 execute_process(COMMAND "${CMAKE_CXX_COMPILER}" -dumpversion OUTPUT_VARIABLE GPP_VERSION)
 string(STRIP ${GPP_VERSION}   GPP_VERSION)
+
+file(STRINGS ${CMAKE_SOURCE_DIR}/VERSION _VERSION_DATA)
+string(REPLACE "_" ";" _VERSION_LIST ${_VERSION_DATA})
+list(GET _VERSION_LIST 0 MAJOR_VERSION)
+list(GET _VERSION_LIST 1 MINOR_VERSION)
+list(GET _VERSION_LIST 2 MICRO_VERSION)
+message(status "** VERSION_DATA: ${_VERSION_DATA}")
+
+string(TIMESTAMP COMPILE_TIME)
+message(status "** CURRENT_TIME: ${COMPILE_TIME}")
 
 #  NOTE: For Debugging
 #
@@ -83,37 +117,39 @@ find_package(Boost ${MY_BOOST_VER} REQUIRED COMPONENTS
 if(Boost_FOUND)
   include_directories(${Boost_INCLUDE_DIRS})
   link_directories(${Boost_LIBRARY_DIRS})
-  add_executable(flower src/flower/exe/flower.cpp)
+  add_executable(flower src/exe/flower.cpp)
   target_link_libraries(flower ${Boost_LIBRARIES} -static-libgcc -static-libstdc++)
 endif()
 
 include(FindPCAP.cmake)
 target_link_libraries(flower ${PCAP_LIBRARY} -static-libgcc -static-libstdc++)
 
+#add_subdirectory(src/api)
+
 add_library(flowerapi STATIC
-                       src/flower/api/date2string.cpp
-                       src/flower/api/Daemon.cpp
-                       src/flower/api/Diagnostic.cpp
-                       src/flower/api/Exception.cpp
-                       src/flower/api/ExceptionHandler.cpp
-                       src/flower/api/FlowCache.cpp
-                       src/flower/api/Flow.cpp
-                       src/flower/api/FlowKey.cpp
-                       src/flower/api/global.cpp
-                       src/flower/api/ItemCounter.cpp
-                       src/flower/api/num2string.cpp
-                       src/flower/api/osUtil.cpp
-                       src/flower/api/OutputHelper.cpp
-                       src/flower/api/PacketBuilder.cpp
-                       src/flower/api/Packet.cpp
-                       src/flower/api/PacketParser.cpp
-                       src/flower/api/PacketRinger.cpp
-                       src/flower/api/ProgramOptions.cpp
-                       src/flower/api/SummaryExporter.cpp
-                       src/flower/api/uchar2string.cpp
+                       src/api/date2string.cpp
+                       src/api/Daemon.cpp
+                       src/api/Diagnostic.cpp
+                       src/api/Exception.cpp
+                       src/api/ExceptionHandler.cpp
+                       src/api/FlowCache.cpp
+                       src/api/Flow.cpp
+                       src/api/FlowKey.cpp
+                       src/api/global.cpp
+                       src/api/ItemCounter.cpp
+                       src/api/num2string.cpp
+                       src/api/osUtil.cpp
+                       src/api/OutputHelper.cpp
+                       src/api/PacketBuilder.cpp
+                       src/api/Packet.cpp
+                       src/api/PacketParser.cpp
+                       src/api/PacketRinger.cpp
+                       src/api/ProgramOptions.cpp
+                       src/api/SummaryExporter.cpp
+                       src/api/uchar2string.cpp
 )
 
-target_include_directories(flowerapi PRIVATE include)
+target_include_directories(flowerapi PRIVATE ${CMAKE_SOURCE_DIR}/include)
 target_link_libraries(flowerapi ${Boost_LIBRARIES} -static-libgcc -static-libstdc++)
 target_compile_definitions(flowerapi PRIVATE
                                       COMPILE_TIME=\"${COMPILE_TIME}\"
@@ -126,7 +162,7 @@ target_compile_definitions(flowerapi PRIVATE
                                       CXX_OPTIMIZE_LEVEL=\"${CXX_OPTIMIZE_LEVEL}\"
 )
 
-target_include_directories(flower PRIVATE include)
+target_include_directories(flower PRIVATE ${CMAKE_SOURCE_DIR}/include)
 target_link_libraries(flower flowerapi -static-libgcc -static-libstdc++)
 #set_target_properties(flower PROPERTIES
 #                                        C_STANDARD 11
@@ -134,29 +170,28 @@ target_link_libraries(flower flowerapi -static-libgcc -static-libstdc++)
 #)
 
 
-set(TEST_PATH "src/flower/api/test")
 foreach(testsourcefile
-         ${TEST_PATH}/t_bg_PacketRinger_root_loop_buffer.cpp
-         ${TEST_PATH}/t_bg_PacketRinger_root_loop_track.cpp
-         ${TEST_PATH}/t_bg_PacketRinger_root_noloop.cpp
-         ${TEST_PATH}/t_bg_PacketRinger_user_noloop.cpp
-         ${TEST_PATH}/t_sudo_PacketBuilder.cpp
-         ${TEST_PATH}/t_Data.cpp
-         ${TEST_PATH}/t_Elf.cpp
-         ${TEST_PATH}/t_Event.cpp
-         ${TEST_PATH}/t_FlowCache.cpp
-         ${TEST_PATH}/t_Flow.cpp
-         ${TEST_PATH}/t_Ip.cpp
-         ${TEST_PATH}/t_ObjectPool.cpp
-         ${TEST_PATH}/t_PacketBuilder.cpp
-         ${TEST_PATH}/t_Packet.cpp
-         ${TEST_PATH}/t_PacketParser.cpp
-         ${TEST_PATH}/t_ProgramOptions.cpp
-         ${TEST_PATH}/t_SummaryExporter.cpp
+         src/test/t_bg_PacketRinger_root_loop_buffer.cpp
+         src/test/t_bg_PacketRinger_root_loop_track.cpp
+         src/test/t_bg_PacketRinger_root_noloop.cpp
+         src/test/t_bg_PacketRinger_user_noloop.cpp
+         src/test/t_sudo_PacketBuilder.cpp
+         src/test/t_Data.cpp
+         src/test/t_Elf.cpp
+         src/test/t_Event.cpp
+         src/test/t_FlowCache.cpp
+         src/test/t_Flow.cpp
+         src/test/t_Ip.cpp
+         src/test/t_ObjectPool.cpp
+         src/test/t_PacketBuilder.cpp
+         src/test/t_Packet.cpp
+         src/test/t_PacketParser.cpp
+         src/test/t_ProgramOptions.cpp
+         src/test/t_SummaryExporter.cpp
        )
   get_filename_component(t_filename ${testsourcefile} NAME_WE)
   add_executable(${t_filename} ${testsourcefile})
-  target_include_directories(${t_filename} PRIVATE include ${TEST_PATH} ${TEST_PATH}/packets)
+  target_include_directories(${t_filename} PRIVATE ${CMAKE_SOURCE_DIR}/include src/test src/test/packets)
   target_link_libraries(${t_filename} ${Boost_LIBRARIES} -static-libgcc -static-libstdc++)
   target_link_libraries(${t_filename} ${PCAP_LIBRARY}    -static-libgcc -static-libstdc++)
   target_link_libraries(${t_filename} flowerapi          -static-libgcc -static-libstdc++)
@@ -169,7 +204,7 @@ install(TARGETS flower
   RUNTIME DESTINATION bin
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib)
-#install(DIRECTORY include/foobar DESTINATION include)
+install(DIRECTORY include/foobar DESTINATION include)
 
 # Package Generator  #######################################################
 set(CPACK_PACKAGE_DESCRIPTION   "FLOWER - Network FLOW analyzER")
