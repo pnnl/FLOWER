@@ -38,6 +38,9 @@ endif()
 
 #message(FATAL_ERROR "Testing to here")
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+
+
 enable_testing()
 
 #set(CMAKE_BUILD_TYPE      Debug)
@@ -45,19 +48,21 @@ set(CXX_OPTIMIZE_LEVEL    "-O0")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 #set(CMAKE_CXX_FLAGS       "-Wall -Wextra")
 
-#set(CMAKE_CXX_STANDARD    11)
-set(CMAKE_CXX_STANDARD    17)
-#set(MY_GCC_VER            "5.3")
-set(MY_GCC_VER            "8.1")
+set(CMAKE_CXX_STANDARD    11)
+#set(CMAKE_CXX_STANDARD    17)
 #set(MY_BOOST_VER          "1.60.0")
-set(MY_BOOST_VER          "1.67.0")
-if(EXISTS "/usr/local/gcc-${MY_GCC_VER}/bin/g++-${MY_GCC_VER}")
-  set(CMAKE_CXX_COMPILER    "/usr/local/gcc-${MY_GCC_VER}/bin/g++-${MY_GCC_VER}")
-else()
-  if(EXISTS "/usr/local/gcc-${MY_GCC_VER}/bin/g++")
-    set(CMAKE_CXX_COMPILER    "/usr/local/gcc-${MY_GCC_VER}/bin/g++")
+set(MY_BOOST_VER          "1.60.0")
+if(NOT DEFINED CMAKE_CXX_COMPILER)
+  #set(MY_GCC_VER            "5.3")
+  set(MY_GCC_VER            "8.1")
+  if(EXISTS "/usr/local/gcc-${MY_GCC_VER}/bin/g++-${MY_GCC_VER}")
+    set(CMAKE_CXX_COMPILER    "/usr/local/gcc-${MY_GCC_VER}/bin/g++-${MY_GCC_VER}")
   else()
-    set(CMAKE_CXX_COMPILER     "/usr/local/gcc/bin/g++")
+    if(EXISTS "/usr/local/gcc-${MY_GCC_VER}/bin/g++")
+      set(CMAKE_CXX_COMPILER    "/usr/local/gcc-${MY_GCC_VER}/bin/g++")
+    else()
+      set(CMAKE_CXX_COMPILER     "/usr/local/gcc/bin/g++")
+    endif()
   endif()
 endif()
 
@@ -70,6 +75,7 @@ endif()
 
 #  NOTE: We need to find out the version of the compiler that was used
 #
+message(status "** CXX COMPILER: ${CMAKE_CXX_COMPILER}")
 execute_process(COMMAND "${CMAKE_CXX_COMPILER}" -dumpversion OUTPUT_VARIABLE GPP_VERSION)
 string(STRIP ${GPP_VERSION}   GPP_VERSION)
 
@@ -121,7 +127,7 @@ if(Boost_FOUND)
   target_link_libraries(flower ${Boost_LIBRARIES} -static-libgcc -static-libstdc++)
 endif()
 
-include(FindPCAP.cmake)
+find_package(PCAP QUIET)
 target_link_libraries(flower ${PCAP_LIBRARY} -static-libgcc -static-libstdc++)
 
 #add_subdirectory(src/api)
