@@ -210,14 +210,41 @@ install(TARGETS flower
   RUNTIME DESTINATION bin
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib)
-install(DIRECTORY include/foobar DESTINATION include)
+install(FILES docs/FLOWER_Data_Guide_FLR06.docx
+              docs/FLOWER_Install_Guide_FLR06.docx
+              docs/FLOWER_Ops_Guide_FLR06.docx
+                               DESTINATION docs)
+install(FILES conf/flower.conf DESTINATION conf)
 
 # Package Generator  #######################################################
-set(CPACK_PACKAGE_DESCRIPTION   "FLOWER - Network FLOW analyzER")
-set(CPACK_PACKAGE_VERSION_MAJOR "${MAJOR_VERSION}")
-set(CPACK_PACKAGE_VERSION_MINOR "${MINOR_VERSION}")
-set(CPACK_PACKAGE_VERSION_PATCH "${MICRO_VERSION}")
-set(CPACK_PACKAGE_VENDOR        "PNNL")
-set(CPACK_PACKAGE_CONTACT       "flower@pnnl.gov")
-set(CPACK_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}-${MAJOR_VERSION}.${MINOR_VERSION}.${MICRO_VERSION}")
+set(CPACK_PACKAGE_NAME                 "${PROJECT_NAME}")
+set(CPACK_PACKAGE_DESCRIPTION          "FLOWER - Network FLOW analyzER")
+
+# TODO:
+#set(CPACK_PACKAGE_DESCRIPTION_SUMMARY  "message: a small messaging library")
+#set(CPACK_RESOURCE_FILE_LICENSE        "${PROJECT_SOURCE_DIR}/LICENSE")
+#set(CPACK_PACKAGE_DESCRIPTION_FILE     "${PROJECT_SOURCE_DIR}/INSTALL.md")
+
+set(CPACK_SOURCE_IGNORE_FILES          "${PROJECT_BINARY_DIR};/.git/;.gitignore;docs/other")
+set(CPACK_PACKAGING_INSTALL_PREFIX     "/opt/${PROJECT_NAME}")
+set(CPACK_PACKAGE_VERSION_MAJOR        "${MAJOR_VERSION}")
+set(CPACK_PACKAGE_VERSION_MINOR        "${MINOR_VERSION}")
+set(CPACK_PACKAGE_VERSION_PATCH        "${MICRO_VERSION}")
+set(CPACK_PACKAGE_VENDOR               "PNNL")
+set(CPACK_PACKAGE_CONTACT              "FLOWER Support flower-support@pnnl.gov")
+set(CPACK_PACKAGE_FILE_NAME            "${CMAKE_PROJECT_NAME}-${MAJOR_VERSION}.${MINOR_VERSION}.${MICRO_VERSION}-${CMAKE_SYSTEM_PROCESSOR}")
+
+if(UNIX)
+ if(CMAKE_SYSTEM_NAME MATCHES Linux)
+   list(APPEND CPACK_GENERATOR "DEB")
+   set(CPACK_DEBIAN_PACKAGE_MAINTAINER "${CPACK_PACKAGE_CONTACT}")
+   set(CPACK_DEBIAN_PACKAGE_SECTION    "other")
+   set(CPACK_DEBIAN_PACKAGE_PRIORITY   "optional")
+   set(CPACK_DEBIAN_PACKAGE_DEPENDS    "libpcap0.8")
+   list(APPEND CPACK_GENERATOR         "RPM")
+   set(CPACK_RPM_PACKAGE_RELEASE       "1")
+   set(CPACK_RPM_PACKAGE_REQUIRES      "libpcap")
+  endif()
+endif()
+
 include (CPack)
