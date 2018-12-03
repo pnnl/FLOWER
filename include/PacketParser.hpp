@@ -164,7 +164,6 @@ public:
                ObjectPool<Flow> &   p_flow_pool,
                int unsigned const   p_cache_timeout,
                int unsigned const   p_cache_forceout,
-               bool         const   p_use_vlan,
                bool const           p_skip_ipv4_packets
               ) noexcept(true);
 
@@ -266,7 +265,6 @@ private:
   u_int64_t          total_bytes_received;
   u_int64_t          total_packets_received;
 
-  bool               use_vlan;
   bool               skip_ipv4_packets;
 
   bool               is_vlan;
@@ -674,10 +672,7 @@ private:
 
   inline void setVlanId(u_int16_t const p_vlan_id) noexcept(true)
   {
-    if (useVlan())
-    {
-      this->vlan_id = p_vlan_id;
-    }
+    this->vlan_id = p_vlan_id;
     return;
   }
 
@@ -702,12 +697,6 @@ private:
   }
 
 
-  inline bool useVlan(void) const noexcept(true)
-  {
-    return(this->use_vlan);
-  }
-
-
   inline bool skipIpv4Packets(void) const noexcept(true)
   {
     return(this->skip_ipv4_packets);
@@ -716,14 +705,7 @@ private:
 
   inline bool isVlan(void) const noexcept(true)
   {
-    if (useVlan())
-    {
-      return(this->is_vlan);
-    }
-    else
-    {
-      return(false);
-    }
+    return(this->is_vlan);
   }
 
 

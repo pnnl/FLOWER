@@ -196,7 +196,6 @@ int main(int argc, char ** argv)
                                    flow_pool,
                                    po.getCacheTimeout(),
                                    po.getCacheForceout(),
-                                   true,  // Add vlan to flow key
                                    po.skipIpv4Packets()
                                );
   // Create the cache for holding the network flows

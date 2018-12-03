@@ -27,7 +27,7 @@
 
 // Global Variables
 
-int unsigned                 g_max_cache_size = 50;
+int unsigned         g_max_cache_size = 50;
 
 
 void testOnFlowAddEvent(sharedFlow p_flow)
@@ -47,22 +47,21 @@ struct PacketParserSuiteFixture
   ByteArray *        incomplete_vector;
   sharedFlow         g_fake_flow;
   ObjectPool<Flow> * flow_pool;
-  
-  
+
+
   PacketParserSuiteFixture()
   {
     BOOST_TEST_MESSAGE("PacketParserSuite setup fixture");
 
-    bool use_vlan          = true;
     bool skip_ipv4_packets = false;
-    
+
     utility_init(); 
 
     // vectors that will be used to construct out test packets
     empty_vector      = new ByteArray(NULL,0); 
     fake_vector       = new ByteArray(NULL,0);
     incomplete_vector = new ByteArray(::g_incomplete_data,sizeof(::g_incomplete_data)); // this is a incomplete packet
-    
+
     FlowKey    flow_key;
     sharedFlow fake_flow(new Flow(::g_FAKE));
     g_fake_flow       = fake_flow;
@@ -70,13 +69,13 @@ struct PacketParserSuiteFixture
 
     // "wire up" the events (set the callback functions)
     flow_add_event   += new FlowAddEvent::Static("add_event", testOnFlowAddEvent);
-    
+
     sharedFlow flow   = generateFlow(true, generateTimestamp(1), 1);
 
     flow_pool         = new ObjectPool<Flow>(::g_max_cache_size, *flow);
 
     // Instantiate the PacketParser
-    packet_parser     = new PacketParser(&flow_add_event, *flow_pool, ::g_timeout, getCacheForceout(), use_vlan, skip_ipv4_packets);
+    packet_parser     = new PacketParser(&flow_add_event, *flow_pool, ::g_timeout, getCacheForceout(), skip_ipv4_packets);
 
     return;
   }

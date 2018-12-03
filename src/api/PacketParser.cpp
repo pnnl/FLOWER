@@ -83,7 +83,6 @@ PacketParser::PacketParser(
                            ObjectPool<Flow> &   p_flow_pool,
                            int unsigned const   p_cache_timeout,
                            int unsigned const   p_cache_forceout,
-                           bool const           p_use_vlan,
                            bool const           p_skip_ipv4_packets
                           ) noexcept(true) :
   fake_flow(new Flow(::g_FAKE)),
@@ -104,7 +103,6 @@ PacketParser::PacketParser(
   ipv6_good_packet_count(0),
   total_bytes_received(0),
   total_packets_received(0),
-  use_vlan(p_use_vlan),
   skip_ipv4_packets(p_skip_ipv4_packets),
   vlan_id(0)
 {
