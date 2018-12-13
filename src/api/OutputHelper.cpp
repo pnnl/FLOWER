@@ -127,8 +127,28 @@ void OutputHelper::setFileSettings(string const & p_filename) noexcept(true)
   {
 
 #ifndef _MSC_VER
-    chown(p_filename.c_str(), (uid_t)-1, getOutputFileGroupId());
-    chmod(p_filename.c_str(), S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP|S_IROTH);
+    int chown_status;
+    int errno_save;
+    chown_status = chown(p_filename.c_str(), (uid_t)-1, getOutputFileGroupId());
+    errno_save   = errno;
+    if (0 > chown_status)
+    {
+      string err_message = "Unable to chown file (" + p_filename +
+                           ") to group (" + to_string(getOutputFileGroupId()) +
+                           "): " + static_cast<string>(strerror(errno_save));
+      output(err_message);
+      exit(EXIT_FAILURE);
+    }
+    chown_status = chmod(p_filename.c_str(), S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP|S_IROTH);
+    errno_save   = errno;
+    if (0 > chown_status)
+    {
+      string err_message = "Unable to chown file (" + p_filename +
+                           ") to group (" + to_string(getOutputFileGroupId()) +
+                           "): " + static_cast<string>(strerror(errno_save));
+      output(err_message);
+      exit(EXIT_FAILURE);
+    }
 #endif
 
   }

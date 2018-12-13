@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.6)
+cmake_minimum_required (VERSION 3.5)
 
 project (FLOWER)
 
@@ -7,6 +7,10 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
 message(STATUS "Project will be installed to ${CMAKE_INSTALL_PREFIX}")
+
+
+option(ENABLE_TESTS "Enable tests" OFF)
+
 
 # Offer the user the choice of overriding the installation directories
 set(INSTALL_LIBDIR ${CMAKE_INSTALL_LIBDIR} CACHE PATH "Installation directory for libraries")
@@ -26,48 +30,64 @@ foreach(p LIB BIN INCLUDE CMAKE)
   unset(_path)
 endforeach()
 
-# Search for pkg-config and UUID
-find_package(PkgConfig QUIET)
-if(PKG_CONFIG_FOUND)
-  pkg_search_module(UUID uuid IMPORTED_TARGET)
-  if(TARGET PkgConfig::UUID)
-    message(STATUS "Found libuuid")
-    set(UUID_FOUND TRUE)
-  endif()
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+  message(STATUS "Configuring on/for Linux")
+  #target_compile_definitions(hello-world PUBLIC "IS_LINUX")
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+  message(STATUS "Configuring on/for macOS")
+  #target_compile_definitions(hello-world PUBLIC "IS_MACOS")
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+  message(STATUS "Configuring on/for Windows")
+  #target_compile_definitions(hello-world PUBLIC "IS_WINDOWS")
+else()
+  message(STATUS "Configuring on/for ${CMAKE_SYSTEM_NAME}")
 endif()
+
+# DEVELOPER NOTE: This is a nice example to find libuuid using pkg_search_module
+# Search for pkg-config and UUID
+#find_package(PkgConfig QUIET)
+#if(PKG_CONFIG_FOUND)
+#  pkg_search_module(UUID uuid IMPORTED_TARGET)
+#  if(TARGET PkgConfig::UUID)
+#    message(STATUS "Found libuuid")
+#    set(UUID_FOUND TRUE)
+#  endif()
+#endif()
 
 #message(FATAL_ERROR "Testing to here")
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
-
-enable_testing()
+include(BuildType)
 
 #set(CMAKE_BUILD_TYPE      Debug)
 set(CXX_OPTIMIZE_LEVEL    "-O0")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
+set(CMAKE_CXX_FLAGS       "-frtti -fvisibility-inlines-hidden -fvisibility=hidden")
 #set(CMAKE_CXX_FLAGS       "-Wall -Wextra")
 
 set(CMAKE_CXX_STANDARD    11)
-#set(CMAKE_CXX_STANDARD    17)
-#set(MY_BOOST_VER          "1.60.0")
-set(MY_BOOST_VER          "1.60.0")
 if(NOT DEFINED CMAKE_CXX_COMPILER)
   #set(MY_GCC_VER            "5.3")
-  set(MY_GCC_VER            "8.1")
+  set(MY_GCC_VER            "8.2")
+  #set(MY_BOOST_VER          "1.60.0")
+  set(MY_BOOST_VER          "1.67.0")
   if(EXISTS "/usr/local/gcc-${MY_GCC_VER}/bin/g++-${MY_GCC_VER}")
     set(CMAKE_CXX_COMPILER    "/usr/local/gcc-${MY_GCC_VER}/bin/g++-${MY_GCC_VER}")
+    set(BOOST_ROOT            "/usr/local/gcc-${MY_GCC_VER}_boost-${MY_BOOST_VER}/boost")
   else()
     if(EXISTS "/usr/local/gcc-${MY_GCC_VER}/bin/g++")
       set(CMAKE_CXX_COMPILER    "/usr/local/gcc-${MY_GCC_VER}/bin/g++")
     else()
-      set(CMAKE_CXX_COMPILER     "/usr/local/gcc/bin/g++")
+      if(EXISTS "/usr/local/gcc/bin/g++")
+        set(CMAKE_CXX_COMPILER     "/usr/local/gcc/bin/g++")
+      endif()
     endif()
   endif()
 endif()
 
 if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type" FORCE)
+  set(CMAKE_BUILD_TYPE        Release CACHE STRING "Build type" FORCE)
   set(CMAKE_CXX_FLAGS_RELEASE "-O2")
   set(CXX_OPTIMIZE_LEVEL      "${CMAKE_CXX_FLAGS_RELEASE}")
 endif()
@@ -78,6 +98,9 @@ endif()
 message(status "** CXX COMPILER: ${CMAKE_CXX_COMPILER}")
 execute_process(COMMAND "${CMAKE_CXX_COMPILER}" -dumpversion OUTPUT_VARIABLE GPP_VERSION)
 string(STRIP ${GPP_VERSION}   GPP_VERSION)
+if(GPP_VERSION GREATER 7)
+  set(CMAKE_CXX_STANDARD    17)
+endif()
 
 file(STRINGS ${CMAKE_SOURCE_DIR}/VERSION _VERSION_DATA)
 string(REPLACE "_" ";" _VERSION_LIST ${_VERSION_DATA})
@@ -98,9 +121,10 @@ message(status "** CXX VERSION:             ${GPP_VERSION}")
 message(status "** CXX BUILD TYPE:          ${CMAKE_BUILD_TYPE}")
 message(status "** CXX OPTIMIZE LEVEL:      ${CXX_OPTIMIZE_LEVEL}")
 
+add_executable(flower src/exe/flower.cpp)
+
 #  NOTE: We need to find Boost libraries
 #
-set(BOOST_ROOT /usr/local/gcc-${MY_GCC_VER}_boost-${MY_BOOST_VER}/boost)
 set(Boost_USE_STATIC_LIBS        ON) # only find static libs
 set(Boost_USE_MULTITHREADED      ON)
 set(Boost_USE_STATIC_RUNTIME     ON)
@@ -114,21 +138,25 @@ find_package(Boost ${MY_BOOST_VER} REQUIRED COMPONENTS
     unit_test_framework
 )
 
-#  NOTE: For Debugging
-#
-#message(status "** Boost Include:   ${Boost_INCLUDE_DIR}")
-#message(status "** Boost Lib Dir:   ${Boost_LIBRARY_DIRS}")
-#message(status "** Boost Libraries: ${Boost_LIBRARIES}")
-
 if(Boost_FOUND)
+  #  NOTE: For Debugging
+  #
+  #message(status "** Boost Include:   ${Boost_INCLUDE_DIR}")
+  #message(status "** Boost Lib Dir:   ${Boost_LIBRARY_DIRS}")
+  #message(status "** Boost Libraries: ${Boost_LIBRARIES}")
   include_directories(${Boost_INCLUDE_DIRS})
   link_directories(${Boost_LIBRARY_DIRS})
-  add_executable(flower src/exe/flower.cpp)
   target_link_libraries(flower ${Boost_LIBRARIES} -static-libgcc -static-libstdc++)
 endif()
 
-find_package(PCAP QUIET)
-target_link_libraries(flower ${PCAP_LIBRARY} -static-libgcc -static-libstdc++)
+find_package(PCAP REQUIRED)
+if(PCAP_FOUND)
+  message(status "** PCAP  Include:   ${PCAP_INCLUDE_DIRS}")
+  message(status "** PCAP  Lib Dir:   ${PCAP_LIBRARIES}")
+  include_directories(${PCAP_INCLUDE_DIRS})
+  link_directories(${PCAP_LIBRARIES})
+  target_link_libraries(flower ${PCAP_LIBRARIES} -static-libgcc -static-libstdc++)
+endif()
 
 #add_subdirectory(src/api)
 
@@ -156,7 +184,7 @@ add_library(flowerapi STATIC
 )
 
 target_include_directories(flowerapi PRIVATE ${CMAKE_SOURCE_DIR}/include)
-target_link_libraries(flowerapi ${Boost_LIBRARIES} -static-libgcc -static-libstdc++)
+target_link_libraries(flowerapi ${Boost_LIBRARIES} ${PCAP_LIBRARIES} -static-libgcc -static-libstdc++)
 target_compile_definitions(flowerapi PRIVATE
                                       COMPILE_TIME=\"${COMPILE_TIME}\"
                                       BOOST_VER=\"${Boost_VERSION}\"
@@ -176,33 +204,39 @@ target_link_libraries(flower flowerapi -static-libgcc -static-libstdc++)
 #)
 
 
-foreach(testsourcefile
-         src/test/t_bg_PacketRinger_root_loop_buffer.cpp
-         src/test/t_bg_PacketRinger_root_loop_track.cpp
-         src/test/t_bg_PacketRinger_root_noloop.cpp
-         src/test/t_bg_PacketRinger_user_noloop.cpp
-         src/test/t_sudo_PacketBuilder.cpp
-         src/test/t_Data.cpp
-         src/test/t_Elf.cpp
-         src/test/t_Event.cpp
-         src/test/t_FlowCache.cpp
-         src/test/t_Flow.cpp
-         src/test/t_Ip.cpp
-         src/test/t_ObjectPool.cpp
-         src/test/t_PacketBuilder.cpp
-         src/test/t_Packet.cpp
-         src/test/t_PacketParser.cpp
-         src/test/t_ProgramOptions.cpp
-         src/test/t_SummaryExporter.cpp
-       )
-  get_filename_component(t_filename ${testsourcefile} NAME_WE)
-  add_executable(${t_filename} ${testsourcefile})
-  target_include_directories(${t_filename} PRIVATE ${CMAKE_SOURCE_DIR}/include src/test src/test/packets)
-  target_link_libraries(${t_filename} ${Boost_LIBRARIES} -static-libgcc -static-libstdc++)
-  target_link_libraries(${t_filename} ${PCAP_LIBRARY}    -static-libgcc -static-libstdc++)
-  target_link_libraries(${t_filename} flowerapi          -static-libgcc -static-libstdc++)
-  add_test(NAME ${t_filename}_test COMMAND ${t_filename})
-endforeach(testsourcefile)
+if (${ENABLE_TESTS})
+  message(STATUS "Tests will be built")
+  enable_testing()
+
+
+  foreach(testsourcefile
+           src/test/t_bg_PacketRinger_root_loop_buffer.cpp
+           src/test/t_bg_PacketRinger_root_loop_track.cpp
+           src/test/t_bg_PacketRinger_root_noloop.cpp
+           src/test/t_bg_PacketRinger_user_noloop.cpp
+           src/test/t_sudo_PacketBuilder.cpp
+           src/test/t_Data.cpp
+           src/test/t_Elf.cpp
+           src/test/t_Event.cpp
+           src/test/t_FlowCache.cpp
+           src/test/t_Flow.cpp
+           src/test/t_Ip.cpp
+           src/test/t_ObjectPool.cpp
+           src/test/t_PacketBuilder.cpp
+           src/test/t_Packet.cpp
+           src/test/t_PacketParser.cpp
+           src/test/t_ProgramOptions.cpp
+           src/test/t_SummaryExporter.cpp
+         )
+    get_filename_component(t_filename ${testsourcefile} NAME_WE)
+    add_executable(${t_filename} ${testsourcefile})
+    target_include_directories(${t_filename} PRIVATE ${CMAKE_SOURCE_DIR}/include src/test src/test/packets)
+    target_link_libraries(${t_filename} ${Boost_LIBRARIES} -static-libgcc -static-libstdc++)
+    target_link_libraries(${t_filename} ${PCAP_LIBRARIES}  -static-libgcc -static-libstdc++)
+    target_link_libraries(${t_filename} flowerapi          -static-libgcc -static-libstdc++)
+    add_test(NAME ${t_filename}_test COMMAND ${t_filename})
+  endforeach(testsourcefile)
+endif()
 
 
 # Install ##################################################################
@@ -213,11 +247,13 @@ install(TARGETS flower
 install(FILES docs/FLOWER_Data_Guide_FLR06.docx
               docs/FLOWER_Install_Guide_FLR06.docx
               docs/FLOWER_Ops_Guide_FLR06.docx
-                               DESTINATION docs)
-install(FILES conf/flower.conf DESTINATION conf)
+                                                   DESTINATION docs)
+install(FILES conf/flower.conf                     DESTINATION conf)
+install(FILES scripts/create-flower-config.sh      DESTINATION scripts)
 
 # Package Generator  #######################################################
-set(CPACK_PACKAGE_NAME                 "${PROJECT_NAME}")
+string(TOLOWER ${PROJECT_NAME} PACKAGE_NAME)
+set(CPACK_PACKAGE_NAME                 "${PACKAGE_NAME}")
 set(CPACK_PACKAGE_DESCRIPTION          "FLOWER - Network FLOW analyzER")
 
 # TODO:
@@ -244,6 +280,7 @@ if(UNIX)
    list(APPEND CPACK_GENERATOR         "RPM")
    set(CPACK_RPM_PACKAGE_RELEASE       "1")
    set(CPACK_RPM_PACKAGE_REQUIRES      "libpcap")
+   SET(CPACK_RPM_POST_INSTALL_SCRIPT_FILE "${CMAKE_CURRENT_SOURCE_DIR}/scripts/create-flower-config.sh")
   endif()
 endif()
 

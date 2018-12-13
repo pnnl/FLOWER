@@ -7,21 +7,19 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-export TOP_DIR=/usr/local
-export DOWNLOAD_DIR=$TOP_DIR/download
-export MY_CXX_STD=11
-export MY_TOOL=gcc
-export MY_GCC_VER=8.1
-export MY_BOOST_DOT_VER=67
-export MY_BOOST_FULL_VER=1_67_0
-export PROCS=`grep -c ^processor /proc/cpuinfo` || 1
-export SED=sed
+export TOP_DIR="/usr/local"
+export DOWNLOAD_DIR="$TOP_DIR/download"
+export MY_CXX_STD="11"
+export MY_TOOL="gcc"
+export MY_GCC_VER="8.2"
+export MY_BOOST_DOT_VER="1.67.0"
+export MY_BOOST_FULL_VER="1_67_0"
+export PROCS="4"
+export SED="sed"
 export URL="https://sourceforge.net"
 export URLPATH="projects/boost/files/boost/${MY_BOOST_DOT_VER}"
 export URLFILENAME="boost_${MY_BOOST_FULL_VER}.tar.gz"
 export INSTALL_DIR=$TOP_DIR/gcc-${MY_GCC_VER}_boost-${MY_BOOST_DOT_VER}
-
-export PROCS=4
 
 echo "Building with:"
 echo "  GCC:   $MY_GCC_VER"
@@ -34,31 +32,35 @@ export CXX_PATH=$TOP_DIR/gcc-${MY_GCC_VER}/bin
 export CXX_COMPILER=$CXX_PATH/gcc-${MY_GCC_VER}
 export PATH=$CXX_PATH:$PATH
 
-if [ ! -d "${DOWNLOAD_DIR" ]; then
+if [ ! -d "${DOWNLOAD_DIR}" ]; then
   echo "################################################"
   echo "#         CREATING ${DOWNLOAD_DIR}"
   echo "################################################"
-  mkdir -p $DOWNLOAD_DIR                                   || exit 1
-  cd $DOWNLOAD_DIR                                         || exit 1
+  mkdir -p "$DOWNLOAD_DIR"                                 || exit 1
+  cd "$DOWNLOAD_DIR"                                       || exit 1
 fi
 
-if [ ! -f "$URLFILENAME" ]; then
+if [ ! -f "${URLFILENAME}" ]; then
   echo "################################################"
-  echo "#         DOWNLOADING $URLFILENAME"
+  echo "#         DOWNLOADING ${URLFILENAME}"
   echo "################################################"
-  echo "wget -q $URL/$URLPATH/$URLFILENAME"
-        wget -q $URL/$URLPATH/$URLFILENAME"                || exit 1
+  cd "${DOWNLOAD_DIR}"                                     || exit 1
+  echo "wget -q ${URL}/${URLPATH}/${URLFILENAME}"
+        wget -q ${URL}/${URLPATH}/${URLFILENAME}           || exit 1
 fi
 
 if [ ! -d "boost_${MY_BOOST_FULL_VER}" ]; then
   echo "################################################"
   echo "#         UNPACKING boost_${MY_BOOST_FULL_VER}"
   echo "################################################"
+  cd "$DOWNLOAD_DIR"                                       || exit 1
   tar xzf boost_${MY_BOOST_FULL_VER}.tar.gz                || exit 1
 fi
 
-cd boost_${MY_BOOST_FULL_VER}                              || exit 1
-mkdir -p build                                             || exit 1
+echo "cd  $DOWNLOAD_DIR/boost_${MY_BOOST_FULL_VER}"
+      cd "$DOWNLOAD_DIR/boost_${MY_BOOST_FULL_VER}"        || exit 1
+echo "mkdir -p build"
+      mkdir -p build                                       || exit 1
 
 ./bootstrap.sh                 \
     --with-libraries=all       \

@@ -1,74 +1,148 @@
-# - Try to find libpcap include dirs and libraries
 #
-# Usage of this module as follows:
+# $Id$
 #
-#     find_package(PCAP)
+###################################################################
 #
-# Variables used by this module, they can change the default behaviour and need
-# to be set before calling find_package:
+#  Copyright (c) 2006 Frederic Heem, <frederic.heem@telsey.it>
+#  All rights reserved.
 #
-#  PCAP_ROOT_DIR             Set this variable to the root installation of
-#                            libpcap if the module has problems finding the
-#                            proper installation path.
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
 #
-# Variables defined by this module:
+# * Redistributions of source code must retain the above copyright
+#   notice, this list of conditions and the following disclaimer.
 #
-#  PCAP_FOUND                System has libpcap, include and library dirs found
-#  PCAP_INCLUDE_DIR          The libpcap include directories.
-#  PCAP_LIBRARY              The libpcap library (possibly includes a thread
-#                            library e.g. required by pf_ring's libpcap)
-#  HAVE_PF_RING              If a found version of libpcap supports PF_RING
+# * Redistributions in binary form must reproduce the above copyright
+#   notice, this list of conditions and the following disclaimer in
+#   the documentation and/or other materials provided with the
+#   distribution.
+#
+# * Neither the name of the Telsey nor the names of its
+#   contributors may be used to endorse or promote products derived
+#   from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+# FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+# COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+# INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+# BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+# CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+# ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+#
+###################################################################
+# - Find pcap
+# Find the PCAP includes and library
+# http://www.tcpdump.org/
+#
+# The environment variable PCAPDIR allows to specficy where to find
+# libpcap in non standard location.
+#
+#  PCAP_INCLUDE_DIRS - where to find pcap.h, etc.
+#  PCAP_LIBRARIES   - List of libraries when using pcap.
+#  PCAP_FOUND       - True if pcap found.
 
-find_path(PCAP_ROOT_DIR
-    NAMES include/pcap.h
-)
 
-find_path(PCAP_INCLUDE_DIR
-    NAMES pcap.h
-    HINTS ${PCAP_ROOT_DIR}/include
-)
+IF(EXISTS $ENV{PCAPDIR})
+  FIND_PATH(PCAP_INCLUDE_DIR
+    NAMES
+    pcap/pcap.h
+    pcap.h
+    PATHS
+      $ENV{PCAPDIR}
+    NO_DEFAULT_PATH
+  )
 
-find_library(PCAP_LIBRARY
-    NAMES pcap
-    HINTS ${PCAP_ROOT_DIR}/lib
-)
+  FIND_LIBRARY(PCAP_LIBRARY
+    NAMES
+      pcap
+    PATHS
+      $ENV{PCAPDIR}
+    NO_DEFAULT_PATH
+  )
 
-include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(PCAP DEFAULT_MSG
-    PCAP_LIBRARY
-    PCAP_INCLUDE_DIR
-)
 
-include(CheckCSourceCompiles)
-set(CMAKE_REQUIRED_LIBRARIES ${PCAP_LIBRARY})
-check_c_source_compiles("int main() { return 0; }" PCAP_LINKS_SOLO)
-set(CMAKE_REQUIRED_LIBRARIES)
+ELSE(EXISTS $ENV{PCAPDIR})
 
-# check if linking against libpcap also needs to link against a thread library
-if (NOT PCAP_LINKS_SOLO)
-    find_package(Threads)
-    if (THREADS_FOUND)
-        set(CMAKE_REQUIRED_LIBRARIES ${PCAP_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
-        check_c_source_compiles("int main() { return 0; }" PCAP_NEEDS_THREADS)
-        set(CMAKE_REQUIRED_LIBRARIES)
-    endif ()
-    if (THREADS_FOUND AND PCAP_NEEDS_THREADS)
-        set(_tmp ${PCAP_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
-        list(REMOVE_DUPLICATES _tmp)
-        set(PCAP_LIBRARY ${_tmp}
-            CACHE STRING "Libraries needed to link against libpcap" FORCE)
-    else ()
-        message(FATAL_ERROR "Couldn't determine how to link against libpcap")
-    endif ()
-endif ()
+  FIND_PATH(PCAP_INCLUDE_DIR
+    NAMES
+    pcap/pcap.h
+    pcap.h
+    HINTS
+      "${PCAP_HINTS}/include"
+  )
 
-include(CheckFunctionExists)
-set(CMAKE_REQUIRED_LIBRARIES ${PCAP_LIBRARY})
-#check_function_exists(pcap_get_pfring_id HAVE_PF_RING)
-set(CMAKE_REQUIRED_LIBRARIES)
+  FIND_LIBRARY(PCAP_LIBRARY
+    NAMES
+      pcap
+      wpcap
+    HINTS
+      "${PCAP_HINTS}/lib"
+  )
 
-mark_as_advanced(
-    PCAP_ROOT_DIR
-    PCAP_INCLUDE_DIR
-    PCAP_LIBRARY
+ENDIF(EXISTS $ENV{PCAPDIR})
+
+SET(PCAP_INCLUDE_DIRS ${PCAP_INCLUDE_DIR})
+SET(PCAP_LIBRARIES ${PCAP_LIBRARY})
+
+IF(PCAP_INCLUDE_DIRS)
+  MESSAGE(STATUS "Pcap include dirs set to ${PCAP_INCLUDE_DIRS}")
+ELSE(PCAP_INCLUDE_DIRS)
+  MESSAGE(FATAL " Pcap include dirs cannot be found")
+ENDIF(PCAP_INCLUDE_DIRS)
+
+IF(PCAP_LIBRARIES)
+  MESSAGE(STATUS "Pcap library set to  ${PCAP_LIBRARIES}")
+ELSE(PCAP_LIBRARIES)
+  MESSAGE(FATAL "Pcap library cannot be found")
+ENDIF(PCAP_LIBRARIES)
+
+#Functions
+INCLUDE(CheckFunctionExists)
+INCLUDE(CheckVariableExists)
+SET(CMAKE_REQUIRED_INCLUDES ${PCAP_INCLUDE_DIRS})
+SET(CMAKE_REQUIRED_LIBRARIES ${PCAP_LIBRARIES})
+CHECK_VARIABLE_EXISTS("pcap_version" HAVE_PCAP_VERSION)
+CHECK_FUNCTION_EXISTS("pcap_open_dead" HAVE_PCAP_OPEN_DEAD)
+CHECK_FUNCTION_EXISTS("pcap_freecode" HAVE_PCAP_FREECODE)
+#
+# Note: for pcap_breakloop() and pcap_findalldevs(), the autoconf script
+# checks for more than just whether the function exists, it also checks
+# for whether pcap.h declares it; Mac OS X software/security updates can
+# update libpcap without updating the headers.
+#
+CHECK_FUNCTION_EXISTS("pcap_breakloop" HAVE_PCAP_BREAKLOOP)
+CHECK_FUNCTION_EXISTS("pcap_create" HAVE_PCAP_CREATE)
+CHECK_FUNCTION_EXISTS("pcap_datalink_name_to_val" HAVE_PCAP_DATALINK_NAME_TO_VAL)
+CHECK_FUNCTION_EXISTS("pcap_datalink_val_to_description" HAVE_PCAP_DATALINK_VAL_TO_DESCRIPTION)
+CHECK_FUNCTION_EXISTS("pcap_datalink_val_to_name" HAVE_PCAP_DATALINK_VAL_TO_NAME)
+CHECK_FUNCTION_EXISTS("pcap_findalldevs" HAVE_PCAP_FINDALLDEVS)
+CHECK_FUNCTION_EXISTS("pcap_free_datalinks" HAVE_PCAP_FREE_DATALINKS)
+CHECK_FUNCTION_EXISTS("pcap_get_selectable_fd" HAVE_PCAP_GET_SELECTABLE_FD)
+CHECK_FUNCTION_EXISTS("pcap_lib_version" HAVE_PCAP_LIB_VERSION)
+CHECK_FUNCTION_EXISTS("pcap_list_datalinks" HAVE_PCAP_LIST_DATALINKS)
+CHECK_FUNCTION_EXISTS("pcap_set_datalink" HAVE_PCAP_SET_DATALINK)
+# Remote pcap checks
+CHECK_FUNCTION_EXISTS("pcap_open" H_PCAP_OPEN)
+CHECK_FUNCTION_EXISTS("pcap_findalldevs_ex" H_FINDALLDEVS_EX)
+CHECK_FUNCTION_EXISTS("pcap_createsrcstr" H_CREATESRCSTR)
+if(H_PCAP_OPEN AND H_FINDALLDEVS_EX AND H_CREATESRCSTR)
+  SET(HAVE_PCAP_REMOTE 1)
+  SET(HAVE_REMOTE 1)
+endif()
+# reset vars
+SET(CMAKE_REQUIRED_INCLUDES "")
+SET(CMAKE_REQUIRED_LIBRARIES "")
+
+INCLUDE(FindPackageHandleStandardArgs)
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(PCAP DEFAULT_MSG PCAP_INCLUDE_DIRS PCAP_LIBRARIES)
+
+MARK_AS_ADVANCED(
+  PCAP_LIBRARIES
+  PCAP_INCLUDE_DIRS
 )

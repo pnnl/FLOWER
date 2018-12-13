@@ -146,6 +146,7 @@ bool Daemon::start(string const & p_device) noexcept(true)
 #else
 
   rlimit rl;
+  int    errno_save;
 
   setDevice(p_device);
 
@@ -168,7 +169,16 @@ bool Daemon::start(string const & p_device) noexcept(true)
     if (pw)
     {
       syslog(LOG_NOTICE, "Setting user to %s", getUser().c_str());
-      setuid(pw->pw_uid);
+      int setuid_status = setuid(pw->pw_uid);
+      errno_save        = errno;
+      if (0 > setuid_status)
+      {
+        string err_message = "Unable to setuid to uid(" +
+                             to_string(pw->pw_uid)      + "): " +
+                             static_cast<string>(strerror(errno_save));
+        output(err_message);
+        exit(EXIT_FAILURE);
+      }
     }
     else
     {
@@ -184,7 +194,7 @@ bool Daemon::start(string const & p_device) noexcept(true)
 
 
   int daemon_status = daemon(0, 0);
-  int errno_save    = errno;
+  errno_save        = errno;
 
 
   if (0 > daemon_status)
