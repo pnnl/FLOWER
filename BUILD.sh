@@ -1,9 +1,5 @@
 #!/bin/bash
 
-echo ${CMAKE_SYSTEM_VERSION}
-
-exit 0
-
 base_path=`dirname $0`
 export MAKEFLAGS="-j 4"
 export CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=Release -DENABLE_TESTS=ON"

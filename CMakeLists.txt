@@ -2,17 +2,22 @@ cmake_minimum_required (VERSION 3.5)
 
 project (FLOWER)
 
+###############################################################################
+#####  Boilerplate Setup
+###############################################################################
 include(GNUInstallDirs)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
-message(STATUS "Project will be installed to ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "** Project will be installed to ${CMAKE_INSTALL_PREFIX}")
 
 
 option(ENABLE_TESTS "Enable tests" OFF)
 
 
-# Offer the user the choice of overriding the installation directories
+###############################################################################
+#####  Offer the builder the choice of overriding the installation directories
+###############################################################################
 set(INSTALL_LIBDIR ${CMAKE_INSTALL_LIBDIR} CACHE PATH "Installation directory for libraries")
 set(INSTALL_BINDIR ${CMAKE_INSTALL_BINDIR} CACHE PATH "Installation directory for executables")
 set(INSTALL_INCLUDEDIR ${CMAKE_INSTALL_INCLUDEDIR} CACHE PATH "Installation directory for header files")
@@ -23,25 +28,34 @@ else()
 endif()
 set(INSTALL_CMAKEDIR ${DEF_INSTALL_CMAKEDIR} CACHE PATH "Installation directory for CMake files")
 
-# Report to user
+
+###############################################################################
+##### Report to builder
+###############################################################################
 foreach(p LIB BIN INCLUDE CMAKE)
   file(TO_NATIVE_PATH ${CMAKE_INSTALL_PREFIX}/${INSTALL_${p}DIR} _path )
-  message(STATUS "Installing ${p} components to ${_path}")
+  message(STATUS "** Installing ${p} components to ${_path}")
   unset(_path)
 endforeach()
 
+
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-  message(STATUS "Configuring on/for Linux")
+  message(STATUS "** Configuring on/for Linux")
   #target_compile_definitions(hello-world PUBLIC "IS_LINUX")
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-  message(STATUS "Configuring on/for macOS")
+  message(STATUS "** Configuring on/for macOS")
   #target_compile_definitions(hello-world PUBLIC "IS_MACOS")
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-  message(STATUS "Configuring on/for Windows")
+  message(STATUS "** Configuring on/for Windows")
   #target_compile_definitions(hello-world PUBLIC "IS_WINDOWS")
 else()
-  message(STATUS "Configuring on/for ${CMAKE_SYSTEM_NAME}")
+  message(STATUS "** Configuring on/for ${CMAKE_SYSTEM_NAME}")
 endif()
+
+
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+include(BuildType)
+
 
 # DEVELOPER NOTE: This is a nice example to find libuuid using pkg_search_module
 # Search for pkg-config and UUID
@@ -49,17 +63,17 @@ endif()
 #if(PKG_CONFIG_FOUND)
 #  pkg_search_module(UUID uuid IMPORTED_TARGET)
 #  if(TARGET PkgConfig::UUID)
-#    message(STATUS "Found libuuid")
+#    message(STATUS "** Found libuuid")
 #    set(UUID_FOUND TRUE)
 #  endif()
 #endif()
 
-#message(FATAL_ERROR "Testing to here")
+#message(FATAL_ERROR "** Testing to here")
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
-include(BuildType)
-
+###############################################################################
+#####  We need a good C++ Compiler
+###############################################################################
 #set(CMAKE_BUILD_TYPE      Debug)
 set(CXX_OPTIMIZE_LEVEL    "-O0")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
@@ -86,6 +100,7 @@ if(NOT DEFINED CMAKE_CXX_COMPILER)
   endif()
 endif()
 
+
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE        Release CACHE STRING "Build type" FORCE)
   set(CMAKE_CXX_FLAGS_RELEASE "-O2")
@@ -93,38 +108,44 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 
-#  NOTE: We need to find out the version of the compiler that was used
-#
-message(status "** CXX COMPILER: ${CMAKE_CXX_COMPILER}")
+###############################################################################
+#####  NOTE: We need to find out the version of the compiler that was used
+###############################################################################
+message(STATUS "** CXX COMPILER: ${CMAKE_CXX_COMPILER}")
 execute_process(COMMAND "${CMAKE_CXX_COMPILER}" -dumpversion OUTPUT_VARIABLE GPP_VERSION)
 string(STRIP ${GPP_VERSION}   GPP_VERSION)
 if(GPP_VERSION GREATER 7)
   set(CMAKE_CXX_STANDARD    17)
 endif()
 
+
+###############################################################################
+#####  Get the Current FLOWER Version Number
+###############################################################################
 file(STRINGS ${CMAKE_SOURCE_DIR}/VERSION _VERSION_DATA)
 string(REPLACE "_" ";" _VERSION_LIST ${_VERSION_DATA})
 list(GET _VERSION_LIST 0 MAJOR_VERSION)
 list(GET _VERSION_LIST 1 MINOR_VERSION)
 list(GET _VERSION_LIST 2 MICRO_VERSION)
-message(status "** VERSION_DATA: ${_VERSION_DATA}")
+message(STATUS "** VERSION_DATA: ${_VERSION_DATA}")
 
 string(TIMESTAMP COMPILE_TIME)
-message(status "** CURRENT_TIME: ${COMPILE_TIME}")
+message(STATUS "** CURRENT_TIME: ${COMPILE_TIME}")
 
 #  NOTE: For Debugging
 #
-message(status "** MAJOR_VERSION Include:   ${MAJOR_VERSION}")
-message(status "** MINOR_VERSION Include:   ${MINOR_VERSION}")
-message(status "** MICRO_VERSION Include:   ${MICRO_VERSION}")
-message(status "** CXX VERSION:             ${GPP_VERSION}")
-message(status "** CXX BUILD TYPE:          ${CMAKE_BUILD_TYPE}")
-message(status "** CXX OPTIMIZE LEVEL:      ${CXX_OPTIMIZE_LEVEL}")
+message(STATUS "** MAJOR_VERSION Include:   ${MAJOR_VERSION}")
+message(STATUS "** MINOR_VERSION Include:   ${MINOR_VERSION}")
+message(STATUS "** MICRO_VERSION Include:   ${MICRO_VERSION}")
+message(STATUS "** CXX VERSION:             ${GPP_VERSION}")
+message(STATUS "** CXX BUILD TYPE:          ${CMAKE_BUILD_TYPE}")
+message(STATUS "** CXX OPTIMIZE LEVEL:      ${CXX_OPTIMIZE_LEVEL}")
 
 add_executable(flower src/exe/flower.cpp)
 
-#  NOTE: We need to find Boost libraries
-#
+###############################################################################
+#####  Make sure we have BOOST Libraries
+###############################################################################
 set(Boost_USE_STATIC_LIBS        ON) # only find static libs
 set(Boost_USE_MULTITHREADED      ON)
 set(Boost_USE_STATIC_RUNTIME     ON)
@@ -141,18 +162,21 @@ find_package(Boost ${MY_BOOST_VER} REQUIRED COMPONENTS
 if(Boost_FOUND)
   #  NOTE: For Debugging
   #
-  #message(status "** Boost Include:   ${Boost_INCLUDE_DIR}")
-  #message(status "** Boost Lib Dir:   ${Boost_LIBRARY_DIRS}")
-  #message(status "** Boost Libraries: ${Boost_LIBRARIES}")
+  #message(STATUS "** Boost Include:   ${Boost_INCLUDE_DIR}")
+  #message(STATUS "** Boost Lib Dir:   ${Boost_LIBRARY_DIRS}")
+  #message(STATUS "** Boost Libraries: ${Boost_LIBRARIES}")
   include_directories(${Boost_INCLUDE_DIRS})
   link_directories(${Boost_LIBRARY_DIRS})
   target_link_libraries(flower ${Boost_LIBRARIES} -static-libgcc -static-libstdc++)
 endif()
 
+###############################################################################
+#####  Make sure we have PCAP Library
+###############################################################################
 find_package(PCAP REQUIRED)
 if(PCAP_FOUND)
-  message(status "** PCAP  Include:   ${PCAP_INCLUDE_DIRS}")
-  message(status "** PCAP  Lib Dir:   ${PCAP_LIBRARIES}")
+  message(STATUS "** PCAP  Include:   ${PCAP_INCLUDE_DIRS}")
+  message(STATUS "** PCAP  Lib Dir:   ${PCAP_LIBRARIES}")
   include_directories(${PCAP_INCLUDE_DIRS})
   link_directories(${PCAP_LIBRARIES})
   target_link_libraries(flower ${PCAP_LIBRARIES} -static-libgcc -static-libstdc++)
@@ -160,6 +184,9 @@ endif()
 
 #add_subdirectory(src/api)
 
+###############################################################################
+#####  Build FLOWER Library
+###############################################################################
 add_library(flowerapi STATIC
                        src/api/date2string.cpp
                        src/api/Daemon.cpp
@@ -204,10 +231,12 @@ target_link_libraries(flower flowerapi -static-libgcc -static-libstdc++)
 #)
 
 
+###############################################################################
+#####  Create Tests
+###############################################################################
 if (${ENABLE_TESTS})
-  message(STATUS "Tests will be built")
+  message(STATUS "** Tests will be built")
   enable_testing()
-
 
   foreach(testsourcefile
            src/test/t_bg_PacketRinger_root_loop_buffer.cpp
@@ -239,47 +268,54 @@ if (${ENABLE_TESTS})
 endif()
 
 
-# Install ##################################################################
-install(TARGETS flower
-  RUNTIME DESTINATION bin
-  LIBRARY DESTINATION lib
-  ARCHIVE DESTINATION lib)
-install(FILES docs/FLOWER_Data_Guide_FLR06.docx
-              docs/FLOWER_Install_Guide_FLR06.docx
-              docs/FLOWER_Ops_Guide_FLR06.docx
-                                                   DESTINATION docs)
-install(FILES conf/flower.conf                     DESTINATION conf)
-install(FILES scripts/create-flower-config.sh      DESTINATION scripts)
+###############################################################################
+#####  Install Files
+###############################################################################
+install(TARGETS             flower
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib)
+install(FILES       docs/FLOWER_Data_Guide_FLR06.docx
+                    docs/FLOWER_Install_Guide_FLR06.docx
+                    docs/FLOWER_Ops_Guide_FLR06.docx
+        DESTINATION docs)
+install(FILES       conf/flower.conf
+        DESTINATION conf)
+install(FILES       scripts/create-flower-config.sh
+        PERMISSIONS OWNER_EXECUTE OWNER_READ GROUP_READ GROUP_EXECUTE
+        DESTINATION scripts)
 
-# Package Generator  #######################################################
+###############################################################################
+#####  Generate Packages
+###############################################################################
 string(TOLOWER ${PROJECT_NAME} PACKAGE_NAME)
+
 set(CPACK_PACKAGE_NAME                 "${PACKAGE_NAME}")
 set(CPACK_PACKAGE_DESCRIPTION          "FLOWER - Network FLOW analyzER")
 
 # TODO:
-#set(CPACK_PACKAGE_DESCRIPTION_SUMMARY  "message: a small messaging library")
 #set(CPACK_RESOURCE_FILE_LICENSE        "${PROJECT_SOURCE_DIR}/LICENSE")
 #set(CPACK_PACKAGE_DESCRIPTION_FILE     "${PROJECT_SOURCE_DIR}/INSTALL.md")
 
 set(CPACK_SOURCE_IGNORE_FILES          "${PROJECT_BINARY_DIR};/.git/;.gitignore;docs/other")
-set(CPACK_PACKAGING_INSTALL_PREFIX     "/opt/${PROJECT_NAME}")
+set(CPACK_PACKAGING_INSTALL_PREFIX     "/opt/${PACKAGE_NAME}")
 set(CPACK_PACKAGE_VERSION_MAJOR        "${MAJOR_VERSION}")
 set(CPACK_PACKAGE_VERSION_MINOR        "${MINOR_VERSION}")
 set(CPACK_PACKAGE_VERSION_PATCH        "${MICRO_VERSION}")
 set(CPACK_PACKAGE_VENDOR               "PNNL")
 set(CPACK_PACKAGE_CONTACT              "FLOWER Support flower-support@pnnl.gov")
-set(CPACK_PACKAGE_FILE_NAME            "${CMAKE_PROJECT_NAME}-${MAJOR_VERSION}.${MINOR_VERSION}.${MICRO_VERSION}-${CMAKE_SYSTEM_PROCESSOR}")
+set(CPACK_PACKAGE_FILE_NAME            "${PACKAGE_NAME}-${MAJOR_VERSION}.${MINOR_VERSION}.${MICRO_VERSION}-${CMAKE_SYSTEM_PROCESSOR}")
 
 if(UNIX)
  if(CMAKE_SYSTEM_NAME MATCHES Linux)
-   list(APPEND CPACK_GENERATOR "DEB")
-   set(CPACK_DEBIAN_PACKAGE_MAINTAINER "${CPACK_PACKAGE_CONTACT}")
-   set(CPACK_DEBIAN_PACKAGE_SECTION    "other")
-   set(CPACK_DEBIAN_PACKAGE_PRIORITY   "optional")
-   set(CPACK_DEBIAN_PACKAGE_DEPENDS    "libpcap0.8")
-   list(APPEND CPACK_GENERATOR         "RPM")
-   set(CPACK_RPM_PACKAGE_RELEASE       "1")
-   set(CPACK_RPM_PACKAGE_REQUIRES      "libpcap")
+   list(APPEND CPACK_GENERATOR            "DEB")
+   set(CPACK_DEBIAN_PACKAGE_MAINTAINER    "${CPACK_PACKAGE_CONTACT}")
+   set(CPACK_DEBIAN_PACKAGE_SECTION       "other")
+   set(CPACK_DEBIAN_PACKAGE_PRIORITY      "optional")
+   set(CPACK_DEBIAN_PACKAGE_DEPENDS       "libpcap0.8")
+   list(APPEND CPACK_GENERATOR            "RPM")
+   set(CPACK_RPM_PACKAGE_RELEASE          "1")
+   set(CPACK_RPM_PACKAGE_REQUIRES         "libpcap")
    SET(CPACK_RPM_POST_INSTALL_SCRIPT_FILE "${CMAKE_CURRENT_SOURCE_DIR}/scripts/create-flower-config.sh")
   endif()
 endif()

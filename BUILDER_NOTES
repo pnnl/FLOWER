@@ -1,0 +1,2 @@
+To list all the files created in the Debian package:
+  dpkg-deb -c build/flower-6.1.2-x86_64.deb
