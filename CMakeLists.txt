@@ -2,6 +2,7 @@ cmake_minimum_required (VERSION 3.5)
 
 project (FLOWER)
 
+
 ###############################################################################
 #####  Boilerplate Setup
 ###############################################################################
@@ -10,6 +11,11 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
 message(STATUS "** Project will be installed to ${CMAKE_INSTALL_PREFIX}")
+
+
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+include(BuildType)
+include(IdentifyOS)
 
 
 option(ENABLE_TESTS "Enable tests" OFF)
@@ -39,22 +45,22 @@ foreach(p LIB BIN INCLUDE CMAKE)
 endforeach()
 
 
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-  message(STATUS "** Configuring on/for Linux")
-  #target_compile_definitions(hello-world PUBLIC "IS_LINUX")
-elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-  message(STATUS "** Configuring on/for macOS")
-  #target_compile_definitions(hello-world PUBLIC "IS_MACOS")
-elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-  message(STATUS "** Configuring on/for Windows")
-  #target_compile_definitions(hello-world PUBLIC "IS_WINDOWS")
-else()
-  message(STATUS "** Configuring on/for ${CMAKE_SYSTEM_NAME}")
-endif()
+message(STATUS "** OPERATING SYSTEM ${CMAKE_OS_NAME}")
 
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
-include(BuildType)
+#message(FATAL_ERROR "** Testing to here")
+#if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+#  message(STATUS "** Configuring on/for Linux")
+#  #target_compile_definitions(hello-world PUBLIC "IS_LINUX")
+#elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+#  message(STATUS "** Configuring on/for macOS")
+#  #target_compile_definitions(hello-world PUBLIC "IS_MACOS")
+#elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+#  message(STATUS "** Configuring on/for Windows")
+#  #target_compile_definitions(hello-world PUBLIC "IS_WINDOWS")
+#else()
+#  message(STATUS "** Configuring on/for ${CMAKE_SYSTEM_NAME}")
+#endif()
 
 
 # DEVELOPER NOTE: This is a nice example to find libuuid using pkg_search_module
@@ -82,6 +88,7 @@ set(CMAKE_CXX_FLAGS       "-frtti -fvisibility-inlines-hidden -fvisibility=hidde
 
 set(CMAKE_CXX_STANDARD    11)
 if(NOT DEFINED CMAKE_CXX_COMPILER)
+  message (STATUS " ** Trying to find newer compiler")
   #set(MY_GCC_VER            "5.3")
   set(MY_GCC_VER            "8.2")
   #set(MY_BOOST_VER          "1.60.0")
@@ -212,16 +219,30 @@ add_library(flowerapi STATIC
 
 target_include_directories(flowerapi PRIVATE ${CMAKE_SOURCE_DIR}/include)
 target_link_libraries(flowerapi ${Boost_LIBRARIES} ${PCAP_LIBRARIES} -static-libgcc -static-libstdc++)
-target_compile_definitions(flowerapi PRIVATE
-                                      COMPILE_TIME=\"${COMPILE_TIME}\"
-                                      BOOST_VER=\"${Boost_VERSION}\"
-                                      MAJOR_VERSION=\"${MAJOR_VERSION}\"
-                                      MINOR_VERSION=\"${MINOR_VERSION}\"
-                                      MICRO_VERSION=\"${MICRO_VERSION}\"
-                                      CXX_VER=\"${GPP_VERSION}\"
-                                      CXX_DEBUG_LEVEL=\"${CMAKE_BUILD_TYPE}\"
-                                      CXX_OPTIMIZE_LEVEL=\"${CXX_OPTIMIZE_LEVEL}\"
+get_source_file_property(version_defs src/api/ProgramOptions.cpp COMPILE_DEFINITIONS)
+list(APPEND version_defs
+                       COMPILE_TIME=\"${COMPILE_TIME}\"
+                       BOOST_VER=\"${Boost_VERSION}\"
+                       MAJOR_VERSION=\"${MAJOR_VERSION}\"
+                       MINOR_VERSION=\"${MINOR_VERSION}\"
+                       MICRO_VERSION=\"${MICRO_VERSION}\"
+                       CXX_VER=\"${GPP_VERSION}\"
+                       CXX_DEBUG_LEVEL=\"${CMAKE_BUILD_TYPE}\"
+                       CXX_OPTIMIZE_LEVEL=\"${CXX_OPTIMIZE_LEVEL}\"
 )
+set_source_files_properties(src/api/ProgramOptions.cpp PROPERTIES
+      COMPILE_DEFINITIONS ${version_defs}
+)
+#target_compile_definitions(flowerapi PRIVATE
+#                                      COMPILE_TIME=\"${COMPILE_TIME}\"
+#                                      BOOST_VER=\"${Boost_VERSION}\"
+#                                      MAJOR_VERSION=\"${MAJOR_VERSION}\"
+#                                      MINOR_VERSION=\"${MINOR_VERSION}\"
+#                                      MICRO_VERSION=\"${MICRO_VERSION}\"
+#                                      CXX_VER=\"${GPP_VERSION}\"
+#                                      CXX_DEBUG_LEVEL=\"${CMAKE_BUILD_TYPE}\"
+#                                      CXX_OPTIMIZE_LEVEL=\"${CXX_OPTIMIZE_LEVEL}\"
+#)
 
 target_include_directories(flower PRIVATE ${CMAKE_SOURCE_DIR}/include)
 target_link_libraries(flower flowerapi -static-libgcc -static-libstdc++)
@@ -230,6 +251,19 @@ target_link_libraries(flower flowerapi -static-libgcc -static-libstdc++)
 #                                        C_STANDARD_REQUIRED ON
 #)
 
+
+#get_cmake_property(variables VARIABLES)
+#message(STATUS "VARIABLES: ${variables} :")
+#get_cmake_property(cache_variables CACHE_VARIABLES)
+#message(STATUS "CACHE_VARIABLES: ${cache_variables} :")
+#get_cmake_property(commands COMMANDS)
+#message(STATUS "COMMANDS: ${commands} :")
+#get_cmake_property(macros MACROS)
+#message(STATUS "MACROS: ${macros} :")
+#get_cmake_property(components COMPONENTS)
+#message(STATUS "COMPONENTS: ${components} :")
+#message(STATUS "PLATFORM:  $<PLATFORM_ID> :")
+#message(FATAL_ERROR "You can not do this at all, CMake will exit.")
 
 ###############################################################################
 #####  Create Tests
@@ -241,9 +275,32 @@ if (${ENABLE_TESTS})
   foreach(testsourcefile
            src/test/t_bg_PacketRinger_root_loop_buffer.cpp
            src/test/t_bg_PacketRinger_root_loop_track.cpp
+         )
+    get_filename_component(t_filename ${testsourcefile} NAME_WE)
+    add_executable(${t_filename} ${testsourcefile})
+    target_include_directories(${t_filename} PRIVATE ${CMAKE_SOURCE_DIR}/include src/test src/test/packets)
+    target_link_libraries(${t_filename} ${Boost_LIBRARIES} -static-libgcc -static-libstdc++)
+    target_link_libraries(${t_filename} ${PCAP_LIBRARIES}  -static-libgcc -static-libstdc++)
+    target_link_libraries(${t_filename} flowerapi          -static-libgcc -static-libstdc++)
+    add_test(NAME ${t_filename}_test COMMAND ${t_filename} -- en0 100)
+  endforeach(testsourcefile)
+
+  foreach(testsourcefile
            src/test/t_bg_PacketRinger_root_noloop.cpp
-           src/test/t_bg_PacketRinger_user_noloop.cpp
            src/test/t_sudo_PacketBuilder.cpp
+           src/test/t_SummaryExporter_root.cpp
+         )
+    get_filename_component(t_filename ${testsourcefile} NAME_WE)
+    add_executable(${t_filename} ${testsourcefile})
+    target_include_directories(${t_filename} PRIVATE ${CMAKE_SOURCE_DIR}/include src/test src/test/packets)
+    target_link_libraries(${t_filename} ${Boost_LIBRARIES} -static-libgcc -static-libstdc++)
+    target_link_libraries(${t_filename} ${PCAP_LIBRARIES}  -static-libgcc -static-libstdc++)
+    target_link_libraries(${t_filename} flowerapi          -static-libgcc -static-libstdc++)
+    add_test(NAME ${t_filename}_test COMMAND ${t_filename})
+  endforeach(testsourcefile)
+
+  foreach(testsourcefile
+           src/test/t_bg_PacketRinger_user_noloop.cpp
            src/test/t_Data.cpp
            src/test/t_Elf.cpp
            src/test/t_Event.cpp
@@ -255,7 +312,6 @@ if (${ENABLE_TESTS})
            src/test/t_Packet.cpp
            src/test/t_PacketParser.cpp
            src/test/t_ProgramOptions.cpp
-           src/test/t_SummaryExporter.cpp
          )
     get_filename_component(t_filename ${testsourcefile} NAME_WE)
     add_executable(${t_filename} ${testsourcefile})

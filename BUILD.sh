@@ -2,13 +2,14 @@
 
 base_path=`dirname $0`
 export MAKEFLAGS="-j 4"
-export CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=Release -DENABLE_TESTS=ON"
+export CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=Release -DENABLE_TESTS=ON -DCMAKE_CXX_COMPILER=$CMAKE_CXX_COMPILER"
 export CMAKECMD="cmake"
 export CTESTCMD="ctest"
 export CPACKCMD="cpack"
 #  NOTE: Hack to get around missing cmake when cmake3 is installed
 if [[ -z "`which cmake 2> /dev/null | grep -v cmake3`" ]]; then
   if [[ ! -z "`which cmake3 2> /dev/null`" ]]; then
+    echo "NOTE: $CMAKE_OPTIONS"
     echo "NOTE: Aliasing cmake to cmake3"
     echo "NOTE: Aliasing ctest to ctest3"
     echo "NOTE: Aliasing cpack to cpack3"
@@ -17,6 +18,8 @@ if [[ -z "`which cmake 2> /dev/null | grep -v cmake3`" ]]; then
     export CPACKCMD="cpack3"
   fi
 fi
+
+export FLOWER_HOME="$base_path"
 
 cd $base_path                || exit 1
 mkdir -p build               || exit 1

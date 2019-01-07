@@ -124,7 +124,7 @@ string getFlowerDataHome ()
   else
   {
     flower_data_home      += getenv("HOME");
-    flower_data_home      += "/dev/flower";
+    flower_data_home      += "/git/flower";
   }
   flower_data_home        += "/data/flower/";
 

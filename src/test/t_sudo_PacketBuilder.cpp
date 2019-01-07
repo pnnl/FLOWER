@@ -253,7 +253,8 @@ BOOST_AUTO_TEST_CASE(handle_permission_denied_on_interface)
 
   if (0 != geteuid())
   {
-    cout << "DEVELOPER NOTE: There should be an permission denied on interface ERROR message that follows" << endl;
+    cout << "DEVELOPER NOTE: There should be an permission denied on interface (";
+    cout << interface << ") ERROR message that follows" << endl;
     BOOST_CHECK_EQUAL(packet_builder->initDevice(interface), false);
   }
   else
