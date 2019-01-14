@@ -27,6 +27,7 @@
 #include "CONSTANTS.hpp"
 #include "global.hpp"
 #include "osUtil.hpp"
+#include "version_info.hpp"
 #include "EventTypes.hpp"
 #include "Exception.hpp"
 #include "ExceptionHandler.hpp"
@@ -435,13 +436,14 @@ void ProgramOptions::displayVersion(bool const p_condition, string const & p_dat
   string message;
 
   message  = "\n   " APP_DESC "\n"
-             "\n   " APP_NAME " version:           " MAJOR_VERSION "." MINOR_VERSION "." MICRO_VERSION
-             "\n   Compiled on:              " __DATE__ ", " __TIME__ " (" COMPILE_TIME ")"
-             "\n   Compiled with:            " CXX_VER
-             "\n     Optimize Level:         " CXX_OPTIMIZE_LEVEL
-             "\n     Debug:                  " CXX_DEBUG_LEVEL
-             "\n     Boost library version:  " BOOST_VER
-             "\n     pcap  library version:  " + pcap_ver;
+             "\n   " APP_NAME " version:           " + getMajorVersion() + "." + getMinorVersion() + "." + getMicroVersion();
+  message += "\n   Compiled on:              " __DATE__ ", " __TIME__ " (" + getCompileTime() + ")";
+  message += "\n   Compiled with:            " + getCompilerName();
+  message += "\n     Version:                " + getCompilerVersion();
+  message += "\n     Optimize Level:         " + getCompilerOptimizeLevel();
+  message += "\n     Type:                   " + getCompilerDebugLevel();
+  message += "\n     Boost library version:  " + getBoostVersion();
+  message += "\n     pcap  library version:  " + pcap_ver;
   message += "\n   Data Guide version:       " + p_data_guide_ver + "\n\n";
   message += cpr;
   message += dis;

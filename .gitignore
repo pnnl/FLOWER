@@ -26,11 +26,12 @@ x64
 *.o
 *.obj
 *.pdb
+*.piz
 *.plist
-.suo
+*.suo
+*.swp
 *.tlog
 *.user
 *.userprefs
+*.vs
 *.zip
-*.piz
-.vs

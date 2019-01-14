@@ -13,6 +13,9 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}
 message(STATUS "** Project will be installed to ${CMAKE_INSTALL_PREFIX}")
 
 
+set(CMAKE_VERBOSE_MAKEFILE OFF)
+
+
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 include(BuildType)
 include(IdentifyOS)
@@ -118,12 +121,13 @@ endif()
 ###############################################################################
 #####  NOTE: We need to find out the version of the compiler that was used
 ###############################################################################
-message(STATUS "** CXX COMPILER: ${CMAKE_CXX_COMPILER}")
-execute_process(COMMAND "${CMAKE_CXX_COMPILER}" -dumpversion OUTPUT_VARIABLE GPP_VERSION)
-string(STRIP ${GPP_VERSION}   GPP_VERSION)
-if(GPP_VERSION GREATER 7)
+message(STATUS "** CXX COMPILER: ${COMPILER_NAME}")
+execute_process(COMMAND "${CMAKE_CXX_COMPILER}" -dumpversion OUTPUT_VARIABLE COMPILER_VERSION)
+string(STRIP ${COMPILER_VERSION}   COMPILER_VERSION)
+if(COMPILER_VERSION GREATER 7)
   set(CMAKE_CXX_STANDARD    17)
 endif()
+get_filename_component(COMPILER_NAME  ${CMAKE_CXX_COMPILER} NAME)
 
 
 ###############################################################################
@@ -141,10 +145,12 @@ message(STATUS "** CURRENT_TIME: ${COMPILE_TIME}")
 
 #  NOTE: For Debugging
 #
+message(STATUS "** Operating System:        ${CMAKE_OS_NAME}")
 message(STATUS "** MAJOR_VERSION Include:   ${MAJOR_VERSION}")
 message(STATUS "** MINOR_VERSION Include:   ${MINOR_VERSION}")
 message(STATUS "** MICRO_VERSION Include:   ${MICRO_VERSION}")
-message(STATUS "** CXX VERSION:             ${GPP_VERSION}")
+message(STATUS "** CXX NAME:                ${COMPILER_NAME}")
+message(STATUS "** CXX VERSION:             ${COMPILER_VERSION}")
 message(STATUS "** CXX BUILD TYPE:          ${CMAKE_BUILD_TYPE}")
 message(STATUS "** CXX OPTIMIZE LEVEL:      ${CXX_OPTIMIZE_LEVEL}")
 
@@ -194,6 +200,7 @@ endif()
 ###############################################################################
 #####  Build FLOWER Library
 ###############################################################################
+configure_file(${CMAKE_SOURCE_DIR}/include/version_info.hpp.in ${CMAKE_SOURCE_DIR}/include/version_info.hpp @ONLY)
 add_library(flowerapi STATIC
                        src/api/date2string.cpp
                        src/api/Daemon.cpp
@@ -217,33 +224,14 @@ add_library(flowerapi STATIC
                        src/api/uchar2string.cpp
 )
 
+
 target_include_directories(flowerapi PRIVATE ${CMAKE_SOURCE_DIR}/include)
 target_link_libraries(flowerapi ${Boost_LIBRARIES} ${PCAP_LIBRARIES} -static-libgcc -static-libstdc++)
-get_source_file_property(version_defs src/api/ProgramOptions.cpp COMPILE_DEFINITIONS)
-list(APPEND version_defs
-                       COMPILE_TIME=\"${COMPILE_TIME}\"
-                       BOOST_VER=\"${Boost_VERSION}\"
-                       MAJOR_VERSION=\"${MAJOR_VERSION}\"
-                       MINOR_VERSION=\"${MINOR_VERSION}\"
-                       MICRO_VERSION=\"${MICRO_VERSION}\"
-                       CXX_VER=\"${GPP_VERSION}\"
-                       CXX_DEBUG_LEVEL=\"${CMAKE_BUILD_TYPE}\"
-                       CXX_OPTIMIZE_LEVEL=\"${CXX_OPTIMIZE_LEVEL}\"
-)
-set_source_files_properties(src/api/ProgramOptions.cpp PROPERTIES
-      COMPILE_DEFINITIONS ${version_defs}
-)
-#target_compile_definitions(flowerapi PRIVATE
-#                                      COMPILE_TIME=\"${COMPILE_TIME}\"
-#                                      BOOST_VER=\"${Boost_VERSION}\"
-#                                      MAJOR_VERSION=\"${MAJOR_VERSION}\"
-#                                      MINOR_VERSION=\"${MINOR_VERSION}\"
-#                                      MICRO_VERSION=\"${MICRO_VERSION}\"
-#                                      CXX_VER=\"${GPP_VERSION}\"
-#                                      CXX_DEBUG_LEVEL=\"${CMAKE_BUILD_TYPE}\"
-#                                      CXX_OPTIMIZE_LEVEL=\"${CXX_OPTIMIZE_LEVEL}\"
-#)
 
+
+###############################################################################
+#####  Build FLOWER Executable
+###############################################################################
 target_include_directories(flower PRIVATE ${CMAKE_SOURCE_DIR}/include)
 target_link_libraries(flower flowerapi -static-libgcc -static-libstdc++)
 #set_target_properties(flower PROPERTIES
@@ -264,6 +252,7 @@ target_link_libraries(flower flowerapi -static-libgcc -static-libstdc++)
 #message(STATUS "COMPONENTS: ${components} :")
 #message(STATUS "PLATFORM:  $<PLATFORM_ID> :")
 #message(FATAL_ERROR "You can not do this at all, CMake will exit.")
+
 
 ###############################################################################
 #####  Create Tests
@@ -341,6 +330,7 @@ install(FILES       scripts/create-flower-config.sh
         PERMISSIONS OWNER_EXECUTE OWNER_READ GROUP_READ GROUP_EXECUTE
         DESTINATION scripts)
 
+
 ###############################################################################
 #####  Generate Packages
 ###############################################################################
@@ -363,16 +353,19 @@ set(CPACK_PACKAGE_CONTACT              "FLOWER Support flower-support@pnnl.gov")
 set(CPACK_PACKAGE_FILE_NAME            "${PACKAGE_NAME}-${MAJOR_VERSION}.${MINOR_VERSION}.${MICRO_VERSION}-${CMAKE_SYSTEM_PROCESSOR}")
 
 if(UNIX)
- if(CMAKE_SYSTEM_NAME MATCHES Linux)
-   list(APPEND CPACK_GENERATOR            "DEB")
-   set(CPACK_DEBIAN_PACKAGE_MAINTAINER    "${CPACK_PACKAGE_CONTACT}")
-   set(CPACK_DEBIAN_PACKAGE_SECTION       "other")
-   set(CPACK_DEBIAN_PACKAGE_PRIORITY      "optional")
-   set(CPACK_DEBIAN_PACKAGE_DEPENDS       "libpcap0.8")
-   list(APPEND CPACK_GENERATOR            "RPM")
-   set(CPACK_RPM_PACKAGE_RELEASE          "1")
-   set(CPACK_RPM_PACKAGE_REQUIRES         "libpcap")
-   SET(CPACK_RPM_POST_INSTALL_SCRIPT_FILE "${CMAKE_CURRENT_SOURCE_DIR}/scripts/create-flower-config.sh")
+  if(CMAKE_SYSTEM_NAME MATCHES Linux)
+    if(CMAKE_OS_NAME MATCHES ubuntu)
+      list(APPEND CPACK_GENERATOR            "DEB")
+      set(CPACK_DEBIAN_PACKAGE_MAINTAINER    "${CPACK_PACKAGE_CONTACT}")
+      set(CPACK_DEBIAN_PACKAGE_SECTION       "other")
+      set(CPACK_DEBIAN_PACKAGE_PRIORITY      "optional")
+      set(CPACK_DEBIAN_PACKAGE_DEPENDS       "libpcap0.8")
+    elseif(CMAKE_OS_NAME MATCHES centos)
+      list(APPEND CPACK_GENERATOR            "RPM")
+      set(CPACK_RPM_PACKAGE_RELEASE          "1")
+      set(CPACK_RPM_PACKAGE_REQUIRES         "libpcap")
+      SET(CPACK_RPM_POST_INSTALL_SCRIPT_FILE "${CMAKE_CURRENT_SOURCE_DIR}/scripts/create-flower-config.sh")
+    endif()
   endif()
 endif()
 

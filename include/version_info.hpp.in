@@ -1,0 +1,55 @@
+#include <string>
+
+
+inline std::string getCompileTime()
+{
+  return "@COMPILE_TIME@";
+}
+
+
+inline std::string getMajorVersion()
+{
+  return "@MAJOR_VERSION@";
+}
+
+
+inline std::string getMinorVersion()
+{
+  return "@MINOR_VERSION@";
+}
+
+
+inline std::string getMicroVersion()
+{
+  return "@MICRO_VERSION@";
+}
+
+
+inline std::string getBoostVersion()
+{
+  return "@Boost_VERSION@";
+}
+
+
+inline std::string getCompilerName()
+{
+  return "@COMPILER_NAME@";
+}
+
+
+inline std::string getCompilerVersion()
+{
+  return "@COMPILER_VERSION@";
+}
+
+
+inline std::string getCompilerDebugLevel()
+{
+  return "@CMAKE_BUILD_TYPE@";
+}
+
+
+inline std::string getCompilerOptimizeLevel()
+{
+  return "@CXX_OPTIMIZE_LEVEL@";
+}
