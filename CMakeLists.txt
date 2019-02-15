@@ -21,7 +21,7 @@ include(BuildType)
 include(IdentifyOS)
 
 
-option(ENABLE_TESTS "Enable tests" OFF)
+option(ENABLE_TESTS "Enable tests" ON)
 
 
 ###############################################################################
@@ -369,4 +369,5 @@ if(UNIX)
   endif()
 endif()
 
+include (CTest)
 include (CPack)
