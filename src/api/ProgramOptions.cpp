@@ -110,6 +110,7 @@ ProgramOptions::ProgramOptions(void) noexcept(true) :
     ("max-packetbuffer-size,m", value<int unsigned>()->default_value(10000),       "Max number of packets to keep in the packet buffer")
     ("cache-timeout,T",         value<int unsigned>()->default_value(120),         "Min time (in seconds) to keep idle flows in the cache")
     ("cache-forceout,C",        value<int unsigned>()->default_value(900),         "Max time (in seconds) to force busy flows from the cache")
+    ("header,H",                value<int unsigned>()->default_value(0),                                                   "Add the header to all CSV output files")
     ("summary-forceout,S",      value<int unsigned>()->default_value(900),         "Time (in seconds) to before creating new output files")
     ("output-data-dir,d",       value<string>()->default_value("/data/" APP_NAME), "Output data directory")
     ("output-file-ext,e",       value<string>()->default_value("dat"),             "Output file extension")
@@ -353,16 +354,15 @@ string ProgramOptions::getVersionRecord(string const & p_data_guide_ver) noexcep
 #define MICRO_VERSION "ERROR"
 #endif
 
-  string pcap_ver = pcap_lib_version();
   string record;
 
-  record  = "Ver:" MAJOR_VERSION "." MINOR_VERSION "." MICRO_VERSION
-            ",Compiler:" CXX_VER
-            ",OptLevel:" CXX_OPTIMIZE_LEVEL
-            ",Debug:" CXX_DEBUG_LEVEL
-            ",BoostLibVer:" BOOST_VER
-            ",PcapLibVer:" + pcap_ver +
-            ",Compiled:" __DATE__ "  " __TIME__ ;
+  record  =  "Ver:"          + getFullVersion();
+  record += ",Compiler:"     + getCompilerName() + " " + getCompilerVersion();
+  record += ",OptLevel:"     + getCompilerOptimizeLevel();
+  record += ",Debug:"        + getCompilerDebugLevel();
+  record += ",BoostLibVer:"  + getBoostVersion();
+  record += ",PcapLibVer:"   + getPcapVersion();
+  record += ",Compiled:"     + getCompileTime();
   record += ",DataGuideVer:" + p_data_guide_ver;
 
   return(record);
@@ -436,14 +436,14 @@ void ProgramOptions::displayVersion(bool const p_condition, string const & p_dat
   string message;
 
   message  = "\n   " APP_DESC "\n"
-             "\n   " APP_NAME " version:           " + getMajorVersion() + "." + getMinorVersion() + "." + getMicroVersion();
-  message += "\n   Compiled on:              " __DATE__ ", " __TIME__ " (" + getCompileTime() + ")";
+             "\n   " APP_NAME " version:           " + getFullVersion();
+  message += "\n   Compiled on:              " + getCompileTime();
   message += "\n   Compiled with:            " + getCompilerName();
   message += "\n     Version:                " + getCompilerVersion();
   message += "\n     Optimize Level:         " + getCompilerOptimizeLevel();
   message += "\n     Type:                   " + getCompilerDebugLevel();
   message += "\n     Boost library version:  " + getBoostVersion();
-  message += "\n     pcap  library version:  " + pcap_ver;
+  message += "\n     pcap  library version:  " + getPcapVersion();
   message += "\n   Data Guide version:       " + p_data_guide_ver + "\n\n";
   message += cpr;
   message += dis;

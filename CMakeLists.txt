@@ -138,13 +138,23 @@ string(REPLACE "_" ";" _VERSION_LIST ${_VERSION_DATA})
 list(GET _VERSION_LIST 0 MAJOR_VERSION)
 list(GET _VERSION_LIST 1 MINOR_VERSION)
 list(GET _VERSION_LIST 2 MICRO_VERSION)
-message(STATUS "** VERSION_DATA: ${_VERSION_DATA}")
+
+
+###############################################################################
+#####  Get the header for creating FLOWER CSV files
+###############################################################################
+file(STRINGS ${CMAKE_SOURCE_DIR}/conf/flower_header.csv CSV_HEADER)
+
 
 string(TIMESTAMP COMPILE_TIME)
-message(STATUS "** CURRENT_TIME: ${COMPILE_TIME}")
 
-#  NOTE: For Debugging
-#
+
+###############################################################################
+####  NOTE: For Debugging
+###############################################################################
+message(STATUS "#############################################################")
+message(STATUS "** VERSION_DATA:            ${_VERSION_DATA}")
+message(STATUS "** CURRENT_TIME:            ${COMPILE_TIME}")
 message(STATUS "** Operating System:        ${CMAKE_OS_NAME}")
 message(STATUS "** MAJOR_VERSION Include:   ${MAJOR_VERSION}")
 message(STATUS "** MINOR_VERSION Include:   ${MINOR_VERSION}")
@@ -153,6 +163,7 @@ message(STATUS "** CXX NAME:                ${COMPILER_NAME}")
 message(STATUS "** CXX VERSION:             ${COMPILER_VERSION}")
 message(STATUS "** CXX BUILD TYPE:          ${CMAKE_BUILD_TYPE}")
 message(STATUS "** CXX OPTIMIZE LEVEL:      ${CXX_OPTIMIZE_LEVEL}")
+message(STATUS "#############################################################")
 
 add_executable(flower src/exe/flower.cpp)
 

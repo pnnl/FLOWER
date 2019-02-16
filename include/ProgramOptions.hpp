@@ -92,6 +92,17 @@ public:
   }
 
 
+  inline bool useCsvHeader(void) noexcept(true)
+  {
+    if (this->option_map.count("header"))
+    {
+      checkEnum("header", 0, 1);
+      return(1 == getOption<int unsigned>("header"));
+    }
+    return(false);
+  }
+
+
   // Constructors
 
   ProgramOptions(void) noexcept(true);
@@ -431,8 +442,8 @@ private:
   options_description            config_file_options;
   options_description            visible;
   positional_options_description position_options;
-  string                         device_name;
   string                         config_file;
+  string                         device_name;
   string                         executable_name;
   string                         output_data_dir;
   string                         output_file_ext;

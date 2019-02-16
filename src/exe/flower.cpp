@@ -45,6 +45,7 @@
 // Internal Includes
 // Application Includes
 #include "global.hpp"
+#include "version_info.hpp"
 #include "EventTypes.hpp"
 #include "Daemon.hpp"
 #include "Exception.hpp"
@@ -218,6 +219,7 @@ int main(int argc, char ** argv)
                                    metrics_events,
                                    po.getSummaryForceout(),
                                    po.getVersionRecord(getDataGuideVersion()),
+                                   getCsvHeader(po.useCsvHeader()),
                                    po.suppressIpv4Output()
                                   );
 
