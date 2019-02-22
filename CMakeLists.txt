@@ -337,6 +337,7 @@ install(FILES       docs/FLOWER_Data_Guide_FLR06.docx
         DESTINATION docs)
 install(FILES       conf/flower.conf
         DESTINATION conf)
+configure_file(${CMAKE_SOURCE_DIR}/scripts/create-flower-config.sh.in ${CMAKE_SOURCE_DIR}/scripts/create-flower-config.sh @ONLY)
 install(FILES       scripts/create-flower-config.sh
         PERMISSIONS OWNER_EXECUTE OWNER_READ GROUP_READ GROUP_EXECUTE
         DESTINATION scripts)
@@ -375,10 +376,15 @@ if(UNIX)
       list(APPEND CPACK_GENERATOR            "RPM")
       set(CPACK_RPM_PACKAGE_RELEASE          "1")
       set(CPACK_RPM_PACKAGE_REQUIRES         "libpcap")
-      SET(CPACK_RPM_POST_INSTALL_SCRIPT_FILE "${CMAKE_CURRENT_SOURCE_DIR}/scripts/create-flower-config.sh")
+      #SET(CPACK_RPM_POST_INSTALL_SCRIPT_FILE "${CMAKE_CURRENT_SOURCE_DIR}/scripts/create-flower-config.sh")
     endif()
   endif()
 endif()
+
+list(APPEND CPACK_GENERATOR            "RPM")
+set(CPACK_RPM_PACKAGE_RELEASE          "1")
+set(CPACK_RPM_PACKAGE_REQUIRES         "libpcap")
+#SET(CPACK_RPM_POST_INSTALL_SCRIPT_FILE "${CMAKE_CURRENT_SOURCE_DIR}/scripts/create-flower-config.sh")
 
 include (CTest)
 include (CPack)

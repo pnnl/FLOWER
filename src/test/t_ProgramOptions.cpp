@@ -44,16 +44,17 @@ char * getConfigFileArg(void)
   // may not have FLOWER_HOME set. The HOME variable will be set to
   // the user running the command.
   char * env_flower_home  = getenv("FLOWER_HOME");
-  if (env_flower_home)
+  if (NULL != env_flower_home)
   {
-    config_file_arg   += env_flower_home;
+    config_file_arg      += string(env_flower_home);
   }
   else
   {
-    config_file_arg   += getenv("HOME");
-    config_file_arg   += "/dev/flower";
+    char * env_home       = getenv("HOME");
+    config_file_arg      += string(env_home);
+    config_file_arg      += "/dev/flower";
   }
-  config_file_arg     += "/conf/flower.conf";
+  config_file_arg        += "/conf/flower.conf";
 
   char * config_file   = (char *) calloc(config_file_arg.length() + 1, sizeof(char));
   strncpy(config_file, config_file_arg.c_str(), config_file_arg.length());
