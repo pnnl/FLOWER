@@ -183,7 +183,7 @@ private:
   vector<MetricsEvent *> & metrics_events;
   time_t                   file_close_time;
   string                   current_filepath;
-  ofstream *               summary_file;
+  basic_ofstream<char> *   summary_file;
   string                   version_record;
   string                   csv_header;
   bool                     suppress_ipv4;

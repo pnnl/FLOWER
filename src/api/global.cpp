@@ -29,8 +29,8 @@
 using namespace std;
 
 
-bool const     g_REAL                = false;  // NOTE: So flow.isFake() returns false
-bool const     g_FAKE                = true;   // NOTE: So flow.isFake() returns true
+//bool const     g_REAL                = false;  // NOTE: So flow.isFake() returns false
+//bool const     g_FAKE                = true;   // NOTE: So flow.isFake() returns true
 
 bool const     g_OUTPUT2LOG          = false;  // NOTE: So getConsoleOrLog() returns true
 bool const     g_OUTPUT2CONSOLE      = true;   // NOTE: So getConsoleOrLog() returns false

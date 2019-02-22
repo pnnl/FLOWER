@@ -114,7 +114,6 @@ BOOST_AUTO_TEST_CASE(close_open_output_file_on_shutdown)
   summary_exporter->onShutdownSystemEvent(0);
 
   // Post-condition: The output .file should NOT exist
-  ifstream dot_ifs(filename1.c_str(), ifstream::in);
   BOOST_CHECK_EQUAL(boost::filesystem::exists(filename1), false);
 
   // Post-condition: The output file should exist

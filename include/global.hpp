@@ -50,8 +50,10 @@ typedef unsigned __int8   u_int8_t;
 #endif
 
 
-extern bool const     g_REAL;
-extern bool const     g_FAKE;
+constexpr bool g_REAL{ false };
+constexpr bool g_FAKE{ true };
+//extern bool const     g_REAL;
+//extern bool const     g_FAKE;
 extern bool const     g_OUTPUT2LOG;
 extern bool const     g_OUTPUT2CONSOLE;
 extern u_int8_t const g_NORMALEXIT;

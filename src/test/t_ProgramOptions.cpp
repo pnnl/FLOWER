@@ -59,9 +59,14 @@ char * getConfigFileArg(void)
   }
   config_file_arg        += "/conf/flower.conf";
 
-  char * config_file   = (char *) calloc(config_file_arg.length() + 1, sizeof(char));
-  strncpy(config_file, config_file_arg.c_str(), config_file_arg.length());
-  config_file[config_file_arg.length()] = '\0';
+  char config_file[PATH_MAX];
+  memset(config_file, '\0', sizeof(config_file)); // Ensure all data is nullified, in case b is not null terminated
+  strncpy(config_file, config_file_arg.c_str(), sizeof(config_file));
+  config_file[sizeof(config_file)-1] = '\0';
+
+//  char * config_file   = (char *) calloc(config_file_arg.length() + 1, sizeof(char));
+//  strncpy(config_file, config_file_arg.c_str(), config_file_arg.length());
+//  config_file[config_file_arg.length()] = '\0';
 
   return(config_file);
 }
