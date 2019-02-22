@@ -134,11 +134,9 @@ BOOST_AUTO_TEST_CASE(validate_RFC_ip_addresses)
 
   asIpvXPtr_t asIpv4Ptr = asIpv4;
   asIpvXPtr_t asIpv6Ptr = asIpv6;
-  strncpy(str4, asIpv4Ptr(ipv4_address).c_str(), sizeof(str4) - 1);
-  strncpy(str6, asIpv6Ptr(ipv6_address).c_str(), sizeof(str6) - 1);
 
-  int         ipv4_check = inet_pton(AF_INET,  str4, &(sa4.sin_addr));
-  int         ipv6_check = inet_pton(AF_INET6, str6, &(sa6.sin6_addr));
+  int         ipv4_check = inet_pton(AF_INET,  asIpv4Ptr(ipv4_address).c_str(), &(sa4.sin_addr));
+  int         ipv6_check = inet_pton(AF_INET6, asIpv6Ptr(ipv6_address).c_str(), &(sa6.sin6_addr));
 
   // Condition:
   BOOST_CHECK_EQUAL(1, ipv4_check);

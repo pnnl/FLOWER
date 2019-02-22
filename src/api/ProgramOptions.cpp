@@ -470,19 +470,18 @@ string ProgramOptions::getDefaultConfigFile(void) noexcept(true)
   // points to we have the full path of the executable.
 
   string config_file;
-  int const MAXPATHLEN = 1024;
-  char      fullpath[MAXPATHLEN];
+  char   buff[PATH_MAX];
 
 #ifdef __APPLE__
-  if (NULL == realpath(executable_name.c_str(), fullpath))
+  if (NULL == realpath(executable_name.c_str(), buff))
   {
     fprintf(stderr, "Error resolving realpath\n");
     exit(EXIT_FAILURE);
   }
 #elif __MSC_VER
-  GetModuleFileName(NULL, fullpath, MAX_PATH);
+  GetModuleFileName(NULL, buff, MAX_PATH);
 #else
-  int       length = readlink("/proc/self/exe", fullpath, sizeof(fullpath));
+  ssize_t length = readlink("/proc/self/exe", buff, sizeof(buff)-1);
 
   // Catch some errors:
   if (length < 0)
@@ -490,7 +489,7 @@ string ProgramOptions::getDefaultConfigFile(void) noexcept(true)
     fprintf(stderr, "Error resolving symlink /proc/self/exe.\n");
     exit(EXIT_FAILURE);
   }
-  if (length >= MAXPATHLEN)
+  if (length >= PATH_MAX)
   {
     fprintf(stderr, "Path too long. Truncated.\n");
     exit(EXIT_FAILURE);
@@ -498,10 +497,10 @@ string ProgramOptions::getDefaultConfigFile(void) noexcept(true)
 
   // The string this readlink() function returns is appended with a '@'.
   // Strip '@' off the end.
-  fullpath[length] = '\0';
+  buff[length] = '\0';
 #endif
 
-  path pathname(fullpath);
+  path pathname(buff);
   path dirname = pathname.parent_path().parent_path();
   dirname /= path("conf/" APP_NAME ".conf");
 
