@@ -1,0 +1,17 @@
+FROM centos:latest
+
+################################################################################
+# Copyright (C) (2011-2021) Battelle Memorial Institute. All Rights Reserved.
+################################################################################
+
+LABEL maintainer "Darren Curtis <Darren.Curtis@pnnl.gov>"
+COPY  build/flower-*.rpm /
+#COPY .bashrc /root/.bashrc
+#RUN apk --no-cache --update --verbose add grep bash rpm libpcap-dev && \
+#    rpm -i /flower-6.1.2-x86_64.rpm && \ 
+#    rm -rf /flower-6.1.2-x86_64.rpm /var/cache/apk/* /tmp/* /sbin/halt /sbin/poweroff /sbin/reboot
+
+RUN yum -y install libpcap-devel && \
+    rm -rf /var/cache/rpm/* /tmp/* /sbin/halt /sbin/poweroff /sbin/reboot
+
+ENTRYPOINT ["/bin/bash"]

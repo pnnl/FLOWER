@@ -193,6 +193,8 @@ bool Daemon::start(string const & p_device) noexcept(true)
   }
 
 
+  // TODO: Change daemon to posix_spawn or use trick from Apple:
+  // https://opensource.apple.com/source/mDNSResponder/mDNSResponder-544/mDNSPosix/PosixDaemon.c.auto.html
   int daemon_status = daemon(0, 0);
   errno_save        = errno;
 

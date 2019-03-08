@@ -90,6 +90,7 @@ set(CMAKE_CXX_FLAGS       "-frtti -fvisibility-inlines-hidden -fvisibility=hidde
 #set(CMAKE_CXX_FLAGS       "-Wall -Wextra")
 
 set(CMAKE_CXX_STANDARD    11)
+set(MY_BOOST_VER          "1.60.0")
 if(NOT DEFINED CMAKE_CXX_COMPILER)
   message (STATUS " ** Trying to find newer compiler")
   #set(MY_GCC_VER            "5.3")

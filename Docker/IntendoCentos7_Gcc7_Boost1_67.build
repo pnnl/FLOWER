@@ -1,0 +1,27 @@
+FROM centos/devtoolset-7-toolchain-centos7 as flower
+
+# Set one or more individual labels
+LABEL dockeruser="intendo"
+LABEL maintainer="Darren.Curtis@pnnl.gov"
+LABEL description="CentOS image for GNU GCC/G++ and Boostsofware development"
+LABEL vendor="Pacific Northwest National Laboratory"
+LABEL package_name="centos7_gcc7_boost_1-67"
+LABEL version="1.1.0"
+LABEL release-date="2019-03-07"
+LABEL version.is-production="yes"
+
+
+# ##########################################################
+#   Get prerequisites
+# ##########################################################
+USER    root
+RUN     yum -y update
+RUN     yum -y install epel-release rpm-build libpcap-devel wget which
+RUN     yum -y groupinstall "Development Tools"
+
+# ##########################################################
+COPY boost-build.sh /usr/local/boost-build.sh
+WORKDIR /usr/local
+RUN /usr/local/boost-build.sh
+
+ENTRYPOINT ["/bin/bash"]
