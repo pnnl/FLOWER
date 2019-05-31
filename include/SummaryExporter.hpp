@@ -77,9 +77,10 @@ public:
   SummaryExporter(OutputHelper           & p_output_helper, 
                   vector<MetricsEvent *> & p_metrics_events,
                   int unsigned const       p_summary_forceout,
-                  string const           & p_version_record,
-                  string const           & p_csv_header,
-                  bool const p_suppress_ipv4
+                  string       const     & p_version_record,
+                  string       const     & p_csv_header,
+                  bool         const       p_suppress_ipv4,
+                  bool         const       p_suppress_metrics
                  ) noexcept(true);
 
 
@@ -163,6 +164,12 @@ private:
   }
 
 
+  inline bool suppressMetrics(void) const noexcept(true)
+  {
+    return(this->suppress_metrics);
+  }
+
+
   // Constructors
 
   SummaryExporter(void) noexcept(true);
@@ -171,7 +178,7 @@ private:
 
   // Operators
 
-  SummaryExporter & operator=(SummaryExporter const & p_summary_exporter) noexcept(true);
+  SummaryExporter & operator=( SummaryExporter const & p_summary_exporter)       noexcept(true);
   bool              operator==(SummaryExporter const & p_summary_exporter) const noexcept(true);
   bool              operator!=(SummaryExporter const & p_summary_exporter) const noexcept(true);
 
@@ -187,6 +194,7 @@ private:
   string                   version_record;
   string                   csv_header;
   bool                     suppress_ipv4;
+  bool                     suppress_metrics;
 
 
   // Private Functions

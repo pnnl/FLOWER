@@ -164,6 +164,12 @@ public:
   }
 
 
+  inline bool getCppFormat(void) noexcept(true)
+  {
+    return(this->cpp_format);
+  }
+
+
   inline bool ipAddressFormat(void) noexcept(true)
   {
     return(this->ip_address_format);
@@ -314,6 +320,20 @@ private:
   }
 
 
+  void setCppFormat(void) noexcept(true)
+  {
+    if (getOptionMap().count("cpp-format"))
+    {
+      checkEnum("cpp-format", 0, 1);
+      this->cpp_format = (1 == getOption<int unsigned>("cpp_format"));
+      if (this->cpp_format)
+      {
+        setDataGuideVersion("04");
+      }
+    }
+  }
+
+
   void setSkipIpv4Packets(void) noexcept(true)
   {
     if (getOptionMap().count("skip-ipv4-packets"))
@@ -420,7 +440,7 @@ private:
 
   // Operators
 
-  ProgramOptions & operator=(ProgramOptions const & p_program_options) noexcept(true);
+  ProgramOptions & operator=( ProgramOptions const & p_program_options) noexcept(true);
   bool             operator==(ProgramOptions const & p_program_options) const noexcept(true);
   bool             operator!=(ProgramOptions const & p_program_options) const noexcept(true);
 
@@ -430,6 +450,7 @@ private:
   variables_map                  option_map;
   bool                           use_device;
   bool                           suppress_ipv4_output;
+  bool                           cpp_format;
   bool                           skip_ipv4_packets;
   bool                           ip_address_format;
   bool                           use_ring;

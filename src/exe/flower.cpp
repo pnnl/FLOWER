@@ -220,7 +220,8 @@ int main(int argc, char ** argv)
                                    po.getSummaryForceout(),
                                    po.getVersionRecord(getDataGuideVersion()),
                                    getCsvHeader(po.useCsvHeader()),
-                                   po.suppressIpv4Output()
+                                   po.suppressIpv4Output(),
+                                   po.getCppFormat()
                                   );
 
   // DEVELOPER NOTE: Wire up all the objects using the delegate event pattern

@@ -57,6 +57,12 @@ string const & getDataGuideVersion(void) noexcept(true)
 }
 
 
+void setDataGuideVersion(string const & p_version) noexcept(true)
+{
+  ::g_DATA_GUIDE_VERSION = "flr" + p_version;
+}
+
+
 string const & getFileOrWireStr(void) noexcept(true)
 {
   return(wire_or_file_str);

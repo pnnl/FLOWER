@@ -123,6 +123,7 @@ ProgramOptions::ProgramOptions(void) noexcept(true) :
   // Declare a group of options that will be allowed only in config file
   //
   this->config_only.add_options()
+    ("cpp-format",              value<int unsigned>()->default_value(0),           "Use Flower v4 filename and format")
     ("ip-address-format",       value<int unsigned>()->default_value(0),           "Print IPv4/IPv6 addresses in RFC (0) or CPP (1) format")
     ("snaplen",                 value<int unsigned>()->default_value(65535),       "Packet header capture length in bytes")
     ("skip-ipv4-packets",       value<int unsigned>()->default_value(0),           "Skip Processing IPv4 Packets")
@@ -199,6 +200,7 @@ bool ProgramOptions::checkOptions(int p_argc, char ** p_argv, string const & p_d
 
     setMaxFlowcacheSize();                               // MAX-FLOWCACHE-SIZE
     setSuppressIpv4Output();                             // SUPPRESS-IPV4-OUTPUT
+    setCppFormat();                                      // CPP-FORMAT
     setSkipIpv4Packets();                                // SKIP-IPV4-PACKETS
   }
   catch(std::exception & e)
@@ -285,6 +287,7 @@ void ProgramOptions::displayRuntimeVariables(void) noexcept(true)
   output("  Suppress IPv4 Flow Records  = " + bools[getOption<int unsigned>("suppress-ipv4-output")]);
   output("  Skip IPv4 Packets           = " + bools[getOption<int unsigned>("skip-ipv4-packets")]);
   output("  IP Address Format           = " + bools[getOption<int unsigned>("ip-address-format")]);
+  output("  CPP Output Format           = " + bools[getOption<int unsigned>("cpp-format")]);
 #ifndef _MSC_VER
   struct group * grp = getgrgid(getOutputFileGroupId());
   output("  Output File Group Name (Id) = " + lexical_cast<string>(grp->gr_name) + " (" + lexical_cast<string>(getOutputFileGroupId()) + ")");
