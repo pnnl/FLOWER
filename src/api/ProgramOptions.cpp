@@ -128,6 +128,7 @@ ProgramOptions::ProgramOptions(void) noexcept(true) :
     ("snaplen",                 value<int unsigned>()->default_value(65535),       "Packet header capture length in bytes")
     ("skip-ipv4-packets",       value<int unsigned>()->default_value(0),           "Skip Processing IPv4 Packets")
     ("suppress-ipv4-output",    value<int unsigned>()->default_value(0),           "Suppress the output of IPv4 Flow records")
+    ("suppress-metrics-output", value<int unsigned>()->default_value(1),           "Suppress the output of metrics records")
     ("output-file-group",       value<string>()->default_value(""),                "The output files will be owned by this group name (from /etc/group)");
 
 
@@ -200,7 +201,9 @@ bool ProgramOptions::checkOptions(int p_argc, char ** p_argv, string const & p_d
 
     setMaxFlowcacheSize();                               // MAX-FLOWCACHE-SIZE
     setSuppressIpv4Output();                             // SUPPRESS-IPV4-OUTPUT
-    setCppFormat();                                      // CPP-FORMAT
+    setIpAddressFormat();                                // RFC or CPP FORMAT of IP addresses
+    setCppFormat();                                      // CPP-FORMAT - flr04 vs flr06
+    setSuppressMetricsOutput();                          // Add metrics to output or not
     setSkipIpv4Packets();                                // SKIP-IPV4-PACKETS
   }
   catch(std::exception & e)
@@ -213,7 +216,7 @@ bool ProgramOptions::checkOptions(int p_argc, char ** p_argv, string const & p_d
 #endif
 
   // Check for expired license
-  std::time_t current_time = std::time(nullptr);
+  //std::time_t current_time = std::time(nullptr);
   //std::time_t expire_date  = std::stoi(COMPILE_TIME, nullptr) + 15780000; //  Six (6) months in seconds
   //std::time_t expire_date  = std::stoi(COMPILE_TIME, nullptr) + 1; //  Expire in 1 second after compile for testing
 
@@ -288,6 +291,7 @@ void ProgramOptions::displayRuntimeVariables(void) noexcept(true)
   output("  Skip IPv4 Packets           = " + bools[getOption<int unsigned>("skip-ipv4-packets")]);
   output("  IP Address Format           = " + bools[getOption<int unsigned>("ip-address-format")]);
   output("  CPP Output Format           = " + bools[getOption<int unsigned>("cpp-format")]);
+  output("  Suppress Metrics            = " + bools[getOption<int unsigned>("suppress-metrics-output")]);
 #ifndef _MSC_VER
   struct group * grp = getgrgid(getOutputFileGroupId());
   output("  Output File Group Name (Id) = " + lexical_cast<string>(grp->gr_name) + " (" + lexical_cast<string>(getOutputFileGroupId()) + ")");

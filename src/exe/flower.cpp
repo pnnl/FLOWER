@@ -147,7 +147,7 @@ int main(int argc, char ** argv)
   //   are in uchar2string.[ch]pp.
   asIpv4Ptr = asIpv4;
   asIpv6Ptr = asIpv6;
-  if (po.skipIpv4Packets())
+  if (po.getIpAddressFormat())
   {
     asIpv4Ptr = asIpv4CPP;
     asIpv6Ptr = asIpv6CPP;
@@ -221,7 +221,7 @@ int main(int argc, char ** argv)
                                    po.getVersionRecord(getDataGuideVersion()),
                                    getCsvHeader(po.useCsvHeader()),
                                    po.suppressIpv4Output(),
-                                   po.getCppFormat()
+                                   po.suppressMetricsOutput()
                                   );
 
   // DEVELOPER NOTE: Wire up all the objects using the delegate event pattern

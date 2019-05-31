@@ -158,6 +158,12 @@ public:
   }
 
 
+  inline bool suppressMetricsOutput(void) noexcept(true)
+  {
+    return(this->suppress_metrics_output);
+  }
+
+
   inline bool skipIpv4Packets(void) noexcept(true)
   {
     return(this->skip_ipv4_packets);
@@ -170,7 +176,7 @@ public:
   }
 
 
-  inline bool ipAddressFormat(void) noexcept(true)
+  inline bool getIpAddressFormat(void) noexcept(true)
   {
     return(this->ip_address_format);
   }
@@ -320,12 +326,32 @@ private:
   }
 
 
+  void setSuppressMetricsOutput(void) noexcept(true)
+  {
+    if (getOptionMap().count("suppress-metrics-output"))
+    {
+      checkEnum("suppress-metrics-output", 0, 1);
+      this->suppress_metrics_output = (1 == getOption<int unsigned>("suppress-metrics-output"));
+    }
+  }
+
+
+  void setIpAddressFormat(void) noexcept(true)
+  {
+    if (getOptionMap().count("ip-address-format"))
+    {
+      checkEnum("ip-address-format", 0, 1);
+      this->ip_address_format = (1 == getOption<int unsigned>("ip-address-format"));
+    }
+  }
+
+
   void setCppFormat(void) noexcept(true)
   {
     if (getOptionMap().count("cpp-format"))
     {
       checkEnum("cpp-format", 0, 1);
-      this->cpp_format = (1 == getOption<int unsigned>("cpp_format"));
+      this->cpp_format = (1 == getOption<int unsigned>("cpp-format"));
       if (this->cpp_format)
       {
         setDataGuideVersion("04");
@@ -340,16 +366,6 @@ private:
     {
       checkEnum("skip-ipv4-packets", 0, 1);
       this->skip_ipv4_packets = (1 == getOption<int unsigned>("skip-ipv4-packets"));
-    }
-  }
-
-
-  void setIpAddressFormat(void) noexcept(true)
-  {
-    if (getOptionMap().count("ip-address-format"))
-    {
-      checkEnum("ip-address-format", 0, 1);
-      this->ip_address_format = (1 == getOption<int unsigned>("ip-address-format"));
     }
   }
 
@@ -450,6 +466,7 @@ private:
   variables_map                  option_map;
   bool                           use_device;
   bool                           suppress_ipv4_output;
+  bool                           suppress_metrics_output;
   bool                           cpp_format;
   bool                           skip_ipv4_packets;
   bool                           ip_address_format;

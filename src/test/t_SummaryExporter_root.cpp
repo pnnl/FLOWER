@@ -35,6 +35,7 @@ struct SummaryExporterSuiteFixture
   string                 csv_header;
   int unsigned           force_out;
   bool                   suppress_ipv4_output;
+  bool                   suppress_metrics;
   OutputHelper *         output_helper;
   vector<MetricsEvent *> metrics_events;
 
@@ -46,11 +47,12 @@ struct SummaryExporterSuiteFixture
     site_name            = "pnnl_dev";
     force_out            = 15;
     suppress_ipv4_output = false;
+    suppress_metrics     = false;
     version_record       = "Test Version Record";
     csv_header           = "";
 
     output_helper = new OutputHelper(out_dir, file_ext, 500, site_name, getDataGuideVersion(), ".");
-    summary_exporter = new SummaryExporter(*output_helper, metrics_events, (int unsigned const)force_out, version_record, csv_header, suppress_ipv4_output);
+    summary_exporter = new SummaryExporter(*output_helper, metrics_events, (int unsigned const)force_out, version_record, csv_header, suppress_ipv4_output, suppress_metrics);
 
     return;
   }
