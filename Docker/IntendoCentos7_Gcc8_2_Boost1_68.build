@@ -1,0 +1,30 @@
+FROM centos:latest
+
+# Set one or more individual labels
+LABEL dockeruser="intendo"
+LABEL maintainer="Darren.Curtis@pnnl.gov"
+LABEL description="CentOS image for GNU GCC/G++ sofware development"
+LABEL vendor="Pacific Northwest National Laboratory"
+LABEL package_name="centos7_gcc"
+LABEL version="1.1.0"
+LABEL release-date="2019-02-26"
+LABEL version.is-production="yes"
+
+
+# ##########################################################
+#   Get prerequisites
+# ##########################################################
+RUN     yum -y update
+RUN     yum -y install epel-release rpm-build libpcap-devel wget
+RUN     yum -y groupinstall "Development Tools"
+
+# ##########################################################
+#   GNU g++ 8.2.0 Development Environment
+# ##########################################################
+COPY gcc-build.sh /usr/local/gcc-build.sh
+COPY boost-build.sh /usr/local/boost-build.sh
+WORKDIR /usr/local
+RUN /usr/local/gcc-build.sh
+RUN /usr/local/boost-build.sh
+
+ENTRYPOINT ["/bin/bash"]

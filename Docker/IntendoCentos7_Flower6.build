@@ -1,0 +1,26 @@
+FROM centos/gcc7boost167
+
+# Set one or more individual labels
+LABEL dockeruser="intendo"
+LABEL maintainer="Darren.Curtis@pnnl.gov"
+LABEL description="CentOS image for building FLOWER"
+LABEL vendor="Pacific Northwest National Laboratory"
+LABEL package_name="centos7_FLOWER6"
+LABEL version="1.1.1"
+LABEL release-date="2019-03-08"
+LABEL version.is-production="yes"
+
+
+# ##########################################################
+#   Get prerequisites
+# ##########################################################
+USER    root
+RUN     yum -y install cmake3 libpcap-dev iproute
+
+# ##########################################################
+RUN mkdir /usr/local/flower
+COPY ./ /usr/local/flower/
+WORKDIR /usr/local/flower/
+RUN export BOOST_ROOT=/usr/local/gcc-7.3_boost-1.67.0/boost; export CMAKE_CXX_COMPILER=$(which g++); /usr/local/flower/BUILD.sh
+
+ENTRYPOINT ["/bin/bash"]

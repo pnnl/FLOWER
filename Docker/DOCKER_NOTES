@@ -1,0 +1,4 @@
+Use the following for examples Docker builds
+https://github.com/intendo/centos7/blob/master/Dockerfile
+https://github.com/intendo/centos7_gcc5_3/blob/master/Dockerfile
+https://github.com/intendo/centos7_gcc5_3_boost1_60/blob/master/Dockerfile

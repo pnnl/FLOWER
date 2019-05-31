@@ -21,7 +21,7 @@ include(BuildType)
 include(IdentifyOS)
 
 
-option(ENABLE_TESTS "Enable tests" OFF)
+option(ENABLE_TESTS "Enable tests" ON)
 
 
 ###############################################################################
@@ -90,6 +90,7 @@ set(CMAKE_CXX_FLAGS       "-frtti -fvisibility-inlines-hidden -fvisibility=hidde
 #set(CMAKE_CXX_FLAGS       "-Wall -Wextra")
 
 set(CMAKE_CXX_STANDARD    11)
+set(MY_BOOST_VER          "1.60.0")
 if(NOT DEFINED CMAKE_CXX_COMPILER)
   message (STATUS " ** Trying to find newer compiler")
   #set(MY_GCC_VER            "5.3")
@@ -111,7 +112,7 @@ if(NOT DEFINED CMAKE_CXX_COMPILER)
 endif()
 
 
-if(NOT CMAKE_BUILD_TYPE)
+if((NOT CMAKE_BUILD_TYPE) OR (CMAKE_BUILD_TYPE STREQUAL "Release"))
   set(CMAKE_BUILD_TYPE        Release CACHE STRING "Build type" FORCE)
   set(CMAKE_CXX_FLAGS_RELEASE "-O2")
   set(CXX_OPTIMIZE_LEVEL      "${CMAKE_CXX_FLAGS_RELEASE}")
@@ -138,13 +139,23 @@ string(REPLACE "_" ";" _VERSION_LIST ${_VERSION_DATA})
 list(GET _VERSION_LIST 0 MAJOR_VERSION)
 list(GET _VERSION_LIST 1 MINOR_VERSION)
 list(GET _VERSION_LIST 2 MICRO_VERSION)
-message(STATUS "** VERSION_DATA: ${_VERSION_DATA}")
+
+
+###############################################################################
+#####  Get the header for creating FLOWER CSV files
+###############################################################################
+file(STRINGS ${CMAKE_SOURCE_DIR}/conf/flower_header.csv CSV_HEADER)
+
 
 string(TIMESTAMP COMPILE_TIME)
-message(STATUS "** CURRENT_TIME: ${COMPILE_TIME}")
 
-#  NOTE: For Debugging
-#
+
+###############################################################################
+####  NOTE: For Debugging
+###############################################################################
+message(STATUS "#############################################################")
+message(STATUS "** VERSION_DATA:            ${_VERSION_DATA}")
+message(STATUS "** CURRENT_TIME:            ${COMPILE_TIME}")
 message(STATUS "** Operating System:        ${CMAKE_OS_NAME}")
 message(STATUS "** MAJOR_VERSION Include:   ${MAJOR_VERSION}")
 message(STATUS "** MINOR_VERSION Include:   ${MINOR_VERSION}")
@@ -153,6 +164,7 @@ message(STATUS "** CXX NAME:                ${COMPILER_NAME}")
 message(STATUS "** CXX VERSION:             ${COMPILER_VERSION}")
 message(STATUS "** CXX BUILD TYPE:          ${CMAKE_BUILD_TYPE}")
 message(STATUS "** CXX OPTIMIZE LEVEL:      ${CXX_OPTIMIZE_LEVEL}")
+message(STATUS "#############################################################")
 
 add_executable(flower src/exe/flower.cpp)
 
@@ -326,6 +338,7 @@ install(FILES       docs/FLOWER_Data_Guide_FLR06.docx
         DESTINATION docs)
 install(FILES       conf/flower.conf
         DESTINATION conf)
+configure_file(${CMAKE_SOURCE_DIR}/scripts/create-flower-config.sh.in ${CMAKE_SOURCE_DIR}/scripts/create-flower-config.sh @ONLY)
 install(FILES       scripts/create-flower-config.sh
         PERMISSIONS OWNER_EXECUTE OWNER_READ GROUP_READ GROUP_EXECUTE
         DESTINATION scripts)
@@ -364,9 +377,15 @@ if(UNIX)
       list(APPEND CPACK_GENERATOR            "RPM")
       set(CPACK_RPM_PACKAGE_RELEASE          "1")
       set(CPACK_RPM_PACKAGE_REQUIRES         "libpcap")
-      SET(CPACK_RPM_POST_INSTALL_SCRIPT_FILE "${CMAKE_CURRENT_SOURCE_DIR}/scripts/create-flower-config.sh")
+      #SET(CPACK_RPM_POST_INSTALL_SCRIPT_FILE "${CMAKE_CURRENT_SOURCE_DIR}/scripts/create-flower-config.sh")
     endif()
   endif()
 endif()
 
+list(APPEND CPACK_GENERATOR            "RPM")
+set(CPACK_RPM_PACKAGE_RELEASE          "1")
+set(CPACK_RPM_PACKAGE_REQUIRES         "libpcap")
+#SET(CPACK_RPM_POST_INSTALL_SCRIPT_FILE "${CMAKE_CURRENT_SOURCE_DIR}/scripts/create-flower-config.sh")
+
+include (CTest)
 include (CPack)

@@ -32,8 +32,10 @@ struct SummaryExporterSuiteFixture
   string                 out_dir;
   string                 site_name;
   string                 version_record;
+  string                 csv_header;
   int unsigned           force_out;
   bool                   suppress_ipv4_output;
+  bool                   suppress_metrics;
   OutputHelper *         output_helper;
   vector<MetricsEvent *> metrics_events;
 
@@ -45,10 +47,12 @@ struct SummaryExporterSuiteFixture
     site_name            = "pnnl_dev";
     force_out            = 15;
     suppress_ipv4_output = false;
+    suppress_metrics     = false;
     version_record       = "Test Version Record";
+    csv_header           = "";
 
     output_helper = new OutputHelper(out_dir, file_ext, 500, site_name, getDataGuideVersion(), ".");
-    summary_exporter = new SummaryExporter(*output_helper, metrics_events, (int unsigned const)force_out, version_record, suppress_ipv4_output);
+    summary_exporter = new SummaryExporter(*output_helper, metrics_events, (int unsigned const)force_out, version_record, csv_header, suppress_ipv4_output, suppress_metrics);
 
     return;
   }
@@ -112,7 +116,6 @@ BOOST_AUTO_TEST_CASE(close_open_output_file_on_shutdown)
   summary_exporter->onShutdownSystemEvent(0);
 
   // Post-condition: The output .file should NOT exist
-  ifstream dot_ifs(filename1.c_str(), ifstream::in);
   BOOST_CHECK_EQUAL(boost::filesystem::exists(filename1), false);
 
   // Post-condition: The output file should exist

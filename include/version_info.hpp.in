@@ -1,9 +1,43 @@
+///////////////////////////////////////////////////////////////////////////////
+// Copyright (C) (2011-2021) Battelle Memorial Institute. All Rights Reserved.
+//
+// CODING CONVENTIONS:
+//    * Class names are CamelCase with first word upper case
+//    * Functions are camelCase with first word lower case
+//    * Function parameters are lower case with _ and have p_ prefix
+//    * Member variables always use 'this' pointer
+///////////////////////////////////////////////////////////////////////////////
+
+
+#ifndef VERSIONINFO_HPP
+#define VERSIONINFO_HPP
+
+
+#include <ctime>
+#include <pcap/pcap.h>
 #include <string>
+
+
+inline std::string getPcapVersion()
+{
+  return pcap_lib_version();
+}
 
 
 inline std::string getCompileTime()
 {
-  return "@COMPILE_TIME@";
+  string compile_time;
+  compile_time += __DATE__;
+  compile_time += ", ";
+  compile_time += __TIME__;
+  compile_time += " (@COMPILE_TIME@)";
+  return compile_time;
+}
+
+
+inline std::string getFullVersion()
+{
+  return "@MAJOR_VERSION@.@MINOR_VERSION@.@MICRO_VERSION@";
 }
 
 
@@ -53,3 +87,15 @@ inline std::string getCompilerOptimizeLevel()
 {
   return "@CXX_OPTIMIZE_LEVEL@";
 }
+
+
+inline std::string getCsvHeader(bool const p_value) noexcept(true)
+{
+  if (p_value)
+  {
+    return "@CSV_HEADER@\n";
+  }
+  return "";
+}
+
+#endif // VERSIONINFO_HPP

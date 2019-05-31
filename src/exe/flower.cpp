@@ -45,6 +45,7 @@
 // Internal Includes
 // Application Includes
 #include "global.hpp"
+#include "version_info.hpp"
 #include "EventTypes.hpp"
 #include "Daemon.hpp"
 #include "Exception.hpp"
@@ -146,7 +147,7 @@ int main(int argc, char ** argv)
   //   are in uchar2string.[ch]pp.
   asIpv4Ptr = asIpv4;
   asIpv6Ptr = asIpv6;
-  if (po.skipIpv4Packets())
+  if (po.getIpAddressFormat())
   {
     asIpv4Ptr = asIpv4CPP;
     asIpv6Ptr = asIpv6CPP;
@@ -218,7 +219,9 @@ int main(int argc, char ** argv)
                                    metrics_events,
                                    po.getSummaryForceout(),
                                    po.getVersionRecord(getDataGuideVersion()),
-                                   po.suppressIpv4Output()
+                                   getCsvHeader(po.useCsvHeader()),
+                                   po.suppressIpv4Output(),
+                                   po.suppressMetricsOutput()
                                   );
 
   // DEVELOPER NOTE: Wire up all the objects using the delegate event pattern

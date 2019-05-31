@@ -110,21 +110,37 @@ string getFlowerDataNic ()
 }
 
 
-string getFlowerDataHome ()
+string getFlowerHome (void)
+{
+  string flower_home;
+  char const * env_flower_home  = getenv("FLOWER_HOME");
+  if (NULL != env_flower_home)
+  {
+    flower_home = string(env_flower_home);
+  }
+  return(flower_home);
+}
+
+
+string getFlowerDataHome (void)
 {
   string flower_data_home;
   // This has to be char * because sudo will run as root and root
   // may not have FLOWER_HOME set. The HOME variable will be set to
   // the user running the command.
-  char * env_flower_home   = getenv("FLOWER_HOME");
-  if (env_flower_home)
+  char const * env_flower_home   = getenv("FLOWER_HOME");
+  if (NULL != env_flower_home)
   {
-    flower_data_home       = env_flower_home;
+    flower_data_home      = string(env_flower_home);
   }
   else
   {
-    flower_data_home      += getenv("HOME");
-    flower_data_home      += "/git/flower";
+    char const * env_home = getenv("HOME");
+    if (NULL != env_home)
+    {
+      flower_data_home    += string(env_home);
+      flower_data_home    += "/git/flower";
+    }
   }
   flower_data_home        += "/data/flower/";
 

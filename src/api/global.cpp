@@ -29,8 +29,8 @@
 using namespace std;
 
 
-bool const     g_REAL                = false;  // NOTE: So flow.isFake() returns false
-bool const     g_FAKE                = true;   // NOTE: So flow.isFake() returns true
+//bool const     g_REAL                = false;  // NOTE: So flow.isFake() returns false
+//bool const     g_FAKE                = true;   // NOTE: So flow.isFake() returns true
 
 bool const     g_OUTPUT2LOG          = false;  // NOTE: So getConsoleOrLog() returns true
 bool const     g_OUTPUT2CONSOLE      = true;   // NOTE: So getConsoleOrLog() returns false
@@ -54,6 +54,12 @@ static bool         console_or_log   = true;   // NOTE: true = Console, false = 
 string const & getDataGuideVersion(void) noexcept(true)
 {
   return(::g_DATA_GUIDE_VERSION);
+}
+
+
+void setDataGuideVersion(string const & p_version) noexcept(true)
+{
+  ::g_DATA_GUIDE_VERSION = "flr" + p_version;
 }
 
 

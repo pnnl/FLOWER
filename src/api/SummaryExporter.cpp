@@ -56,14 +56,23 @@
 // ======================================================================
 
 
-SummaryExporter::SummaryExporter(OutputHelper & p_output_helper, vector<MetricsEvent *> & p_metrics_events, int unsigned const p_summary_forceout, string const & p_version_record, bool const p_suppress_ipv4) noexcept(true) :
+SummaryExporter::SummaryExporter(OutputHelper           & p_output_helper,
+                                 vector<MetricsEvent *> & p_metrics_events,
+                                 int unsigned const       p_summary_forceout,
+                                 string const           & p_version_record,
+                                 string const           & p_csv_header,
+                                 bool const               p_suppress_ipv4,
+                                 bool         const       p_suppress_metrics
+                                ) noexcept(true) :
   summary_forceout(p_summary_forceout),
   output_helper(p_output_helper),
   metrics_events(p_metrics_events),
   file_close_time(getEpoch()),
   summary_file(NULL),
   version_record(p_version_record),
-  suppress_ipv4(p_suppress_ipv4)
+  csv_header(p_csv_header),
+  suppress_ipv4(p_suppress_ipv4),
+  suppress_metrics(p_suppress_metrics)
 {
   DEBUG(TRACE, ENTER);
   DEBUG(TRACE, LEAVE);
@@ -81,7 +90,10 @@ void SummaryExporter::renameFile(void) noexcept(true)
   DEBUG(TRACE, ENTER);
   if (NULL != getSummaryFile())
   {
-    outputMetadata();
+    if (! suppressMetrics())
+    {
+      outputMetadata();
+    }
     closeSummaryFile();
     deleteSummaryFile();
     getOutputHelper().setFileSettings(getCurrentFilepath());
@@ -120,10 +132,11 @@ bool SummaryExporter::openSummaryFile(void) noexcept(true)
   if (getOutputHelper().openLocked(getCurrentFilepath()))
   {
     this->summary_file = new ofstream(getCurrentFilepath().c_str(), ios::app);
-    if (!getSummaryFile() || !getSummaryFile()->is_open())
+    if (! getSummaryFile() || ! getSummaryFile()->is_open())
     {
       ERROR_MSG(FileIO, "Can't open file", ("Can't open summary file: " + getCurrentFilepath()).c_str());
     }
+    *getSummaryFile() << csv_header;
     status = true;
   }
   else

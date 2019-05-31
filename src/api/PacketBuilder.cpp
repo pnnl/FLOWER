@@ -109,6 +109,7 @@ bool PacketBuilder::initDevice(string const & p_device) noexcept(true)
   string       error_message;
   int unsigned read_timeout     = 500;
   int unsigned promiscuous_mode = 1;
+  int          pcap_ret;
   bool         result           = false;
 
   setInterfaceName(p_device);
@@ -117,7 +118,8 @@ bool PacketBuilder::initDevice(string const & p_device) noexcept(true)
   memset(errbuf, 0, sizeof(errbuf));
 
   getPacketCounter().resetItem();
-  setPcapDescriptor(pcap_open_live(p_device.c_str(), getSnaplen(), promiscuous_mode, read_timeout, errbuf));
+  //setPcapDescriptor(pcap_open_live(p_device.c_str(), getSnaplen(), promiscuous_mode, read_timeout, errbuf));
+  setPcapDescriptor(pcap_create(p_device.c_str(), errbuf));
 
   error_message = "ERROR_MSG: pcap_open_live(" + p_device + "): " + errbuf;
   if (NULL == getPcapDescriptor())
@@ -149,6 +151,31 @@ bool PacketBuilder::initDevice(string const & p_device) noexcept(true)
     }
   }
 
+  pcap_ret = pcap_set_snaplen(getPcapDescriptor(), getSnaplen());
+  if (0 > pcap_ret)
+  {
+     FATAL(TSNH, "Can't set snaplen on interface (" + getInterfaceName(), pcap_statustostr(pcap_ret));
+     return(false);
+  }
+  pcap_ret = pcap_set_promisc(getPcapDescriptor(), promiscuous_mode);
+  if (0 > pcap_ret)
+  {
+     FATAL(TSNH, "Can't set permiscuous mode on interface (" + getInterfaceName(), pcap_statustostr(pcap_ret));
+     return(false);
+  }
+  pcap_ret = pcap_set_timeout(getPcapDescriptor(), read_timeout);
+  if (0 > pcap_ret)
+  {
+     FATAL(TSNH, "Can't set timeout on interface (" + getInterfaceName(), pcap_statustostr(pcap_ret));
+     return(false);
+  }
+  pcap_ret = pcap_setdirection(getPcapDescriptor(), PCAP_D_IN);
+  if (0 > pcap_ret)
+  {
+     FATAL(TSNH, "Can't set option to only capture incoming packets on interface (" + getInterfaceName(), pcap_statustostr(pcap_ret));
+     return(false);
+  }
+
   DEBUG(TRACE, LEAVE);
   return(result);
 }
@@ -163,6 +190,12 @@ bool PacketBuilder::readDevice(void) noexcept(true)
 
   if (NULL != getPcapDescriptor())
   {
+    pcap_ret = pcap_activate(getPcapDescriptor());
+    if (0 > pcap_ret)
+    {
+       FATAL(TSNH, "Can't activate interface (" + getInterfaceName(), pcap_statustostr(pcap_ret));
+       return(ok);
+    }
     getPacketCounter().setStartTime();
     // DEVELOPER NOTE: Using a trampoline technique to pass this class 
     //                 instance into the global PacketBuilder_pcap_handler

@@ -43,20 +43,31 @@ char * getConfigFileArg(void)
   // This has to be char * because sudo will run as root and root
   // may not have FLOWER_HOME set. The HOME variable will be set to
   // the user running the command.
-  char * env_flower_home  = getenv("FLOWER_HOME");
-  if (env_flower_home)
+  char const * env_flower_home  = getenv("FLOWER_HOME");
+  if (NULL != env_flower_home)
   {
-    config_file_arg   += env_flower_home;
+    config_file_arg      += string(env_flower_home);
   }
   else
   {
-    config_file_arg   += getenv("HOME");
-    config_file_arg   += "/dev/flower";
+    char * env_home       = getenv("HOME");
+    if (NULL != env_home)
+    {
+      config_file_arg    += string(env_home);
+      config_file_arg    += "/dev/flower";
+    }
   }
-  config_file_arg     += "/conf/flower.conf";
+  config_file_arg        += "/conf/flower.conf";
+
+  //char config_file[PATH_MAX];
+  //memset(config_file, '\0', PATH_MAX); // Ensure all data is nullified, in case b is not null terminated
+  //strncpy(config_file, config_file_arg.c_str(), sizeof(config_file));
+  //config_file[sizeof(config_file) - 1] = '\0';
 
   char * config_file   = (char *) calloc(config_file_arg.length() + 1, sizeof(char));
+  memset(config_file, '\0', config_file_arg.length()); // Ensure all data is nullified, in case b is not null terminated
   strncpy(config_file, config_file_arg.c_str(), config_file_arg.length());
+  config_file[config_file_arg.length()] = '\0';
 
   return(config_file);
 }

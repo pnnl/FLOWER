@@ -1,0 +1,31 @@
+FROM    centos7_gcc8_2_boost1_68.build:latest
+
+################################################################################
+# Copyright (C) (2011-2021) Battelle Memorial Institute. All Rights Reserved.
+################################################################################
+
+# ##########################################################
+#   Get prerequisites
+# ##########################################################
+RUN     yum -y install epel-release libpcap-devel cmake3 rpm-build which
+
+# ##########################################################
+#   SETUP Build Environment
+# ##########################################################
+RUN     mkdir -p /build/flower
+ENV     PATH=/build/flower/build/bin:/usr/local/gcc/bin:/usr/local/bin:$PATH
+#ENV     LD_LIBRARY_PATH=/usr/local/boost/lib:/usr/local/gcc/lib64:/usr/local/gcc/lib:/usr/local/lib:/usr/lib:$LD_LIBRARY_PATH
+ENV     CC=/usr/local/gcc-8.2/bin/gcc-8.2
+ENV     CXX=/usr/local/gcc-8.2/bin/g++-8.2
+ENV     CMAKE_CXX_COMPILER=$CXX
+ENV     BOOST_ROOT=/usr/local/gcc-8.2_boost-1.68.0/boost
+
+# ##########################################################
+#   Build FLOWER
+# ##########################################################
+
+WORKDIR /build/flower
+COPY    . /build/flower
+RUN     cd /build/flower && ./BUILD.sh
+
+RUN     ip a

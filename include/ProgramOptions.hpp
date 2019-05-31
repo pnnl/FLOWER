@@ -92,6 +92,17 @@ public:
   }
 
 
+  inline bool useCsvHeader(void) noexcept(true)
+  {
+    if (this->option_map.count("header"))
+    {
+      checkEnum("header", 0, 1);
+      return(1 == getOption<int unsigned>("header"));
+    }
+    return(false);
+  }
+
+
   // Constructors
 
   ProgramOptions(void) noexcept(true);
@@ -147,13 +158,25 @@ public:
   }
 
 
+  inline bool suppressMetricsOutput(void) noexcept(true)
+  {
+    return(this->suppress_metrics_output);
+  }
+
+
   inline bool skipIpv4Packets(void) noexcept(true)
   {
     return(this->skip_ipv4_packets);
   }
 
 
-  inline bool ipAddressFormat(void) noexcept(true)
+  inline bool getCppFormat(void) noexcept(true)
+  {
+    return(this->cpp_format);
+  }
+
+
+  inline bool getIpAddressFormat(void) noexcept(true)
   {
     return(this->ip_address_format);
   }
@@ -303,12 +326,12 @@ private:
   }
 
 
-  void setSkipIpv4Packets(void) noexcept(true)
+  void setSuppressMetricsOutput(void) noexcept(true)
   {
-    if (getOptionMap().count("skip-ipv4-packets"))
+    if (getOptionMap().count("suppress-metrics-output"))
     {
-      checkEnum("skip-ipv4-packets", 0, 1);
-      this->skip_ipv4_packets = (1 == getOption<int unsigned>("skip-ipv4-packets"));
+      checkEnum("suppress-metrics-output", 0, 1);
+      this->suppress_metrics_output = (1 == getOption<int unsigned>("suppress-metrics-output"));
     }
   }
 
@@ -319,6 +342,30 @@ private:
     {
       checkEnum("ip-address-format", 0, 1);
       this->ip_address_format = (1 == getOption<int unsigned>("ip-address-format"));
+    }
+  }
+
+
+  void setCppFormat(void) noexcept(true)
+  {
+    if (getOptionMap().count("cpp-format"))
+    {
+      checkEnum("cpp-format", 0, 1);
+      this->cpp_format = (1 == getOption<int unsigned>("cpp-format"));
+      if (this->cpp_format)
+      {
+        setDataGuideVersion("04");
+      }
+    }
+  }
+
+
+  void setSkipIpv4Packets(void) noexcept(true)
+  {
+    if (getOptionMap().count("skip-ipv4-packets"))
+    {
+      checkEnum("skip-ipv4-packets", 0, 1);
+      this->skip_ipv4_packets = (1 == getOption<int unsigned>("skip-ipv4-packets"));
     }
   }
 
@@ -409,7 +456,7 @@ private:
 
   // Operators
 
-  ProgramOptions & operator=(ProgramOptions const & p_program_options) noexcept(true);
+  ProgramOptions & operator=( ProgramOptions const & p_program_options) noexcept(true);
   bool             operator==(ProgramOptions const & p_program_options) const noexcept(true);
   bool             operator!=(ProgramOptions const & p_program_options) const noexcept(true);
 
@@ -419,6 +466,8 @@ private:
   variables_map                  option_map;
   bool                           use_device;
   bool                           suppress_ipv4_output;
+  bool                           suppress_metrics_output;
+  bool                           cpp_format;
   bool                           skip_ipv4_packets;
   bool                           ip_address_format;
   bool                           use_ring;
@@ -431,8 +480,8 @@ private:
   options_description            config_file_options;
   options_description            visible;
   positional_options_description position_options;
-  string                         device_name;
   string                         config_file;
+  string                         device_name;
   string                         executable_name;
   string                         output_data_dir;
   string                         output_file_ext;
