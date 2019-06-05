@@ -32,6 +32,7 @@ using namespace std;
 //bool const     g_REAL                = false;  // NOTE: So flow.isFake() returns false
 //bool const     g_FAKE                = true;   // NOTE: So flow.isFake() returns true
 
+bool           g_FLR06               = true;   // NOTE: So isFlr06() returns true
 bool const     g_OUTPUT2LOG          = false;  // NOTE: So getConsoleOrLog() returns true
 bool const     g_OUTPUT2CONSOLE      = true;   // NOTE: So getConsoleOrLog() returns false
 
@@ -51,6 +52,12 @@ static bool         console_or_log   = true;   // NOTE: true = Console, false = 
 
 // Getters/Setters
 
+bool const getFlr06(void) noexcept(true)
+{
+  return(g_FLR06);
+}
+
+
 string const & getDataGuideVersion(void) noexcept(true)
 {
   return(::g_DATA_GUIDE_VERSION);
@@ -60,6 +67,10 @@ string const & getDataGuideVersion(void) noexcept(true)
 void setDataGuideVersion(string const & p_version) noexcept(true)
 {
   ::g_DATA_GUIDE_VERSION = "flr" + p_version;
+  if (p_version.compare("06") != 0)
+  {
+    ::g_FLR06 = false;
+  }
 }
 
 

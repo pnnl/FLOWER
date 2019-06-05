@@ -220,6 +220,12 @@ public:
   }
 
 
+  inline bool isFlr06(void) const noexcept(true)
+  {
+    return(this->is_flr06);
+  }
+
+
   inline bool isFake(void) const noexcept(true)
   {
     return(getFake());
@@ -416,7 +422,8 @@ public:
     u_int16_t   is_ip_frag:1;                 
     u_int16_t   is_first_ip_frag:1;            
     u_int16_t   is_last_ip_frag:1;            
-    u_int16_t   is_ipv4:1;            
+    u_int16_t   is_ipv4:1;
+    u_int16_t   is_flr06:1;
   };                                         // end of 7th line - 38 bytes  416 bytes total because of compiler
 
   // DEVELOPER NOTE: Optimization trial and error with padding

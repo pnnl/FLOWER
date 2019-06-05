@@ -345,24 +345,30 @@ struct ToStringSeq < Data<u_int32_t, 4> >
 
   // DEVELOPER NOTE: This is for the First/Last Seen Src/Dst Tcp Sequence Number
 
-  static void toString(Data<u_int32_t, 4> const & p_data, string & p_tmp, bool const valid_0, bool const valid_1) noexcept(true)
+  static void toString(Data<u_int32_t, 4> const & p_data, string & p_tmp, bool const valid_0, bool const valid_1, bool const print_timestamp) noexcept(true)
   {
     p_tmp += ',';
-    if (valid_0 & (0 != p_data.at(0)))
+    if (print_timestamp)
     {
-      p_tmp += uitoa10(p_data.at(0));
+      if (valid_0 & (0 != p_data.at(0)))
+      {
+        p_tmp += uitoa10(p_data.at(0));
+      }
+      p_tmp += ',';
     }
-    p_tmp += ',';
     if (valid_0 & (0 != p_data.at(1)))
     {
       p_tmp += uitoa10(p_data.at(1));
     }
     p_tmp += ',';
-    if (valid_1 & (0 != p_data.at(2)))
+    if (print_timestamp)
     {
-      p_tmp += uitoa10(p_data.at(2));
+      if (valid_1 & (0 != p_data.at(2)))
+      {
+        p_tmp += uitoa10(p_data.at(2));
+      }
+      p_tmp += ',';
     }
-    p_tmp += ',';
     if (valid_1 & (0 != p_data.at(3)))
     {
       p_tmp += uitoa10(p_data.at(3));

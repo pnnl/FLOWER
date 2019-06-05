@@ -27,6 +27,7 @@
 #include <boost/lexical_cast.hpp>
 // Internal Includes
 // Application Includes
+#include "global.hpp"
 #include "num2string.hpp"
 #include "Flow.hpp"
 #include "Field/Data.hpp"
@@ -99,7 +100,8 @@ Flow::Flow(
   is_ip_frag(p_is_ip_frag),
   is_first_ip_frag(p_is_first_ip_frag),
   is_last_ip_frag(p_is_last_ip_frag),
-  is_ipv4(p_is_ipv4)
+  is_ipv4(p_is_ipv4),
+  is_flr06(getFlr06())
 {
   DEBUG(LOTS, ENTER);
   DEBUG(LOTS, LEAVE);
@@ -362,37 +364,69 @@ string Flow::createFlowString(void) const noexcept(true)
 
   if (! isFake())
   {
+    // Data Guide FLR04 Field  1 &  2            FLR06 Field  1 &  2
     flow_str = getFileOrWireStr() + ',' + getSiteName();
   }
   else
   {
+    // Data Guide FLR04 Field  1 &  2            FLR06 Field  1 &  2
     flow_str = "2," + getSiteName();
   }
   // TOSTRING_VISITOR_START
+  //   Data Guide FLR04 Field  3 &  4            FLR06 Field  3 &  4
   ToString< Data<u_int32_t, 4> >::toString(             this->physical_struct.time_duration,    flow_str, this->physical_struct.time_duration_0, this->physical_struct.time_duration_1, this->physical_struct.time_duration_2, this->physical_struct.time_duration_3);
+  //   Data Guide FLR04 Field  5                 FLR06 Field  5
   ToStringNonzero< Data<u_int16_t, 1> >::toString(      this->physical_struct.vlan_id,          flow_str, this->physical_struct.vlan_id_0);
+  //   Data Guide FLR04 Field  6                 FLR06 Field  6
   ToString< Data<u_int8_t, 1> >::toString(              this->physical_struct.ip_protocol,      flow_str, this->physical_struct.ip_protocol_0);
+  //   Data Guide FLR04 Field  7 &  8 &  9 & 10  FLR06 Field  7 &  8 &  9 & 10
   ToStringIp< Data< IpAddress_t, 2> >::toString(        this->physical_struct.ip_address,       flow_str, this->physical_struct.ip_address_0, this->physical_struct.ip_address_1);
-  ToStringPayloadNonzero< Data<u_int64_t, 4> >::toString(this->physical_struct.payload_bytes,    flow_str, this->physical_struct.payload_bytes_0, this->physical_struct.payload_bytes_1);
+  //   Data Guide FLR04 Field 11 & 12            FLR06 Field 11 & 12
+  ToStringPayloadNonzero< Data<u_int64_t, 4> >::toString(this->physical_struct.payload_bytes,   flow_str, this->physical_struct.payload_bytes_0, this->physical_struct.payload_bytes_1);
+  //   Data Guide FLR04 Field 13 & 14            FLR06 Field 13 & 14
   ToStringNonzero< Data<u_int64_t, 2> >::toString(      this->physical_struct.total_bytes,      flow_str, this->physical_struct.total_bytes_0, this->physical_struct.total_bytes_1);
+  //   Data Guide FLR04 Field 15 & 16            FLR06 Field 15 & 16
   ToStringNonzero< Data<u_int64_t, 2> >::toString(      this->physical_struct.packet_count,     flow_str, this->physical_struct.packet_count_0, this->physical_struct.packet_count_1);
+  //   Data Guide FLR04 Field 17 & 18            FLR06 Field 17 & 18
   ToStringNonzero< Data<u_int64_t, 2> >::toString(      this->physical_struct.ip_option_count,  flow_str, this->physical_struct.ip_option_count_0, this->physical_struct.ip_option_count_1);
+  //   Data Guide FLR04 Field 19 & 20            FLR06 Field 19 & 20
   ToStringNonzero< Data<u_int16_t, 2> >::toString(      this->physical_struct.ip_port,          flow_str, this->physical_struct.ip_port_0, this->physical_struct.ip_port_1);
+  //   Data Guide FLR04 Field 21 & 22            FLR06 Field 21 & 22
   ToStringIcmpflags< Data<u_int16_t, 2> >::toString(    this->physical_struct.icmp_flag_sum,    flow_str, this->physical_struct.icmp_flag_sum_0, this->physical_struct.icmp_flag_sum_1);
+  //   Data Guide FLR04 Field 23                 FLR06 Field 23
   ToStringFlags< Data<Elf_t, 1> >::toString(            this->physical_struct.elf_flags,        flow_str, this->physical_struct.icmp_flags_0);
+  //   Data Guide FLR04 Field 24 & 25            FLR06 Field 24 & 25
   ToStringNonzero< Data<u_int64_t, 2> >::toString(      this->physical_struct.tcp_option_count, flow_str, this->physical_struct.tcp_option_count_0, this->physical_struct.tcp_option_count_1);
+  //   Data Guide FLR04 Field 26 & 27            FLR06 Field 26 & 27
   ToStringTcpflags< Data<u_int16_t, 2> >::toString(     this->physical_struct.tcp_flag_sum,     flow_str, this->physical_struct.tcp_flag_sum_0, this->physical_struct.tcp_flag_sum_1);
+  //   Data Guide FLR04 Field 28                 FLR06 Field 28
   ToStringFlags< Data<Elf_t, 1> >::toString(            this->physical_struct.elf_flags,        flow_str, this->physical_struct.tcp_flags_0);
-  ToStringSeq< Data<u_int32_t, 4> >::toString(          this->physical_struct.tcp_initial_seq,  flow_str, this->physical_struct.tcp_initial_seq_0, this->physical_struct.tcp_initial_seq_1);
-  ToStringSeq< Data<u_int32_t, 4> >::toString(          this->physical_struct.tcp_last_seq,     flow_str, this->physical_struct.tcp_last_seq_0, this->physical_struct.tcp_last_seq_1);
+  //   Data Guide FLR04 Field 29 & 30            FLR06 Field 29 & 30 & 31 & 32
+  ToStringSeq< Data<u_int32_t, 4> >::toString(          this->physical_struct.tcp_initial_seq,  flow_str, this->physical_struct.tcp_initial_seq_0, this->physical_struct.tcp_initial_seq_1, isFlr06());
+  //   Data Guide FLR04 Field 31 & 32            FLR06 Field 33 & 34 & 35 & 36
+  ToStringSeq< Data<u_int32_t, 4> >::toString(          this->physical_struct.tcp_last_seq,     flow_str, this->physical_struct.tcp_last_seq_0, this->physical_struct.tcp_last_seq_1, isFlr06());
+  if (isFlr06())
+  {
+  //   Data Guide                                FLR06 Field 37 & 38
   ToStringNonzero< Data<u_int64_t, 2> >::toString(      this->physical_struct.tcp_retrans_count,flow_str, this->physical_struct.tcp_retrans_count_0, this->physical_struct.tcp_retrans_count_1);
+  //   Data Guide                                FLR06 Field 39
   ToString< Data<u_int8_t, 1> >::toString(              this->physical_struct.tunnel_depth,     flow_str, this->physical_struct.tunnel_depth_0);
+  }
+  //   Data Guide FLR04 Field 33 & 34 & 35 & 36  FLR06 Field 40 & 41 & 42 & 43
   ToStringIp< Data< IpAddress_t, 2> >::toString(        this->physical_struct.tunnel_address,   flow_str, this->physical_struct.tunnel_address_0, this->physical_struct.tunnel_address_1);
+  //   Data Guide FLR04 Field 37                 FLR06 Field 44
   ToString< Data<u_int8_t, 1> >::toString(              this->physical_struct.tunnel_protocol,  flow_str, this->physical_struct.tunnel_protocol_0);
+  //   Data Guide FLR04 Field 38 & 39            FLR06 Field 45 & 46
   ToStringNonzero< Data<u_int16_t, 2> >::toString(      this->physical_struct.tunnel_port,      flow_str, this->physical_struct.tunnel_port_0, this->physical_struct.tunnel_port_1);
+  //   Data Guide FLR04 Field 40                 FLR06 Field 47
   ToStringFragType< Data<u_int8_t, 3> >::toString(      this->physical_struct.frag_type,        flow_str, this->physical_struct.frag_type_0, this->physical_struct.frag_type_1, this->physical_struct.frag_type_2);
+  //   Data Guide FLR04 Field 41                 FLR06 Field 48
   ToStringNonzero< Data<u_int8_t, 1> >::toString(       this->physical_struct.fragment,         flow_str, this->physical_struct.fragment_0);
+  if (isFlr06())
+  {
+  //   Data Guide                                FLR06 Field 49
   ToStringHexNonzero< Data<u_int32_t, 1> >::toString(   this->physical_struct.anomaly,          flow_str, this->physical_struct.anomaly_0);
+  }
   // TOSTRING_VISITOR_END
 
   DEBUG(LOTS, LEAVE);

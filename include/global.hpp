@@ -53,11 +53,13 @@ typedef unsigned __int8   u_int8_t;
 constexpr bool g_REAL{ false };
 constexpr bool g_FAKE{ true };
 
+extern bool           g_FLR06;
 extern bool     const g_OUTPUT2LOG;
 extern bool     const g_OUTPUT2CONSOLE;
 extern u_int8_t const g_NORMALEXIT;
 extern u_int8_t const g_ABNORMALEXIT;
 
+bool const     getFlr06(void) noexcept(true);
 string const & getDataGuideVersion(void) noexcept(true);
 void           setDataGuideVersion(string const & p_version) noexcept(true);
 string const & getFileOrWireStr(void) noexcept(true);

@@ -176,6 +176,7 @@ bool ProgramOptions::checkOptions(int p_argc, char ** p_argv, string const & p_d
     }
     processConfigFile();                                 // CONFIG-FILE
     conflictingOptions("input-file", "device");
+    conflictingOptions("header", "cpp-format");
     requiredOptions("input-file", "device");
     requiredOption("site-name");
     processDevice(getOptionMap().count("device"));       // DEVICE
