@@ -54,7 +54,7 @@ static bool         console_or_log   = true;   // NOTE: true = Console, false = 
 
 bool const getFlr06(void) noexcept(true)
 {
-  return(g_FLR06);
+  return(::g_FLR06);
 }
 
 

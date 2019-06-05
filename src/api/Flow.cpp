@@ -138,6 +138,7 @@ Flow & Flow::copyFlow(Flow const & p_flow) noexcept(true)
   this->is_first_ip_frag        = p_flow.is_first_ip_frag;
   this->is_last_ip_frag         = p_flow.is_last_ip_frag;
   this->is_ipv4                 = p_flow.is_ipv4;
+  this->is_flr06                = p_flow.is_flr06;
   // COPY_VISITOR_START
   this->physical_struct         = p_flow.physical_struct;
   // COPY_VISITOR_END
