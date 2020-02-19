@@ -176,7 +176,7 @@ bool ProgramOptions::checkOptions(int p_argc, char ** p_argv, string const & p_d
     }
     processConfigFile();                                 // CONFIG-FILE
     conflictingOptions("input-file", "device");
-    conflictingOptions("header", "cpp-format");
+    //conflictingOptions("header", "cpp-format");
     requiredOptions("input-file", "device");
     requiredOption("site-name");
     processDevice(getOptionMap().count("device"));       // DEVICE
@@ -841,12 +841,14 @@ void ProgramOptions::conflictingOptions(string const & p_opt1, string const & p_
 {
   DEBUG(TRACE, ENTER);
 
+  string bools[2] = {"false", "true"};
+
   if (
-      getOptionMap().count(p_opt1) && ! getOptionMap()[p_opt1].defaulted() &&
-      getOptionMap().count(p_opt2) && ! getOptionMap()[p_opt2].defaulted()
+      (getOptionMap().count(p_opt1) && ! getOptionMap()[p_opt1].defaulted()) &&
+      (getOptionMap().count(p_opt2) && ! getOptionMap()[p_opt2].defaulted())
      )
   {
-    throw logic_error("Conflicting options '" + p_opt1 + "' and '" + p_opt2 + "'.");
+    throw logic_error("Conflicting options '" + p_opt1 + "' (" + bools[getOptionMap()[p_opt2].defaulted()]  + ") and '" + p_opt2 + "' (" + bools[getOptionMap()[p_opt2].defaulted()]  + ").");
   }
 
   DEBUG(TRACE, LEAVE);
