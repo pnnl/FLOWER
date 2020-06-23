@@ -176,6 +176,12 @@ public:
   }
 
 
+  inline int unsigned getCppMaxRecordsPerFile(void) noexcept(true)
+  {
+    return(this->cpp_max_records_per_file);
+  }
+
+
   inline bool getIpAddressFormat(void) noexcept(true)
   {
     return(this->ip_address_format);
@@ -323,6 +329,7 @@ private:
       checkEnum("suppress-ipv4-output", 0, 1);
       this->suppress_ipv4_output = (1 == getOption<int unsigned>("suppress-ipv4-output"));
     }
+    return;
   }
 
 
@@ -333,6 +340,7 @@ private:
       checkEnum("suppress-metrics-output", 0, 1);
       this->suppress_metrics_output = (1 == getOption<int unsigned>("suppress-metrics-output"));
     }
+    return;
   }
 
 
@@ -343,6 +351,7 @@ private:
       checkEnum("ip-address-format", 0, 1);
       this->ip_address_format = (1 == getOption<int unsigned>("ip-address-format"));
     }
+    return;
   }
 
 
@@ -357,6 +366,15 @@ private:
         setDataGuideVersion("04");
       }
     }
+    return;
+  }
+
+
+  inline void setCppMaxRecordsPerFile(void) noexcept(true)
+  {
+    checkRange("pp-max-records-per-file", 0, UINT_MAX);
+    this->cpp_max_records_per_file = getOption<int unsigned>("cpp-max-records-per-file");
+    return;
   }
 
 
@@ -367,6 +385,7 @@ private:
       checkEnum("skip-ipv4-packets", 0, 1);
       this->skip_ipv4_packets = (1 == getOption<int unsigned>("skip-ipv4-packets"));
     }
+    return;
   }
 
 
@@ -490,6 +509,7 @@ private:
   int unsigned                   summary_forceout;
   int unsigned                   max_flowcache_size;
   int unsigned                   max_packetbuffer_size;
+  int unsigned                   cpp_max_records_per_file;
   int unsigned                   packets;
   int unsigned                   snaplen;
   int unsigned                   buffer_packets;

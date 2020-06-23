@@ -72,7 +72,7 @@ struct PacketParserSuiteFixture
 
     sharedFlow flow   = generateFlow(true, generateTimestamp(1), 1);
 
-    flow_pool         = new ObjectPool<Flow>(::g_max_cache_size, *flow);
+    flow_pool         = new ObjectPool<Flow>(::g_max_cache_size, (*flow));
 
     // Instantiate the PacketParser
     packet_parser     = new PacketParser(&flow_add_event, *flow_pool, ::g_timeout, getCacheForceout(), skip_ipv4_packets);

@@ -59,12 +59,15 @@
 SummaryExporter::SummaryExporter(OutputHelper           & p_output_helper,
                                  vector<MetricsEvent *> & p_metrics_events,
                                  int unsigned const       p_summary_forceout,
+                                 int unsigned const       p_max_records_per_file,
                                  string const           & p_version_record,
                                  string const           & p_csv_header,
                                  bool const               p_suppress_ipv4,
                                  bool         const       p_suppress_metrics
                                 ) noexcept(true) :
   summary_forceout(p_summary_forceout),
+  max_records_per_file(p_max_records_per_file),
+  current_records_in_outfile(0),
   output_helper(p_output_helper),
   metrics_events(p_metrics_events),
   file_close_time(getEpoch()),
@@ -156,6 +159,7 @@ void SummaryExporter::writeSummary(sharedFlow const & p_flow) noexcept(true)
       return;
     }
     *getSummaryFile() << p_flow << "\n";
+    current_records_in_outfile++;
   }
   else
   {
@@ -182,7 +186,7 @@ void SummaryExporter::closeSummaryFile(void) noexcept(true)
 void SummaryExporter::manageFiles(time_t const p_flow_virtual_time) noexcept(true)
 {
   DEBUG(TRACE, ENTER);
-  if (p_flow_virtual_time > getFileCloseTime())
+  if ((p_flow_virtual_time > getFileCloseTime()) || (current_records_in_outfile >= max_records_per_file))
   {
     if (! getCurrentFilepath().empty())
     {
@@ -194,6 +198,7 @@ void SummaryExporter::manageFiles(time_t const p_flow_virtual_time) noexcept(tru
     setFileCloseTime(p_flow_virtual_time + getSummaryForceout());
     //setFileTime(p_flow_virtual_time);
     openSummaryFile();
+    current_records_in_outfile = 0;
   }
   
   DEBUG(TRACE, LEAVE);

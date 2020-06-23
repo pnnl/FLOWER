@@ -120,7 +120,7 @@ ostream & Packet::printPacket(ostream & p_os) const noexcept(true)
 
   ss << "Seconds:        " << getHeaderSeconds()      << ',' << endl;
   ss << "uSeconds:       " << getHeaderMicroSeconds() << ',' << endl;
-  ss << this->ptr_data                                << ',' << endl;
+  ss << this->ptr_data.getBuffer()                    << ',' << endl;
   ss << "Capture length: " << getCapLength()          << ',' << endl;
   ss << "Wire length:    " << getLength()             << ',' << endl;
   ss << "isFake:         " << getFake() << endl;

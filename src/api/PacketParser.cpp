@@ -974,6 +974,7 @@ bool PacketParser::processTunnel(int unsigned const p_offset) noexcept(true)
         u_int16_t destination_port  = getData().at2(p_offset + 2);
         u_int16_t source_port       = getData().at2(p_offset);
         u_int16_t const teredo_port = 3544;
+        u_int16_t const vxlan_port  = 4789;
   
         setSrcPort(source_port);
         setDstPort(destination_port);
@@ -989,6 +990,18 @@ bool PacketParser::processTunnel(int unsigned const p_offset) noexcept(true)
             calcPayload(min_udp_hdr_bytes);
             return(processIpv6Hdr(new_offset));
           }
+        }
+
+        if (vxlan_port == destination_port)
+        {
+          // DEVELOPER NOTE: We probably have a VXLAN tunnel like AWS
+          // processEthernetLayer2()???
+          // int unsigned new_offset = parseVxLanHeader(p_offset + min_udp_hdr_bytes);
+          // if (new_offset > 0)
+          // {
+          //   setTunnelVars();
+          //   calcPayload(min_udp_hdr_bytes);
+          // }
         }
       }
     }

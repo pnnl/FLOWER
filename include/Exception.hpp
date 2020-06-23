@@ -17,7 +17,7 @@
 #include <map>
 #include <string>
 // External Includes
-#include <Diagnostic.hpp>
+#include "Diagnostic.hpp"
 // Internal Includes
 // Application Includes
 

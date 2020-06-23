@@ -90,7 +90,7 @@ set(CMAKE_CXX_FLAGS       "-frtti -fvisibility-inlines-hidden -fvisibility=hidde
 #set(CMAKE_CXX_FLAGS       "-Wall -Wextra")
 
 set(CMAKE_CXX_STANDARD    11)
-set(MY_BOOST_VER          "1.60.0")
+set(MY_BOOST_VER          "1.72.0")
 if(NOT DEFINED CMAKE_CXX_COMPILER)
   message (STATUS " ** Trying to find newer compiler")
   #set(MY_GCC_VER            "5.3")
@@ -171,10 +171,13 @@ add_executable(flower src/exe/flower.cpp)
 ###############################################################################
 #####  Make sure we have BOOST Libraries
 ###############################################################################
-set(Boost_USE_STATIC_LIBS        ON) # only find static libs
-set(Boost_USE_MULTITHREADED      ON)
-set(Boost_USE_STATIC_RUNTIME     ON)
-find_package(Boost ${MY_BOOST_VER} REQUIRED COMPONENTS
+#set(Boost_USE_STATIC_LIBS        ON) # only find static libs
+#set(Boost_USE_MULTITHREADED      ON)
+#set(Boost_USE_STATIC_RUNTIME     ON)
+if(POLICY CMP0074)
+  cmake_policy(SET CMP0074 NEW)
+endif()
+find_package(Boost REQUIRED COMPONENTS
     date_time
     filesystem
     program_options
@@ -192,7 +195,7 @@ if(Boost_FOUND)
   #message(STATUS "** Boost Libraries: ${Boost_LIBRARIES}")
   include_directories(${Boost_INCLUDE_DIRS})
   link_directories(${Boost_LIBRARY_DIRS})
-  target_link_libraries(flower ${Boost_LIBRARIES} -static-libgcc -static-libstdc++)
+  target_link_libraries(flower ${Boost_LIBRARIES})
 endif()
 
 ###############################################################################
@@ -204,7 +207,7 @@ if(PCAP_FOUND)
   message(STATUS "** PCAP  Lib Dir:   ${PCAP_LIBRARIES}")
   include_directories(${PCAP_INCLUDE_DIRS})
   link_directories(${PCAP_LIBRARIES})
-  target_link_libraries(flower ${PCAP_LIBRARIES} -static-libgcc -static-libstdc++)
+  target_link_libraries(flower ${PCAP_LIBRARIES})
 endif()
 
 #add_subdirectory(src/api)
@@ -238,14 +241,14 @@ add_library(flowerapi STATIC
 
 
 target_include_directories(flowerapi PRIVATE ${CMAKE_SOURCE_DIR}/include)
-target_link_libraries(flowerapi ${Boost_LIBRARIES} ${PCAP_LIBRARIES} -static-libgcc -static-libstdc++)
+target_link_libraries(flowerapi ${Boost_LIBRARIES} ${PCAP_LIBRARIES})
 
 
 ###############################################################################
 #####  Build FLOWER Executable
 ###############################################################################
 target_include_directories(flower PRIVATE ${CMAKE_SOURCE_DIR}/include)
-target_link_libraries(flower flowerapi -static-libgcc -static-libstdc++)
+target_link_libraries(flower flowerapi)
 #set_target_properties(flower PROPERTIES
 #                                        C_STANDARD 11
 #                                        C_STANDARD_REQUIRED ON
@@ -280,9 +283,9 @@ if (${ENABLE_TESTS})
     get_filename_component(t_filename ${testsourcefile} NAME_WE)
     add_executable(${t_filename} ${testsourcefile})
     target_include_directories(${t_filename} PRIVATE ${CMAKE_SOURCE_DIR}/include src/test src/test/packets)
-    target_link_libraries(${t_filename} ${Boost_LIBRARIES} -static-libgcc -static-libstdc++)
-    target_link_libraries(${t_filename} ${PCAP_LIBRARIES}  -static-libgcc -static-libstdc++)
-    target_link_libraries(${t_filename} flowerapi          -static-libgcc -static-libstdc++)
+    target_link_libraries(${t_filename} ${Boost_LIBRARIES})
+    target_link_libraries(${t_filename} ${PCAP_LIBRARIES})
+    target_link_libraries(${t_filename} flowerapi)
     add_test(NAME ${t_filename}_test COMMAND ${t_filename} -- en0 100)
   endforeach(testsourcefile)
 
@@ -294,9 +297,9 @@ if (${ENABLE_TESTS})
     get_filename_component(t_filename ${testsourcefile} NAME_WE)
     add_executable(${t_filename} ${testsourcefile})
     target_include_directories(${t_filename} PRIVATE ${CMAKE_SOURCE_DIR}/include src/test src/test/packets)
-    target_link_libraries(${t_filename} ${Boost_LIBRARIES} -static-libgcc -static-libstdc++)
-    target_link_libraries(${t_filename} ${PCAP_LIBRARIES}  -static-libgcc -static-libstdc++)
-    target_link_libraries(${t_filename} flowerapi          -static-libgcc -static-libstdc++)
+    target_link_libraries(${t_filename} ${Boost_LIBRARIES})
+    target_link_libraries(${t_filename} ${PCAP_LIBRARIES})
+    target_link_libraries(${t_filename} flowerapi)
     add_test(NAME ${t_filename}_test COMMAND ${t_filename})
   endforeach(testsourcefile)
 
@@ -317,9 +320,9 @@ if (${ENABLE_TESTS})
     get_filename_component(t_filename ${testsourcefile} NAME_WE)
     add_executable(${t_filename} ${testsourcefile})
     target_include_directories(${t_filename} PRIVATE ${CMAKE_SOURCE_DIR}/include src/test src/test/packets)
-    target_link_libraries(${t_filename} ${Boost_LIBRARIES} -static-libgcc -static-libstdc++)
-    target_link_libraries(${t_filename} ${PCAP_LIBRARIES}  -static-libgcc -static-libstdc++)
-    target_link_libraries(${t_filename} flowerapi          -static-libgcc -static-libstdc++)
+    target_link_libraries(${t_filename} ${Boost_LIBRARIES})
+    target_link_libraries(${t_filename} ${PCAP_LIBRARIES})
+    target_link_libraries(${t_filename} flowerapi)
     add_test(NAME ${t_filename}_test COMMAND ${t_filename})
   endforeach(testsourcefile)
 endif()
@@ -338,10 +341,10 @@ install(FILES       docs/FLOWER_Data_Guide_FLR06.docx
         DESTINATION docs)
 install(FILES       conf/flower.conf
         DESTINATION conf)
-configure_file(${CMAKE_SOURCE_DIR}/scripts/create-flower-config.sh.in ${CMAKE_SOURCE_DIR}/scripts/create-flower-config.sh @ONLY)
-install(FILES       scripts/create-flower-config.sh
-        PERMISSIONS OWNER_EXECUTE OWNER_READ GROUP_READ GROUP_EXECUTE
-        DESTINATION scripts)
+#configure_file(${CMAKE_SOURCE_DIR}/scripts/create-flower-config.sh.in ${CMAKE_SOURCE_DIR}/scripts/create-flower-config.sh @ONLY)
+#install(FILES       scripts/create-flower-config.sh
+#        PERMISSIONS OWNER_EXECUTE OWNER_READ GROUP_READ GROUP_EXECUTE
+#        DESTINATION scripts)
 
 
 ###############################################################################

@@ -16,6 +16,7 @@
 // System Includes
 #include <iostream>
 #include <string>
+#include <climits>
 // External Includes
 // Internal Includes
 // Application Includes
@@ -77,6 +78,7 @@ public:
   SummaryExporter(OutputHelper           & p_output_helper, 
                   vector<MetricsEvent *> & p_metrics_events,
                   int unsigned const       p_summary_forceout,
+                  int unsigned const       p_max_records_per_file,
                   string       const     & p_version_record,
                   string       const     & p_csv_header,
                   bool         const       p_suppress_ipv4,
@@ -186,6 +188,8 @@ private:
   // Variables
 
   int unsigned             summary_forceout;
+  int unsigned             max_records_per_file;
+  int unsigned             current_records_in_outfile;
   OutputHelper &           output_helper;
   vector<MetricsEvent *> & metrics_events;
   time_t                   file_close_time;

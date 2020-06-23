@@ -3,7 +3,6 @@
 use strict;
 use warnings;
 use 5.010;
-use DateTime;
 
 #  Represents one line from Flower
 package Flower2Flo;

@@ -18,6 +18,7 @@
 #include <net/if.h>
 #include <unistd.h>
 #endif
+#include <climits>
 // External Includes
 #include <boost/filesystem.hpp>
 #include <boost/lexical_cast.hpp>
@@ -124,6 +125,7 @@ ProgramOptions::ProgramOptions(void) noexcept(true) :
   //
   this->config_only.add_options()
     ("cpp-format",              value<int unsigned>()->default_value(0),           "Use Flower v4 filename and format")
+    ("cpp-max-records-per-file",value<int unsigned>()->default_value(UINT_MAX),    "Create a new files when limit reached")
     ("ip-address-format",       value<int unsigned>()->default_value(0),           "Print IPv4/IPv6 addresses in RFC (0) or CPP (1) format")
     ("snaplen",                 value<int unsigned>()->default_value(65535),       "Packet header capture length in bytes")
     ("skip-ipv4-packets",       value<int unsigned>()->default_value(0),           "Skip Processing IPv4 Packets")
@@ -204,6 +206,7 @@ bool ProgramOptions::checkOptions(int p_argc, char ** p_argv, string const & p_d
     setSuppressIpv4Output();                             // SUPPRESS-IPV4-OUTPUT
     setIpAddressFormat();                                // RFC or CPP FORMAT of IP addresses
     setCppFormat();                                      // CPP-FORMAT - flr04 vs flr06
+    setCppMaxRecordsPerFile();                           // T3 code can only ship files up to 250 Mbytes
     setSuppressMetricsOutput();                          // Add metrics to output or not
     setSkipIpv4Packets();                                // SKIP-IPV4-PACKETS
   }
@@ -292,6 +295,7 @@ void ProgramOptions::displayRuntimeVariables(void) noexcept(true)
   output("  Skip IPv4 Packets           = " + bools[getOption<int unsigned>("skip-ipv4-packets")]);
   output("  IP Address Format           = " + bools[getOption<int unsigned>("ip-address-format")]);
   output("  CPP Output Format           = " + bools[getOption<int unsigned>("cpp-format")]);
+  output("  CPP Max Records per file    = " + lexical_cast<string>("cpp-max-records-per-file"));
   output("  Suppress Metrics            = " + bools[getOption<int unsigned>("suppress-metrics-output")]);
 #ifndef _MSC_VER
   struct group * grp = getgrgid(getOutputFileGroupId());
@@ -795,11 +799,11 @@ void ProgramOptions::checkRange(string const & p_option, u_int64_t const p_check
   if (getOptionMap().count(p_option))
   {
     int unsigned value = getOption<int unsigned>(p_option);
-    if (p_check0 > value)
+    if (p_check0 >= value)
     {
-      FATAL(RangeError, "Exception", "The value of " + p_option + ", " + lexical_cast<string>(value) + ", must be greater than " + lexical_cast<string>(p_check0) + ".");
+      FATAL(RangeError,   "Exception", "The value of " + p_option + ", " + lexical_cast<string>(value) + ", must be greater than " + lexical_cast<string>(p_check0) + ".");
     }
-    else if (p_check1 < value)
+    else if (p_check1 <= value)
     {
       CAUTION(RangeError, "Exception", "The value of " + p_option + ", " + lexical_cast<string>(value) + ", should be less than " + lexical_cast<string>(p_check1) + ".");
     }

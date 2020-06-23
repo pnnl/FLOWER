@@ -41,7 +41,7 @@
 #include <sys/types.h>
 #include <signal.h>
 // External Includes
-#include <Diagnostic.hpp>
+#include "Diagnostic.hpp"
 // Internal Includes
 // Application Includes
 #include "global.hpp"
@@ -218,6 +218,7 @@ int main(int argc, char ** argv)
                                    output_helper,
                                    metrics_events,
                                    po.getSummaryForceout(),
+                                   po.getCppMaxRecordsPerFile(),
                                    po.getVersionRecord(getDataGuideVersion()),
                                    getCsvHeader(po.useCsvHeader()),
                                    po.suppressIpv4Output(),
