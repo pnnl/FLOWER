@@ -171,9 +171,9 @@ add_executable(flower src/exe/flower.cpp)
 ###############################################################################
 #####  Make sure we have BOOST Libraries
 ###############################################################################
-#set(Boost_USE_STATIC_LIBS        ON) # only find static libs
-#set(Boost_USE_MULTITHREADED      ON)
-#set(Boost_USE_STATIC_RUNTIME     ON)
+set(Boost_USE_STATIC_LIBS        ON) # only find static libs
+set(Boost_USE_MULTITHREADED      ON)
+set(Boost_USE_STATIC_RUNTIME     ON)
 if(POLICY CMP0074)
   cmake_policy(SET CMP0074 NEW)
 endif()

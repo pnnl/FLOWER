@@ -33,6 +33,7 @@ struct SummaryExporterSuiteFixture
   string                 site_name;
   string                 version_record;
   string                 csv_header;
+  int unsigned           max_records;
   int unsigned           force_out;
   bool                   suppress_ipv4_output;
   bool                   suppress_metrics;
@@ -50,9 +51,10 @@ struct SummaryExporterSuiteFixture
     suppress_metrics     = false;
     version_record       = "Test Version Record";
     csv_header           = "";
+    max_records          = 500000;
 
     output_helper = new OutputHelper(out_dir, file_ext, 500, site_name, getDataGuideVersion(), ".");
-    summary_exporter = new SummaryExporter(*output_helper, metrics_events, (int unsigned const)force_out, version_record, csv_header, suppress_ipv4_output, suppress_metrics);
+    summary_exporter = new SummaryExporter(*output_helper, metrics_events, (int unsigned const)max_records, (int unsigned const)force_out, version_record, csv_header, suppress_ipv4_output, suppress_metrics);
 
     return;
   }
