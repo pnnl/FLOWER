@@ -248,4 +248,33 @@ BOOST_AUTO_TEST_CASE(zero_tcp_flow)
   return;
 }
 
+BOOST_AUTO_TEST_CASE(size_of_flow)
+{
+  bool wire = true;
+  bool file = false;
+
+  // Condition: Construct a new flow as if generated from File
+  setFileOrWireFlag(file);
+
+  // Pre-condition: Three Flows
+  sharedFlow flow1 = generateFlow(true, 1, 1, ::g_REAL, ::g_tcp_protocol);
+  sharedFlow flow2 = generateFlow(true, 2, 1, ::g_REAL, ::g_tcp_protocol);
+  size_t     flow1size = sizeof(*flow1.get());
+  size_t     flow2size = sizeof(*flow2.get());
+
+  BOOST_CHECK_EQUAL(flow1size, 0);
+  BOOST_CHECK_EQUAL(flow2size, 0);
+
+  // Condition:
+  flow1->merge(flow2);
+  flow1size = sizeof(*flow1.get());
+  BOOST_CHECK_EQUAL(flow1size, 0);
+
+  flow1->zero();
+  flow1size = sizeof(*flow1.get());
+  BOOST_CHECK_EQUAL(flow1size, 0);
+
+  return;
+}
+
 BOOST_AUTO_TEST_SUITE_END()
