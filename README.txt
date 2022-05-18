@@ -1,5 +1,5 @@
 #
-#  Copyright (C) (2011-2021) Battelle Memorial Institute. All Rights Reserved.
+#  Copyright (C) (2011-2021) Battelle Memorial Institute.
 #
 
 Documentation can be found in the docs directory

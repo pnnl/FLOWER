@@ -1,7 +1,7 @@
 FROM centos:latest
 
 ################################################################################
-# Copyright (C) (2011-2021) Battelle Memorial Institute. All Rights Reserved.
+# Copyright (C) (2011-2021) Battelle Memorial Institute.
 ################################################################################
 
 LABEL maintainer "Darren Curtis <Darren.Curtis@pnnl.gov>"

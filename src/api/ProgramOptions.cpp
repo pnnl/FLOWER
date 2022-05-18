@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (C) (2011-2021) Battelle Memorial Institute. All Rights Reserved.
+// Copyright (C) (2011-2021) Battelle Memorial Institute.
 //
 // CODING CONVENTIONS:
 //    * Class names are CamelCase with first word upper case
@@ -389,7 +389,7 @@ void ProgramOptions::displayVersion(bool const p_condition, string const & p_dat
   }
 
   string cpr;
-  cpr += "   Copyright (C) (2011-2021) Battelle Memorial Institute. All Rights Reserved.\n\n";
+  cpr += "   Copyright (C) (2011-2021) Battelle Memorial Institute.\n\n";
 
   string dis;
   dis += "This software was prepared as an account of work sponsored by\n";

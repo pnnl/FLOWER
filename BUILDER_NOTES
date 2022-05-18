@@ -1,8 +1,8 @@
 To list all the files created in the Debian package:
-  dpkg-deb -c build/flower-6.1.2-x86_64.deb
+dpkg-deb -c build/flower-6.1.2-x86_64.deb
 
-To merge develop branch back onto master after changes:
-  git checkout master
-  git pull origin master
-  git merge develop
-  git push origin master
+To merge develop branch back onto main after changes:
+git checkout main
+git pull origin main
+git merge develop
+git push origin main

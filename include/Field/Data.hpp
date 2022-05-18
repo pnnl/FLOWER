@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////////////////
-// Copyright (C) (2011-2021) Battelle Memorial Institute. All Rights Reserved.
+// Copyright (C) (2011-2021) Battelle Memorial Institute.
 //
 // CODING CONVENTIONS:
 //    * Class names are CamelCase with first word upper case

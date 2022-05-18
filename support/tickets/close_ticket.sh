@@ -51,7 +51,7 @@ fi
 
 # TODO: Change to support git
 git copy https://URI/branches/$ticket_id https://URI/tags/POST-$ticket_id -m "Finish Tag for fixing ticket #$ticket_num."
-git switch https://URI/master .
+git switch https://URI/main .
 git pull > ./git_update.out 2>&1
 cat ./git_update.out
 
